@@ -611,17 +611,14 @@ function submitOrder(e){
   // ── Google 表單串接 ──
   const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdLsFLIcroEl4Is9mHcSZe9XQNn24ZPMpHaJKysaH4HSVu7rw/formResponse';
   const ENTRY = {
-    product_code:   'entry.556980663',
-    product_name:   'entry.556980663',
     name:           'entry.1189320189',
     phone:          'entry.1723132794',
     email:          'entry.320327010',
     contact_pref:   'entry.567590873',
     occasion:       'entry.435939657',
-    style_pref:     'entry.1907914262',
     budget:         'entry.1615028174',
+    style_pref:     'entry.1907914262',
     delivery:       'entry.844656417',
-    date:           'entry.1085798317',
     time_slot:      'entry.1037644282',
     recipient_name: 'entry.665664456',
     recipient_phone:'entry.886644767',
@@ -632,8 +629,16 @@ function submitOrder(e){
 
   // 組合 FormData 送出到 Google 表單（no-cors 模式）
   const params = new URLSearchParams();
+
+  // 花品編號與名稱合併送出
+  const productCode = data.get('product_code') || '';
+  const productName = data.get('product_name') || '';
+  const productVal = productCode ? `${productCode}｜${productName}` : productName;
+  params.append('entry.556980663', productVal);
+
+  // 其他欄位
   for(const [entryKey, entryId] of Object.entries(ENTRY)){
-    const val = data.get(entryKey) || data.get(entryKey.replace('_','-')) || '';
+    const val = data.get(entryKey) || '';
     params.append(entryId, val);
   }
   // 日期欄位特別處理（年月日分開）
