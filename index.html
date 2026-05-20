@@ -187,16 +187,9 @@ footer p{font-size:0.65rem;color:rgba(255,255,255,0.28);font-weight:200;letter-s
     <p class="sec-eyebrow">Our Collection</p>
     <h2 class="sec-title">花禮選品<span style="font-style:italic;color:var(--gold)"> · </span>花品展示</h2>
   </div>
-  <div class="filter-bar reveal">
+  <div class="filter-bar reveal" id="filterBar">
     <span class="filter-label">篩選</span>
-    <span class="tag active" onclick="filterTag(this,'全部')">全部</span>
-    <span class="tag" onclick="filterTag(this,'生日')">生日</span>
-    <span class="tag" onclick="filterTag(this,'婚禮')">婚禮</span>
-    <span class="tag" onclick="filterTag(this,'日常')">日常</span>
-    <span class="tag" onclick="filterTag(this,'向日葵')">向日葵</span>
-    <span class="tag" onclick="filterTag(this,'粉色系')">粉色系</span>
-    <span class="tag" onclick="filterTag(this,'紫色系')">紫色系</span>
-    <span class="tag" onclick="filterTag(this,'瓶花')">瓶花</span>
+    <!-- 標籤由 JS 動態產生 -->
   </div>
   <div class="gallery-grid" id="galleryGrid">
     <!-- Cards injected by JS -->
@@ -513,11 +506,31 @@ async function loadProducts() {
     const res = await fetch('products.json?t=' + Date.now());
     const data = await res.json();
     allProducts = data.filter(p => p.published !== false);
+    renderFilterBar();
     renderCards(currentFilter);
   } catch(e) {
     document.getElementById('galleryGrid').innerHTML =
       '<p style="padding:2rem;color:var(--muted);font-size:0.85rem;">花品載入中，請稍候...</p>';
   }
+}
+
+// 動態產生篩選標籤列（從花品資料收集所有標籤）
+function renderFilterBar() {
+  // 收集所有標籤並去重
+  const allTags = ['全部'];
+  allProducts.forEach(p => {
+    (p.tags || []).forEach(t => {
+      if (!allTags.includes(t)) allTags.push(t);
+    });
+  });
+
+  const bar = document.getElementById('filterBar');
+  // 保留「篩選」文字標籤
+  bar.innerHTML = '<span class="filter-label">篩選</span>' +
+    allTags.map(t => `
+      <span class="tag${t === currentFilter ? ' active' : ''}"
+            onclick="filterTag(this,'${t}')">${t}</span>
+    `).join('');
 }
 
 function renderCards(filter) {
@@ -547,7 +560,7 @@ function renderCards(filter) {
 }
 
 function filterTag(el, tag){
-  document.querySelectorAll('.tag').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('#filterBar .tag').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
   currentFilter = tag;
   renderCards(tag);
