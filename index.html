@@ -614,17 +614,17 @@ function submitOrder(e){
     name:           'entry.1189320189',
     phone:          'entry.1723132794',
     email:          'entry.320327010',
-    contact_pref:   'entry.567590873',
-    occasion:       'entry.435939657',
-    budget:         'entry.1615028174',
-    style_pref:     'entry.1907914262',
-    delivery:       'entry.844656417',
-    time_slot:      'entry.1037644282',
-    recipient_name: 'entry.665664456',
-    recipient_phone:'entry.886644767',
-    address:        'entry.899760506',
-    payment:        'entry.467678299',
-    note:           'entry.894974780',
+    contact_pref:   'entry.665664456',
+    occasion:       'entry.886644767',
+    budget:         'entry.435939657',
+    style_pref:     'entry.556980663',
+    delivery:       'entry.899760506',
+    time_slot:      'entry.467678299',
+    recipient_name: 'entry.1615028174',
+    recipient_phone:'entry.1907914262',
+    address:        'entry.844656417',
+    payment:        'entry.894974780',
+    note:           'entry.1037644282',
   };
 
   // 組合 FormData 送出到 Google 表單（no-cors 模式）
@@ -634,7 +634,7 @@ function submitOrder(e){
   const productCode = data.get('product_code') || '';
   const productName = data.get('product_name') || '';
   const productVal = productCode ? `${productCode}｜${productName}` : productName;
-  params.append('entry.556980663', productVal);
+  params.append('entry.567590873', productVal);
 
   // 其他欄位
   for(const [entryKey, entryId] of Object.entries(ENTRY)){
