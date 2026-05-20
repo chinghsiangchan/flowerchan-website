@@ -342,14 +342,12 @@ body { font-family: -apple-system, 'Noto Sans TC', sans-serif; background:var(--
     <div class="field">
       <label class="field-label">標籤（可複選）</label>
       <div class="tag-grid" id="tagGrid">
-        <span class="tag-chip" onclick="toggleTag(this)">生日</span>
-        <span class="tag-chip" onclick="toggleTag(this)">婚禮</span>
-        <span class="tag-chip" onclick="toggleTag(this)">日常</span>
-        <span class="tag-chip" onclick="toggleTag(this)">向日葵</span>
-        <span class="tag-chip" onclick="toggleTag(this)">粉色系</span>
-        <span class="tag-chip" onclick="toggleTag(this)">紫色系</span>
-        <span class="tag-chip" onclick="toggleTag(this)">瓶花</span>
-        <span class="tag-chip" onclick="toggleTag(this)">情人節</span>
+        <!-- 由 JS 動態產生 -->
+      </div>
+      <div class="tag-add-row">
+        <input class="tag-add-input" id="newTagInput" placeholder="新增標籤…"
+               onkeydown="if(event.key==='Enter'){event.preventDefault();addNewTag();}">
+        <button class="tag-add-btn" onclick="addNewTag()">＋ 新增</button>
       </div>
     </div>
 
@@ -382,6 +380,59 @@ let editIndex = -1; // -1 = 新增, 0+ = 編輯
 let currentPhotoUrl = '';
 let currentCloudinaryId = '';
 let netlifyUser = null;
+
+// ── 標籤池 ──
+const DEFAULT_TAGS = ['生日','婚禮','日常','向日葵','粉色系','紫色系','瓶花','情人節'];
+let allTagPool = [...DEFAULT_TAGS];
+
+function syncTagPool() {
+  products.forEach(p => {
+    (p.tags||[]).forEach(t => { if(!allTagPool.includes(t)) allTagPool.push(t); });
+  });
+}
+
+function renderTagGrid(selectedTags=[]) {
+  const grid = document.getElementById('tagGrid');
+  grid.innerHTML = allTagPool.map(t => `
+    <span class="tag-chip${selectedTags.includes(t)?' selected':''}"
+          onclick="toggleTag(this)">
+      ${t}<span class="tag-del" onclick="event.stopPropagation();deleteTag('${t}')">✕</span>
+    </span>
+  `).join('');
+}
+
+function toggleTag(el) { el.classList.toggle('selected'); }
+
+function addNewTag() {
+  const input = document.getElementById('newTagInput');
+  const tag = input.value.trim();
+  if(!tag) return;
+  if(allTagPool.includes(tag)) {
+    document.querySelectorAll('#tagGrid .tag-chip').forEach(c => {
+      if(c.childNodes[0].textContent.trim()===tag) c.classList.add('selected');
+    });
+    input.value = '';
+    return;
+  }
+  allTagPool.push(tag);
+  const selectedTags = getSelectedTags();
+  selectedTags.push(tag);
+  renderTagGrid(selectedTags);
+  input.value = '';
+  showToast('標籤「' + tag + '」已新增');
+}
+
+function deleteTag(tag) {
+  if(!confirm('確定要刪除標籤「' + tag + '」嗎？')) return;
+  allTagPool = allTagPool.filter(t => t !== tag);
+  renderTagGrid(getSelectedTags().filter(t => t !== tag));
+  showToast('標籤「' + tag + '」已刪除');
+}
+
+function getSelectedTags() {
+  return [...document.querySelectorAll('#tagGrid .tag-chip.selected')]
+    .map(c => c.childNodes[0].textContent.trim());
+}
 
 // ── Netlify Identity ──
 netlifyIdentity.on('login', user => {
@@ -470,7 +521,7 @@ function openNew() {
   document.getElementById('photoHint').style.display = 'block';
   document.getElementById('publishToggle').className = 'toggle on';
   document.getElementById('btnDelete').style.display = 'none';
-  document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('selected'));
+  renderTagGrid([]);
 
   openPanel();
 }
@@ -505,9 +556,7 @@ function openEdit(i) {
   }
 
   // 標籤
-  document.querySelectorAll('.tag-chip').forEach(c => {
-    c.classList.toggle('selected', p.tags && p.tags.includes(c.textContent));
-  });
+  renderTagGrid(p.tags || []);
 
   openPanel();
 }
@@ -576,7 +625,7 @@ async function saveProduct() {
   const name = document.getElementById('f_name').value.trim();
   const price = parseInt(document.getElementById('f_price').value);
   const published = document.getElementById('publishToggle').classList.contains('on');
-  const tags = [...document.querySelectorAll('.tag-chip.selected')].map(c => c.textContent);
+  const tags = getSelectedTags();
 
   if (!code || !name || isNaN(price)) {
     showToast('請填寫編號、名稱和價格');
