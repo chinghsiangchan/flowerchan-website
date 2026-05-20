@@ -5,7 +5,7 @@
     "price": 1200,
     "tags": ["生日", "粉色系", "日常"],
     "photo": "DSCF3393.JPG",
-    "cloudinary_id": "",
+    "cloudinary_id": "DSCF3393_n8tenh",
     "published": true
   },
   {
@@ -14,7 +14,7 @@
     "price": 3500,
     "tags": ["婚禮", "生日", "粉色系"],
     "photo": "DSCF3412.JPG",
-    "cloudinary_id": "",
+    "cloudinary_id": "DSCF3412_xskzin",
     "published": true
   },
   {
@@ -23,7 +23,7 @@
     "price": 2800,
     "tags": ["日常", "瓶花"],
     "photo": "DSCF3446.JPG",
-    "cloudinary_id": "",
+    "cloudinary_id": "DSCF3446_fynpeo",
     "published": true
   },
   {
@@ -32,7 +32,7 @@
     "price": 880,
     "tags": ["生日", "紫色系", "日常"],
     "photo": "DSCF3465.JPG",
-    "cloudinary_id": "",
+    "cloudinary_id": "DSCF3465_i9pgr7",
     "published": true
   },
   {
@@ -41,7 +41,7 @@
     "price": 1580,
     "tags": ["生日", "紫色系", "粉色系"],
     "photo": "DSCF3482.JPG",
-    "cloudinary_id": "",
+    "cloudinary_id": "DSCF3482_jv03w0",
     "published": true
   },
   {
@@ -50,7 +50,7 @@
     "price": 2380,
     "tags": ["日常", "瓶花"],
     "photo": "DSCF3490.JPG",
-    "cloudinary_id": "",
+    "cloudinary_id": "DSCF3490_yto22l",
     "published": true
   },
   {
@@ -59,7 +59,7 @@
     "price": 2800,
     "tags": ["婚禮", "日常", "瓶花"],
     "photo": "DSCF3517.JPG",
-    "cloudinary_id": "",
+    "cloudinary_id": "DSCF3517_dvpskk",
     "published": true
   },
   {
@@ -68,7 +68,7 @@
     "price": 1580,
     "tags": ["生日", "向日葵", "日常"],
     "photo": "DSCF3638.JPG",
-    "cloudinary_id": "",
+    "cloudinary_id": "DSCF3638_hckt3v",
     "published": true
   },
   {
@@ -77,7 +77,7 @@
     "price": 1200,
     "tags": ["生日", "向日葵"],
     "photo": "DSCF3652.JPG",
-    "cloudinary_id": "",
+    "cloudinary_id": "DSCF3652_wn4aaf",
     "published": true
   },
   {
@@ -86,7 +86,7 @@
     "price": 2380,
     "tags": ["婚禮", "生日", "粉色系"],
     "photo": "DSCF3656.JPG",
-    "cloudinary_id": "",
+    "cloudinary_id": "DSCF3656_bo9bz7",
     "published": true
   }
 ]
