@@ -54,15 +54,16 @@
   {
     "code": "FC-005",
     "name": "紫粉混搭花束",
-    "price": 1580,
+    "price": 1780,
     "tags": [
       "生日",
-      "紫色系",
-      "粉色系"
+      "日常",
+      "粉色系",
+      "紫色系"
     ],
+    "published": true,
     "photo": "DSCF3482.JPG",
-    "cloudinary_id": "DSCF3482_jv03w0",
-    "published": true
+    "cloudinary_id": "DSCF3482_jv03w0"
   },
   {
     "code": "FC-006",
