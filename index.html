@@ -609,38 +609,43 @@ function submitOrder(e){
   const data = new FormData(e.target);
 
   // ── Google 表單串接 ──
-  // TODO: 填入 Google 表單的 formResponse URL 和各欄位 entry ID
-  const FORM_URL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse';
+  const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdLsFLIcroEl4Is9mHcSZe9XQNn24ZPMpHaJKysaH4HSVu7rw/formResponse';
   const ENTRY = {
-    product_code:  'entry.XXXXXXX',
-    product_name:  'entry.XXXXXXX',
-    name:          'entry.XXXXXXX',
-    phone:         'entry.XXXXXXX',
-    email:         'entry.XXXXXXX',
-    contact_pref:  'entry.XXXXXXX',
-    occasion:      'entry.XXXXXXX',
-    style_pref:    'entry.XXXXXXX',
-    budget:        'entry.XXXXXXX',
-    delivery:      'entry.XXXXXXX',
-    date:          'entry.XXXXXXX',
-    time_slot:     'entry.XXXXXXX',
-    recipient_name:'entry.XXXXXXX',
-    recipient_phone:'entry.XXXXXXX',
-    address:       'entry.XXXXXXX',
-    payment:       'entry.XXXXXXX',
-    note:          'entry.XXXXXXX',
+    product_code:   'entry.556980663',
+    product_name:   'entry.556980663',
+    name:           'entry.1189320189',
+    phone:          'entry.1723132794',
+    email:          'entry.320327010',
+    contact_pref:   'entry.567590873',
+    occasion:       'entry.435939657',
+    style_pref:     'entry.1907914262',
+    budget:         'entry.1615028174',
+    delivery:       'entry.844656417',
+    date:           'entry.1085798317',
+    time_slot:      'entry.1037644282',
+    recipient_name: 'entry.665664456',
+    recipient_phone:'entry.886644767',
+    address:        'entry.899760506',
+    payment:        'entry.467678299',
+    note:           'entry.894974780',
   };
 
-  // 組合 FormData 送出到 Google 表單（no-cors 模式，不會有回應，但資料會寫入）
+  // 組合 FormData 送出到 Google 表單（no-cors 模式）
   const params = new URLSearchParams();
   for(const [entryKey, entryId] of Object.entries(ENTRY)){
     const val = data.get(entryKey) || data.get(entryKey.replace('_','-')) || '';
-    if(entryId !== 'entry.XXXXXXX') params.append(entryId, val);
+    params.append(entryId, val);
   }
-
-  if(!FORM_URL.includes('YOUR_FORM_ID')){
-    fetch(FORM_URL, { method:'POST', mode:'no-cors', body:params });
+  // 日期欄位特別處理（年月日分開）
+  const dateVal = data.get('date') || '';
+  if(dateVal) {
+    const [y,m,d] = dateVal.split('-');
+    params.set('entry.1085798317_year', y);
+    params.set('entry.1085798317_month', m);
+    params.set('entry.1085798317_day', d);
+    params.delete('entry.1085798317');
   }
+  fetch(FORM_URL, { method:'POST', mode:'no-cors', body:params });
 
   // 顯示完成頁
   document.getElementById('orderSection').style.display = 'none';
