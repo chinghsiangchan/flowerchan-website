@@ -127,17 +127,5 @@
     "photo": "DSCF3656.JPG",
     "cloudinary_id": "DSCF3656_bo9bz7",
     "published": true
-  },
-  {
-    "code": "FC-011",
-    "name": "詹景翔",
-    "price": 3600,
-    "tags": [
-      "向日葵",
-      "粉色系"
-    ],
-    "published": false,
-    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1779294315/flowerchan/tcabhssaa8wa7ozpqmnd.jpg",
-    "cloudinary_id": "flowerchan/tcabhssaa8wa7ozpqmnd"
   }
 ]
