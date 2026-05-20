@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>花品管理 · Flower Chan</title>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<style>
+:root {
+  --green: #2D4A3E;
+  --green-light: #3D6B59;
+  --gold: #E8B84B;
+  --cream: #F7F4EE;
+  --cream-dark: #EDE8DF;
+  --pink: #FAE8E3;
+  --border: rgba(45,74,62,0.12);
+  --muted: rgba(45,74,62,0.45);
+  --red: #C0392B;
+  --red-light: #FDEDEC;
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html { scroll-behavior:smooth; }
+body { font-family: -apple-system, 'Noto Sans TC', sans-serif; background:var(--cream-dark); color:var(--green); min-height:100vh; }
+
+/* ── 登入畫面 ── */
+#loginScreen {
+  min-height:100vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; padding:2rem;
+  background:var(--green);
+}
+.login-logo { color:white; text-align:center; margin-bottom:2.5rem; }
+.login-logo h1 { font-size:1.6rem; letter-spacing:0.2em; font-weight:300; }
+.login-logo p { font-size:0.7rem; letter-spacing:0.4em; color:rgba(255,255,255,0.45); margin-top:4px; }
+.login-btn {
+  background:var(--gold); color:var(--green); border:none;
+  padding:14px 40px; font-size:0.95rem; font-weight:600;
+  letter-spacing:0.08em; cursor:pointer; border-radius:2px;
+  width:100%; max-width:280px; transition:opacity 0.2s;
+}
+.login-btn:hover { opacity:0.85; }
+
+/* ── 頂部 Bar ── */
+#appHeader {
+  display:none; position:sticky; top:0; z-index:50;
+  background:var(--green); padding:0 1rem;
+  height:56px; align-items:center; justify-content:space-between;
+}
+#appHeader.show { display:flex; }
+.header-title { color:white; font-size:0.9rem; letter-spacing:0.12em; font-weight:400; }
+.header-btns { display:flex; gap:0.6rem; align-items:center; }
+.btn-logout {
+  background:transparent; color:rgba(255,255,255,0.55);
+  border:0.5px solid rgba(255,255,255,0.2); padding:6px 12px;
+  font-size:0.7rem; cursor:pointer; border-radius:2px;
+  letter-spacing:0.08em;
+}
+
+/* ── 主畫面 ── */
+#mainScreen { display:none; padding:1rem; max-width:600px; margin:0 auto; }
+#mainScreen.show { display:block; }
+
+/* ── 動作列 ── */
+.action-bar {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:1.2rem;
+}
+.page-title { font-size:1.1rem; font-weight:500; color:var(--green); }
+.btn-add {
+  background:var(--green); color:white; border:none;
+  padding:10px 18px; font-size:0.85rem; cursor:pointer;
+  border-radius:2px; display:flex; align-items:center; gap:6px;
+  letter-spacing:0.05em; transition:background 0.2s;
+}
+.btn-add:hover { background:var(--green-light); }
+
+/* ── 花品卡片列表 ── */
+.product-list { display:flex; flex-direction:column; gap:0.7rem; }
+
+.product-item {
+  background:white; border-radius:4px; padding:1rem;
+  display:flex; align-items:center; gap:0.9rem;
+  box-shadow:0 1px 4px rgba(45,74,62,0.06);
+  transition:transform 0.15s;
+}
+.product-item:active { transform:scale(0.99); }
+
+.product-thumb {
+  width:56px; height:56px; border-radius:3px;
+  object-fit:cover; background:var(--cream-dark);
+  flex-shrink:0;
+}
+.product-thumb-placeholder {
+  width:56px; height:56px; border-radius:3px;
+  background:var(--cream-dark); display:flex;
+  align-items:center; justify-content:center;
+  font-size:1.4rem; flex-shrink:0;
+}
+
+.product-info { flex:1; min-width:0; }
+.product-code { font-size:0.65rem; color:var(--gold); letter-spacing:0.2em; margin-bottom:2px; }
+.product-name { font-size:0.95rem; font-weight:500; color:var(--green); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.product-price { font-size:0.8rem; color:var(--muted); margin-top:2px; }
+
+.product-actions { display:flex; flex-direction:column; gap:0.4rem; align-items:flex-end; flex-shrink:0; }
+
+.badge-on { background:#E8F5E9; color:#2E7D32; font-size:0.62rem; padding:3px 8px; border-radius:10px; letter-spacing:0.06em; }
+.badge-off { background:#FAFAFA; color:#999; font-size:0.62rem; padding:3px 8px; border-radius:10px; letter-spacing:0.06em; border:0.5px solid #ddd; }
+
+.btn-edit {
+  background:var(--cream-dark); color:var(--green); border:none;
+  padding:6px 14px; font-size:0.75rem; cursor:pointer;
+  border-radius:2px; letter-spacing:0.06em;
+}
+
+/* ── 編輯面板（底部滑出） ── */
+#editOverlay {
+  display:none; position:fixed; inset:0; z-index:200;
+  background:rgba(0,0,0,0.5);
+}
+#editOverlay.show { display:block; }
+
+#editPanel {
+  position:fixed; bottom:0; left:0; right:0; z-index:201;
+  background:white; border-radius:12px 12px 0 0;
+  max-height:92vh; overflow-y:auto;
+  transform:translateY(100%);
+  transition:transform 0.35s cubic-bezier(0.32,0.72,0,1);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+#editPanel.show { transform:translateY(0); }
+
+.panel-handle {
+  width:36px; height:4px; background:#ddd; border-radius:2px;
+  margin:12px auto 0;
+}
+.panel-header {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:1rem 1.2rem 0.8rem;
+  border-bottom:0.5px solid var(--border);
+}
+.panel-title { font-size:1rem; font-weight:500; color:var(--green); }
+.btn-close {
+  background:none; border:none; font-size:1.3rem;
+  color:var(--muted); cursor:pointer; padding:4px;
+}
+
+.panel-body { padding:1.2rem; }
+
+/* ── 表單樣式 ── */
+.field { margin-bottom:1.2rem; }
+.field-label {
+  display:block; font-size:0.7rem; letter-spacing:0.18em;
+  color:var(--muted); margin-bottom:0.5rem; text-transform:uppercase;
+}
+.field-input, .field-select {
+  width:100%; padding:11px 12px;
+  border:0.5px solid var(--border); background:var(--cream);
+  font-size:0.95rem; color:var(--green); outline:none;
+  border-radius:2px; font-family:inherit;
+  transition:border-color 0.2s; -webkit-appearance:none;
+}
+.field-input:focus, .field-select:focus { border-color:var(--green); }
+
+.field-row { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; }
+
+/* 標籤勾選 */
+.tag-grid {
+  display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.2rem;
+}
+.tag-chip {
+  padding:6px 14px; border:0.5px solid var(--border);
+  background:white; color:var(--muted); font-size:0.8rem;
+  cursor:pointer; border-radius:20px; transition:all 0.2s;
+  -webkit-tap-highlight-color:transparent; user-select:none;
+}
+.tag-chip.selected { background:var(--green); color:white; border-color:var(--green); }
+
+/* 上架開關 */
+.toggle-row {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:0.8rem 1rem; background:var(--cream); border-radius:4px;
+}
+.toggle-label { font-size:0.95rem; color:var(--green); }
+.toggle {
+  position:relative; width:48px; height:26px;
+  background:#ddd; border-radius:13px;
+  cursor:pointer; transition:background 0.3s;
+  flex-shrink:0;
+}
+.toggle.on { background:var(--green); }
+.toggle::after {
+  content:''; position:absolute;
+  width:20px; height:20px; background:white;
+  border-radius:50%; top:3px; left:3px;
+  transition:transform 0.3s;
+  box-shadow:0 1px 3px rgba(0,0,0,0.2);
+}
+.toggle.on::after { transform:translateX(22px); }
+
+/* 照片上傳 */
+.photo-upload-area {
+  border:1.5px dashed var(--border); border-radius:4px;
+  padding:1.5rem; text-align:center; cursor:pointer;
+  background:var(--cream); transition:border-color 0.2s;
+  position:relative;
+}
+.photo-upload-area:hover { border-color:var(--green); }
+.photo-upload-area input[type=file] {
+  position:absolute; inset:0; opacity:0; cursor:pointer;
+  width:100%; height:100%;
+}
+.photo-preview {
+  width:100%; max-height:200px; object-fit:cover;
+  border-radius:4px; display:none;
+}
+.photo-upload-hint { color:var(--muted); font-size:0.85rem; line-height:1.8; }
+.photo-upload-icon { font-size:2rem; margin-bottom:0.4rem; display:block; }
+.photo-uploading { color:var(--green); font-size:0.85rem; }
+
+/* 底部按鈕 */
+.panel-footer {
+  padding:1rem 1.2rem;
+  border-top:0.5px solid var(--border);
+  display:flex; gap:0.8rem;
+  background:white;
+  position:sticky; bottom:0;
+}
+.btn-save {
+  flex:1; background:var(--green); color:white; border:none;
+  padding:13px; font-size:0.9rem; cursor:pointer;
+  border-radius:2px; letter-spacing:0.08em; font-weight:500;
+  transition:background 0.2s;
+}
+.btn-save:hover { background:var(--green-light); }
+.btn-save:disabled { background:#ccc; cursor:not-allowed; }
+.btn-delete {
+  background:white; color:var(--red); border:0.5px solid var(--red);
+  padding:13px 18px; font-size:0.85rem; cursor:pointer;
+  border-radius:2px; letter-spacing:0.06em; transition:all 0.2s;
+}
+.btn-delete:hover { background:var(--red-light); }
+
+/* ── 提示訊息 ── */
+#toast {
+  position:fixed; bottom:80px; left:50%; transform:translateX(-50%);
+  background:var(--green); color:white; padding:10px 20px;
+  border-radius:20px; font-size:0.85rem; z-index:300;
+  opacity:0; transition:opacity 0.3s; pointer-events:none;
+  white-space:nowrap;
+}
+#toast.show { opacity:1; }
+
+/* ── 載入中 ── */
+.loading {
+  text-align:center; padding:3rem 1rem; color:var(--muted);
+  font-size:0.9rem;
+}
+.spinner {
+  width:32px; height:32px; border:2px solid var(--border);
+  border-top-color:var(--green); border-radius:50%;
+  animation:spin 0.8s linear infinite; margin:0 auto 1rem;
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<!-- 登入畫面 -->
+<div id="loginScreen">
+  <div class="login-logo">
+    <h1>FLOWER CHAN</h1>
+    <p>花品管理後台</p>
+  </div>
+  <button class="login-btn" onclick="netlifyIdentity.open('login')">
+    登入
+  </button>
+</div>
+
+<!-- 頂部 Bar -->
+<header id="appHeader">
+  <span class="header-title">🌸 花品管理</span>
+  <div class="header-btns">
+    <button class="btn-logout" onclick="logout()">登出</button>
+  </div>
+</header>
+
+<!-- 主畫面 -->
+<div id="mainScreen">
+  <div class="action-bar">
+    <span class="page-title">花禮選品</span>
+    <button class="btn-add" onclick="openNew()">＋ 新增花品</button>
+  </div>
+  <div id="productList" class="product-list">
+    <div class="loading"><div class="spinner"></div>載入中...</div>
+  </div>
+</div>
+
+<!-- 編輯面板遮罩 -->
+<div id="editOverlay" onclick="closePanel()"></div>
+
+<!-- 編輯面板 -->
+<div id="editPanel">
+  <div class="panel-handle"></div>
+  <div class="panel-header">
+    <span class="panel-title" id="panelTitle">新增花品</span>
+    <button class="btn-close" onclick="closePanel()">✕</button>
+  </div>
+  <div class="panel-body">
+
+    <!-- 照片上傳 -->
+    <div class="field">
+      <label class="field-label">花品照片</label>
+      <div class="photo-upload-area" id="photoArea">
+        <input type="file" id="photoInput" accept="image/*" onchange="handlePhoto(this)">
+        <img id="photoPreview" class="photo-preview">
+        <div id="photoHint">
+          <span class="photo-upload-icon">📷</span>
+          <p class="photo-upload-hint">點此上傳照片<br>可直接從手機相簿選取</p>
+        </div>
+        <p id="photoUploading" class="photo-uploading" style="display:none">上傳中...</p>
+      </div>
+    </div>
+
+    <!-- 花品名稱 + 編號 -->
+    <div class="field-row">
+      <div class="field">
+        <label class="field-label">花品編號 *</label>
+        <input class="field-input" id="f_code" placeholder="FC-011" maxlength="10">
+      </div>
+      <div class="field">
+        <label class="field-label">價格（NT$）*</label>
+        <input class="field-input" id="f_price" type="number" placeholder="1200" min="0">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">花品名稱 *</label>
+      <input class="field-input" id="f_name" placeholder="例如：粉漸層非洲菊花束">
+    </div>
+
+    <!-- 標籤 -->
+    <div class="field">
+      <label class="field-label">標籤（可複選）</label>
+      <div class="tag-grid" id="tagGrid">
+        <span class="tag-chip" onclick="toggleTag(this)">生日</span>
+        <span class="tag-chip" onclick="toggleTag(this)">婚禮</span>
+        <span class="tag-chip" onclick="toggleTag(this)">日常</span>
+        <span class="tag-chip" onclick="toggleTag(this)">向日葵</span>
+        <span class="tag-chip" onclick="toggleTag(this)">粉色系</span>
+        <span class="tag-chip" onclick="toggleTag(this)">紫色系</span>
+        <span class="tag-chip" onclick="toggleTag(this)">瓶花</span>
+        <span class="tag-chip" onclick="toggleTag(this)">情人節</span>
+      </div>
+    </div>
+
+    <!-- 上架開關 -->
+    <div class="field">
+      <div class="toggle-row">
+        <span class="toggle-label">上架顯示</span>
+        <div class="toggle on" id="publishToggle" onclick="togglePublish()"></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="panel-footer">
+    <button class="btn-delete" id="btnDelete" onclick="deleteProduct()" style="display:none">刪除</button>
+    <button class="btn-save" id="btnSave" onclick="saveProduct()">儲存</button>
+  </div>
+</div>
+
+<!-- 提示訊息 -->
+<div id="toast"></div>
+
+<script>
+// ── Cloudinary 設定 ──
+const CLOUDINARY_CLOUD = 'dcwgv05q1';
+const CLOUDINARY_PRESET = 'flowerchan';
+
+// ── 狀態 ──
+let products = [];
+let editIndex = -1; // -1 = 新增, 0+ = 編輯
+let currentPhotoUrl = '';
+let currentCloudinaryId = '';
+let netlifyUser = null;
+
+// ── Netlify Identity ──
+netlifyIdentity.on('login', user => {
+  netlifyUser = user;
+  netlifyIdentity.close();
+  showApp();
+});
+
+netlifyIdentity.on('logout', () => {
+  netlifyUser = null;
+  showLogin();
+});
+
+netlifyIdentity.on('init', user => {
+  if (user) {
+    netlifyUser = user;
+    showApp();
+  }
+});
+
+function showApp() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('appHeader').classList.add('show');
+  document.getElementById('mainScreen').classList.add('show');
+  loadProducts();
+}
+
+function showLogin() {
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('appHeader').classList.remove('show');
+  document.getElementById('mainScreen').classList.remove('show');
+}
+
+function logout() {
+  netlifyIdentity.logout();
+}
+
+// ── 載入花品 ──
+async function loadProducts() {
+  try {
+    const res = await fetch('/products.json?t=' + Date.now());
+    products = await res.json();
+    renderList();
+  } catch(e) {
+    showToast('載入花品失敗，請重新整理');
+  }
+}
+
+// ── 渲染列表 ──
+function renderList() {
+  const list = document.getElementById('productList');
+  if (products.length === 0) {
+    list.innerHTML = '<div class="loading">尚無花品，點右上角「＋ 新增花品」開始</div>';
+    return;
+  }
+  list.innerHTML = products.map((p, i) => `
+    <div class="product-item" onclick="openEdit(${i})">
+      ${p.cloudinary_id
+        ? `<img class="product-thumb" src="https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_120,h_120,c_fill/${p.cloudinary_id}" onerror="this.style.display='none'">`
+        : `<img class="product-thumb" src="${p.photo}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="product-thumb-placeholder" style="display:none">🌸</div>`
+      }
+      <div class="product-info">
+        <div class="product-code">${p.code}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-price">NT$ ${Number(p.price).toLocaleString()}</div>
+      </div>
+      <div class="product-actions">
+        <span class="${p.published ? 'badge-on' : 'badge-off'}">${p.published ? '上架中' : '已下架'}</span>
+        <button class="btn-edit">編輯</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── 開啟新增 ──
+function openNew() {
+  editIndex = -1;
+  currentPhotoUrl = '';
+  currentCloudinaryId = '';
+
+  document.getElementById('panelTitle').textContent = '新增花品';
+  document.getElementById('f_code').value = `FC-${String(products.length + 1).padStart(3,'0')}`;
+  document.getElementById('f_name').value = '';
+  document.getElementById('f_price').value = '';
+  document.getElementById('photoPreview').style.display = 'none';
+  document.getElementById('photoHint').style.display = 'block';
+  document.getElementById('publishToggle').className = 'toggle on';
+  document.getElementById('btnDelete').style.display = 'none';
+  document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('selected'));
+
+  openPanel();
+}
+
+// ── 開啟編輯 ──
+function openEdit(i) {
+  editIndex = i;
+  const p = products[i];
+  currentPhotoUrl = p.photo || '';
+  currentCloudinaryId = p.cloudinary_id || '';
+
+  document.getElementById('panelTitle').textContent = '編輯花品';
+  document.getElementById('f_code').value = p.code;
+  document.getElementById('f_name').value = p.name;
+  document.getElementById('f_price').value = p.price;
+  document.getElementById('publishToggle').className = 'toggle' + (p.published ? ' on' : '');
+  document.getElementById('btnDelete').style.display = 'block';
+
+  // 照片預覽
+  const preview = document.getElementById('photoPreview');
+  if (p.cloudinary_id) {
+    preview.src = `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_400,c_fill/${p.cloudinary_id}`;
+    preview.style.display = 'block';
+    document.getElementById('photoHint').style.display = 'none';
+  } else if (p.photo) {
+    preview.src = p.photo;
+    preview.style.display = 'block';
+    document.getElementById('photoHint').style.display = 'none';
+  } else {
+    preview.style.display = 'none';
+    document.getElementById('photoHint').style.display = 'block';
+  }
+
+  // 標籤
+  document.querySelectorAll('.tag-chip').forEach(c => {
+    c.classList.toggle('selected', p.tags && p.tags.includes(c.textContent));
+  });
+
+  openPanel();
+}
+
+function openPanel() {
+  document.getElementById('editOverlay').classList.add('show');
+  document.getElementById('editPanel').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePanel() {
+  document.getElementById('editOverlay').classList.remove('show');
+  document.getElementById('editPanel').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+// ── 標籤切換 ──
+function toggleTag(el) { el.classList.toggle('selected'); }
+
+// ── 上架切換 ──
+function togglePublish() {
+  document.getElementById('publishToggle').classList.toggle('on');
+}
+
+// ── 照片上傳到 Cloudinary ──
+async function handlePhoto(input) {
+  const file = input.files[0];
+  if (!file) return;
+
+  document.getElementById('photoHint').style.display = 'none';
+  document.getElementById('photoUploading').style.display = 'block';
+
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', CLOUDINARY_PRESET);
+  formData.append('folder', 'flowerchan');
+
+  try {
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, {
+      method: 'POST', body: formData
+    });
+    const data = await res.json();
+
+    if (data.public_id) {
+      currentCloudinaryId = data.public_id;
+      currentPhotoUrl = data.secure_url;
+
+      const preview = document.getElementById('photoPreview');
+      preview.src = data.secure_url;
+      preview.style.display = 'block';
+      document.getElementById('photoUploading').style.display = 'none';
+      showToast('照片上傳成功 ✓');
+    } else {
+      throw new Error('上傳失敗');
+    }
+  } catch(e) {
+    document.getElementById('photoUploading').style.display = 'none';
+    document.getElementById('photoHint').style.display = 'block';
+    showToast('照片上傳失敗，請重試');
+  }
+}
+
+// ── 儲存花品 ──
+async function saveProduct() {
+  const code = document.getElementById('f_code').value.trim();
+  const name = document.getElementById('f_name').value.trim();
+  const price = parseInt(document.getElementById('f_price').value);
+  const published = document.getElementById('publishToggle').classList.contains('on');
+  const tags = [...document.querySelectorAll('.tag-chip.selected')].map(c => c.textContent);
+
+  if (!code || !name || isNaN(price)) {
+    showToast('請填寫編號、名稱和價格');
+    return;
+  }
+
+  const product = {
+    code, name, price, tags, published,
+    photo: currentPhotoUrl || (editIndex >= 0 ? products[editIndex].photo : ''),
+    cloudinary_id: currentCloudinaryId || (editIndex >= 0 ? products[editIndex].cloudinary_id : '')
+  };
+
+  if (editIndex === -1) {
+    products.push(product);
+  } else {
+    products[editIndex] = product;
+  }
+
+  const btn = document.getElementById('btnSave');
+  btn.disabled = true;
+  btn.textContent = '儲存中...';
+
+  try {
+    const token = netlifyUser.token.access_token;
+    const res = await fetch('/.netlify/functions/save-products', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(products)
+    });
+
+    const result = await res.json();
+    if (result.success) {
+      closePanel();
+      renderList();
+      showToast('✓ ' + result.message);
+    } else {
+      throw new Error(result.error || '儲存失敗');
+    }
+  } catch(e) {
+    showToast('儲存失敗：' + e.message);
+    if (editIndex === -1) products.pop();
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '儲存';
+  }
+}
+
+// ── 刪除花品 ──
+function deleteProduct() {
+  if (!confirm(`確定要刪除「${products[editIndex].name}」嗎？`)) return;
+  products.splice(editIndex, 1);
+
+  const btn = document.getElementById('btnSave');
+  btn.disabled = true;
+
+  const token = netlifyUser.token.access_token;
+  fetch('/.netlify/functions/save-products', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+    body: JSON.stringify(products)
+  }).then(r => r.json()).then(result => {
+    if (result.success) {
+      closePanel();
+      renderList();
+      showToast('花品已刪除');
+    }
+  }).catch(() => showToast('刪除失敗，請重試'))
+    .finally(() => { btn.disabled = false; });
+}
+
+// ── Toast 提示 ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
