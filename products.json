@@ -15,13 +15,13 @@
     "name": "夢幻混搭大花束",
     "price": 3500,
     "tags": [
-      "婚禮",
       "生日",
+      "婚禮",
       "粉色系"
     ],
+    "published": false,
     "photo": "DSCF3412.JPG",
-    "cloudinary_id": "DSCF3412_xskzin",
-    "published": true
+    "cloudinary_id": "DSCF3412_xskzin"
   },
   {
     "code": "FC-003",
