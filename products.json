@@ -108,9 +108,9 @@
       "生日",
       "向日葵"
     ],
+    "published": false,
     "photo": "DSCF3652.JPG",
-    "cloudinary_id": "DSCF3652_wn4aaf",
-    "published": true
+    "cloudinary_id": "DSCF3652_wn4aaf"
   },
   {
     "code": "FC-010",
