@@ -635,54 +635,21 @@ function submitOrder(e){
   e.preventDefault();
   const data = new FormData(e.target);
 
-  // ── Google 表單串接 ──
-  const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdLsFLIcroEl4Is9mHcSZe9XQNn24ZPMpHaJKysaH4HSVu7rw/formResponse';
-  const ENTRY = {
-    name:           'entry.1189320189',
-    phone:          'entry.1723132794',
-    email:          'entry.320327010',
-    contact_pref:   'entry.665664456',
-    occasion:       'entry.886644767',
-    budget:         'entry.435939657',
-    style_pref:     'entry.556980663',
-    delivery:       'entry.899760506',
-    time_slot:      'entry.467678299',
-    recipient_name: 'entry.1615028174',
-    recipient_phone:'entry.1907914262',
-    address:        'entry.844656417',
-    payment:        'entry.894974780',
-    note:           'entry.1037644282',
-  };
-
-  // 組合 FormData 送出到 Google 表單（no-cors 模式）
-  const params = new URLSearchParams();
-
-  // 花品編號與名稱合併送出
-  const productCode = data.get('product_code') || '';
-  const productName = data.get('product_name') || '';
-  const productVal = productCode ? `${productCode}｜${productName}` : productName;
-  params.append('entry.567590873', productVal);
-
-  // 其他欄位
-  for(const [entryKey, entryId] of Object.entries(ENTRY)){
-    const val = data.get(entryKey) || '';
-    params.append(entryId, val);
+  const payload = {};
+  for(const [key, val] of data.entries()){
+    payload[key] = val;
   }
-  // 日期欄位特別處理（年月日分開）
-  const dateVal = data.get('date') || '';
-  if(dateVal) {
-    const [y,m,d] = dateVal.split('-');
-    params.set('entry.1085798317_year', y);
-    params.set('entry.1085798317_month', m);
-    params.set('entry.1085798317_day', d);
-    params.delete('entry.1085798317');
-  }
-  fetch(FORM_URL, { method:'POST', mode:'no-cors', body:params });
+
+  fetch("/.netlify/functions/submit-order", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
 
   // 顯示完成頁
-  document.getElementById('orderSection').style.display = 'none';
-  document.getElementById('thankYouPage').style.display = 'block';
-  window.scrollTo({top: document.getElementById('thankYouPage').offsetTop - 80, behavior:'smooth'});
+  document.getElementById("orderSection").style.display = "none";
+  document.getElementById("thankYouPage").style.display = "block";
+  window.scrollTo({top: document.getElementById("thankYouPage").offsetTop - 80, behavior:"smooth"});
 }
 
 function observeReveal(){
