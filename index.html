@@ -161,7 +161,7 @@ footer p{font-size:0.65rem;color:rgba(255,255,255,0.28);font-weight:200;letter-s
 <body>
 
 <nav>
-  <a class="nav-brand" href="#">FLOWER CHAN<small>小 花 店</small></a>
+  <a class="nav-brand" href="https://flowerchan.com">FLOWER CHAN<small>小 花 店</small></a>
   <ul class="nav-links">
     <li><a href="#gallery">花禮選品</a></li>
     <li><a href="#services">服務項目</a></li>
@@ -324,7 +324,7 @@ footer p{font-size:0.65rem;color:rgba(255,255,255,0.28);font-weight:200;letter-s
       <div class="notice-item"><span class="notice-dot">·</span><span>花束皆為花藝師手工設計，照片僅供參考，花材依當日市場供應為準，整體色系與風格維持一致。</span></div>
       <div class="notice-item"><span class="notice-dot">·</span><span>請至少於送花日前 <strong>3 天</strong>完成訂購。節日旺季（情人節、母親節）建議提前 5–7 天預約。</span></div>
       <div class="notice-item"><span class="notice-dot">·</span><span>訂單確認後請於 <strong>24 小時內</strong>完成付款，未付款視同未完成訂購。</span></div>
-      <div class="notice-item"><span class="notice-dot">·</span><span>付款方式：LINE Pay、銀行轉帳、現金面交。</span></div>
+      <div class="notice-item"><span class="notice-dot">·</span><span>付款方式：LINE Pay、銀行轉帳。</span></div>
       <div class="notice-item"><span class="notice-dot">·</span><span>大台北地區 NT$3,000 以上花禮提供宅配，小型花禮宅配需另計運費。</span></div>
       <div class="notice-item"><span class="notice-dot">·</span><span>進入備貨設計階段後，恕不接受取消或退款。</span></div>
       <div class="notice-item"><span class="notice-dot">·</span><span>本店保留接受或婉拒訂單之權利，如遇備貨、花材或時程無法配合，將主動聯繫說明。</span></div>
@@ -341,29 +341,27 @@ footer p{font-size:0.65rem;color:rgba(255,255,255,0.28);font-weight:200;letter-s
         </div>
 
         <div class="form-row">
-          <label class="form-label">訂購人姓名 *</label>
+          <label class="form-label">訂購人姓名 <span style="color:#C0392B;">*</span></label>
           <input class="form-input" type="text" name="name" required placeholder="您的姓名">
         </div>
         <div class="form-row">
-          <label class="form-label">聯絡電話 *</label>
+          <label class="form-label">聯絡電話 *<span style="font-size:0.6rem;color:var(--muted);font-weight:200;letter-spacing:0.05em;margin-left:0.5rem;">請留正確號碼，以便小花店與您確認訂單</span></label>
           <input class="form-input" type="tel" name="phone" required placeholder="0912-345-678">
         </div>
         <div class="form-row">
-          <label class="form-label">電子信箱 *</label>
+          <label class="form-label">電子信箱 <span style="color:#C0392B;">*</span></label>
           <input class="form-input" type="email" name="email" required placeholder="your@email.com">
         </div>
         <div class="form-row">
-          <label class="form-label">偏好聯絡方式 *</label>
+          <label class="form-label">偏好聯絡方式 <span style="color:#C0392B;">*</span></label>
           <select class="form-select" name="contact_pref" required>
-            <option value="">請選擇</option>
+            <option value="EMAIL" selected>EMAIL</option>
             <option>電話</option>
-            <option>LINE</option>
-            <option>IG私訊</option>
-            <option>EMAIL</option>
+            <option>其他（請於備註填寫）</option>
           </select>
         </div>
         <div class="form-row">
-          <label class="form-label">訂購用途 *</label>
+          <label class="form-label">訂購用途 <span style="color:#C0392B;">*</span></label>
           <select class="form-select" name="occasion" required>
             <option value="">請選擇</option>
             <option>生日</option>
@@ -388,18 +386,18 @@ footer p{font-size:0.65rem;color:rgba(255,255,255,0.28);font-weight:200;letter-s
           <p style="font-size:0.6rem;color:var(--muted);margin-top:0.5rem;font-weight:200;">預設為花品定價。NT$1,000 以下定價固定，如需更豐富的設計，歡迎選擇其他花品。</p>
         </div>
         <div class="form-row">
-          <label class="form-label">自取 / 配送 *</label>
+          <label class="form-label">自取 / 配送（運費另計） <span style="color:#C0392B;">*</span></label>
           <div class="radio-group">
             <label class="radio-label"><input type="radio" name="delivery" value="自取" onchange="toggleDelivery(false)" required> 自取</label>
             <label class="radio-label"><input type="radio" name="delivery" value="配送" onchange="toggleDelivery(true)"> 配送</label>
           </div>
         </div>
         <div class="form-row">
-          <label class="form-label">取 / 送花日期 *</label>
+          <label class="form-label">取 / 送花日期 <span style="color:#C0392B;">*</span></label>
           <input class="form-input" type="date" name="date" required>
         </div>
         <div class="form-row">
-          <label class="form-label">希望時段 *</label>
+          <label class="form-label">希望時段 <span style="color:#C0392B;">*</span></label>
           <select class="form-select" name="time_slot" required>
             <option value="">請選擇</option>
             <option>上午09:00–12:00</option>
@@ -410,31 +408,31 @@ footer p{font-size:0.65rem;color:rgba(255,255,255,0.28);font-weight:200;letter-s
         </div>
         <div class="delivery-fields" id="deliveryFields">
           <div class="form-row">
-            <label class="form-label">收件人姓名</label>
-            <input class="form-input" type="text" name="recipient_name" placeholder="若與訂購人不同">
+            <label class="form-label">收件人姓名 <span style="color:#C0392B;">*</span></label>
+            <input class="form-input" type="text" name="recipient_name" placeholder="收件人姓名" required>
           </div>
           <div class="form-row">
-            <label class="form-label">收件人電話</label>
-            <input class="form-input" type="tel" name="recipient_phone" placeholder="收件人聯絡電話">
+            <label class="form-label">收件人電話 <span style="color:#C0392B;">*</span></label>
+            <input class="form-input" type="tel" name="recipient_phone" placeholder="收件人聯絡電話" required>
           </div>
           <div class="form-row">
-            <label class="form-label">配送地址</label>
-            <input class="form-input" type="text" name="address" placeholder="完整地址（含樓層門號）">
+            <label class="form-label">配送地址 <span style="color:#C0392B;">*</span></label>
+            <input class="form-input" type="text" name="address" placeholder="完整地址（含樓層門號）" required>
           </div>
         </div>
         <div class="form-row">
-          <label class="form-label">付款方式 *</label>
+          <label class="form-label">付款方式 <span style="color:#C0392B;">*</span></label>
           <select class="form-select" name="payment" required>
             <option value="">請選擇</option>
             <option>LINE Pay</option>
             <option>銀行轉帳</option>
-            <option>現金面交</option>
           </select>
         </div>
         <div class="form-row">
           <label class="form-label">備註</label>
           <textarea class="form-textarea" name="note" placeholder="特殊指示、留言或過敏花材等"></textarea>
         </div>
+        <p style="font-size:0.65rem;color:rgba(45,74,62,0.5);font-weight:200;letter-spacing:0.05em;margin-bottom:1rem;"><span style="color:#C0392B;">*</span> 標示欄位務必填寫</p>
         <button type="submit" class="form-submit">送出預訂申請</button>
       </form>
     </div>
@@ -447,7 +445,7 @@ footer p{font-size:0.65rem;color:rgba(255,255,255,0.28);font-weight:200;letter-s
       <p style="font-family:'Great Vibes',cursive;font-size:3.8rem;color:#2D4A3E;line-height:1.2;margin-bottom:0.6rem;letter-spacing:0.02em;">Thank You</p>
       <h2 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:2.8rem;color:#2D4A3E;line-height:1.15;letter-spacing:0.02em;margin-bottom:1.5rem;">感謝您的預訂申請</h2>
       <div style="width:28px;height:1px;background:#E8B84B;margin:0 auto 2rem;"></div>
-      <p style="font-size:0.95rem;color:rgba(45,74,62,0.5);line-height:2.3;font-weight:200;margin-bottom:3rem;">Selina 會在 <strong style="color:#2D4A3E;font-weight:400;">24 小時內</strong>透過您選擇的聯絡方式與您確認訂單內容。<br>確認後請於 <strong style="color:#2D4A3E;font-weight:400;">24 小時內</strong>付款，經商家確認聯繫後，即完成預訂流程。</p>
+      <p style="font-size:0.95rem;color:rgba(45,74,62,0.5);line-height:2.3;font-weight:200;margin-bottom:3rem;">小花店會在 <strong style="color:#2D4A3E;font-weight:400;">24 小時內</strong>透過您選擇的聯絡方式與您確認訂單內容。<br>確認後請於 <strong style="color:#2D4A3E;font-weight:400;">24 小時內</strong>付款，經商家確認聯繫後，即完成預訂流程。</p>
 
       <!-- 付款資訊 -->
       <div style="background:#F7F4EE;padding:2.5rem;text-align:left;margin-bottom:2rem;">
@@ -464,15 +462,11 @@ footer p{font-size:0.65rem;color:rgba(255,255,255,0.28);font-weight:200;letter-s
         </div>
 
         <p style="font-size:0.72rem;letter-spacing:0.22em;color:rgba(45,74,62,0.42);margin-bottom:0.8rem;font-weight:200;">LINE Pay</p>
-        <p style="font-size:0.82rem;color:rgba(45,74,62,0.5);font-weight:200;line-height:1.8;">請於訂單確認後，由 Selina 提供 LINE Pay 付款連結。</p>
+        <p style="font-size:0.82rem;color:rgba(45,74,62,0.5);font-weight:200;line-height:1.8;">請於訂單確認後，由小花店提供 LINE Pay 付款連結。</p>
 
-        <div style="margin-top:1.8rem;padding-top:1.5rem;border-top:0.5px solid rgba(45,74,62,0.11);">
-          <p style="font-size:0.72rem;letter-spacing:0.22em;color:rgba(45,74,62,0.42);margin-bottom:0.8rem;font-weight:200;">現金面交</p>
-          <p style="font-size:0.82rem;color:rgba(45,74,62,0.5);font-weight:200;line-height:1.8;">取花時於店內付款，請事先告知。</p>
-        </div>
       </div>
 
-      <p style="font-size:0.8rem;color:rgba(45,74,62,0.4);font-weight:200;line-height:2;margin-bottom:2.5rem;">轉帳後請保留收據，並透過 LINE 或 IG 私訊告知 Selina，<br>以便確認付款狀態。</p>
+      <p style="font-size:0.8rem;color:rgba(45,74,62,0.4);font-weight:200;line-height:2;margin-bottom:2.5rem;">轉帳後請保留收據，並透過 LINE 或 IG 私訊告知小花店，<br>以便確認付款狀態。</p>
 
       <a href="#gallery" onclick="document.getElementById('thankYouPage').style.display='none';document.getElementById('orderSection').style.display='block';" style="display:inline-block;background:#2D4A3E;color:#F7F4EE;font-size:0.72rem;padding:13px 28px;letter-spacing:0.26em;text-decoration:none;font-family:'Noto Serif TC',serif;font-weight:300;transition:opacity 0.3s;">回到花禮選品</a>
     </div>
