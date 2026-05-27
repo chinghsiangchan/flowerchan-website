@@ -338,6 +338,12 @@ body { font-family: -apple-system, 'Noto Sans TC', sans-serif; background:var(--
       <input class="field-input" id="f_name" placeholder="例如：粉漸層非洲菊花束">
     </div>
 
+    <!-- 花品介紹 -->
+    <div class="field">
+      <label class="field-label">花品介紹</label>
+      <textarea class="field-input" id="f_description" rows="4" placeholder="簡單介紹這款花禮的特色、適合場合或風格…" style="resize:vertical;min-height:90px;line-height:1.7;"></textarea>
+    </div>
+
     <!-- 標籤 -->
     <div class="field">
       <label class="field-label">標籤（可複選）</label>
@@ -517,6 +523,7 @@ function openNew() {
   document.getElementById('f_code').value = `FC-${String(products.length + 1).padStart(3,'0')}`;
   document.getElementById('f_name').value = '';
   document.getElementById('f_price').value = '';
+  document.getElementById('f_description').value = '';
   document.getElementById('photoPreview').style.display = 'none';
   document.getElementById('photoHint').style.display = 'block';
   document.getElementById('publishToggle').className = 'toggle on';
@@ -537,6 +544,7 @@ function openEdit(i) {
   document.getElementById('f_code').value = p.code;
   document.getElementById('f_name').value = p.name;
   document.getElementById('f_price').value = p.price;
+  document.getElementById('f_description').value = p.description || '';
   document.getElementById('publishToggle').className = 'toggle' + (p.published ? ' on' : '');
   document.getElementById('btnDelete').style.display = 'block';
 
@@ -626,6 +634,7 @@ async function saveProduct() {
   const price = parseInt(document.getElementById('f_price').value);
   const published = document.getElementById('publishToggle').classList.contains('on');
   const tags = getSelectedTags();
+  const description = document.getElementById('f_description').value.trim();
 
   if (!code || !name || isNaN(price)) {
     showToast('請填寫編號、名稱和價格');
@@ -633,7 +642,7 @@ async function saveProduct() {
   }
 
   const product = {
-    code, name, price, tags, published,
+    code, name, price, description, tags, published,
     photo: currentPhotoUrl || (editIndex >= 0 ? products[editIndex].photo : ''),
     cloudinary_id: currentCloudinaryId || (editIndex >= 0 ? products[editIndex].cloudinary_id : '')
   };
