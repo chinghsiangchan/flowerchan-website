@@ -3,7 +3,7 @@
     "code": "FC-001",
     "name": "小花店客製花束款（$2000以上）",
     "price": 2000,
-    "description": "#@!RASFDASDFASFGDSFGQ#$%@#$%@!#$^%#$$%!@#RASFDFGADSSGAFT#$%Q#$%$@#$TFDGASFDGAFDSG\n@$#%!#$RQFGASFAG#435\nAFGASDFG#$%@#$%TGFDEFG",
+    "description": "CSS 本身是對的，問題在於 products.json 裡的 description 欄位有大量亂碼文字（截圖裡看到 #@!RASFDASDFASFGDSFGQ#$%@...），應該是 Selina 測試時填了假資料。\nline-clamp 有生效，只是那段亂碼文字太長，截斷後還是很多行的樣子。程式碼本身沒問題。\n你只需要去後台把那筆 FC-001 的介紹文字清掉或改成正常內容就好。\n股票換算那個是你瀏覽器裝了什麼擴充套件，跟網站無關。",
     "tags": [],
     "published": true,
     "photo": "DSCF3393.JPG",
