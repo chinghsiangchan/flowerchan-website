@@ -41,12 +41,12 @@
     "price": 880,
     "tags": [
       "生日",
-      "紫色系",
-      "日常"
+      "日常",
+      "紫色系"
     ],
+    "published": false,
     "photo": "DSCF3465.JPG",
-    "cloudinary_id": "DSCF3465_i9pgr7",
-    "published": true
+    "cloudinary_id": "DSCF3465_i9pgr7"
   },
   {
     "code": "FC-005",
