@@ -124,5 +124,16 @@
     "published": false,
     "photo": "DSCF3656.JPG",
     "cloudinary_id": "DSCF3656_bo9bz7"
+  },
+  {
+    "code": "FC-011",
+    "name": "橘黃非洲菊花束",
+    "price": 1800,
+    "tags": [
+      "畢業"
+    ],
+    "published": true,
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1779886548/flowerchan/aiiexgjndtnxns2wamdn.jpg",
+    "cloudinary_id": "flowerchan/aiiexgjndtnxns2wamdn"
   }
 ]
