@@ -25,11 +25,12 @@
   },
   {
     "code": "FC-003",
-    "name": "繽紛野花瓶花",
-    "price": 2800,
+    "name": "向日葵花束",
+    "price": 1500,
     "tags": [
       "日常",
-      "瓶花"
+      "瓶花",
+      "畢業"
     ],
     "published": false,
     "photo": "DSCF3446.JPG",
