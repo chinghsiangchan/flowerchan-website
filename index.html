@@ -585,7 +585,7 @@ function selectProduct(code, name, price){
     budgetInput.value = price;
     budgetInput.placeholder = '可調整金額';
   }
-  if(price <= 2000){
+  if(price < 2000){
     if(stylePrefRow) stylePrefRow.style.display = 'none';
   } else {
     if(stylePrefRow) stylePrefRow.style.display = 'block';
