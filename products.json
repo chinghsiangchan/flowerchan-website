@@ -93,12 +93,12 @@
     "price": 1580,
     "tags": [
       "生日",
-      "向日葵",
-      "日常"
+      "日常",
+      "向日葵"
     ],
+    "published": false,
     "photo": "DSCF3638.JPG",
-    "cloudinary_id": "DSCF3638_hckt3v",
-    "published": true
+    "cloudinary_id": "DSCF3638_hckt3v"
   },
   {
     "code": "FC-009",
