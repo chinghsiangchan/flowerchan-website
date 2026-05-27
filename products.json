@@ -1,13 +1,10 @@
 [
   {
     "code": "FC-001",
-    "name": "粉漸層非洲菊花束",
-    "price": 1300,
+    "name": "小花店客製花束款（$2000以上）",
+    "price": 2000,
     "tags": [
-      "生日",
-      "日常",
-      "粉色系",
-      "白色系"
+      "客製"
     ],
     "published": true,
     "photo": "DSCF3393.JPG",
@@ -18,13 +15,13 @@
     "name": "夢幻混搭大花束",
     "price": 3500,
     "tags": [
-      "婚禮",
       "生日",
+      "婚禮",
       "粉色系"
     ],
+    "published": false,
     "photo": "DSCF3412.JPG",
-    "cloudinary_id": "DSCF3412_xskzin",
-    "published": true
+    "cloudinary_id": "DSCF3412_xskzin"
   },
   {
     "code": "FC-003",
@@ -34,9 +31,9 @@
       "日常",
       "瓶花"
     ],
+    "published": false,
     "photo": "DSCF3446.JPG",
-    "cloudinary_id": "DSCF3446_fynpeo",
-    "published": true
+    "cloudinary_id": "DSCF3446_fynpeo"
   },
   {
     "code": "FC-004",
@@ -44,12 +41,12 @@
     "price": 880,
     "tags": [
       "生日",
-      "紫色系",
-      "日常"
+      "日常",
+      "紫色系"
     ],
+    "published": false,
     "photo": "DSCF3465.JPG",
-    "cloudinary_id": "DSCF3465_i9pgr7",
-    "published": true
+    "cloudinary_id": "DSCF3465_i9pgr7"
   },
   {
     "code": "FC-005",
@@ -61,7 +58,7 @@
       "粉色系",
       "紫色系"
     ],
-    "published": true,
+    "published": false,
     "photo": "DSCF3482.JPG",
     "cloudinary_id": "DSCF3482_jv03w0"
   },
@@ -73,9 +70,9 @@
       "日常",
       "瓶花"
     ],
+    "published": false,
     "photo": "DSCF3490.JPG",
-    "cloudinary_id": "DSCF3490_yto22l",
-    "published": true
+    "cloudinary_id": "DSCF3490_yto22l"
   },
   {
     "code": "FC-007",
@@ -86,9 +83,9 @@
       "日常",
       "瓶花"
     ],
+    "published": false,
     "photo": "DSCF3517.JPG",
-    "cloudinary_id": "DSCF3517_dvpskk",
-    "published": true
+    "cloudinary_id": "DSCF3517_dvpskk"
   },
   {
     "code": "FC-008",
@@ -96,12 +93,12 @@
     "price": 1580,
     "tags": [
       "生日",
-      "向日葵",
-      "日常"
+      "日常",
+      "向日葵"
     ],
+    "published": false,
     "photo": "DSCF3638.JPG",
-    "cloudinary_id": "DSCF3638_hckt3v",
-    "published": true
+    "cloudinary_id": "DSCF3638_hckt3v"
   },
   {
     "code": "FC-009",
@@ -111,21 +108,21 @@
       "生日",
       "向日葵"
     ],
+    "published": false,
     "photo": "DSCF3652.JPG",
-    "cloudinary_id": "DSCF3652_wn4aaf",
-    "published": true
+    "cloudinary_id": "DSCF3652_wn4aaf"
   },
   {
     "code": "FC-010",
     "name": "英式玫瑰花禮盒",
     "price": 2380,
     "tags": [
-      "婚禮",
       "生日",
+      "婚禮",
       "粉色系"
     ],
+    "published": false,
     "photo": "DSCF3656.JPG",
-    "cloudinary_id": "DSCF3656_bo9bz7",
-    "published": true
+    "cloudinary_id": "DSCF3656_bo9bz7"
   }
 ]
