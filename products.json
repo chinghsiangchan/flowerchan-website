@@ -4,12 +4,10 @@
     "name": "小花店客製花束款（$2000以上）",
     "price": 2000,
     "description": "每一束花，都是一個說不出口的心意。\n告訴我你的故事——場合、顏色、心情——\n小花店為你從當季花材中，親手選配、設計、包紮，\n做出世界上唯一一束，只屬於你的花。",
-    "tags": [
-      "客製"
-    ],
+    "tags": [],
     "published": true,
-    "photo": "DSCF3393.JPG",
-    "cloudinary_id": "DSCF3393_n8tenh"
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780024261/flowerchan/lszasbrg5jjfmbkuydjb.jpg",
+    "cloudinary_id": "flowerchan/lszasbrg5jjfmbkuydjb"
   },
   {
     "code": "FC-002",
