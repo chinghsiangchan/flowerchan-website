@@ -196,5 +196,17 @@
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780029348/flowerchan/etygvwjjo1qkjj48g75l.jpg",
     "cloudinary_id": "flowerchan/etygvwjjo1qkjj48g75l"
+  },
+  {
+    "code": "FC-016",
+    "name": "輕巧版小花束",
+    "price": 450,
+    "description": "",
+    "tags": [
+      "日常"
+    ],
+    "published": true,
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780030075/flowerchan/pmmnylskg8ttnu1wnvdc.png",
+    "cloudinary_id": "flowerchan/pmmnylskg8ttnu1wnvdc"
   }
 ]
