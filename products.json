@@ -105,11 +105,13 @@
   },
   {
     "code": "FC-009",
-    "name": "向日葵橙色花束",
-    "price": 1200,
+    "name": "紫粉色系花束",
+    "price": 1500,
+    "description": "",
     "tags": [
       "生日",
-      "向日葵"
+      "畢業",
+      "非洲菊"
     ],
     "published": false,
     "photo": "DSCF3652.JPG",
