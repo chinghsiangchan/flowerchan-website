@@ -28,10 +28,11 @@
     "price": 1800,
     "description": "",
     "tags": [
+      "日常",
       "向日葵",
       "畢業"
     ],
-    "published": false,
+    "published": true,
     "photo": "DSCF3446.JPG",
     "cloudinary_id": "DSCF3446_fynpeo"
   },
