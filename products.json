@@ -139,5 +139,18 @@
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1779886548/flowerchan/aiiexgjndtnxns2wamdn.jpg",
     "cloudinary_id": "flowerchan/aiiexgjndtnxns2wamdn"
+  },
+  {
+    "code": "FC-012",
+    "name": "粉漸層非洲菊花束",
+    "price": 880,
+    "description": "",
+    "tags": [
+      "日常",
+      "畢業"
+    ],
+    "published": true,
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780025822/flowerchan/aiu0xgvr5ox5ww5iwahx.jpg",
+    "cloudinary_id": "flowerchan/aiu0xgvr5ox5ww5iwahx"
   }
 ]
