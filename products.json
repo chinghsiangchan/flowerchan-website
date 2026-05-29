@@ -183,5 +183,18 @@
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780029081/flowerchan/mkvox3znorv4zwnd32u9.jpg",
     "cloudinary_id": "flowerchan/mkvox3znorv4zwnd32u9"
+  },
+  {
+    "code": "FC-015",
+    "name": "單枝向日葵",
+    "price": 100,
+    "description": "適合送給畢業生的單枝花禮",
+    "tags": [
+      "向日葵",
+      "畢業"
+    ],
+    "published": true,
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780029348/flowerchan/etygvwjjo1qkjj48g75l.jpg",
+    "cloudinary_id": "flowerchan/etygvwjjo1qkjj48g75l"
   }
 ]
