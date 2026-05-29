@@ -65,11 +65,13 @@
   },
   {
     "code": "FC-006",
-    "name": "多彩混搭瓶花",
-    "price": 2380,
+    "name": "畢業花束",
+    "price": 1500,
+    "description": "",
     "tags": [
       "日常",
-      "瓶花"
+      "向日葵",
+      "畢業"
     ],
     "published": false,
     "photo": "DSCF3490.JPG",
