@@ -159,5 +159,15 @@
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780025822/flowerchan/aiu0xgvr5ox5ww5iwahx.jpg",
     "cloudinary_id": "flowerchan/aiu0xgvr5ox5ww5iwahx"
+  },
+  {
+    "code": "FC-013",
+    "name": "小花店當日花束",
+    "price": 1000,
+    "description": "由小花店為您選擇當季新鮮及適合的花材來為您傳遞花禮祝福，無法指定花束色系及花種。",
+    "tags": [],
+    "published": true,
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780028383/flowerchan/osmhkgkirhjfy08o6igl.jpg",
+    "cloudinary_id": "flowerchan/osmhkgkirhjfy08o6igl"
   }
 ]
