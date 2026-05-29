@@ -169,5 +169,19 @@
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780028383/flowerchan/osmhkgkirhjfy08o6igl.jpg",
     "cloudinary_id": "flowerchan/osmhkgkirhjfy08o6igl"
+  },
+  {
+    "code": "FC-014",
+    "name": "粉紫色系花束",
+    "price": 1300,
+    "description": "適合日常送禮，剛剛好的可愛",
+    "tags": [
+      "日常",
+      "粉色系",
+      "紫色系"
+    ],
+    "published": true,
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780029081/flowerchan/mkvox3znorv4zwnd32u9.jpg",
+    "cloudinary_id": "flowerchan/mkvox3znorv4zwnd32u9"
   }
 ]
