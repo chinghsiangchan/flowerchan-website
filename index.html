@@ -557,7 +557,7 @@ function renderCards(filter) {
         </div>` : ''}
         <div class="flower-bottom">
           <span class="flower-price">NT$ ${Number(p.price).toLocaleString()}</span>
-          <button class="flower-btn" onclick="selectProduct('${p.code}','${p.name}',${p.price})">立即下單</button>
+          <button class="flower-btn" onclick="selectProduct('${p.code}',${JSON.stringify(p.name)},${p.price})">立即下單</button>
         </div>
       </div>
     </div>
@@ -598,11 +598,11 @@ function selectProduct(code, name, price){
   const budgetInput = document.getElementById('budgetInput');
   const stylePrefRow = document.getElementById('stylePrefRow');
   if(price <= 1000){
-    budgetInput.disabled = true;
+    budgetInput.readOnly = true;
     budgetInput.value = price;
     budgetInput.placeholder = '此花品價格固定';
   } else {
-    budgetInput.disabled = false;
+    budgetInput.readOnly = false;
     budgetInput.value = price;
     budgetInput.placeholder = '可調整金額';
   }
@@ -625,25 +625,36 @@ function toggleDelivery(show){
   }
 }
 
-function submitOrder(e){
+async function submitOrder(e){
   e.preventDefault();
-  const data = new FormData(e.target);
+  const btn = e.target.querySelector('.form-submit');
+  btn.disabled = true;
+  btn.textContent = '送出中…';
 
+  const data = new FormData(e.target);
   const payload = {};
   for(const [key, val] of data.entries()){
     payload[key] = val;
   }
 
-  fetch("/.netlify/functions/submit-order", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
-  });
+  try {
+    const res = await fetch("/.netlify/functions/submit-order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    if(!res.ok) throw new Error('HTTP ' + res.status);
 
-  // 顯示完成頁
-  document.getElementById("orderSection").style.display = "none";
-  document.getElementById("thankYouPage").style.display = "block";
-  window.scrollTo({top: document.getElementById("thankYouPage").offsetTop - 80, behavior:"smooth"});
+    // 顯示完成頁
+    document.getElementById("orderSection").style.display = "none";
+    document.getElementById("thankYouPage").style.display = "block";
+    window.scrollTo({top: document.getElementById("thankYouPage").offsetTop - 80, behavior:"smooth"});
+  } catch(err) {
+    btn.disabled = false;
+    btn.textContent = '送出訂單';
+    alert('送出失敗，請稍後再試或直接聯絡小花店。');
+    console.error('submitOrder error:', err);
+  }
 }
 
 function observeReveal(){
