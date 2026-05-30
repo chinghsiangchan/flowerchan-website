@@ -557,7 +557,7 @@ function renderCards(filter) {
         </div>` : ''}
         <div class="flower-bottom">
           <span class="flower-price">NT$ ${Number(p.price).toLocaleString()}</span>
-          <button class="flower-btn" onclick="selectProduct('${p.code}',${JSON.stringify(p.name)},${p.price})">立即下單</button>
+          <button class="flower-btn" onclick="selectProductByCode('${p.code}')">立即下單</button>
         </div>
       </div>
     </div>
@@ -587,6 +587,12 @@ function filterTag(el, tag){
   el.classList.add('active');
   currentFilter = tag;
   renderCards(tag);
+}
+
+function selectProductByCode(code){
+  const p = allProducts.find(x => x.code === code);
+  if(!p) return;
+  selectProduct(p.code, p.name, p.price);
 }
 
 function selectProduct(code, name, price){
