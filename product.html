@@ -92,7 +92,7 @@ function photoList(p) {
     });
   }
   if (!urls.length) urls.push(getPhotoUrl(p, 900));
-  return urls;
+  return urls.slice(0, 10); // 內頁最多 10 張照片
 }
 
 function render(p, all) {

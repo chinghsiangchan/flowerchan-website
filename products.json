@@ -34,7 +34,7 @@
     "code": "FC-003",
     "name": "向日葵花束",
     "price": 1800,
-    "description": "",
+    "description": "把整個夏天的陽光，紮成一束抱在懷裡。\n大朵向日葵配上清新的季節綠材，明亮、有朝氣，\n適合畢業、慶賀，或任何想說「你做得很好」的時刻。",
     "tags": [
       "日常",
       "向日葵",
@@ -49,7 +49,7 @@
     "code": "FC-004",
     "name": "紫色鬱金香小束",
     "price": 1350,
-    "description": "",
+    "description": "紫色鬱金香有一種安靜的優雅。\n小小一束剛剛好，放在桌上就是一天的好心情，\n送給喜歡低調質感的他或她。",
     "tags": [
       "生日",
       "日常",
@@ -79,7 +79,7 @@
     "code": "FC-006",
     "name": "畢業花束",
     "price": 1300,
-    "description": "",
+    "description": "驪歌響起的季節，用一束花記住這一天。\n向日葵的祝福是：前途光明、勇敢去飛。\n適合獻給最重要的畢業生。",
     "tags": [
       "日常",
       "向日葵",
@@ -122,7 +122,7 @@
     "code": "FC-009",
     "name": "紫粉色系花束",
     "price": 1500,
-    "description": "",
+    "description": "紫與粉的溫柔漸層，像黃昏時最美的那片天空。\n非洲菊帶著輕快的笑意，適合生日、畢業，\n或單純想讓誰的今天變得不一樣。",
     "tags": [
       "生日",
       "畢業",
@@ -162,7 +162,7 @@
     "code": "FC-012",
     "name": "粉漸層非洲菊花束",
     "price": 880,
-    "description": "",
+    "description": "從淺粉到深粉，一層一層暈開的浪漫。\n小巧卻不失精緻，日常送禮剛剛好，\n讓平凡的日子也有花的陪伴。",
     "tags": [
       "日常",
       "畢業"
@@ -217,7 +217,7 @@
     "code": "FC-016",
     "name": "輕巧版小花束",
     "price": 450,
-    "description": "",
+    "description": "小小的，剛剛好的心意。\n一束輕巧的季節花，適合午後的探訪、\n或想給自己的一點溫柔。",
     "tags": [
       "日常"
     ],
@@ -287,13 +287,27 @@
     "materials": "芍藥、玫瑰、桔梗、尤加利葉、季節配花",
     "size": "花面直徑約 30 cm，整體高度約 45 cm",
     "care": "每日換水並剪根 1 cm，置於通風陰涼處避免直曬。芍藥最佳觀賞期約 4–6 天，會從圓球花苞逐日綻放成大朵花面。",
-    "status": "預訂中"
+    "status": "預訂中",
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/oagrp2yrqft1ob8nakzh"
+      },
+      {
+        "cloudinary_id": "flowerchan/lszasbrg5jjfmbkuydjb"
+      },
+      {
+        "cloudinary_id": "flowerchan/mkvox3znorv4zwnd32u9"
+      },
+      {
+        "cloudinary_id": "flowerchan/fofqj0urnofwqqouozxv"
+      }
+    ]
   },
   {
     "code": "FC-021",
     "name": "清新藍白風格花束",
     "price": 1200,
-    "description": "",
+    "description": "藍與白，像初夏清晨的風。\n乾淨、清爽、不張揚，\n送給喜歡自然簡約的靈魂。",
     "tags": [
       "生日",
       "日常",
@@ -304,5 +318,166 @@
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780044297/flowerchan/ztbw2stgh7vbaztxwk4v.jpg",
     "cloudinary_id": "flowerchan/ztbw2stgh7vbaztxwk4v",
     "category": "花束"
+  },
+  {
+    "code": "FC-101",
+    "name": "白綠典雅瓶花",
+    "price": 1880,
+    "category": "桌花",
+    "tags": [
+      "日常",
+      "自然",
+      "清新"
+    ],
+    "published": true,
+    "photo": "DSCF3517.JPG",
+    "cloudinary_id": "DSCF3517_dvpskk",
+    "description": "白與綠，是最耐看的安靜。\n一瓶典雅的桌花，放在餐桌、櫃台或書房，\n讓空間自己說話。",
+    "materials": "白玫瑰、桔梗、尤加利葉、季節綠材",
+    "size": "整體高度約 35 cm",
+    "care": "每 2 日換水，置於陰涼處。瓶花觀賞期約 5–7 天。"
+  },
+  {
+    "code": "FC-102",
+    "name": "英式玫瑰禮盒花",
+    "price": 2280,
+    "category": "桌花",
+    "tags": [
+      "生日",
+      "紀念日",
+      "粉色系"
+    ],
+    "published": true,
+    "photo": "DSCF3656.JPG",
+    "cloudinary_id": "DSCF3656_bo9bz7",
+    "description": "不用花瓶，打開就是風景。\n英式玫瑰在花盒裡靜靜盛開，\n適合送到辦公室、醫院，或任何不方便插花的地方。",
+    "materials": "庭園玫瑰、康乃馨、滿天星、季節配花",
+    "size": "花盒直徑約 25 cm",
+    "care": "內附保水海綿，每 2 日少量補水即可，免換水。"
+  },
+  {
+    "code": "FC-103",
+    "name": "暖陽會議桌花",
+    "price": 1680,
+    "category": "桌花",
+    "tags": [
+      "日常",
+      "向日葵",
+      "企業"
+    ],
+    "published": true,
+    "photo": "DSCF3638.JPG",
+    "cloudinary_id": "DSCF3638_hckt3v",
+    "description": "開會的桌上有一點陽光，氣氛都不一樣了。\n以向日葵為主角的長型桌花，\n適合會議室、接待櫃台與每週辦公室鮮花。",
+    "materials": "向日葵、太陽花、火龍果葉、季節綠材",
+    "size": "長約 50 cm，高約 25 cm",
+    "care": "每 2 日補水，避免空調直吹。"
+  },
+  {
+    "code": "FC-201",
+    "name": "開幕高架花籃（單支）",
+    "price": 4500,
+    "category": "高架花",
+    "tags": [
+      "開幕",
+      "喬遷",
+      "企業"
+    ],
+    "published": true,
+    "photo": "",
+    "cloudinary_id": "",
+    "description": "新事業的第一天，要有最盛大的祝福。\n大器飽滿的高架花籃，紅金配色喜氣隆重，\n附賀詞彩帶（上款／下款），準時送達會場。",
+    "materials": "進口大花蕙蘭、火鶴、天堂鳥、季節主花",
+    "size": "整體高度約 180 cm",
+    "care": "會場展示專用，免照護。展示期約 3–5 天。"
+  },
+  {
+    "code": "FC-202",
+    "name": "開幕高架花籃（一對）",
+    "price": 8800,
+    "category": "高架花",
+    "tags": [
+      "開幕",
+      "喬遷",
+      "企業"
+    ],
+    "published": true,
+    "photo": "",
+    "cloudinary_id": "",
+    "description": "成雙成對，福氣加倍。\n一對高架花籃分立門面兩側，氣勢與誠意兼具，\n開幕、喬遷、週年誌慶的首選。",
+    "materials": "進口大花蕙蘭、火鶴、天堂鳥、季節主花",
+    "size": "整體高度約 180 cm × 2 支",
+    "care": "會場展示專用，免照護。展示期約 3–5 天。"
+  },
+  {
+    "code": "FC-203",
+    "name": "會場致意高架花",
+    "price": 4200,
+    "category": "高架花",
+    "tags": [
+      "會場",
+      "弔唁"
+    ],
+    "published": true,
+    "photo": "",
+    "cloudinary_id": "",
+    "description": "有些心意，需要安靜而莊重地表達。\n素雅的白綠色調高架花，致以最深的敬意，\n附輓聯（上款／下款），請於訂購時註明文字。",
+    "materials": "白菊、白百合、蘭花、白綠季節花材",
+    "size": "整體高度約 180 cm",
+    "care": "會場展示專用，免照護。"
+  },
+  {
+    "code": "FC-301",
+    "name": "經典白蝴蝶蘭組盆",
+    "price": 3600,
+    "category": "蘭花",
+    "tags": [
+      "開幕",
+      "喬遷",
+      "企業",
+      "日常"
+    ],
+    "published": true,
+    "photo": "",
+    "cloudinary_id": "",
+    "description": "白蝴蝶蘭是永遠不會出錯的優雅。\n三梗組盆配質感盆器，花期長達一至兩個月，\n放在辦公室或玄關，安靜地漂亮很久。",
+    "materials": "白花蝴蝶蘭三梗、苔球、質感陶盆",
+    "size": "整體高度約 70 cm",
+    "care": "每 7–10 天澆水一次，避免陽光直曬，置於明亮通風處。"
+  },
+  {
+    "code": "FC-302",
+    "name": "粉色蝴蝶蘭組盆",
+    "price": 3200,
+    "category": "蘭花",
+    "tags": [
+      "生日",
+      "喬遷",
+      "粉色系"
+    ],
+    "published": true,
+    "photo": "",
+    "cloudinary_id": "",
+    "description": "粉色的蝴蝶蘭多了一分溫柔。\n適合祝賀新居、生日，或為空間添一抹暖色，\n花期長，心意也跟著久一點。",
+    "materials": "粉花蝴蝶蘭雙梗、苔球、質感陶盆",
+    "size": "整體高度約 60 cm",
+    "care": "每 7–10 天澆水一次，避免陽光直曬。"
+  },
+  {
+    "code": "FC-303",
+    "name": "雙梗蘭花小品",
+    "price": 1980,
+    "category": "蘭花",
+    "tags": [
+      "日常",
+      "自然"
+    ],
+    "published": true,
+    "photo": "",
+    "cloudinary_id": "",
+    "description": "書桌上的一方小風景。\n小巧的雙梗蘭花，不佔空間卻很有存在感，\n送禮自用都剛剛好。",
+    "materials": "迷你蝴蝶蘭雙梗、簡約盆器",
+    "size": "整體高度約 40 cm",
+    "care": "每 7–10 天澆水一次，置於明亮處。"
   }
 ]

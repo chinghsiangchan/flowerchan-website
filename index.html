@@ -40,6 +40,13 @@
   <a href="/#order" onclick="toggleMobileMenu()">立即預訂 ORDER</a>
 </div>
 
+<!-- 節慶 BANNER（依 banners.json 檔期自動顯示） -->
+<a class="festival-banner" id="festivalBanner" href="#">
+  <span class="fb-title" id="fbTitle"></span>
+  <span class="fb-sub" id="fbSub"></span>
+  <span class="fb-cta" id="fbCta"></span>
+</a>
+
 <!-- HERO：左文右三聯直式照 -->
 <section class="hero">
   <div class="hero-left">
@@ -483,8 +490,26 @@ async function submitOrder(e) {
   }
 }
 
+/* 節慶 banner：依日期自動顯示 */
+async function initBanner() {
+  try {
+    const res = await fetch('/banners.json?t=' + Date.now());
+    const banners = await res.json();
+    const today = new Date().toISOString().slice(0, 10);
+    const b = banners.find(x => x.published !== false && x.start <= today && today <= x.end);
+    if (!b) return;
+    document.getElementById('fbTitle').textContent = b.title;
+    document.getElementById('fbSub').textContent = b.subtitle || '';
+    document.getElementById('fbCta').textContent = b.cta || '了解更多';
+    const banner = document.getElementById('festivalBanner');
+    banner.href = b.link || '#';
+    banner.classList.add('show');
+  } catch (e) { /* 無 banner 時靜默 */ }
+}
+
 /* ?order=FC-xxx 由其他頁帶入花品 */
 async function init() {
+  initBanner();
   await initFeatured();
   initCoursePreview();
   const params = new URLSearchParams(location.search);

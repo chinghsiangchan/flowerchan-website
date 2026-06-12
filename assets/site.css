@@ -1,74 +1,83 @@
 /* ═══════════════════════════════════════════
-   Flower Chan 小花店 — 共用樣式（redesign）
-   骨架：honeyDANIELS 式乾淨留白
-   質感：文華式內頁細節
+   Flower Chan 小花店 — 雛菊清新明亮系 v2
+   色調源自 LOGO：雛菊白・金黃花心・葉綠・粉色花苞・奶油底
    ═══════════════════════════════════════════ */
 
 :root {
-  --green: #2D4A3E;
-  --green-light: #3D6B59;
-  --gold: #E8B84B;
-  --cream: #F7F4EE;
-  --cream-dark: #EDE8DF;
-  --pink: #F5C5B8;
-  --text: #2A2A2A;
-  --muted: rgba(45,74,62,0.45);
-  --border: rgba(45,74,62,0.12);
+  --green: #3A6B53;            /* 葉綠（柔和版） */
+  --green-deep: #2D4A3E;       /* 深綠（錨點：footer/引言） */
+  --green-light: #5C8A72;
+  --gold: #E8B84B;             /* 金黃花心 */
+  --gold-soft: #F4D88E;
+  --cream: #FBF9F3;            /* 奶油底（更亮） */
+  --cream-dark: #F3EEE2;
+  --pink: #F5C5B8;             /* 花苞粉 */
+  --daisy: #FFFFFF;            /* 雛菊白 */
+  --text: #33402F;
+  --muted: rgba(58,107,83,0.55);
+  --border: rgba(58,107,83,0.14);
+  --shadow: 0 6px 24px rgba(58,107,83,0.08);
+  --radius: 14px;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{font-family:'Noto Serif TC',serif;background:var(--cream);color:var(--text);overflow-x:hidden;}
 
 /* ─── NAV ─── */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,244,238,0.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;}
-.nav-brand{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:1.15rem;color:var(--green);letter-spacing:0.14em;text-decoration:none;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;}
+.nav-brand{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:1.15rem;color:var(--green);letter-spacing:0.14em;text-decoration:none;}
 .nav-brand small{display:block;font-family:'Noto Serif TC',serif;font-size:0.58rem;letter-spacing:0.45em;color:var(--muted);font-weight:200;margin-top:2px;}
 .nav-links{display:flex;gap:1.8rem;list-style:none;align-items:center;}
 .nav-links a{text-decoration:none;font-size:0.75rem;font-weight:300;color:var(--muted);letter-spacing:0.14em;transition:color 0.3s;}
 .nav-links a:hover,.nav-links a.current{color:var(--green);}
-.nav-cta{font-size:0.72rem;letter-spacing:0.2em;color:var(--green);font-weight:300;border-bottom:1px solid var(--gold);padding-bottom:1px;cursor:pointer;text-decoration:none;transition:opacity 0.3s;white-space:nowrap;}
-.nav-cta:hover{opacity:0.7;}
-
-/* 手機版選單 */
+.nav-cta{font-size:0.72rem;letter-spacing:0.16em;color:#fff;background:var(--green);font-weight:300;padding:9px 20px;border-radius:999px;cursor:pointer;text-decoration:none;transition:background 0.3s;white-space:nowrap;}
+.nav-cta:hover{background:var(--green-light);}
 .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;}
-.nav-toggle span{display:block;width:20px;height:1px;background:var(--green);margin:5px 0;transition:transform 0.3s,opacity 0.3s;}
-.mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;z-index:99;background:rgba(247,244,238,0.98);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:1rem 5vw 1.5rem;}
+.nav-toggle span{display:block;width:20px;height:1.5px;background:var(--green);margin:5px 0;border-radius:2px;}
+.mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;z-index:99;background:rgba(255,255,255,0.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:1rem 5vw 1.5rem;}
 .mobile-menu.open{display:block;}
 .mobile-menu a{display:block;padding:0.85rem 0;font-size:0.85rem;color:var(--green);text-decoration:none;letter-spacing:0.14em;font-weight:300;border-bottom:0.5px solid var(--border);}
 .mobile-menu a:last-child{border-bottom:none;}
 
+/* ─── 節慶 BANNER ─── */
+.festival-banner{margin-top:64px;display:none;align-items:center;justify-content:center;gap:1.2rem;padding:0.8rem 5vw;background:linear-gradient(90deg,var(--gold-soft),var(--pink));color:var(--green-deep);text-decoration:none;flex-wrap:wrap;text-align:center;}
+.festival-banner.show{display:flex;}
+.festival-banner .fb-title{font-size:0.85rem;letter-spacing:0.22em;font-weight:400;}
+.festival-banner .fb-sub{font-size:0.72rem;letter-spacing:0.12em;font-weight:200;opacity:0.85;}
+.festival-banner .fb-cta{font-size:0.68rem;letter-spacing:0.18em;border:1px solid var(--green-deep);border-radius:999px;padding:4px 16px;font-weight:300;}
+.festival-banner.show ~ .hero{padding-top:0;}
+
 /* ─── 共用排版 ─── */
 .section{padding:6rem 8vw;}
-.sec-eyebrow{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.68rem;letter-spacing:0.38em;color:var(--gold);text-transform:uppercase;margin-bottom:1.4rem;display:flex;align-items:center;gap:0.8rem;}
+.sec-eyebrow{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.7rem;letter-spacing:0.38em;color:var(--gold);text-transform:uppercase;margin-bottom:1.4rem;display:flex;align-items:center;gap:0.8rem;}
+.sec-eyebrow::before{content:'✿';font-style:normal;font-size:0.85rem;}
 .sec-eyebrow::after{content:'';height:1px;width:32px;background:var(--gold);}
-.sec-eyebrow.center{justify-content:center;}
-.sec-eyebrow.center::before{content:'';height:1px;width:32px;background:var(--gold);}
-.sec-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(1.9rem,3vw,3rem);color:var(--green);line-height:1.15;letter-spacing:0.03em;}
-.sec-title-zh{font-weight:300;}
-.btn-dark{display:inline-block;background:var(--green);color:var(--cream);font-size:0.68rem;padding:12px 28px;letter-spacing:0.28em;text-decoration:none;font-family:'Noto Serif TC',serif;font-weight:300;border:none;cursor:pointer;transition:opacity 0.3s;}
-.btn-dark:hover{opacity:0.8;}
-.btn-ghost{display:inline-block;font-size:0.68rem;letter-spacing:0.22em;color:var(--muted);font-weight:300;border-bottom:1px solid rgba(45,74,62,0.22);padding-bottom:1px;text-decoration:none;transition:color 0.3s;background:none;cursor:pointer;}
-.btn-ghost:hover{color:var(--green);}
+.sec-title{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(1.9rem,3vw,3rem);color:var(--green);line-height:1.15;letter-spacing:0.03em;}
+.btn-dark{display:inline-block;background:var(--green);color:#fff;font-size:0.7rem;padding:13px 32px;letter-spacing:0.26em;text-decoration:none;font-family:'Noto Serif TC',serif;font-weight:300;border:none;border-radius:999px;cursor:pointer;transition:background 0.3s,transform 0.3s;}
+.btn-dark:hover{background:var(--green-light);transform:translateY(-1px);}
+.btn-ghost{display:inline-block;font-size:0.7rem;letter-spacing:0.2em;color:var(--green);font-weight:300;border:1px solid var(--border);border-radius:999px;padding:11px 26px;text-decoration:none;transition:all 0.3s;background:none;cursor:pointer;}
+.btn-ghost:hover{border-color:var(--green);background:rgba(58,107,83,0.04);}
 
-/* ─── HERO（首頁：直式照三聯排） ─── */
+/* ─── HERO ─── */
 .hero{min-height:92vh;display:grid;grid-template-columns:5fr 7fr;padding-top:64px;}
-.hero-left{background:var(--cream);padding:4rem 4vw 4rem 5vw;display:flex;flex-direction:column;justify-content:center;}
+.hero-left{background:var(--cream);padding:4rem 4vw 4rem 5vw;display:flex;flex-direction:column;justify-content:center;position:relative;}
 .eyebrow{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.72rem;letter-spacing:0.38em;color:var(--gold);text-transform:uppercase;margin-bottom:2.4rem;}
-.hero-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(3rem,4.6vw,5rem);color:var(--green);line-height:1.0;letter-spacing:0.03em;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(3rem,4.6vw,5rem);color:var(--green);line-height:1.0;letter-spacing:0.03em;}
 .hero-sub{font-size:0.68rem;letter-spacing:0.55em;color:var(--muted);margin:0.6rem 0 2.6rem;font-weight:200;}
-.hero-rule{width:28px;height:1px;background:var(--gold);margin-bottom:2.2rem;}
+.hero-rule{width:44px;height:1px;background:var(--gold);margin-bottom:2.2rem;position:relative;}
+.hero-rule::after{content:'✿';position:absolute;right:-18px;top:-9px;color:var(--gold);font-size:0.75rem;}
 .hero-desc{font-size:0.95rem;color:var(--muted);line-height:2.3;font-weight:200;max-width:320px;letter-spacing:0.04em;margin-bottom:2.6rem;}
-.hero-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
-.hero-strip a{position:relative;display:block;overflow:hidden;}
+.hero-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:10px;background:var(--cream);}
+.hero-strip a{position:relative;display:block;overflow:hidden;border-radius:var(--radius);}
 .hero-strip img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s ease;}
 .hero-strip a:hover img{transform:scale(1.04);}
 .hero-strip .strip-label{position:absolute;left:0;right:0;bottom:0;padding:2.2rem 1.4rem 1.3rem;background:linear-gradient(transparent,rgba(45,74,62,0.55));color:#fff;}
 .strip-label .zh{font-size:0.9rem;letter-spacing:0.3em;font-weight:300;display:block;}
 .strip-label .en{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.62rem;letter-spacing:0.22em;opacity:0.75;}
 
-/* ─── 類別入口卡片 ─── */
-.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:3.5rem;}
-.cat-card{position:relative;display:block;overflow:hidden;text-decoration:none;background:var(--cream-dark);}
+/* ─── 類別入口 ─── */
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:3.5rem;}
+.cat-card{position:relative;display:block;overflow:hidden;text-decoration:none;background:var(--cream-dark);border-radius:var(--radius);box-shadow:var(--shadow);}
 .cat-card img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;transition:transform 1s ease;}
 .cat-card:hover img{transform:scale(1.05);}
 .cat-card .cat-label{position:absolute;left:0;right:0;bottom:0;padding:2.6rem 1.5rem 1.4rem;background:linear-gradient(transparent,rgba(45,74,62,0.62));}
@@ -76,52 +85,53 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,244,238,
 .cat-label .en{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.64rem;letter-spacing:0.26em;color:rgba(255,255,255,0.78);}
 .cat-card .cat-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:0.72rem;letter-spacing:0.3em;color:var(--muted);}
 
-/* ─── 花品卡片（列表） ─── */
-.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
-.flower-card{background:var(--cream);position:relative;display:flex;flex-direction:column;}
+/* ─── 花品卡片 ─── */
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.flower-card{background:var(--daisy);position:relative;display:flex;flex-direction:column;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform 0.4s ease,box-shadow 0.4s ease;}
+.flower-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(58,107,83,0.13);}
 .flower-link{text-decoration:none;color:inherit;display:block;}
 .flower-photo{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;}
 .flower-photo-placeholder{width:100%;aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:var(--cream-dark);}
 .flower-body{padding:1.4rem 1.6rem 1.6rem;display:flex;flex-direction:column;flex:1;}
 .flower-code{font-size:0.6rem;letter-spacing:0.3em;color:var(--muted);margin-bottom:0.6rem;font-weight:200;}
-.flower-name{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:300;color:var(--green);margin-bottom:0.3rem;line-height:1.25;}
+.flower-name{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;color:var(--green);margin-bottom:0.3rem;line-height:1.25;}
 .flower-tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:1.1rem;}
 .flower-tag{font-size:0.6rem;color:var(--muted);letter-spacing:0.08em;font-weight:200;}
 .flower-tag::after{content:'·';margin-left:4px;opacity:0.4;}
 .flower-tag:last-child::after{content:'';}
 .flower-desc{font-size:0.82rem;color:var(--muted);line-height:1.85;font-weight:200;letter-spacing:0.02em;white-space:pre-wrap;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:1rem;}
 .flower-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:1rem;border-top:0.5px solid var(--border);margin-top:auto;}
-.flower-price{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--green);font-weight:300;letter-spacing:0.04em;}
-.flower-price small{font-size:0.62rem;color:var(--muted);font-family:'Noto Serif TC',serif;letter-spacing:0.05em;}
-.flower-btn{font-size:0.62rem;letter-spacing:0.18em;color:var(--green);border:none;border-bottom:1px solid var(--gold);padding:0 0 1px;cursor:pointer;font-weight:300;background:none;font-family:'Noto Serif TC',serif;transition:opacity 0.25s;text-decoration:none;}
-.flower-btn:hover{opacity:0.7;}
-.flower-btn.disabled{color:var(--muted);border-bottom-color:var(--border);cursor:default;pointer-events:none;}
+.flower-price{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--green);font-weight:400;letter-spacing:0.04em;}
+.flower-price small{font-size:0.6rem;color:var(--muted);font-family:'Noto Serif TC',serif;letter-spacing:0.03em;display:block;font-weight:200;}
+.flower-btn{font-size:0.62rem;letter-spacing:0.16em;color:var(--green);border:1px solid var(--green);border-radius:999px;padding:6px 16px;cursor:pointer;font-weight:300;background:none;font-family:'Noto Serif TC',serif;transition:all 0.25s;text-decoration:none;white-space:nowrap;}
+.flower-btn:hover{background:var(--green);color:#fff;}
+.flower-btn.disabled{color:var(--muted);border-color:var(--border);cursor:default;pointer-events:none;}
 
-/* ─── 狀態標籤（售完／預訂中／現貨） ─── */
-.status-badge{position:absolute;top:12px;left:12px;z-index:2;font-size:0.6rem;letter-spacing:0.22em;padding:5px 12px 5px 14px;font-weight:300;}
+/* ─── 狀態標籤 ─── */
+.status-badge{position:absolute;top:12px;left:12px;z-index:2;font-size:0.6rem;letter-spacing:0.2em;padding:5px 14px;font-weight:300;border-radius:999px;}
 .status-badge.soldout{background:rgba(45,74,62,0.88);color:#fff;}
-.status-badge.preorder{background:rgba(232,184,75,0.92);color:var(--green);}
-.status-badge.instock{background:rgba(247,244,238,0.92);color:var(--green);}
+.status-badge.preorder{background:var(--gold);color:var(--green-deep);}
+.status-badge.instock{background:rgba(255,255,255,0.93);color:var(--green);}
 .flower-photo.dimmed{opacity:0.55;}
 
 /* ─── 課程卡片 ─── */
-.course-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:3.5rem;}
-.course-card{background:var(--cream);display:flex;flex-direction:column;position:relative;}
+.course-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:3.5rem;}
+.course-card{background:var(--daisy);display:flex;flex-direction:column;position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);}
 .course-photo{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;}
 .course-photo-placeholder{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:2rem;background:var(--cream-dark);}
 .course-body{padding:1.5rem 1.6rem 1.7rem;display:flex;flex-direction:column;flex:1;}
-.course-type{font-size:0.6rem;letter-spacing:0.26em;color:var(--gold);margin-bottom:0.7rem;font-weight:300;}
-.course-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;color:var(--green);line-height:1.3;margin-bottom:0.5rem;}
+.course-type{font-size:0.6rem;letter-spacing:0.26em;color:var(--gold);margin-bottom:0.7rem;font-weight:400;}
+.course-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--green);line-height:1.3;margin-bottom:0.5rem;}
 .course-name-zh{font-family:'Noto Serif TC',serif;font-size:1rem;letter-spacing:0.12em;}
 .course-meta{font-size:0.74rem;color:var(--muted);line-height:2;font-weight:200;margin-bottom:0.9rem;}
 .course-desc{font-size:0.8rem;color:var(--muted);line-height:1.9;font-weight:200;margin-bottom:1.2rem;}
 .course-bottom{margin-top:auto;display:flex;align-items:center;justify-content:space-between;padding-top:1rem;border-top:0.5px solid var(--border);}
-.course-price{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--green);}
-.course-status{font-size:0.62rem;letter-spacing:0.2em;padding:4px 10px;font-weight:300;}
-.course-status.open{color:var(--green);border:0.5px solid var(--green);}
+.course-price{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--green);font-weight:400;}
+.course-status{font-size:0.62rem;letter-spacing:0.2em;padding:4px 12px;font-weight:300;border-radius:999px;}
+.course-status.open{color:var(--green);border:1px solid var(--green);}
 .course-status.full{color:#fff;background:rgba(45,74,62,0.85);}
-.course-status.closed{color:var(--muted);border:0.5px solid var(--border);}
-.line-btn{display:inline-flex;align-items:center;gap:0.5rem;background:#06C755;color:#fff;font-size:0.72rem;letter-spacing:0.18em;padding:11px 24px;text-decoration:none;font-weight:300;transition:opacity 0.3s;}
+.course-status.closed{color:var(--muted);border:1px solid var(--border);}
+.line-btn{display:inline-flex;align-items:center;gap:0.5rem;background:#06C755;color:#fff;font-size:0.72rem;letter-spacing:0.18em;padding:11px 26px;text-decoration:none;font-weight:300;border-radius:999px;transition:opacity 0.3s;}
 .line-btn:hover{opacity:0.85;}
 
 /* ─── 花品內頁 ─── */
@@ -132,52 +142,48 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,244,238,
 .breadcrumb span{margin:0 0.5rem;opacity:0.5;}
 .product-grid{display:grid;grid-template-columns:7fr 5fr;gap:4rem;align-items:start;}
 .product-photos{display:grid;gap:1rem;}
-.product-photo-main{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:var(--cream-dark);}
-.product-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;}
-.product-thumbs img{width:100%;aspect-ratio:1;object-fit:cover;display:block;cursor:pointer;opacity:0.65;transition:opacity 0.3s;border:1px solid transparent;}
+.product-photo-main{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:var(--cream-dark);border-radius:var(--radius);}
+.product-thumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:0.8rem;}
+.product-thumbs img{width:100%;aspect-ratio:1;object-fit:cover;display:block;cursor:pointer;opacity:0.6;transition:opacity 0.3s;border:1.5px solid transparent;border-radius:10px;}
 .product-thumbs img:hover,.product-thumbs img.active{opacity:1;border-color:var(--gold);}
 .product-info .flower-code{margin-bottom:0.8rem;}
-.product-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(1.7rem,2.4vw,2.4rem);color:var(--green);line-height:1.2;letter-spacing:0.02em;margin-bottom:0.8rem;}
-.product-price{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--green);font-weight:300;margin:1.2rem 0 0.4rem;}
+.product-title{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(1.7rem,2.4vw,2.4rem);color:var(--green);line-height:1.2;letter-spacing:0.02em;margin-bottom:0.8rem;}
+.product-price{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--green);font-weight:400;margin:1.2rem 0 0.4rem;}
 .product-price-note{font-size:0.68rem;color:var(--muted);font-weight:200;letter-spacing:0.05em;margin-bottom:1.6rem;}
 .product-desc{font-size:0.88rem;color:var(--muted);line-height:2.1;font-weight:200;letter-spacing:0.03em;white-space:pre-wrap;margin:1.6rem 0 2rem;}
 .spec-block{border-top:0.5px solid var(--border);padding:1.4rem 0;}
-.spec-label{font-size:0.64rem;letter-spacing:0.28em;color:var(--gold);margin-bottom:0.8rem;font-weight:300;}
+.spec-label{font-size:0.64rem;letter-spacing:0.28em;color:var(--gold);margin-bottom:0.8rem;font-weight:400;}
 .spec-val{font-size:0.85rem;color:var(--muted);line-height:2;font-weight:200;}
 .product-cta{display:flex;gap:1rem;margin:2.2rem 0;flex-wrap:wrap;}
 .accordion{border-top:0.5px solid var(--border);}
 .accordion-item{border-bottom:0.5px solid var(--border);}
 .accordion-head{width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 0;background:none;border:none;cursor:pointer;font-family:'Noto Serif TC',serif;font-size:0.8rem;letter-spacing:0.2em;color:var(--green);font-weight:300;}
-.accordion-head::after{content:'+';font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);transition:transform 0.3s;}
+.accordion-head::after{content:'＋';font-size:0.9rem;color:var(--gold);transition:transform 0.3s;}
 .accordion-item.open .accordion-head::after{transform:rotate(45deg);}
 .accordion-body{display:none;padding:0 0 1.4rem;font-size:0.82rem;color:var(--muted);line-height:2.1;font-weight:200;}
 .accordion-item.open .accordion-body{display:block;}
 
-/* ─── 品牌故事帶（首頁精簡版） ─── */
-.story-band{background:var(--green);padding:5.5rem 8vw;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+/* ─── 品牌故事帶 ─── */
+.story-band{background:var(--green-deep);padding:5.5rem 8vw;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
 .story-band .quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.4rem;color:rgba(255,255,255,0.9);line-height:1.8;}
 .story-band .credit{font-size:0.65rem;letter-spacing:0.28em;color:var(--gold);margin-top:1.6rem;}
-.story-band .story-text{font-size:0.88rem;color:rgba(255,255,255,0.55);line-height:2.2;font-weight:200;}
-.story-band .story-text strong{color:rgba(255,255,255,0.85);font-weight:300;}
 
-/* ─── 服務帶（精簡三格） ─── */
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;margin-top:3.5rem;background:rgba(255,255,255,0.07);}
-.service-card{background:var(--green);padding:3rem 2.5rem;transition:background 0.4s;position:relative;}
-.service-card:hover{background:var(--green-light);}
-.svc-num{font-family:'Cormorant Garamond',serif;font-size:3.2rem;font-weight:300;color:rgba(255,255,255,0.05);position:absolute;top:1.8rem;right:2.2rem;line-height:1;}
-.svc-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;color:white;margin-bottom:1rem;line-height:1.2;}
-.svc-desc{font-size:0.88rem;color:rgba(255,255,255,0.48);line-height:2;font-weight:200;}
-.svc-tag{display:inline-block;margin-top:1.8rem;padding:4px 14px;border:0.5px solid rgba(232,184,75,0.28);color:var(--gold);font-size:0.62rem;letter-spacing:0.14em;}
-.services-section{background:var(--green);padding:6rem 8vw;}
-.services-section .sec-eyebrow{color:rgba(232,184,75,0.65);}
-.services-section .sec-eyebrow::after{background:rgba(232,184,75,0.35);}
-.services-section .sec-title{color:white;}
+/* ─── 服務帶（改為明亮卡片） ─── */
+.services-section{background:var(--cream-dark);padding:6rem 8vw;}
+.services-section .sec-title{color:var(--green);}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:3.5rem;background:none;}
+.service-card{background:var(--daisy);padding:3rem 2.5rem;transition:transform 0.4s,box-shadow 0.4s;position:relative;border-radius:var(--radius);box-shadow:var(--shadow);}
+.service-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(58,107,83,0.13);}
+.svc-num{font-family:'Cormorant Garamond',serif;font-size:3.2rem;font-weight:300;color:rgba(232,184,75,0.18);position:absolute;top:1.8rem;right:2.2rem;line-height:1;}
+.svc-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--green);margin-bottom:1rem;line-height:1.2;}
+.svc-desc{font-size:0.88rem;color:var(--muted);line-height:2;font-weight:200;}
+.svc-tag{display:inline-block;margin-top:1.8rem;padding:4px 16px;border:1px solid rgba(232,184,75,0.55);color:#B8902F;font-size:0.62rem;letter-spacing:0.14em;border-radius:999px;}
 
 /* ─── ABOUT ─── */
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:3.5rem;}
 .about-text p{font-size:0.9rem;color:var(--muted);line-height:2.2;font-weight:200;margin-bottom:1.2rem;letter-spacing:0.03em;}
-.about-cred{display:inline-block;margin:0.4rem 0 0;padding:5px 14px;border:0.5px solid rgba(232,184,75,0.5);color:var(--green);font-size:0.68rem;letter-spacing:0.18em;font-weight:300;}
-.about-quote-card{background:var(--green);padding:3.5rem;}
+.about-cred{display:inline-block;margin:0.4rem 0 0;padding:5px 16px;border:1px solid rgba(232,184,75,0.6);color:#B8902F;font-size:0.68rem;letter-spacing:0.18em;font-weight:300;border-radius:999px;}
+.about-quote-card{background:var(--green-deep);padding:3.5rem;border-radius:var(--radius);}
 .about-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.35rem;color:rgba(255,255,255,0.88);line-height:1.7;margin-bottom:2rem;}
 .about-author{font-size:0.65rem;letter-spacing:0.28em;color:var(--gold);}
 .about-info{margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border);}
@@ -190,27 +196,27 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,244,238,
 
 /* ─── 訂購區 ─── */
 .order-section{background:var(--cream-dark);padding:6rem 8vw;}
-.order-grid{display:grid;grid-template-columns:2fr 3fr;gap:5rem;margin-top:3.5rem;}
-.order-notice{background:var(--cream);padding:2.5rem;}
-.notice-title{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--green);font-weight:300;letter-spacing:0.08em;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:0.5px solid var(--border);}
+.order-grid{display:grid;grid-template-columns:2fr 3fr;gap:4rem;margin-top:3.5rem;}
+.order-notice{background:var(--daisy);padding:2.5rem;border-radius:var(--radius);box-shadow:var(--shadow);align-self:start;}
+.notice-title{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--green);font-weight:400;letter-spacing:0.08em;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:0.5px solid var(--border);}
 .notice-item{display:flex;gap:0.8rem;margin-bottom:1rem;font-size:0.88rem;color:var(--muted);line-height:1.7;font-weight:200;}
 .notice-dot{color:var(--gold);flex-shrink:0;}
 .form-row{margin-bottom:1.6rem;}
 .form-label{display:block;font-size:0.65rem;letter-spacing:0.22em;color:var(--muted);margin-bottom:0.6rem;font-weight:200;}
-.form-input,.form-select,.form-textarea{width:100%;padding:12px 14px;border:0.5px solid var(--border);background:var(--cream);font-family:'Noto Serif TC',serif;font-size:0.9rem;font-weight:300;color:var(--green);outline:none;transition:border-color 0.25s;-webkit-appearance:none;}
+.form-input,.form-select,.form-textarea{width:100%;padding:12px 16px;border:1px solid var(--border);background:var(--daisy);font-family:'Noto Serif TC',serif;font-size:0.9rem;font-weight:300;color:var(--green);outline:none;transition:border-color 0.25s;-webkit-appearance:none;border-radius:10px;}
 .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--green);}
 .form-textarea{resize:vertical;min-height:100px;}
 .form-price-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-.price-display{padding:12px 14px;border:0.5px solid var(--border);background:rgba(45,74,62,0.04);font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--green);font-weight:300;}
-.form-submit{width:100%;background:var(--green);color:var(--cream);font-family:'Noto Serif TC',serif;font-size:0.72rem;letter-spacing:0.28em;padding:16px;border:none;cursor:pointer;font-weight:300;margin-top:0.5rem;transition:opacity 0.3s;}
-.form-submit:hover{opacity:0.85;}
+.price-display{padding:12px 16px;border:1px solid var(--border);background:rgba(232,184,75,0.07);font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--green);font-weight:400;border-radius:10px;}
+.form-submit{width:100%;background:var(--green);color:#fff;font-family:'Noto Serif TC',serif;font-size:0.72rem;letter-spacing:0.28em;padding:16px;border:none;cursor:pointer;font-weight:300;margin-top:0.5rem;transition:background 0.3s;border-radius:999px;}
+.form-submit:hover{background:var(--green-light);}
 .delivery-fields{display:none;margin-top:1rem;padding-top:1rem;border-top:0.5px solid var(--border);}
 .delivery-fields.show{display:block;}
 .radio-group{display:flex;gap:1.5rem;}
 .radio-label{display:flex;align-items:center;gap:0.5rem;font-size:0.88rem;color:var(--muted);font-weight:300;cursor:pointer;}
 
 /* ─── FOOTER ─── */
-footer{background:var(--green);padding:3rem 8vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+footer{background:var(--green-deep);padding:3rem 8vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
 .footer-brand{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:1.1rem;color:white;letter-spacing:0.12em;}
 .footer-brand small{display:block;font-size:0.6rem;letter-spacing:0.4em;color:rgba(255,255,255,0.35);font-weight:200;margin-top:3px;}
 .footer-links{display:flex;gap:1.8rem;flex-wrap:wrap;}
@@ -219,14 +225,17 @@ footer{background:var(--green);padding:3rem 8vw;display:flex;align-items:center;
 footer p{font-size:0.65rem;color:rgba(255,255,255,0.28);font-weight:200;letter-spacing:0.05em;}
 
 /* ─── 篩選列 ─── */
-.filter-bar{padding:0 8vw 2.5rem;display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;}
+.filter-bar{padding:0 8vw 2.5rem;display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;}
 .filter-label{font-size:0.68rem;color:var(--muted);letter-spacing:0.2em;margin-right:0.4rem;font-weight:200;}
-.tag{font-size:0.68rem;padding:5px 16px;border:0.5px solid var(--border);color:var(--muted);letter-spacing:0.1em;cursor:pointer;font-weight:300;transition:all 0.25s;}
-.tag:hover,.tag.active{border-color:var(--green);color:var(--green);}
+.tag{font-size:0.68rem;padding:6px 18px;border:1px solid var(--border);color:var(--muted);letter-spacing:0.1em;cursor:pointer;font-weight:300;transition:all 0.25s;border-radius:999px;background:var(--daisy);}
+.tag:hover,.tag.active{border-color:var(--green);color:#fff;background:var(--green);}
 .gallery-header{padding:5rem 8vw 3rem;}
 .gallery-more{text-align:center;padding:3.5rem 0 5rem;}
 .gallery-more a{font-size:0.7rem;letter-spacing:0.22em;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:2px;transition:color 0.3s;}
 .gallery-more a:hover{color:var(--green);}
+
+/* 類別頁的格線需要左右留白 */
+section > .gallery-grid{margin:0 8vw;}
 
 /* ─── REVEAL ─── */
 .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.85s ease,transform 0.85s ease;}
@@ -254,4 +263,5 @@ footer p{font-size:0.65rem;color:rgba(255,255,255,0.28);font-weight:200;letter-s
   .about-grid,.order-grid{grid-template-columns:1fr;gap:2.5rem;}
   .section{padding:4.5rem 6vw;}
   .product-page{padding:calc(64px + 1.5rem) 6vw 4rem;}
+  .product-thumbs{grid-template-columns:repeat(4,1fr);}
 }

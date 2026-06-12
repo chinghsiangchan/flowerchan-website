@@ -1,0 +1,22 @@
+[
+  {
+    "id": "graduation-2026",
+    "title": "畢業季花禮 🎓 預購中",
+    "subtitle": "向日葵花束・單枝花禮，陪你說一聲：畢業快樂",
+    "cta": "看畢業花禮",
+    "link": "/bouquet",
+    "start": "2026-05-20",
+    "end": "2026-06-30",
+    "published": true
+  },
+  {
+    "id": "qixi-2026",
+    "title": "七夕情人節 💐 開始預約",
+    "subtitle": "為最重要的人，預訂一束說不出口的心意",
+    "cta": "提前預訂",
+    "link": "/#order",
+    "start": "2026-08-01",
+    "end": "2026-08-19",
+    "published": true
+  }
+]
