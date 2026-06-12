@@ -6,6 +6,12 @@ const GITHUB_OWNER = 'chinghsiangchan';
 const GITHUB_REPO = 'flowerchan-website';
 const FILE_PATH = 'products.json';
 
+// 分支安全：依部署環境決定要寫入的 git 分支。
+// 正式站（production）寫 main；分支部署（如 redesign 測試站）只寫自己的分支，
+// 避免測試站後台儲存時覆蓋正式站資料。
+const GIT_BRANCH =
+  process.env.CONTEXT === 'production' ? 'main' : (process.env.BRANCH || 'main');
+
 exports.handler = async (event) => {
   // 只允許 POST
   if (event.httpMethod !== 'POST') {
@@ -43,7 +49,7 @@ exports.handler = async (event) => {
 
   // 取得目前 GitHub 上的檔案 SHA（更新檔案需要）
   const getRes = await fetch(
-    `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${FILE_PATH}`,
+    `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${FILE_PATH}?ref=${GIT_BRANCH}`,
     { headers: { Authorization: `token ${GITHUB_TOKEN}`, Accept: 'application/vnd.github.v3+json' } }
   );
 
@@ -65,9 +71,10 @@ exports.handler = async (event) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        message: 'Update products.json via admin',
+        message: `Update products.json via admin (${GIT_BRANCH})`,
         content,
-        sha
+        sha,
+        branch: GIT_BRANCH
       })
     }
   );

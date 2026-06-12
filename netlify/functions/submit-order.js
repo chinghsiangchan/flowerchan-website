@@ -8,6 +8,13 @@ exports.handler = async function(event) {
   try {
     const body = JSON.parse(event.body);
 
+    // 測試站防混入：非正式站（如 redesign 分支部署）送出的訂單，
+    // 姓名與備註自動加【測試】標記，避免混入真訂單。
+    if (process.env.CONTEXT !== 'production') {
+      body.name = `【測試】${body.name || ''}`;
+      body.note = `【測試站訂單，請勿處理】${body.note || ''}`;
+    }
+
     const params = new URLSearchParams();
 
     // 花品
