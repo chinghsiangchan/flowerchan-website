@@ -5,8 +5,29 @@
     "subtitle": "向日葵花束・單枝花禮，陪你說一聲：畢業快樂",
     "cta": "看畢業花禮",
     "link": "/bouquet",
+    "image": "https://res.cloudinary.com/dcwgv05q1/image/upload/w_1600,h_640,c_fill,q_auto,f_auto/flowerchan/zhwjd5eguzlq0bpz4spx",
     "start": "2026-05-20",
     "end": "2026-06-30",
+    "published": true
+  },
+  {
+    "id": "brand-default",
+    "title": "每一束花，都是一個故事的開始",
+    "subtitle": "台北大安區・手作花藝　Flower Chan 小花店",
+    "cta": "探索花禮",
+    "link": "/#categories",
+    "image": "https://res.cloudinary.com/dcwgv05q1/image/upload/w_1600,h_640,c_fill,q_auto,f_auto/flowerchan/oagrp2yrqft1ob8nakzh",
+    "always": true,
+    "published": true
+  },
+  {
+    "id": "course-promo",
+    "title": "花藝課程・小班開課中",
+    "subtitle": "植栽組盆／親子花藝／永生花／節慶花圈",
+    "cta": "看課程",
+    "link": "/courses",
+    "image": "https://res.cloudinary.com/dcwgv05q1/image/upload/w_1600,h_640,c_fill,q_auto,f_auto/flowerchan/mkvox3znorv4zwnd32u9",
+    "always": true,
     "published": true
   },
   {
@@ -15,6 +36,7 @@
     "subtitle": "為最重要的人，預訂一束說不出口的心意",
     "cta": "提前預訂",
     "link": "/#order",
+    "image": "https://res.cloudinary.com/dcwgv05q1/image/upload/w_1600,h_640,c_fill,q_auto,f_auto/flowerchan/lszasbrg5jjfmbkuydjb",
     "start": "2026-08-01",
     "end": "2026-08-19",
     "published": true

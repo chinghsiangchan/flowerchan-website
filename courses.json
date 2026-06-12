@@ -12,7 +12,15 @@
     "status": "報名中",
     "published": true,
     "photo": "",
-    "cloudinary_id": ""
+    "cloudinary_id": "",
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/ztbw2stgh7vbaztxwk4v"
+      },
+      {
+        "cloudinary_id": "flowerchan/fofqj0urnofwqqouozxv"
+      }
+    ]
   },
   {
     "code": "CL-002",

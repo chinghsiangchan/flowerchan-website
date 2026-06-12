@@ -14,7 +14,7 @@
 <body>
 
 <nav>
-  <a class="nav-brand" href="/">FLOWER CHAN<small>小 花 店</small></a>
+  <a class="nav-brand" href="/"><img class="nav-logo" src="/ICON.png" alt="Flower Chan logo"><span>FLOWER CHAN<small>小 花 店</small></span></a>
   <ul class="nav-links">
     <li><a href="/bouquet">花束</a></li>
     <li><a href="/table-flower">桌花</a></li>
@@ -40,12 +40,11 @@
   <a href="/#order" onclick="toggleMobileMenu()">立即預訂 ORDER</a>
 </div>
 
-<!-- 節慶 BANNER（依 banners.json 檔期自動顯示） -->
-<a class="festival-banner" id="festivalBanner" href="#">
-  <span class="fb-title" id="fbTitle"></span>
-  <span class="fb-sub" id="fbSub"></span>
-  <span class="fb-cta" id="fbCta"></span>
-</a>
+<!-- 輪播 HERO（banners.json 驅動：節慶/活動/品牌形象，自動切換） -->
+<div class="hero-carousel" id="heroCarousel">
+  <div class="hc-track" id="hcTrack"></div>
+  <div class="hc-dots" id="hcDots"></div>
+</div>
 
 <!-- HERO：左文右三聯直式照 -->
 <section class="hero">
@@ -360,7 +359,7 @@
 </section>
 
 <footer>
-  <div class="footer-brand">FLOWER CHAN<small>小花店 · 讓每個時刻都有花的陪伴</small></div>
+  <div class="footer-brand"><img class="footer-logo" src="/FLOWERCHAN_WHITE.png" alt="Flower Chan">FLOWER CHAN<small>小花店 · 讓每個時刻都有花的陪伴</small></div>
   <div class="footer-links">
     <a href="https://www.instagram.com/flowerchan_tw/" target="_blank">Instagram</a>
     <a href="https://www.facebook.com/freshasdaisyflower" target="_blank">Facebook</a>
@@ -490,21 +489,36 @@ async function submitOrder(e) {
   }
 }
 
-/* 節慶 banner：依日期自動顯示 */
+/* 輪播 hero：banners.json 驅動，依日期自動上下架，5 秒自動切換 */
+let hcIndex = 0, hcCount = 0, hcTimer = null;
 async function initBanner() {
   try {
     const res = await fetch('/banners.json?t=' + Date.now());
     const banners = await res.json();
     const today = new Date().toISOString().slice(0, 10);
-    const b = banners.find(x => x.published !== false && x.start <= today && today <= x.end);
-    if (!b) return;
-    document.getElementById('fbTitle').textContent = b.title;
-    document.getElementById('fbSub').textContent = b.subtitle || '';
-    document.getElementById('fbCta').textContent = b.cta || '了解更多';
-    const banner = document.getElementById('festivalBanner');
-    banner.href = b.link || '#';
-    banner.classList.add('show');
+    const act = banners.filter(b => b.published !== false &&
+      (b.always === true || (b.start <= today && today <= b.end)));
+    if (!act.length) return;
+    document.getElementById('hcTrack').innerHTML = act.map(b => `
+      <a class="hc-slide" href="${b.link || '#'}">
+        <img src="${b.image}" alt="${b.title}">
+        <div class="hc-overlay">
+          <p class="hc-title hc-title-zh">${b.title}</p>
+          ${b.subtitle ? `<p class="hc-sub">${b.subtitle}</p>` : ''}
+          ${b.cta ? `<span class="hc-cta">${b.cta}</span>` : ''}
+        </div>
+      </a>`).join('');
+    document.getElementById('hcDots').innerHTML = act.map((_, i) =>
+      `<button class="hc-dot${i === 0 ? ' active' : ''}" onclick="hcGo(${i});event.preventDefault();" aria-label="第${i + 1}張"></button>`).join('');
+    hcCount = act.length;
+    document.getElementById('heroCarousel').classList.add('show');
+    if (hcCount > 1) hcTimer = setInterval(() => hcGo((hcIndex + 1) % hcCount), 5000);
   } catch (e) { /* 無 banner 時靜默 */ }
+}
+function hcGo(i) {
+  hcIndex = i;
+  document.getElementById('hcTrack').style.transform = `translateX(-${i * 100}%)`;
+  document.querySelectorAll('.hc-dot').forEach((d, j) => d.classList.toggle('active', j === i));
 }
 
 /* ?order=FC-xxx 由其他頁帶入花品 */

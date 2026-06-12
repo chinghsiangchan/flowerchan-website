@@ -85,18 +85,22 @@ function goOrder(code) {
 function courseCardHtml(c) {
   const statusMap = { '報名中': 'open', '額滿': 'full', '已結束': 'closed' };
   const cls = statusMap[c.status] || 'open';
-  const photo = c.cloudinary_id
-    ? `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_600,c_fill,q_auto,f_auto/${c.cloudinary_id}`
+  const firstId = c.cloudinary_id || (Array.isArray(c.photos) && c.photos[0] && c.photos[0].cloudinary_id) || '';
+  const photo = firstId
+    ? `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_600,c_fill,q_auto,f_auto/${firstId}`
     : (c.photo || '');
+  const detailUrl = `/course.html?code=${c.code}`;
   return `
     <div class="course-card reveal">
+      <a class="flower-link" href="${detailUrl}">
       ${photo
         ? `<img class="course-photo" src="${photo}" alt="${c.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
            <div class="course-photo-placeholder" style="display:none">🌿</div>`
         : '<div class="course-photo-placeholder">🌿</div>'}
+      </a>
       <div class="course-body">
         <p class="course-type">${c.type || '常態課程'}${c.date ? ' ｜ ' + c.date : ''}</p>
-        <p class="course-name course-name-zh">${c.name}</p>
+        <a class="flower-link" href="${detailUrl}"><p class="course-name course-name-zh">${c.name}</p></a>
         ${c.name_en ? `<p class="course-name" style="font-size:0.85rem;font-style:italic;color:var(--muted)">${c.name_en}</p>` : ''}
         <p class="course-meta">
           ${c.duration ? '時長 ' + c.duration : ''}${c.duration && c.capacity ? '　·　' : ''}${c.capacity ? '名額 ' + c.capacity : ''}
