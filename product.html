@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>花品介紹｜Flower Chan 小花店</title>
+<link rel="icon" type="image/png" href="ICON.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+TC:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="/">FLOWER CHAN<small>小 花 店</small></a>
+  <ul class="nav-links">
+    <li><a href="/bouquet">花束</a></li>
+    <li><a href="/table-flower">桌花</a></li>
+    <li><a href="/flower-stand">高架花</a></li>
+    <li><a href="/orchid">蘭花</a></li>
+    <li><a href="/courses">課程</a></li>
+    <li><a href="/#about">關於</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <a class="nav-cta" href="/#order">立即預訂</a>
+    <button class="nav-toggle" onclick="toggleMobileMenu()" aria-label="選單">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/bouquet">花束 BOUQUET</a>
+  <a href="/table-flower">桌花 TABLE FLOWERS</a>
+  <a href="/flower-stand">高架花 FLOWER STANDS</a>
+  <a href="/orchid">蘭花 ORCHIDS</a>
+  <a href="/courses">課程 COURSES</a>
+  <a href="/#about">關於 ABOUT</a>
+</div>
+
+<div class="product-page">
+  <div class="breadcrumb" id="breadcrumb"></div>
+  <div id="productWrap"></div>
+
+  <!-- 相關花品 -->
+  <div id="relatedWrap" style="margin-top:5rem;display:none;">
+    <p class="sec-eyebrow">Look More</p>
+    <h2 class="sec-title" style="font-size:1.6rem;">你可能也會喜歡</h2>
+    <div class="gallery-grid" id="relatedGrid" style="margin-top:2.5rem;"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand">FLOWER CHAN<small>小花店 · 讓每個時刻都有花的陪伴</small></div>
+  <div class="footer-links">
+    <a href="https://www.instagram.com/flowerchan_tw/" target="_blank">Instagram</a>
+    <a href="https://www.facebook.com/freshasdaisyflower" target="_blank">Facebook</a>
+    <a href="https://lin.ee/jZUeNhm" target="_blank">LINE</a>
+    <a href="tel:0223637539">02-2363-7539</a>
+  </div>
+  <p>© 2026 Flower Chan 小花店（小花序章企業社）· 台北市辛亥路二段43號1樓</p>
+</footer>
+
+<script src="/assets/site.js"></script>
+<script>
+/* 全站共用的內頁資訊區塊（之後可由後台管理） */
+const SHARED_INFO = {
+  delivery: `
+    <strong>門市自取</strong>｜台北市辛亥路二段43號1樓，取貨時間於訂單確認時約定。<br><br>
+    <strong>專人配送</strong>｜配送費用依地區與品項另計，訂單確認時一併報價。<br><br>
+    <strong>高架花・大型佈置</strong>｜送達地點與時間請先以 LINE 洽詢，確認可配合後再下單。`,
+  card: `
+    花禮皆可免費附上手寫卡片，請於訂購表單「代寫卡片 / 賀詞內容」填寫。<br><br>
+    <strong>一般祝福</strong>｜直接填寫祝福文字即可。<br>
+    <strong>正式賀詞／輓聯</strong>｜請註明：<br>
+    【上款】致贈對象　【中款】祝賀／致意文字　【下款】贈禮人署名`,
+  notice: `
+    請至少於送花日前 3 天完成訂購，節日旺季建議提前 5–7 天。<br>
+    訂單確認後 24 小時內完成付款；進入備貨設計階段後恕不接受取消退款。<br>
+    花材依當日市場供應為準，照片僅供參考，整體色系與風格維持一致。`
+};
+
+const CAT_SLUG = { '花束': 'bouquet', '桌花': 'table-flower', '高架花': 'flower-stand', '蘭花': 'orchid' };
+
+let product = null;
+
+function photoList(p) {
+  const urls = [];
+  if (Array.isArray(p.photos) && p.photos.length) {
+    p.photos.forEach(ph => {
+      if (ph.cloudinary_id) urls.push(`https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_900,q_auto,f_auto/${ph.cloudinary_id}`);
+      else if (typeof ph === 'string') urls.push(ph);
+    });
+  }
+  if (!urls.length) urls.push(getPhotoUrl(p, 900));
+  return urls;
+}
+
+function render(p, all) {
+  document.title = `${p.name}｜Flower Chan 小花店`;
+  const cat = p.category || '花束';
+  const slug = CAT_SLUG[cat] || 'bouquet';
+  document.getElementById('breadcrumb').innerHTML =
+    `<a href="/">首頁</a><span>/</span><a href="/${slug}">${cat}</a><span>/</span>${p.name}`;
+
+  const photos = photoList(p);
+  const soldout = p.status === '售完';
+  const priceNote = cat === '高架花'
+    ? '標示價格為基準款，依實際尺寸略有差異，確認訂單時報價'
+    : (p.price <= 1000 ? '此花品價格固定' : '可依預算調整設計');
+
+  document.getElementById('productWrap').innerHTML = `
+  <div class="product-grid">
+    <div class="product-photos">
+      <div style="position:relative;">
+        ${statusBadge(p)}
+        <img class="product-photo-main${soldout ? ' dimmed' : ''}" id="mainPhoto" src="${photos[0]}" alt="${p.name}">
+      </div>
+      ${photos.length > 1 ? `
+      <div class="product-thumbs">
+        ${photos.map((u, i) => `<img src="${u}" class="${i === 0 ? 'active' : ''}" onclick="swapPhoto(this,'${u}')" alt="${p.name} ${i + 1}">`).join('')}
+      </div>` : ''}
+    </div>
+    <div class="product-info">
+      <p class="flower-code">${p.code}</p>
+      <h1 class="product-title">${p.name}</h1>
+      <div class="flower-tags">${(p.tags || []).map(t => `<span class="flower-tag">${t}</span>`).join('')}</div>
+      <p class="product-price">NT$ ${Number(p.price).toLocaleString()}</p>
+      <p class="product-price-note">${priceNote}</p>
+
+      <div class="product-cta">
+        ${soldout
+          ? '<span class="btn-dark" style="opacity:0.45;pointer-events:none;">已售完</span>'
+          : `<a class="btn-dark" href="/?order=${p.code}#order">立即下單</a>`}
+        <a class="line-btn" href="${LINE_URL}" target="_blank">LINE 詢問</a>
+      </div>
+
+      ${p.description ? `<p class="product-desc">${p.description}</p>` : ''}
+
+      ${p.materials ? `
+      <div class="spec-block">
+        <p class="spec-label">花　材</p>
+        <p class="spec-val">${p.materials}</p>
+      </div>` : ''}
+
+      ${p.size ? `
+      <div class="spec-block">
+        <p class="spec-label">尺　寸</p>
+        <p class="spec-val">${p.size}<br><span style="font-size:0.7rem;opacity:0.7;">※ 尺寸為人工測量僅供參考，以實際商品為主</span></p>
+      </div>` : ''}
+
+      ${p.care ? `
+      <div class="spec-block">
+        <p class="spec-label">照護小提醒</p>
+        <p class="spec-val">${p.care}</p>
+      </div>` : ''}
+
+      <div class="accordion" style="margin-top:1rem;">
+        <div class="accordion-item">
+          <button class="accordion-head" onclick="this.parentElement.classList.toggle('open')">配送方式</button>
+          <div class="accordion-body">${SHARED_INFO.delivery}</div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-head" onclick="this.parentElement.classList.toggle('open')">卡片・賀詞</button>
+          <div class="accordion-body">${SHARED_INFO.card}</div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-head" onclick="this.parentElement.classList.toggle('open')">訂購須知</button>
+          <div class="accordion-body">${SHARED_INFO.notice}</div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  /* 相關花品：同類別其他 3 件 */
+  const related = all.filter(x => x.code !== p.code && (x.category || '花束') === cat).slice(0, 3);
+  if (related.length) {
+    document.getElementById('relatedWrap').style.display = 'block';
+    document.getElementById('relatedGrid').innerHTML = related.map(flowerCardHtml).join('');
+  }
+  observeReveal();
+}
+
+function swapPhoto(el, url) {
+  document.getElementById('mainPhoto').src = url;
+  document.querySelectorAll('.product-thumbs img').forEach(i => i.classList.remove('active'));
+  el.classList.add('active');
+}
+
+async function init() {
+  const code = new URLSearchParams(location.search).get('code');
+  try {
+    const all = await fetchProducts();
+    product = all.find(p => p.code === code);
+    if (!product) {
+      document.getElementById('productWrap').innerHTML =
+        '<p style="padding:4rem 0;color:var(--muted);">找不到這個花品，<a href="/" style="color:var(--green)">回到首頁</a> 看看其他作品吧。</p>';
+      return;
+    }
+    render(product, all);
+  } catch (e) {
+    document.getElementById('productWrap').innerHTML =
+      '<p style="padding:4rem 0;color:var(--muted);">花品載入中，請稍候...</p>';
+  }
+}
+init();
+</script>
+</body>
+</html>

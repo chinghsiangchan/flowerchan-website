@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>花藝課程｜Flower Chan 小花店</title>
+<meta name="description" content="小花店花藝課程：植栽組盆、親子花藝、永生花、節慶花圈。小班教學，台北大安區，LINE 詢問報名。">
+<link rel="icon" type="image/png" href="ICON.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+TC:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="/">FLOWER CHAN<small>小 花 店</small></a>
+  <ul class="nav-links">
+    <li><a href="/bouquet">花束</a></li>
+    <li><a href="/table-flower">桌花</a></li>
+    <li><a href="/flower-stand">高架花</a></li>
+    <li><a href="/orchid">蘭花</a></li>
+    <li><a href="/courses" class="current">課程</a></li>
+    <li><a href="/#about">關於</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <a class="nav-cta" href="/#order">立即預訂</a>
+    <button class="nav-toggle" onclick="toggleMobileMenu()" aria-label="選單">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/bouquet">花束 BOUQUET</a>
+  <a href="/table-flower">桌花 TABLE FLOWERS</a>
+  <a href="/flower-stand">高架花 FLOWER STANDS</a>
+  <a href="/orchid">蘭花 ORCHIDS</a>
+  <a href="/courses">課程 COURSES</a>
+  <a href="/#about">關於 ABOUT</a>
+</div>
+
+<section class="section" style="padding-top:calc(64px + 4rem);">
+  <div class="reveal">
+    <p class="sec-eyebrow">Floral Workshop</p>
+    <h2 class="sec-title">花藝課程</h2>
+    <p style="margin-top:1.6rem;font-size:0.92rem;color:var(--muted);font-weight:200;line-height:2.2;max-width:560px;">
+      小班教學，從入門到進階，在輕鬆愉快的氛圍中，學習花藝的溫柔語言。<br>
+      常態課程時間彈性預約，固定梯次課程依公告日期開課。
+    </p>
+  </div>
+  <div class="course-grid" id="courseGrid"></div>
+
+  <div style="margin-top:4rem;background:var(--cream-dark);padding:2.5rem;max-width:720px;" class="reveal">
+    <p class="notice-title">報名方式</p>
+    <div class="notice-item"><span class="notice-dot">1.</span><span>點選課程的「LINE 詢問報名」，告訴我們想上的課程與偏好時間。</span></div>
+    <div class="notice-item"><span class="notice-dot">2.</span><span>小花店與您確認時段與名額後，完成付款即報名成功。</span></div>
+    <div class="notice-item"><span class="notice-dot">3.</span><span>課程均含花材與工具，輕鬆前來即可。如需改期，請於課前 3 天告知。</span></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">FLOWER CHAN<small>小花店 · 讓每個時刻都有花的陪伴</small></div>
+  <div class="footer-links">
+    <a href="https://www.instagram.com/flowerchan_tw/" target="_blank">Instagram</a>
+    <a href="https://www.facebook.com/freshasdaisyflower" target="_blank">Facebook</a>
+    <a href="https://lin.ee/jZUeNhm" target="_blank">LINE</a>
+    <a href="tel:0223637539">02-2363-7539</a>
+  </div>
+  <p>© 2026 Flower Chan 小花店（小花序章企業社）· 台北市辛亥路二段43號1樓</p>
+</footer>
+
+<script src="/assets/site.js"></script>
+<script>
+async function init() {
+  try {
+    const courses = await fetchCourses();
+    document.getElementById('courseGrid').innerHTML = courses.map(courseCardHtml).join('');
+  } catch (e) {
+    document.getElementById('courseGrid').innerHTML =
+      '<p style="padding:2rem;color:var(--muted);font-size:0.85rem;">課程載入中，請稍候...</p>';
+  }
+  observeReveal();
+}
+init();
+observeReveal();
+</script>
+</body>
+</html>

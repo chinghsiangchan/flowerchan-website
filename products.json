@@ -13,7 +13,8 @@
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780024261/flowerchan/lszasbrg5jjfmbkuydjb.jpg",
-    "cloudinary_id": "flowerchan/lszasbrg5jjfmbkuydjb"
+    "cloudinary_id": "flowerchan/lszasbrg5jjfmbkuydjb",
+    "category": "花束"
   },
   {
     "code": "FC-002",
@@ -26,7 +27,8 @@
     ],
     "published": false,
     "photo": "DSCF3412.JPG",
-    "cloudinary_id": "DSCF3412_xskzin"
+    "cloudinary_id": "DSCF3412_xskzin",
+    "category": "花束"
   },
   {
     "code": "FC-003",
@@ -40,7 +42,8 @@
     ],
     "published": true,
     "photo": "DSCF3446.JPG",
-    "cloudinary_id": "DSCF3446_fynpeo"
+    "cloudinary_id": "DSCF3446_fynpeo",
+    "category": "花束"
   },
   {
     "code": "FC-004",
@@ -54,7 +57,8 @@
     ],
     "published": true,
     "photo": "DSCF3465.JPG",
-    "cloudinary_id": "DSCF3465_i9pgr7"
+    "cloudinary_id": "DSCF3465_i9pgr7",
+    "category": "花束"
   },
   {
     "code": "FC-005",
@@ -68,7 +72,8 @@
     ],
     "published": false,
     "photo": "DSCF3482.JPG",
-    "cloudinary_id": "DSCF3482_jv03w0"
+    "cloudinary_id": "DSCF3482_jv03w0",
+    "category": "花束"
   },
   {
     "code": "FC-006",
@@ -82,7 +87,8 @@
     ],
     "published": true,
     "photo": "DSCF3490.JPG",
-    "cloudinary_id": "DSCF3490_yto22l"
+    "cloudinary_id": "DSCF3490_yto22l",
+    "category": "花束"
   },
   {
     "code": "FC-007",
@@ -95,7 +101,8 @@
     ],
     "published": false,
     "photo": "DSCF3517.JPG",
-    "cloudinary_id": "DSCF3517_dvpskk"
+    "cloudinary_id": "DSCF3517_dvpskk",
+    "category": "花束"
   },
   {
     "code": "FC-008",
@@ -108,7 +115,8 @@
     ],
     "published": false,
     "photo": "DSCF3638.JPG",
-    "cloudinary_id": "DSCF3638_hckt3v"
+    "cloudinary_id": "DSCF3638_hckt3v",
+    "category": "花束"
   },
   {
     "code": "FC-009",
@@ -122,7 +130,8 @@
     ],
     "published": true,
     "photo": "DSCF3652.JPG",
-    "cloudinary_id": "DSCF3652_wn4aaf"
+    "cloudinary_id": "DSCF3652_wn4aaf",
+    "category": "花束"
   },
   {
     "code": "FC-010",
@@ -135,7 +144,8 @@
     ],
     "published": false,
     "photo": "DSCF3656.JPG",
-    "cloudinary_id": "DSCF3656_bo9bz7"
+    "cloudinary_id": "DSCF3656_bo9bz7",
+    "category": "花束"
   },
   {
     "code": "FC-011",
@@ -145,7 +155,8 @@
     "tags": [],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1779886548/flowerchan/aiiexgjndtnxns2wamdn.jpg",
-    "cloudinary_id": "flowerchan/aiiexgjndtnxns2wamdn"
+    "cloudinary_id": "flowerchan/aiiexgjndtnxns2wamdn",
+    "category": "花束"
   },
   {
     "code": "FC-012",
@@ -158,7 +169,8 @@
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780025822/flowerchan/aiu0xgvr5ox5ww5iwahx.jpg",
-    "cloudinary_id": "flowerchan/aiu0xgvr5ox5ww5iwahx"
+    "cloudinary_id": "flowerchan/aiu0xgvr5ox5ww5iwahx",
+    "category": "花束"
   },
   {
     "code": "FC-013",
@@ -168,7 +180,8 @@
     "tags": [],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780028383/flowerchan/osmhkgkirhjfy08o6igl.jpg",
-    "cloudinary_id": "flowerchan/osmhkgkirhjfy08o6igl"
+    "cloudinary_id": "flowerchan/osmhkgkirhjfy08o6igl",
+    "category": "花束"
   },
   {
     "code": "FC-014",
@@ -182,7 +195,8 @@
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780029081/flowerchan/mkvox3znorv4zwnd32u9.jpg",
-    "cloudinary_id": "flowerchan/mkvox3znorv4zwnd32u9"
+    "cloudinary_id": "flowerchan/mkvox3znorv4zwnd32u9",
+    "category": "花束"
   },
   {
     "code": "FC-015",
@@ -195,7 +209,9 @@
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780029348/flowerchan/etygvwjjo1qkjj48g75l.jpg",
-    "cloudinary_id": "flowerchan/etygvwjjo1qkjj48g75l"
+    "cloudinary_id": "flowerchan/etygvwjjo1qkjj48g75l",
+    "category": "花束",
+    "status": "售完"
   },
   {
     "code": "FC-016",
@@ -207,7 +223,8 @@
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780030075/flowerchan/pmmnylskg8ttnu1wnvdc.png",
-    "cloudinary_id": "flowerchan/pmmnylskg8ttnu1wnvdc"
+    "cloudinary_id": "flowerchan/pmmnylskg8ttnu1wnvdc",
+    "category": "花束"
   },
   {
     "code": "FC-017",
@@ -220,7 +237,8 @@
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780030571/flowerchan/zhwjd5eguzlq0bpz4spx.jpg",
-    "cloudinary_id": "flowerchan/zhwjd5eguzlq0bpz4spx"
+    "cloudinary_id": "flowerchan/zhwjd5eguzlq0bpz4spx",
+    "category": "花束"
   },
   {
     "code": "FC-018",
@@ -233,7 +251,8 @@
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780031102/flowerchan/fofqj0urnofwqqouozxv.jpg",
-    "cloudinary_id": "flowerchan/fofqj0urnofwqqouozxv"
+    "cloudinary_id": "flowerchan/fofqj0urnofwqqouozxv",
+    "category": "花束"
   },
   {
     "code": "FC-019",
@@ -248,7 +267,8 @@
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780031540/flowerchan/zrtuwtl6ltoeeudntfjw.jpg",
-    "cloudinary_id": "flowerchan/zrtuwtl6ltoeeudntfjw"
+    "cloudinary_id": "flowerchan/zrtuwtl6ltoeeudntfjw",
+    "category": "花束"
   },
   {
     "code": "FC-020",
@@ -262,7 +282,12 @@
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780044189/flowerchan/oagrp2yrqft1ob8nakzh.jpg",
-    "cloudinary_id": "flowerchan/oagrp2yrqft1ob8nakzh"
+    "cloudinary_id": "flowerchan/oagrp2yrqft1ob8nakzh",
+    "category": "花束",
+    "materials": "芍藥、玫瑰、桔梗、尤加利葉、季節配花",
+    "size": "花面直徑約 30 cm，整體高度約 45 cm",
+    "care": "每日換水並剪根 1 cm，置於通風陰涼處避免直曬。芍藥最佳觀賞期約 4–6 天，會從圓球花苞逐日綻放成大朵花面。",
+    "status": "預訂中"
   },
   {
     "code": "FC-021",
@@ -277,6 +302,7 @@
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780044297/flowerchan/ztbw2stgh7vbaztxwk4v.jpg",
-    "cloudinary_id": "flowerchan/ztbw2stgh7vbaztxwk4v"
+    "cloudinary_id": "flowerchan/ztbw2stgh7vbaztxwk4v",
+    "category": "花束"
   }
 ]
