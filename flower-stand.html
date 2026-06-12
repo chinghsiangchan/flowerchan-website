@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>高架花 FLOWER STANDS｜Flower Chan 小花店</title>
-<meta name="description" content="Flower Chan 小花店高架花系列作品。台北大安區手作花藝，歡迎線上訂購或 LINE 洽詢。">
+<title>高架花籃 FLOWER STANDS｜Flower Chan 小花店</title>
+<meta name="description" content="Flower Chan 小花店高架花籃系列作品。台北大安區手作花藝，歡迎線上訂購或 LINE 洽詢。">
 <link rel="icon" type="image/png" href="ICON.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+TC:wght@200;300;400&display=swap" rel="stylesheet">
@@ -17,9 +17,9 @@
   <ul class="nav-links">
     <li><a href="/bouquet">花束</a></li>
     <li><a href="/table-flower">桌花</a></li>
-    <li><a href="/flower-stand" class="current">高架花</a></li>
+    <li><a href="/flower-stand" class="current">高架花籃</a></li>
     <li><a href="/orchid">蘭花</a></li>
-    <li><a href="/courses">課程</a></li>
+    <li><a href="/courses">花藝課程</a></li>
     <li><a href="/#about">關於</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:1rem;">
@@ -32,16 +32,16 @@
 <div class="mobile-menu" id="mobileMenu">
   <a href="/bouquet">花束 BOUQUET</a>
   <a href="/table-flower">桌花 TABLE FLOWERS</a>
-  <a href="/flower-stand">高架花 FLOWER STANDS</a>
+  <a href="/flower-stand">高架花籃 FLOWER STANDS</a>
   <a href="/orchid">蘭花 ORCHIDS</a>
-  <a href="/courses">課程 COURSES</a>
+  <a href="/courses">花藝課程 COURSES</a>
   <a href="/#about">關於 ABOUT</a>
 </div>
 
 <section style="padding-top:64px;">
   <div class="gallery-header reveal">
     <p class="sec-eyebrow">Flower Stand Collection</p>
-    <h2 class="sec-title">高架花<span style="font-style:italic;color:var(--gold)"> · </span><span style="font-size:0.6em;letter-spacing:0.2em;">FLOWER STANDS</span></h2>
+    <h2 class="sec-title">高架花籃<span style="font-style:italic;color:var(--gold)"> · </span><span style="font-size:0.6em;letter-spacing:0.2em;">FLOWER STANDS</span></h2>
     <p style="margin-top:1.4rem;font-size:0.9rem;color:var(--muted);font-weight:200;line-height:2;">開幕誌慶、會場致意，以大器花藝傳達最隆重的心意。標示價格依實際尺寸略有差異，配送請先洽詢。</p>
   </div>
   <div class="filter-bar reveal" id="filterBar"></div>
@@ -52,14 +52,37 @@
 </section>
 
 <footer>
-  <div class="footer-brand"><img class="footer-logo" src="/FLOWERCHAN_WHITE.png" alt="Flower Chan">FLOWER CHAN<small>小花店 · 讓每個時刻都有花的陪伴</small></div>
-  <div class="footer-links">
-    <a href="https://www.instagram.com/flowerchan_tw/" target="_blank">Instagram</a>
-    <a href="https://www.facebook.com/freshasdaisyflower" target="_blank">Facebook</a>
-    <a href="https://lin.ee/jZUeNhm" target="_blank">LINE</a>
-    <a href="tel:0223637539">02-2363-7539</a>
+  <div class="footer-grid">
+    <div class="footer-col footer-brand-col">
+      <img class="footer-logo" src="/FLOWERCHAN_WHITE.png" alt="Flower Chan">
+      <p class="footer-tagline">小花店 · 讓每個時刻都有花的陪伴</p>
+    </div>
+    <div class="footer-col">
+      <p class="footer-head">花禮選品</p>
+      <a href="/bouquet">花束</a>
+      <a href="/table-flower">桌花</a>
+      <a href="/flower-stand">高架花籃</a>
+      <a href="/orchid">蘭花</a>
+    </div>
+    <div class="footer-col">
+      <p class="footer-head">服務</p>
+      <a href="/courses">花藝課程</a>
+      <a href="/#order">訂購方式</a>
+      <a href="/#about">關於小花店</a>
+    </div>
+    <div class="footer-col">
+      <p class="footer-head">聯絡我們</p>
+      <p class="footer-info">TEL: <a href="tel:0223637539">02-2363-7539</a></p>
+      <p class="footer-info">台北市辛亥路二段43號1樓</p>
+      <p class="footer-info">預約制 · 歡迎私訊預約</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/flowerchan_tw/" target="_blank">Instagram</a>
+        <a href="https://www.facebook.com/freshasdaisyflower" target="_blank">Facebook</a>
+        <a href="https://lin.ee/jZUeNhm" target="_blank">LINE</a>
+      </div>
+    </div>
   </div>
-  <p>© 2026 Flower Chan 小花店（小花序章企業社）· 台北市辛亥路二段43號1樓</p>
+  <div class="footer-bottom">© 2026 Flower Chan 小花店（小花序章企業社）· 台北市辛亥路二段43號1樓</div>
 </footer>
 
 <script src="/assets/site.js"></script>
@@ -90,7 +113,7 @@ function renderGrid() {
   if (!list.length) {
     grid.innerHTML = `<div style="grid-column:1/-1;background:var(--cream);padding:5rem 8vw;text-align:center;">
       <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.2rem;color:var(--muted);margin-bottom:1rem;">Coming Soon</p>
-      <p style="font-size:0.85rem;color:var(--muted);font-weight:200;line-height:2;">高架花作品即將上架。<br>想先看看或有急件需求，歡迎直接與我們聯繫。</p>
+      <p style="font-size:0.85rem;color:var(--muted);font-weight:200;line-height:2;">高架花籃作品即將上架。<br>想先看看或有急件需求，歡迎直接與我們聯繫。</p>
       <a class="line-btn" href="https://lin.ee/jZUeNhm" target="_blank" style="margin-top:1.6rem;">LINE 洽詢</a>
     </div>`;
     return;

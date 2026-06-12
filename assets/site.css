@@ -325,3 +325,21 @@ section > .gallery-grid{margin:0 8vw;}
   .course-row:nth-child(even) .cr-body{order:1;}
   .cr-num{font-size:4rem;top:-1.2rem;}
 }
+
+/* ─── 三欄式 FOOTER ─── */
+footer{display:block;padding:4rem 8vw 1.5rem;}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.4fr;gap:3rem;padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,0.12);}
+.footer-brand-col .footer-logo{height:72px;margin-bottom:14px;}
+.footer-tagline{font-size:0.72rem;letter-spacing:0.22em;color:rgba(255,255,255,0.45);font-weight:200;line-height:2;}
+.footer-head{font-size:0.68rem;letter-spacing:0.3em;color:var(--gold);margin-bottom:1.1rem;font-weight:300;}
+.footer-col a{display:block;font-size:0.78rem;color:rgba(255,255,255,0.55);text-decoration:none;letter-spacing:0.12em;font-weight:200;padding:0.35rem 0;transition:color 0.3s;}
+.footer-col a:hover{color:#fff;}
+.footer-info{font-size:0.78rem;color:rgba(255,255,255,0.55);letter-spacing:0.08em;font-weight:200;line-height:2.1;}
+.footer-info a{display:inline;padding:0;color:rgba(255,255,255,0.75);}
+.footer-social{display:flex;gap:1.2rem;margin-top:0.9rem;}
+.footer-social a{display:inline;padding:0;}
+.footer-bottom{padding-top:1.5rem;font-size:0.65rem;color:rgba(255,255,255,0.28);font-weight:200;letter-spacing:0.06em;text-align:center;}
+@media(max-width:860px){
+  .footer-grid{grid-template-columns:1fr 1fr;gap:2rem;}
+  .footer-brand-col{grid-column:1/-1;}
+}
