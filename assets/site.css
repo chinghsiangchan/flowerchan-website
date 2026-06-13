@@ -478,3 +478,25 @@ footer{display:block;padding:4rem 8vw 1.5rem;}
 /* lightbox 放大圖真正滿版 */
 .lightbox img{max-width:94vw;max-height:92vh;width:auto;height:auto;}
 .lightbox.open{cursor:zoom-out;}
+
+/* ═══ v5：立即下單跟類別色（淺色加深確保白字可讀）+ A11y ═══ */
+/* 類別「實心按鈕」用加深版底色，白字對比足夠 */
+.flower-card.cat-bouquet .btn-main{background:#C9607A;}      /* 玫瑰粉（加深，白字可讀） */
+.flower-card.cat-bouquet .btn-main:hover{background:#B14E68;}
+.flower-card.cat-table .btn-main{background:#3A6B53;}        /* 葉綠 */
+.flower-card.cat-table .btn-main:hover{background:#2D4A3E;}
+.flower-card.cat-stand .btn-main{background:#B8862B;}        /* 加深琥珀金 */
+.flower-card.cat-stand .btn-main:hover{background:#9C7223;}
+.flower-card.cat-orchid .btn-main{background:#7E5A9E;}       /* 加深紫 */
+.flower-card.cat-orchid .btn-main:hover{background:#6A4A88;}
+/* 查看詳情邊框跟類別色 */
+.flower-card .btn-line2{border-color:var(--accent);color:var(--accent);}
+.flower-card .btn-line2:hover{background:var(--accent);color:#fff;}
+
+/* 焦點可見（鍵盤無障礙） */
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+
+/* 載入骨架 */
+.skeleton{background:linear-gradient(100deg,#F0EBE0 30%,#F7F3EA 50%,#F0EBE0 70%);background-size:200% 100%;animation:sk 1.4s ease-in-out infinite;border-radius:var(--radius);}
+@keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.sk-card{aspect-ratio:3/4;}
