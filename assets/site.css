@@ -357,8 +357,8 @@ footer{display:block;padding:4rem 8vw 1.5rem;}
 
 /* 5. 花品卡類別色記號 */
 .flower-card{--accent:var(--pink);}
-.flower-card.cat-bouquet{--accent:#E8A08E;}
-.flower-card.cat-table{--accent:#5C8A72;}
+.flower-card.cat-bouquet{--accent:#5C8A72;}
+.flower-card.cat-table{--accent:#E8A08E;}
 .flower-card.cat-stand{--accent:#C9952F;}
 .flower-card.cat-orchid{--accent:#9B7FB6;}
 .flower-card .flower-code{color:var(--accent);font-weight:400;}
@@ -426,8 +426,8 @@ footer{display:block;padding:4rem 8vw 1.5rem;}
 
 /* 3. 花品卡類別緞帶＋卡身淡染＋色條加粗 */
 .flower-card{border-top:5px solid var(--accent);}
-.flower-card.cat-bouquet{background:#FFFCFB;}
-.flower-card.cat-table{background:#FBFCFB;}
+.flower-card.cat-bouquet{background:#FBFCFB;}
+.flower-card.cat-table{background:#FFFCFB;}
 .flower-card.cat-stand{background:#FFFDF8;}
 .flower-card.cat-orchid{background:#FDFBFE;}
 .cat-ribbon{position:absolute;top:14px;right:0;z-index:2;background:var(--accent);color:#fff;font-size:0.66rem;letter-spacing:0.14em;font-weight:300;padding:5px 14px 5px 16px;border-radius:999px 0 0 999px;box-shadow:0 2px 8px rgba(0,0,0,0.12);}
@@ -481,10 +481,10 @@ footer{display:block;padding:4rem 8vw 1.5rem;}
 
 /* ═══ v5：立即下單跟類別色（淺色加深確保白字可讀）+ A11y ═══ */
 /* 類別「實心按鈕」用加深版底色，白字對比足夠 */
-.flower-card.cat-bouquet .btn-main{background:#C9607A;}      /* 玫瑰粉（加深，白字可讀） */
-.flower-card.cat-bouquet .btn-main:hover{background:#B14E68;}
-.flower-card.cat-table .btn-main{background:#3A6B53;}        /* 葉綠 */
-.flower-card.cat-table .btn-main:hover{background:#2D4A3E;}
+.flower-card.cat-bouquet .btn-main{background:#3A6B53;}      /* 葉綠 */
+.flower-card.cat-bouquet .btn-main:hover{background:#2D4A3E;}
+.flower-card.cat-table .btn-main{background:#C9607A;}        /* 玫瑰粉（加深，白字可讀） */
+.flower-card.cat-table .btn-main:hover{background:#B14E68;}
 .flower-card.cat-stand .btn-main{background:#B8862B;}        /* 加深琥珀金 */
 .flower-card.cat-stand .btn-main:hover{background:#9C7223;}
 .flower-card.cat-orchid .btn-main{background:#7E5A9E;}       /* 加深紫 */
