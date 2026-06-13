@@ -44,12 +44,15 @@ function statusBadge(p) {
 }
 
 /* 花品卡片 HTML（共用：首頁精選、類別頁） */
+const CAT_CLASS = { '花束': 'cat-bouquet', '桌花': 'cat-table', '高架花': 'cat-stand', '蘭花': 'cat-orchid' };
+
 function flowerCardHtml(p) {
   const soldout = p.status === '售完';
+  const catClass = CAT_CLASS[p.category || '花束'] || 'cat-bouquet';
   const priceNote = p.category === '高架花'
     ? ' <small>依實際尺寸略有差異</small>' : '';
   return `
-    <div class="flower-card reveal">
+    <div class="flower-card reveal ${catClass}">
       ${statusBadge(p)}
       <a class="flower-link" href="/product.html?code=${p.code}">
         <img class="flower-photo${soldout ? ' dimmed' : ''}" src="${getPhotoUrl(p)}" alt="${p.name}"

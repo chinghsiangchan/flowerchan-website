@@ -49,6 +49,7 @@
   </div>
 </div>
 
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')"><img id="lightboxImg" src="" alt="放大檢視"></div>
 <footer>
   <div class="footer-grid">
     <div class="footer-col footer-brand-col">
@@ -137,7 +138,7 @@ function render(p, all) {
     <div class="product-photos">
       <div style="position:relative;">
         ${statusBadge(p)}
-        <img class="product-photo-main${soldout ? ' dimmed' : ''}" id="mainPhoto" src="${photos[0]}" alt="${p.name}">
+        <img class="product-photo-main${soldout ? ' dimmed' : ''}" id="mainPhoto" src="${photos[0]}" alt="${p.name}" onclick="openLightbox(this.src)">
       </div>
       ${photos.length > 1 ? `
       <div class="product-thumbs">
@@ -204,6 +205,10 @@ function render(p, all) {
   observeReveal();
 }
 
+function openLightbox(src) {
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('open');
+}
 function swapPhoto(el, url) {
   document.getElementById('mainPhoto').src = url;
   document.querySelectorAll('.product-thumbs img').forEach(i => i.classList.remove('active'));
@@ -228,5 +233,8 @@ async function init() {
 }
 init();
 </script>
+<a class="fab-line" href="https://lin.ee/jZUeNhm" target="_blank" aria-label="LINE 詢問">
+<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 5.64 2 10.1c0 2.57 1.49 4.85 3.82 6.33-.13.46-.66 2.37-.69 2.53 0 0-.01.11.06.16.07.04.16.02.16.02.21-.03 2.44-1.6 3.4-2.27.74.11 1.49.16 2.25.16 5.52 0 10-3.64 10-8.13S17.52 2 12 2z"/></svg>
+</a>
 </body>
 </html>
