@@ -166,3 +166,23 @@ function setupImageZoom(img) {
   img.addEventListener('mouseleave', () => { img.style.transform = ''; img.classList.remove('zoomed'); });
   img.addEventListener('touchmove', (e) => { if (isZoomed()) { setOrigin(e); e.preventDefault(); } }, { passive: false });
 }
+
+/* ── 縮圖翻頁列：內容塞不滿時自動隱藏箭頭 ── */
+function setupThumbCarousel() {
+  const track = document.getElementById('thumbTrack');
+  if (!track) return;
+  const row = track.closest('.thumb-row');
+  const arrows = row ? row.querySelectorAll('.thumb-arrow') : [];
+  const update = () => {
+    const overflow = track.scrollWidth > track.clientWidth + 4;   // 真的有東西被藏起來才顯示箭頭
+    arrows.forEach(a => { a.style.display = overflow ? '' : 'none'; });
+  };
+  update();
+  window.addEventListener('resize', update);
+}
+
+/* 縮圖翻頁：一次移動一整個可視寬度 */
+function scrollThumbs(dir) {
+  const tr = document.getElementById('thumbTrack');
+  if (tr) tr.scrollBy({ left: dir * tr.clientWidth, behavior: 'smooth' });
+}

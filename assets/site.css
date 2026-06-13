@@ -519,3 +519,15 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   /* 縮圖列以主圖寬度為基準橫向捲動 */
   .thumb-track img{width:72px;height:72px;}
 }
+
+/* ═══ v7：縮圖翻頁式 carousel + 桌機主圖收斂 ═══ */
+/* 縮圖視窗：桌機一次顯示約 5 張、手機約 4 張，置中對齊主圖下方；超出才捲動，箭頭由 JS 控制顯隱 */
+.thumb-row{justify-content:center;}
+.thumb-track{flex:0 1 auto;max-width:calc(84px * 5 + 0.7rem * 4);}
+@media(max-width:768px){
+  .thumb-track{max-width:calc(72px * 4 + 0.7rem * 3);}
+}
+/* 桌機主圖收斂，不再佔滿整個螢幕高 */
+@media(min-width:769px){
+  .product-photo-main{max-height:68vh;}
+}

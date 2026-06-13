@@ -222,15 +222,12 @@ function render(p, all) {
   }
   observeReveal();
   setupImageZoom(document.getElementById('mainPhoto'));
+  setupThumbCarousel();
 }
 
 function openLightbox(src) {
   document.getElementById('lightboxImg').src = src;
   document.getElementById('lightbox').classList.add('open');
-}
-function scrollThumbs(dir) {
-  const tr = document.getElementById('thumbTrack');
-  if (tr) tr.scrollBy({ left: dir * 200, behavior: 'smooth' });
 }
 function swapPhoto(el, url) {
   const main = document.getElementById('mainPhoto');
