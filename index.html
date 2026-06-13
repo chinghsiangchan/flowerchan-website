@@ -53,6 +53,8 @@
 <!-- 輪播 HERO（banners.json 驅動：節慶/活動/品牌形象，自動切換） -->
 <div class="hero-carousel" id="heroCarousel">
   <div class="hc-track" id="hcTrack"></div>
+  <button class="hc-arrow hc-prev" id="hcPrev" onclick="hcStep(-1)" aria-label="上一張">‹</button>
+  <button class="hc-arrow hc-next" id="hcNext" onclick="hcStep(1)" aria-label="下一張">›</button>
   <div class="hc-dots" id="hcDots"></div>
 </div>
 
@@ -553,16 +555,44 @@ async function initBanner() {
         </div>` : ''}
       </a>`).join('');
     document.getElementById('hcDots').innerHTML = act.map((_, i) =>
-      `<button class="hc-dot${i === 0 ? ' active' : ''}" onclick="hcGo(${i});event.preventDefault();" aria-label="第${i + 1}張"></button>`).join('');
+      `<button class="hc-dot${i === 0 ? ' active' : ''}" onclick="hcGoUser(${i})" aria-label="第${i + 1}張"></button>`).join('');
     hcCount = act.length;
     document.getElementById('heroCarousel').classList.add('show');
-    if (hcCount > 1) hcTimer = setInterval(() => hcGo((hcIndex + 1) % hcCount), 5000);
+    // 單張時隱藏箭頭與圓點
+    const multi = hcCount > 1;
+    ['hcPrev', 'hcNext'].forEach(id => { const el = document.getElementById(id); if (el) el.style.display = multi ? '' : 'none'; });
+    document.getElementById('hcDots').style.display = multi ? '' : 'none';
+    setupHcSwipe();
+    hcStart();
   } catch (e) { /* 無 banner 時靜默 */ }
 }
 function hcGo(i) {
-  hcIndex = i;
-  document.getElementById('hcTrack').style.transform = `translateX(-${i * 100}%)`;
-  document.querySelectorAll('.hc-dot').forEach((d, j) => d.classList.toggle('active', j === i));
+  hcIndex = (i + hcCount) % hcCount;
+  document.getElementById('hcTrack').style.transform = `translateX(-${hcIndex * 100}%)`;
+  document.querySelectorAll('.hc-dot').forEach((d, j) => d.classList.toggle('active', j === hcIndex));
+}
+/* 自動輪播計時（每次重設＝手動操作後不會馬上被搶走） */
+function hcStart() {
+  if (hcTimer) clearInterval(hcTimer);
+  if (hcCount > 1) hcTimer = setInterval(() => hcGo(hcIndex + 1), 5000);
+}
+/* 使用者手動切換：翻頁 + 重設計時 */
+function hcStep(dir) { hcGo(hcIndex + dir); hcStart(); }
+function hcGoUser(i) { hcGo(i); hcStart(); }
+/* 手機滑動翻頁 */
+function setupHcSwipe() {
+  const tr = document.getElementById('hcTrack');
+  if (!tr || tr.dataset.swipeBound) return;
+  tr.dataset.swipeBound = '1';
+  let sx = 0, moved = false;
+  tr.addEventListener('touchstart', e => { sx = e.touches[0].clientX; moved = false; }, { passive: true });
+  tr.addEventListener('touchmove', e => { if (Math.abs(e.touches[0].clientX - sx) > 10) moved = true; }, { passive: true });
+  tr.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 40) hcStep(dx < 0 ? 1 : -1);
+  });
+  // 滑動後不要誤觸 banner 連結
+  tr.addEventListener('click', e => { if (moved) { e.preventDefault(); moved = false; } }, true);
 }
 
 /* ?order=FC-xxx 由其他頁帶入花品 */

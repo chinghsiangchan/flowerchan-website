@@ -234,6 +234,8 @@ function swapPhoto(el, url) {
   main.src = url;
   main.style.transform = '';            // 換圖時還原放大狀態
   main.classList.remove('zoomed');
+  const mini = main.closest('.zoom-frame') && main.closest('.zoom-frame').querySelector('.zoom-mini');
+  if (mini) mini.classList.remove('show');   // 收起 minimap
   document.querySelectorAll('.thumb-track img').forEach(i => i.classList.remove('active'));
   el.classList.add('active');
 }

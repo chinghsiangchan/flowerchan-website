@@ -531,3 +531,29 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 @media(min-width:769px){
   .product-photo-main{max-height:68vh;}
 }
+
+/* ═══ v8：放大 2x minimap 定位框 + 首頁輪播手動翻頁 + 類別頁 hero 排版 ═══ */
+
+/* (1) minimap 定位框：放大時右下角浮出整張縮圖，金框標示目前檢視區塊 */
+.zoom-mini{position:absolute;right:10px;bottom:10px;width:88px;border:2px solid rgba(255,255,255,0.92);border-radius:6px;overflow:hidden;box-shadow:0 4px 16px rgba(45,74,62,0.35);display:none;cursor:crosshair;z-index:6;background:var(--cream-dark);}
+.zoom-mini.show{display:block;}
+.zoom-mini img{display:block;width:100%;height:auto;pointer-events:none;}
+.zoom-mini-box{position:absolute;border:2px solid var(--gold);background:rgba(232,184,75,0.14);box-sizing:border-box;pointer-events:none;}
+@media(max-width:768px){.zoom-mini{width:72px;right:8px;bottom:8px;}}
+
+/* (2) 首頁輪播左右箭頭 */
+.hc-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:4;width:44px;height:44px;border-radius:50%;border:none;background:rgba(255,255,255,0.32);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#fff;font-family:'Cormorant Garamond',serif;font-size:1.7rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.25s;}
+.hc-arrow:hover{background:rgba(255,255,255,0.55);}
+.hc-prev{left:16px;}
+.hc-next{right:16px;}
+@media(max-width:768px){.hc-arrow{width:34px;height:34px;font-size:1.3rem;}.hc-prev{left:8px;}.hc-next{right:8px;}}
+
+/* (3) 類別頁 hero：英文大寫主標（Cormorant 拉間距）+ 中文小副標，可選照片底 */
+.cat-hero{margin-top:64px;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;min-height:46vh;padding:4rem 8vw;background:linear-gradient(160deg,var(--green) 0%,#22392f 100%);overflow:hidden;}
+.cat-hero--photo::before{content:'';position:absolute;inset:0;background-image:var(--hero-img);background-size:cover;background-position:center;}
+.cat-hero--photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(34,46,38,0.32),rgba(34,46,38,0.58));}
+.cat-hero-inner{position:relative;z-index:2;color:#fff;}
+.cat-hero-eyebrow{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.82rem;letter-spacing:0.34em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:1.3rem;}
+.cat-hero-en{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2.6rem,7vw,5.4rem);letter-spacing:0.24em;text-indent:0.24em;line-height:1;text-transform:uppercase;margin:0;text-shadow:0 2px 18px rgba(45,74,62,0.4);}
+.cat-hero-zh{font-family:'Noto Serif TC',serif;font-weight:200;font-size:clamp(0.85rem,1.6vw,1.05rem);letter-spacing:0.26em;margin-top:1.5rem;opacity:0.94;}
+@media(max-width:768px){.cat-hero{min-height:38vh;}}

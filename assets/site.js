@@ -145,26 +145,79 @@ function observeReveal() {
   els.forEach(el => obs.observe(el));
 }
 
-/* ── 內頁主圖：電商式就地放大（點擊放大 1.8x，拖曳看局部，再點還原）── */
+/* ── 內頁主圖：電商式就地放大（點擊放大 2x，拖曳看局部，再點還原）
+   附 minimap 定位框：放大時右下角浮出縮圖，白框標示目前檢視區塊，可點縮圖移動 ── */
 function setupImageZoom(img) {
   if (!img || img.dataset.zoomBound) return;
   img.dataset.zoomBound = '1';          // 避免重複綁定
-  const ZOOM = 1.8;
-  const isZoomed = () => img.classList.contains('zoomed');   // 以 class 為唯一狀態來源
-  const setOrigin = (e) => {
+  const ZOOM = 2;
+  const VIEW = 1 / ZOOM;                  // 放大時可視範圍占整張的比例（2x → 一半）
+  const frame = img.closest('.zoom-frame') || img.parentElement;
+
+  // 建立 minimap（縮圖 + 定位框），每個 frame 只建一次
+  let mini = frame.querySelector('.zoom-mini');
+  if (!mini) {
+    mini = document.createElement('div');
+    mini.className = 'zoom-mini';
+    mini.innerHTML = '<img alt=""><span class="zoom-mini-box"></span>';
+    frame.appendChild(mini);
+  }
+  const miniImg = mini.querySelector('img');
+  const miniBox = mini.querySelector('.zoom-mini-box');
+
+  let ox = 50, oy = 50;                    // transform-origin（%）
+  const isZoomed = () => img.classList.contains('zoomed');
+
+  const apply = () => {
+    img.style.transformOrigin = ox + '% ' + oy + '%';
+    // 定位框：左/上 = origin*(1-VIEW)，寬/高 = VIEW
+    miniBox.style.left   = (ox * (1 - VIEW)) + '%';
+    miniBox.style.top    = (oy * (1 - VIEW)) + '%';
+    miniBox.style.width  = (VIEW * 100) + '%';
+    miniBox.style.height = (VIEW * 100) + '%';
+  };
+
+  const setOriginFromImg = (e) => {
     const r = img.getBoundingClientRect();
     const pt = e.touches && e.touches[0] ? e.touches[0] : e;
-    const px = Math.max(0, Math.min(100, (pt.clientX - r.left) / r.width * 100));
-    const py = Math.max(0, Math.min(100, (pt.clientY - r.top) / r.height * 100));
-    img.style.transformOrigin = px + '% ' + py + '%';
+    ox = Math.max(0, Math.min(100, (pt.clientX - r.left) / r.width * 100));
+    oy = Math.max(0, Math.min(100, (pt.clientY - r.top) / r.height * 100));
+    apply();
   };
-  img.addEventListener('click', (e) => {
-    if (isZoomed()) { img.style.transform = ''; img.classList.remove('zoomed'); }
-    else { setOrigin(e); img.style.transform = 'scale(' + ZOOM + ')'; img.classList.add('zoomed'); }
-  });
-  img.addEventListener('mousemove', (e) => { if (isZoomed()) setOrigin(e); });
-  img.addEventListener('mouseleave', () => { img.style.transform = ''; img.classList.remove('zoomed'); });
-  img.addEventListener('touchmove', (e) => { if (isZoomed()) { setOrigin(e); e.preventDefault(); } }, { passive: false });
+
+  const zoomIn = () => {
+    img.style.transform = 'scale(' + ZOOM + ')';
+    img.classList.add('zoomed');
+    miniImg.src = img.currentSrc || img.src;
+    mini.classList.add('show');
+    apply();
+  };
+  const zoomOut = () => {
+    img.style.transform = '';
+    img.classList.remove('zoomed');
+    mini.classList.remove('show');
+  };
+
+  img.addEventListener('click', (e) => { isZoomed() ? zoomOut() : (setOriginFromImg(e), zoomIn()); });
+  img.addEventListener('mousemove', (e) => { if (isZoomed()) setOriginFromImg(e); });
+  // 離開整個 frame 才還原（移到 minimap 上不會被重置）
+  frame.addEventListener('mouseleave', () => { if (isZoomed()) zoomOut(); });
+  img.addEventListener('touchmove', (e) => { if (isZoomed()) { setOriginFromImg(e); e.preventDefault(); } }, { passive: false });
+
+  // 點 / 拖 minimap 移動檢視區塊（以點擊點為中心）
+  const panFromMini = (e) => {
+    const r = mini.getBoundingClientRect();
+    const pt = e.touches && e.touches[0] ? e.touches[0] : e;
+    const mx = Math.max(0, Math.min(1, (pt.clientX - r.left) / r.width));
+    const my = Math.max(0, Math.min(1, (pt.clientY - r.top) / r.height));
+    // 讓點擊點成為可視範圍中心：center = origin*(1-VIEW)+VIEW/2 = m
+    ox = Math.max(0, Math.min(100, (mx - VIEW / 2) / (1 - VIEW) * 100));
+    oy = Math.max(0, Math.min(100, (my - VIEW / 2) / (1 - VIEW) * 100));
+    if (!isZoomed()) zoomIn(); else apply();
+  };
+  mini.addEventListener('click', (e) => { e.stopPropagation(); panFromMini(e); });
+  mini.addEventListener('mousemove', (e) => { if (e.buttons & 1) { e.stopPropagation(); panFromMini(e); } });
+  mini.addEventListener('touchmove', (e) => { e.stopPropagation(); e.preventDefault(); panFromMini(e); }, { passive: false });
 }
 
 /* ── 縮圖翻頁列：內容塞不滿時自動隱藏箭頭 ── */
