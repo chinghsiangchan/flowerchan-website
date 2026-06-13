@@ -38,6 +38,7 @@
 </div>
 
 <div class="course-page">
+  <a class="back-link" href="/courses">← 回到課程列表</a>
   <div class="breadcrumb" id="breadcrumb"></div>
   <div id="courseWrap"></div>
 
@@ -117,8 +118,12 @@ function render(c, all) {
         ? `<img class="product-photo-main" id="mainPhoto" src="${photos[0]}" alt="${c.name}" style="aspect-ratio:4/3;" onclick="openLightbox(this.src)">`
         : '<div class="course-photo-placeholder" style="aspect-ratio:4/3;border-radius:var(--radius);font-size:3rem;">🌿</div>'}
       ${photos.length > 1 ? `
-      <div class="product-thumbs">
-        ${photos.map((u, i) => `<img src="${u}" class="${i === 0 ? 'active' : ''}" onclick="swapPhoto(this,'${u}')" alt="${c.name} ${i + 1}">`).join('')}
+      <div class="thumb-row">
+        <button class="thumb-arrow" onclick="scrollThumbs(-1)" aria-label="上一張">‹</button>
+        <div class="thumb-track" id="thumbTrack">
+          ${photos.map((u, i) => `<img src="${u}" class="${i === 0 ? 'active' : ''}" onclick="swapPhoto(this,'${u}')" alt="${c.name} ${i + 1}">`).join('')}
+        </div>
+        <button class="thumb-arrow" onclick="scrollThumbs(1)" aria-label="下一張">›</button>
       </div>` : ''}
     </div>
     <div class="product-info">
@@ -142,8 +147,8 @@ function render(c, all) {
 
       <div class="product-cta">
         ${closed
-          ? '<span class="btn-dark" style="opacity:0.45;pointer-events:none;">本期已截止</span>'
-          : `<a class="line-btn" href="${LINE_URL}" target="_blank">LINE 詢問報名</a>`}
+          ? '<span class="btn-main disabled">本期已截止</span>'
+          : `<a class="btn-line2 is-line" href="${LINE_URL}" target="_blank">LINE 詢問報名</a>`}
       </div>
 
       <div class="accordion" style="margin-top:1rem;">
@@ -177,6 +182,10 @@ function render(c, all) {
 function openLightbox(src) {
   document.getElementById('lightboxImg').src = src;
   document.getElementById('lightbox').classList.add('open');
+}
+function scrollThumbs(dir) {
+  const tr = document.getElementById('thumbTrack');
+  if (tr) tr.scrollBy({ left: dir * 200, behavior: 'smooth' });
 }
 function swapPhoto(el, url) {
   document.getElementById('mainPhoto').src = url;

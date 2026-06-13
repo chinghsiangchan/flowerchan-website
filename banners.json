@@ -8,7 +8,8 @@
     "image": "https://res.cloudinary.com/dcwgv05q1/image/upload/w_1600,h_640,c_fill,q_auto,f_auto/flowerchan/zhwjd5eguzlq0bpz4spx",
     "start": "2026-05-20",
     "end": "2026-06-30",
-    "published": true
+    "published": true,
+    "eyebrow": "Graduation Season"
   },
   {
     "id": "brand-default",
@@ -18,7 +19,8 @@
     "link": "/#categories",
     "image": "https://res.cloudinary.com/dcwgv05q1/image/upload/w_1600,h_640,c_fill,q_auto,f_auto/flowerchan/oagrp2yrqft1ob8nakzh",
     "always": true,
-    "published": true
+    "published": true,
+    "eyebrow": "Flower Chan · Taipei"
   },
   {
     "id": "course-promo",
@@ -28,7 +30,8 @@
     "link": "/courses",
     "image": "https://res.cloudinary.com/dcwgv05q1/image/upload/w_1600,h_640,c_fill,q_auto,f_auto/flowerchan/mkvox3znorv4zwnd32u9",
     "always": true,
-    "published": true
+    "published": true,
+    "eyebrow": "Floral Workshop"
   },
   {
     "id": "qixi-2026",
@@ -39,6 +42,7 @@
     "image": "https://res.cloudinary.com/dcwgv05q1/image/upload/w_1600,h_640,c_fill,q_auto,f_auto/flowerchan/lszasbrg5jjfmbkuydjb",
     "start": "2026-08-01",
     "end": "2026-08-19",
-    "published": true
+    "published": true,
+    "eyebrow": "Qixi Festival"
   }
 ]

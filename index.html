@@ -113,21 +113,21 @@
       <h3 class="svc-title">婚禮花藝</h3>
       <p class="svc-desc">捧花、頭花、胸花、會場佈置，從細節到全場，陪你走過最美麗的一天。</p>
       <span class="svc-tag">全包服務</span>
-      <div style="margin-top:1.4rem;"><a class="line-btn" style="padding:9px 22px;font-size:0.68rem;" href="https://lin.ee/jZUeNhm" target="_blank">LINE 洽詢</a></div>
+      <div style="margin-top:1.4rem;"><a class="btn-line2 is-line" href="https://lin.ee/jZUeNhm" target="_blank">LINE 洽詢</a></div>
     </div>
     <div class="service-card">
       <span class="svc-num">02</span>
       <h3 class="svc-title">空間佈置・企業週花</h3>
       <p class="svc-desc">企業活動、開幕花籃、辦公室每週鮮花陳設，讓花藝成為空間的語言。</p>
       <span class="svc-tag">商業合作</span>
-      <div style="margin-top:1.4rem;"><a class="line-btn" style="padding:9px 22px;font-size:0.68rem;" href="https://lin.ee/jZUeNhm" target="_blank">LINE 洽詢</a></div>
+      <div style="margin-top:1.4rem;"><a class="btn-line2 is-line" href="https://lin.ee/jZUeNhm" target="_blank">LINE 洽詢</a></div>
     </div>
     <div class="service-card">
       <span class="svc-num">03</span>
       <h3 class="svc-title">生活選物</h3>
       <p class="svc-desc">精選與花藝相搭的生活器物、香氛與禮品，讓美好的感受延伸到日常每一處。</p>
       <span class="svc-tag">精品選品</span>
-      <div style="margin-top:1.4rem;"><a class="line-btn" style="padding:9px 22px;font-size:0.68rem;" href="https://lin.ee/jZUeNhm" target="_blank">LINE 洽詢</a></div>
+      <div style="margin-top:1.4rem;"><a class="btn-line2 is-line" href="https://lin.ee/jZUeNhm" target="_blank">LINE 洽詢</a></div>
     </div>
   </div>
 </section>
@@ -533,12 +533,14 @@ async function initBanner() {
     if (!act.length) return;
     document.getElementById('hcTrack').innerHTML = act.map(b => `
       <a class="hc-slide" href="${b.link || '#'}">
-        <img src="${b.image}" alt="${b.title}">
+        <img src="${b.image}" alt="${b.title || 'Flower Chan'}">
+        ${b.title || b.subtitle || b.cta ? `
         <div class="hc-overlay">
-          <p class="hc-title hc-title-zh">${b.title}</p>
+          ${b.eyebrow ? `<p class="hc-eyebrow">${b.eyebrow}</p>` : ''}
+          ${b.title ? `<p class="hc-title hc-title-zh">${b.title}</p>` : ''}
           ${b.subtitle ? `<p class="hc-sub">${b.subtitle}</p>` : ''}
           ${b.cta ? `<span class="hc-cta">${b.cta}</span>` : ''}
-        </div>
+        </div>` : ''}
       </a>`).join('');
     document.getElementById('hcDots').innerHTML = act.map((_, i) =>
       `<button class="hc-dot${i === 0 ? ' active' : ''}" onclick="hcGo(${i});event.preventDefault();" aria-label="第${i + 1}張"></button>`).join('');
@@ -607,7 +609,7 @@ async function checkAcceptingOrders() {
         <div class="closed-notice">
           <h3>🌸 本檔期已滿單</h3>
           <p>${s.closed_message || '感謝大家的喜愛，目前訂單已滿。<br>歡迎透過 LINE 詢問下一檔期，或追蹤 IG 獲得最新消息。'}</p>
-          <a class="line-btn" href="${LINE_URL}" target="_blank" style="margin-top:1.4rem;">LINE 詢問</a>
+          <a class="btn-line2 is-line" href="${LINE_URL}" target="_blank" style="margin-top:1.4rem;">LINE 詢問</a>
         </div>`;
     }
   } catch (e) { /* 無設定檔時照常 */ }
@@ -623,6 +625,13 @@ async function init() {
   const orderCode = params.get('order');
   if (orderCode) {
     selectProductByCode(orderCode);
+  }
+  // 校正 #order 錨點（內容載入後重新定位，避免漂移）
+  if (location.hash === '#order') {
+    setTimeout(() => {
+      const el = document.getElementById('order');
+      if (el) window.scrollTo({ top: el.offsetTop - 70, behavior: 'smooth' });
+    }, 300);
   }
 }
 

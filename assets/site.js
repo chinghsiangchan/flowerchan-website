@@ -45,15 +45,18 @@ function statusBadge(p) {
 
 /* 花品卡片 HTML（共用：首頁精選、類別頁） */
 const CAT_CLASS = { '花束': 'cat-bouquet', '桌花': 'cat-table', '高架花': 'cat-stand', '蘭花': 'cat-orchid' };
+const CAT_LABEL = { '花束': '花束', '桌花': '桌花', '高架花': '高架花籃', '蘭花': '蘭花' };
 
 function flowerCardHtml(p) {
   const soldout = p.status === '售完';
-  const catClass = CAT_CLASS[p.category || '花束'] || 'cat-bouquet';
-  const priceNote = p.category === '高架花'
+  const cat = p.category || '花束';
+  const catClass = CAT_CLASS[cat] || 'cat-bouquet';
+  const priceNote = cat === '高架花'
     ? ' <small>依實際尺寸略有差異</small>' : '';
   return `
     <div class="flower-card reveal ${catClass}">
       ${statusBadge(p)}
+      <span class="cat-ribbon">${CAT_LABEL[cat] || cat}</span>
       <a class="flower-link" href="/product.html?code=${p.code}">
         <img class="flower-photo${soldout ? ' dimmed' : ''}" src="${getPhotoUrl(p)}" alt="${p.name}"
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
@@ -64,11 +67,14 @@ function flowerCardHtml(p) {
         <a class="flower-link" href="/product.html?code=${p.code}"><p class="flower-name">${p.name}</p></a>
         <div class="flower-tags">${(p.tags || []).map(t => `<span class="flower-tag">${t}</span>`).join('')}</div>
         ${p.description ? `<p class="flower-desc">${p.description}</p>` : ''}
-        <div class="flower-bottom">
+        <div class="flower-price-row">
           <span class="flower-price">NT$ ${Number(p.price).toLocaleString()}${priceNote}</span>
+        </div>
+        <div class="card-actions">
+          <a class="btn-line2" href="/product.html?code=${p.code}">查看詳情</a>
           ${soldout
-            ? '<span class="flower-btn disabled">已售完</span>'
-            : `<a class="flower-btn" href="/#order?product=${p.code}" onclick="return goOrder('${p.code}')">立即下單</a>`}
+            ? '<span class="btn-main disabled">已售完</span>'
+            : `<a class="btn-main" href="/#order?product=${p.code}" onclick="return goOrder('${p.code}')">立即下單</a>`}
         </div>
       </div>
     </div>`;
@@ -113,10 +119,11 @@ function courseCardHtml(c) {
           <span class="course-price">${c.price ? 'NT$ ' + Number(c.price).toLocaleString() : '價格洽詢'}</span>
           <span class="course-status ${cls}">${c.status || '報名中'}</span>
         </div>
-        <div style="margin-top:1.1rem;">
+        <div class="card-actions">
+          <a class="btn-line2" href="${detailUrl}">課程詳情</a>
           ${c.status === '已結束' || c.status === '額滿'
-            ? '<span class="btn-ghost" style="pointer-events:none;opacity:0.5;">本期已截止</span>'
-            : `<a class="line-btn" href="${LINE_URL}" target="_blank">LINE 詢問報名</a>`}
+            ? '<span class="btn-line2 disabled">本期已截止</span>'
+            : `<a class="btn-line2 is-line" href="${LINE_URL}" target="_blank">LINE 詢問報名</a>`}
         </div>
       </div>
     </div>`;

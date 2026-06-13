@@ -405,3 +405,68 @@ footer{display:block;padding:4rem 8vw 1.5rem;}
 .about-map iframe{width:100%;height:260px;border:0;display:block;}
 .map-links{display:flex;gap:1.4rem;margin-top:0.9rem;}
 .map-links a{font-size:0.72rem;letter-spacing:0.12em;color:var(--green);text-decoration:none;border-bottom:1px solid var(--gold);padding-bottom:2px;}
+
+/* ═══ v4 改版（2026-06-13 第二輪討論）═══ */
+
+/* 4. 全站按鈕統一系統 */
+.btn-main{display:inline-flex;align-items:center;justify-content:center;background:var(--green);color:#fff;font-family:'Noto Serif TC',serif;font-size:0.7rem;font-weight:300;letter-spacing:0.16em;padding:10px 22px;border-radius:999px;border:none;cursor:pointer;text-decoration:none;transition:background 0.3s,transform 0.3s;white-space:nowrap;}
+.btn-main:hover{background:var(--green-light);transform:translateY(-1px);}
+.btn-main.disabled{background:rgba(58,107,83,0.3);pointer-events:none;}
+.btn-line2{display:inline-flex;align-items:center;justify-content:center;background:none;color:var(--green);font-family:'Noto Serif TC',serif;font-size:0.7rem;font-weight:300;letter-spacing:0.14em;padding:9px 20px;border-radius:999px;border:1px solid var(--green);cursor:pointer;text-decoration:none;transition:all 0.3s;white-space:nowrap;}
+.btn-line2:hover{background:var(--green);color:#fff;}
+.btn-line2.is-line{border-color:#06C755;color:#06A74A;}
+.btn-line2.is-line:hover{background:#06C755;color:#fff;}
+.btn-line2.disabled{border-color:var(--border);color:var(--muted);pointer-events:none;}
+.card-actions{display:flex;gap:0.6rem;margin-top:1rem;}
+.card-actions .btn-main,.card-actions .btn-line2{flex:1;padding-left:8px;padding-right:8px;}
+@media(max-width:480px){.card-actions{flex-direction:column;}}
+
+/* 花品卡價格列 */
+.flower-price-row{padding-top:1rem;border-top:0.5px solid var(--border);margin-top:auto;}
+
+/* 3. 花品卡類別緞帶＋卡身淡染＋色條加粗 */
+.flower-card{border-top:5px solid var(--accent);}
+.flower-card.cat-bouquet{background:#FFFCFB;}
+.flower-card.cat-table{background:#FBFCFB;}
+.flower-card.cat-stand{background:#FFFDF8;}
+.flower-card.cat-orchid{background:#FDFBFE;}
+.cat-ribbon{position:absolute;top:14px;right:0;z-index:2;background:var(--accent);color:#fff;font-size:0.66rem;letter-spacing:0.14em;font-weight:300;padding:5px 14px 5px 16px;border-radius:999px 0 0 999px;box-shadow:0 2px 8px rgba(0,0,0,0.12);}
+
+/* 1. 類別卡：毛玻璃標籤帶 */
+.cat-card .cat-label{background:rgba(255,255,255,0.18);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.3);padding:1.1rem 1.4rem;left:10px;right:10px;bottom:10px;border-radius:10px;}
+.cat-label .zh{font-size:1.4rem;letter-spacing:0.26em;color:#fff;font-weight:400;text-shadow:0 1px 6px rgba(45,74,62,0.4);margin-bottom:0.15rem;}
+.cat-label .en{font-size:0.66rem;color:var(--gold-soft);letter-spacing:0.24em;}
+/* 空類別預告卡 */
+.cat-card .cat-empty{flex-direction:column;gap:0.6rem;background:linear-gradient(160deg,#FBF9F3,#F3EEE2);}
+.cat-card .cat-empty::before{content:'✿';font-size:2.6rem;color:rgba(232,184,75,0.4);font-style:normal;}
+.cat-card .cat-empty .en{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.85rem;color:var(--muted);letter-spacing:0.2em;}
+
+/* 2. 輪播文字質感 + 局部暗角 */
+.hc-overlay{background:none;}
+.hc-overlay::before{content:'';position:absolute;left:-6vw;right:-6vw;bottom:-4vw;top:-2vw;background:radial-gradient(ellipse at left bottom,rgba(45,74,62,0.42),transparent 65%);z-index:-1;border-radius:50%;}
+.hc-overlay .hc-eyebrow{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.8rem;letter-spacing:0.34em;color:var(--gold-soft);margin-bottom:0.8rem;text-transform:uppercase;}
+.hc-title{font-family:'Noto Serif TC',serif;font-weight:300;letter-spacing:0.14em;line-height:1.4;}
+.hc-sub{font-weight:200;letter-spacing:0.16em;}
+.hc-cta{background:rgba(255,255,255,0.16);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
+.hc-dot{background:rgba(255,255,255,0.5);}
+.hc-dot.active{background:var(--gold);width:24px;}
+
+/* 6. 內頁縮圖單列水平輪播 */
+.thumb-row{position:relative;display:flex;align-items:center;gap:0.6rem;margin-top:1rem;}
+.thumb-track{display:flex;gap:0.7rem;overflow-x:auto;scroll-behavior:smooth;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;flex:1;padding:2px;}
+.thumb-track::-webkit-scrollbar{display:none;}
+.thumb-track{scrollbar-width:none;}
+.thumb-track img{flex:0 0 auto;width:84px;height:84px;object-fit:cover;cursor:pointer;opacity:0.6;border:1.5px solid transparent;border-radius:10px;scroll-snap-align:start;transition:opacity 0.3s;}
+.thumb-track img:hover,.thumb-track img.active{opacity:1;border-color:var(--gold);}
+.thumb-arrow{flex:0 0 auto;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:var(--daisy);color:var(--green);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all 0.3s;}
+.thumb-arrow:hover{background:var(--green);color:#fff;}
+@media(max-width:768px){.thumb-arrow{display:none;}}
+
+/* 7. 內頁返回動線 */
+.back-link{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.72rem;letter-spacing:0.14em;color:var(--green);text-decoration:none;border:1px solid var(--border);border-radius:999px;padding:7px 18px;margin-bottom:1.4rem;transition:all 0.3s;background:var(--daisy);}
+.back-link:hover{border-color:var(--green);background:rgba(58,107,83,0.04);}
+.breadcrumb{font-size:0.74rem;}
+
+/* 5. 首頁區塊預留高度（防 #order 錨點漂移） */
+#featured .gallery-grid{min-height:480px;}
+#coursePreviewGrid{min-height:420px;}

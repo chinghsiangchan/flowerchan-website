@@ -38,6 +38,7 @@
 </div>
 
 <div class="product-page">
+  <a class="back-link" id="backLink" href="/bouquet">← 回到列表</a>
   <div class="breadcrumb" id="breadcrumb"></div>
   <div id="productWrap"></div>
 
@@ -124,6 +125,10 @@ function render(p, all) {
   document.title = `${p.name}｜Flower Chan 小花店`;
   const cat = p.category || '花束';
   const slug = CAT_SLUG[cat] || 'bouquet';
+  const back = document.getElementById('backLink');
+  back.href = '/' + slug;
+  back.textContent = '← 回到' + (CAT_DISPLAY[cat] || cat) + '列表';
+  back.onclick = function(e){ if (document.referrer && history.length > 1) { e.preventDefault(); history.back(); } };
   document.getElementById('breadcrumb').innerHTML =
     `<a href="/">首頁</a><span>/</span><a href="/${slug}">${CAT_DISPLAY[cat] || cat}</a><span>/</span>${p.name}`;
 
@@ -141,8 +146,12 @@ function render(p, all) {
         <img class="product-photo-main${soldout ? ' dimmed' : ''}" id="mainPhoto" src="${photos[0]}" alt="${p.name}" onclick="openLightbox(this.src)">
       </div>
       ${photos.length > 1 ? `
-      <div class="product-thumbs">
-        ${photos.map((u, i) => `<img src="${u}" class="${i === 0 ? 'active' : ''}" onclick="swapPhoto(this,'${u}')" alt="${p.name} ${i + 1}">`).join('')}
+      <div class="thumb-row">
+        <button class="thumb-arrow" onclick="scrollThumbs(-1)" aria-label="上一張">‹</button>
+        <div class="thumb-track" id="thumbTrack">
+          ${photos.map((u, i) => `<img src="${u}" class="${i === 0 ? 'active' : ''}" onclick="swapPhoto(this,'${u}')" alt="${p.name} ${i + 1}">`).join('')}
+        </div>
+        <button class="thumb-arrow" onclick="scrollThumbs(1)" aria-label="下一張">›</button>
       </div>` : ''}
     </div>
     <div class="product-info">
@@ -154,9 +163,9 @@ function render(p, all) {
 
       <div class="product-cta">
         ${soldout
-          ? '<span class="btn-dark" style="opacity:0.45;pointer-events:none;">已售完</span>'
-          : `<a class="btn-dark" href="/?order=${p.code}#order">立即下單</a>`}
-        <a class="line-btn" href="${LINE_URL}" target="_blank">LINE 詢問</a>
+          ? '<span class="btn-main disabled">已售完</span>'
+          : `<a class="btn-main" href="/?order=${p.code}#order">立即下單</a>`}
+        <a class="btn-line2 is-line" href="${LINE_URL}" target="_blank">LINE 詢問</a>
       </div>
 
       ${p.description ? `<p class="product-desc">${p.description}</p>` : ''}
@@ -208,6 +217,10 @@ function render(p, all) {
 function openLightbox(src) {
   document.getElementById('lightboxImg').src = src;
   document.getElementById('lightbox').classList.add('open');
+}
+function scrollThumbs(dir) {
+  const tr = document.getElementById('thumbTrack');
+  if (tr) tr.scrollBy({ left: dir * 200, behavior: 'smooth' });
 }
 function swapPhoto(el, url) {
   document.getElementById('mainPhoto').src = url;
