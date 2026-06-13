@@ -2,6 +2,20 @@
    Flower Chan 小花店 — 共用腳本（redesign）
    ═══════════════════════════════════════════ */
 
+/* ── Google Analytics (GA4)：全站共用，一處注入 ── */
+(function () {
+  var GA_ID = 'G-BVS50B3YHN';
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  window.gtag = gtag;
+  gtag('js', new Date());
+  gtag('config', GA_ID);
+})();
+
 const CLOUDINARY_CLOUD = 'dcwgv05q1';
 const LINE_URL = 'https://lin.ee/jZUeNhm';
 
