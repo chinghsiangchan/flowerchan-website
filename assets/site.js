@@ -144,3 +144,25 @@ function observeReveal() {
   }, { threshold: 0.08 });
   els.forEach(el => obs.observe(el));
 }
+
+/* ── 內頁主圖：電商式就地放大（點擊放大 1.8x，拖曳看局部，再點還原）── */
+function setupImageZoom(img) {
+  if (!img || img.dataset.zoomBound) return;
+  img.dataset.zoomBound = '1';          // 避免重複綁定
+  const ZOOM = 1.8;
+  const isZoomed = () => img.classList.contains('zoomed');   // 以 class 為唯一狀態來源
+  const setOrigin = (e) => {
+    const r = img.getBoundingClientRect();
+    const pt = e.touches && e.touches[0] ? e.touches[0] : e;
+    const px = Math.max(0, Math.min(100, (pt.clientX - r.left) / r.width * 100));
+    const py = Math.max(0, Math.min(100, (pt.clientY - r.top) / r.height * 100));
+    img.style.transformOrigin = px + '% ' + py + '%';
+  };
+  img.addEventListener('click', (e) => {
+    if (isZoomed()) { img.style.transform = ''; img.classList.remove('zoomed'); }
+    else { setOrigin(e); img.style.transform = 'scale(' + ZOOM + ')'; img.classList.add('zoomed'); }
+  });
+  img.addEventListener('mousemove', (e) => { if (isZoomed()) setOrigin(e); });
+  img.addEventListener('mouseleave', () => { img.style.transform = ''; img.classList.remove('zoomed'); });
+  img.addEventListener('touchmove', (e) => { if (isZoomed()) { setOrigin(e); e.preventDefault(); } }, { passive: false });
+}

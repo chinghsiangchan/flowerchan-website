@@ -500,3 +500,22 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .skeleton{background:linear-gradient(100deg,#F0EBE0 30%,#F7F3EA 50%,#F0EBE0 70%);background-size:200% 100%;animation:sk 1.4s ease-in-out infinite;border-radius:var(--radius);}
 @keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .sk-card{aspect-ratio:3/4;}
+
+/* ═══ v6：類別卡塌陷修正 + 內頁主圖手機適配 + 就地放大 ═══ */
+/* (1) 類別卡固定比例，未上架（無圖）的卡也維持同高，手機四張都完整顯示 */
+.cat-card{aspect-ratio:3/4;}
+.cat-card img{position:absolute;inset:0;height:100%;}
+
+/* (2) 就地放大框：裁掉放大時溢出的部分，避免影響版面 */
+.zoom-frame{overflow:hidden;border-radius:var(--radius);}
+.product-photo-main{transition:transform 0.25s ease;will-change:transform;}
+.product-photo-main.zoomed{cursor:zoom-out;transition:transform 0s;}
+
+@media(max-width:768px){
+  /* (3) 手機：主圖以螢幕寬為基準、3:4 標準框，限在一個畫面內，照片+縮圖+按鈕一眼看完 */
+  .zoom-frame{width:100%;aspect-ratio:3/4;max-height:60vh;margin:0 auto;}
+  .zoom-frame--wide{aspect-ratio:4/3;}
+  .zoom-frame .product-photo-main{width:100%!important;height:100%!important;max-height:none!important;object-fit:cover;margin:0;}
+  /* 縮圖列以主圖寬度為基準橫向捲動 */
+  .thumb-track img{width:72px;height:72px;}
+}

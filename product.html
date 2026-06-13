@@ -150,9 +150,9 @@ function render(p, all) {
   document.getElementById('productWrap').innerHTML = `
   <div class="product-grid">
     <div class="product-photos">
-      <div style="position:relative;">
+      <div class="zoom-frame" style="position:relative;">
         ${statusBadge(p)}
-        <img class="product-photo-main${soldout ? ' dimmed' : ''}" id="mainPhoto" src="${photos[0]}" alt="${p.name}" onclick="openLightbox(this.src)">
+        <img class="product-photo-main${soldout ? ' dimmed' : ''}" id="mainPhoto" src="${photos[0]}" alt="${p.name}">
       </div>
       ${photos.length > 1 ? `
       <div class="thumb-row">
@@ -221,6 +221,7 @@ function render(p, all) {
     document.getElementById('relatedGrid').innerHTML = related.map(flowerCardHtml).join('');
   }
   observeReveal();
+  setupImageZoom(document.getElementById('mainPhoto'));
 }
 
 function openLightbox(src) {
@@ -232,8 +233,11 @@ function scrollThumbs(dir) {
   if (tr) tr.scrollBy({ left: dir * 200, behavior: 'smooth' });
 }
 function swapPhoto(el, url) {
-  document.getElementById('mainPhoto').src = url;
-  document.querySelectorAll('.product-thumbs img').forEach(i => i.classList.remove('active'));
+  const main = document.getElementById('mainPhoto');
+  main.src = url;
+  main.style.transform = '';            // 換圖時還原放大狀態
+  main.classList.remove('zoomed');
+  document.querySelectorAll('.thumb-track img').forEach(i => i.classList.remove('active'));
   el.classList.add('active');
 }
 
