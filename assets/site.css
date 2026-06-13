@@ -470,3 +470,11 @@ footer{display:block;padding:4rem 8vw 1.5rem;}
 /* 5. 首頁區塊預留高度（防 #order 錨點漂移） */
 #featured .gallery-grid{min-height:480px;}
 #coursePreviewGrid{min-height:420px;}
+
+/* ═══ v4 hotfix：內頁主圖高度 + lightbox ═══ */
+/* 主圖限制高度，直式照不再爆版 */
+.product-photo-main{max-height:72vh;width:auto;max-width:100%;margin:0 auto;}
+.product-photos{align-items:center;}
+/* lightbox 放大圖真正滿版 */
+.lightbox img{max-width:94vw;max-height:92vh;width:auto;height:auto;}
+.lightbox.open{cursor:zoom-out;}
