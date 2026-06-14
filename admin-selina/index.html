@@ -741,13 +741,16 @@ let products = [];
 let editIndex = -1; // -1 = 新增, 0+ = 編輯
 let netlifyUser = null;
 
-// ── 標籤池 ──
-const DEFAULT_TAGS = ['生日','婚禮','日常','向日葵','粉色系','紫色系','瓶花','情人節'];
+// ── 標籤池（純風格/花材，排除場合值）──
+const DEFAULT_TAGS = ['向日葵','粉色系','紫色系','瓶花'];
+// 場合值集合（含各種變體），用來把場合從風格標籤池過濾掉
+const OCC_TAG_SET = new Set(['日常','生日','情人節','紀念日','情人節/紀念日','婚禮','畢業','開幕','會場','企業','開幕·活動','喬遷','探病','弔唁','送禮靈感','端午','母親節','七夕']);
 let allTagPool = [...DEFAULT_TAGS];
 
 function syncTagPool() {
+  allTagPool = [...DEFAULT_TAGS];
   products.forEach(p => {
-    (p.tags||[]).forEach(t => { if(!allTagPool.includes(t)) allTagPool.push(t); });
+    (p.tags||[]).forEach(t => { if(!OCC_TAG_SET.has(t) && !allTagPool.includes(t)) allTagPool.push(t); });
   });
 }
 
@@ -1509,7 +1512,7 @@ function renderBannerList() {
       ${thumb}
       <div class="gm-info">
         <div class="gm-name">${b.title || '(無標題)'} ${live}</div>
-        <div class="gm-sub">${period}${b.link ? ' · → ' + b.link : ''}</div>
+        <div class="gm-sub">${period}${b.link ? ' · → ' + linkLabel(b.link) : ''}</div>
       </div>
       <div class="gm-actions">
         <button class="pm-quick" onclick="moveBanner(${i},-1)" ${i === 0 ? 'disabled' : ''} title="上移">↑</button>
@@ -1623,6 +1626,8 @@ function updateBannerCropBox() {
   mk.style.left = (bannerFocalX * W) + 'px'; mk.style.top = (bannerFocalY * H) + 'px';
 }
 const BANNER_LINK_PRESETS = ['/','/order','/festival','/bouquet','/table-flower','/flower-stand','/orchid','/preserved','/courses','/occasion'];
+const BANNER_LINK_LABEL = { '/':'首頁','/order':'訂購頁','/festival':'節慶花禮','/bouquet':'花束','/table-flower':'桌花','/flower-stand':'高架花籃','/orchid':'蘭花','/preserved':'永生花','/courses':'花藝課程','/occasion':'依場合挑選' };
+function linkLabel(link) { return BANNER_LINK_LABEL[link] || link || ''; }
 function onBannerLinkChange() {
   const sel = document.getElementById('b_link_select');
   document.getElementById('b_link').style.display = sel.value === '__custom__' ? 'block' : 'none';
