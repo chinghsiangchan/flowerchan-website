@@ -14,8 +14,9 @@
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780024261/flowerchan/lszasbrg5jjfmbkuydjb.jpg",
     "cloudinary_id": "flowerchan/lszasbrg5jjfmbkuydjb",
-    "status": "",
-    "featured": true
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-002",
@@ -28,7 +29,10 @@
     ],
     "published": false,
     "photo": "DSCF3412.JPG",
-    "cloudinary_id": "DSCF3412_xskzin"
+    "cloudinary_id": "DSCF3412_xskzin",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-003",
@@ -42,7 +46,10 @@
     ],
     "published": true,
     "photo": "DSCF3446.JPG",
-    "cloudinary_id": "DSCF3446_fynpeo"
+    "cloudinary_id": "DSCF3446_fynpeo",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-004",
@@ -56,7 +63,10 @@
     ],
     "published": true,
     "photo": "DSCF3465.JPG",
-    "cloudinary_id": "DSCF3465_i9pgr7"
+    "cloudinary_id": "DSCF3465_i9pgr7",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-005",
@@ -70,7 +80,10 @@
     ],
     "published": false,
     "photo": "DSCF3482.JPG",
-    "cloudinary_id": "DSCF3482_jv03w0"
+    "cloudinary_id": "DSCF3482_jv03w0",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-006",
@@ -84,7 +97,10 @@
     ],
     "published": true,
     "photo": "DSCF3490.JPG",
-    "cloudinary_id": "DSCF3490_yto22l"
+    "cloudinary_id": "DSCF3490_yto22l",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-007",
@@ -97,7 +113,10 @@
     ],
     "published": false,
     "photo": "DSCF3517.JPG",
-    "cloudinary_id": "DSCF3517_dvpskk"
+    "cloudinary_id": "DSCF3517_dvpskk",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-008",
@@ -110,7 +129,10 @@
     ],
     "published": false,
     "photo": "DSCF3638.JPG",
-    "cloudinary_id": "DSCF3638_hckt3v"
+    "cloudinary_id": "DSCF3638_hckt3v",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-009",
@@ -124,7 +146,10 @@
     ],
     "published": true,
     "photo": "DSCF3652.JPG",
-    "cloudinary_id": "DSCF3652_wn4aaf"
+    "cloudinary_id": "DSCF3652_wn4aaf",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-010",
@@ -137,7 +162,10 @@
     ],
     "published": false,
     "photo": "DSCF3656.JPG",
-    "cloudinary_id": "DSCF3656_bo9bz7"
+    "cloudinary_id": "DSCF3656_bo9bz7",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-011",
@@ -147,7 +175,10 @@
     "tags": [],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1779886548/flowerchan/aiiexgjndtnxns2wamdn.jpg",
-    "cloudinary_id": "flowerchan/aiiexgjndtnxns2wamdn"
+    "cloudinary_id": "flowerchan/aiiexgjndtnxns2wamdn",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-012",
@@ -160,7 +191,10 @@
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780025822/flowerchan/aiu0xgvr5ox5ww5iwahx.jpg",
-    "cloudinary_id": "flowerchan/aiu0xgvr5ox5ww5iwahx"
+    "cloudinary_id": "flowerchan/aiu0xgvr5ox5ww5iwahx",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-013",
@@ -170,7 +204,10 @@
     "tags": [],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780028383/flowerchan/osmhkgkirhjfy08o6igl.jpg",
-    "cloudinary_id": "flowerchan/osmhkgkirhjfy08o6igl"
+    "cloudinary_id": "flowerchan/osmhkgkirhjfy08o6igl",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-014",
@@ -184,7 +221,10 @@
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780029081/flowerchan/mkvox3znorv4zwnd32u9.jpg",
-    "cloudinary_id": "flowerchan/mkvox3znorv4zwnd32u9"
+    "cloudinary_id": "flowerchan/mkvox3znorv4zwnd32u9",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-015",
@@ -197,7 +237,10 @@
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780029348/flowerchan/etygvwjjo1qkjj48g75l.jpg",
-    "cloudinary_id": "flowerchan/etygvwjjo1qkjj48g75l"
+    "cloudinary_id": "flowerchan/etygvwjjo1qkjj48g75l",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-016",
@@ -209,7 +252,10 @@
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780030075/flowerchan/pmmnylskg8ttnu1wnvdc.png",
-    "cloudinary_id": "flowerchan/pmmnylskg8ttnu1wnvdc"
+    "cloudinary_id": "flowerchan/pmmnylskg8ttnu1wnvdc",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-017",
@@ -222,7 +268,10 @@
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780030571/flowerchan/zhwjd5eguzlq0bpz4spx.jpg",
-    "cloudinary_id": "flowerchan/zhwjd5eguzlq0bpz4spx"
+    "cloudinary_id": "flowerchan/zhwjd5eguzlq0bpz4spx",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-018",
@@ -235,7 +284,10 @@
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780031102/flowerchan/fofqj0urnofwqqouozxv.jpg",
-    "cloudinary_id": "flowerchan/fofqj0urnofwqqouozxv"
+    "cloudinary_id": "flowerchan/fofqj0urnofwqqouozxv",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-019",
@@ -250,7 +302,10 @@
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780031540/flowerchan/zrtuwtl6ltoeeudntfjw.jpg",
-    "cloudinary_id": "flowerchan/zrtuwtl6ltoeeudntfjw"
+    "cloudinary_id": "flowerchan/zrtuwtl6ltoeeudntfjw",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-020",
@@ -264,7 +319,10 @@
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780044189/flowerchan/oagrp2yrqft1ob8nakzh.jpg",
-    "cloudinary_id": "flowerchan/oagrp2yrqft1ob8nakzh"
+    "cloudinary_id": "flowerchan/oagrp2yrqft1ob8nakzh",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-021",
@@ -279,7 +337,10 @@
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780044297/flowerchan/ztbw2stgh7vbaztxwk4v.jpg",
-    "cloudinary_id": "flowerchan/ztbw2stgh7vbaztxwk4v"
+    "cloudinary_id": "flowerchan/ztbw2stgh7vbaztxwk4v",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-PV01",
@@ -315,5 +376,43 @@
     "cloudinary_id": "flowerchan/oagrp2yrqft1ob8nakzh",
     "published": true,
     "featured": false
+  },
+  {
+    "code": "FE-001",
+    "name": "端午安康・盛夏蘭韻設計花",
+    "price": 3800,
+    "category": "節慶花禮",
+    "status": "預購中",
+    "description": "為端午獻上一份不一樣的心意。\n以蝴蝶蘭的素雅為主角，搭配文心蘭的躍動金黃、火鶴的溫潤橙紅，佐以蓮蓬、金槌花與隨風搖曳的草穗；線條向上延伸，像盛夏裡一株自在生長的風景。\n適合送給長輩、客戶或重要的人，附上一句「端午安康」。",
+    "materials": "蝴蝶蘭、文心蘭、火鶴、金槌花、蓮蓬、季節草葉",
+    "size": "長型設計，整體高度約 70–90cm，實際依當日花材微調",
+    "care": "收到後請拆開包裝，置於通風陰涼處，避免陽光直射與空調直吹。鮮花請每 1–2 天換水、斜剪根部約 1cm；觀賞期約 5–7 天，會依季節與品種略有不同。",
+    "tags": [
+      "設計感",
+      "黃色系",
+      "送長輩"
+    ],
+    "occasions": [
+      "送禮靈感",
+      "端午"
+    ],
+    "published": true,
+    "featured": true,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/favfhajjspfr0v8pnehz"
+      },
+      {
+        "cloudinary_id": "flowerchan/rjlukt7fto7pnojugefv"
+      },
+      {
+        "cloudinary_id": "flowerchan/sazs027y8pjjnig0mnqo"
+      },
+      {
+        "cloudinary_id": "flowerchan/o3mqyysxwdsil4drcqvx"
+      }
+    ],
+    "cloudinary_id": "flowerchan/favfhajjspfr0v8pnehz",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/favfhajjspfr0v8pnehz"
   }
 ]
