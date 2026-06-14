@@ -616,5 +616,32 @@
     ],
     "cloudinary_id": "flowerchan/kyslbap4hivienexacj7",
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/kyslbap4hivienexacj7"
+  },
+  {
+    "code": "PV-001",
+    "name": "永生1",
+    "price": 1500,
+    "category": "永生花",
+    "status": "完售",
+    "description": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "tags": [],
+    "occasions": [
+      "日常",
+      "生日",
+      "情人節/紀念日",
+      "送禮靈感"
+    ],
+    "published": true,
+    "featured": true,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/phs42fgnsw5ntjyuzt1y"
+      }
+    ],
+    "cloudinary_id": "flowerchan/phs42fgnsw5ntjyuzt1y",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/phs42fgnsw5ntjyuzt1y"
   }
 ]
