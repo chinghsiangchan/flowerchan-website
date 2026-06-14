@@ -380,6 +380,13 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
   .ord-pills{flex-direction:row;flex-wrap:wrap;flex-basis:auto;width:100%;}
   .ord-pill{width:auto;flex:1 1 auto;}
 }
+@media print {
+  #appHeader, #adminTabs, .action-bar, .pm-toolbar, .ord-stat-chips, .ord-pills { display:none !important; }
+  body { background:#fff; }
+  .admin-view:not(#view-orders) { display:none !important; }
+  .ord-card { border:1px solid #bbb !important; break-inside:avoid; page-break-inside:avoid; }
+  .ord-stat-cards { margin-bottom:10px; }
+}
 
 /* ── 通用滑出面板（課程 / Banner，沿用花品面板樣式）── */
 .slide-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.5);}
@@ -491,7 +498,11 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
   <section class="admin-view" id="view-orders" hidden>
     <div class="action-bar">
       <span class="page-title">訂單</span>
-      <button class="btn-add" onclick="loadOrders()">↻ 重新整理</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="pm-quick" onclick="exportOrdersCSV()">⬇ 匯出 CSV</button>
+        <button class="pm-quick" onclick="window.print()">🖨 列印</button>
+        <button class="btn-add" onclick="loadOrders()">↻ 重新整理</button>
+      </div>
     </div>
     <div class="pm-toolbar">
       <input type="text" id="orderSearch" class="pm-search" placeholder="🔍 搜尋姓名 / 電話 / 花品編號…" oninput="renderOrderList()">
@@ -503,6 +514,7 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
             <option value="全部">狀態：全部</option>
             <option>新訂單</option><option>已確認</option><option>製作中</option><option>已完成</option><option>已取消</option>
           </select>
+          <button class="pm-quick" id="orderToday" onclick="toggleTodayOnly()">今日要交</button>
           <button class="pm-quick on" id="orderHideDone" onclick="toggleHideDone()">隱藏已完成</button>
         </div>
       </div>
@@ -1830,6 +1842,29 @@ function populateOrderCodeFilter() {
   sel.innerHTML = '<option value="全部">花品：全部</option>' + codes.map(c => `<option${c === cur ? ' selected' : ''}>${c}</option>`).join('');
 }
 function toggleHideDone() { orderHideDone = !orderHideDone; document.getElementById('orderHideDone').classList.toggle('on', orderHideDone); renderOrderList(); }
+let orderTodayOnly = false, orderFilteredList = [];
+function twTodayYMD() {
+  const tw = new Date(Date.now() + 8 * 3600000); const p = n => String(n).padStart(2, '0');
+  return `${tw.getUTCFullYear()}/${p(tw.getUTCMonth() + 1)}/${p(tw.getUTCDate())}`;
+}
+function orderDeliveryYMD(o) {
+  const h = orderHeaders.find(x => /日期/.test(x));
+  const s = fmtOrderVal(h || '', h ? o[h] : '');
+  return typeof s === 'string' ? s : '';
+}
+function toggleTodayOnly() { orderTodayOnly = !orderTodayOnly; document.getElementById('orderToday').classList.toggle('on', orderTodayOnly); renderOrderList(); }
+function exportOrdersCSV() {
+  if (!orderFilteredList.length) { showToast('沒有可匯出的訂單'); return; }
+  const cols = [...orderHeaders, '狀態'];
+  const esc = v => { const s = String(v == null ? '' : v); return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
+  const rows = orderFilteredList.map(o => cols.map(h => esc(h === '狀態' ? orderStatusOf(o) : fmtOrderVal(h, o[h]))).join(','));
+  const csv = '﻿' + cols.map(esc).join(',') + '\n' + rows.join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+  a.download = `訂單_${twTodayYMD().replace(/\//g, '')}.csv`;
+  a.click(); URL.revokeObjectURL(a.href);
+  showToast('✓ 已匯出 ' + orderFilteredList.length + ' 筆');
+}
 function orderBudget(o) {
   const h = orderHeaders.find(x => /預算|金額/.test(x));
   const v = String((h && o[h]) || '').replace(/[^\d.]/g, '');
@@ -1878,9 +1913,11 @@ function renderOrderList() {
     if (orderHideDone && (st === '已完成' || st === '已取消')) return false;
     if (statusF !== '全部' && st !== statusF) return false;
     if (codeF !== '全部' && orderProductCode(o) !== codeF) return false;
+    if (orderTodayOnly && orderDeliveryYMD(o) !== twTodayYMD()) return false;
     if (q && !orderHeaders.some(h => String(o[h] || '').toLowerCase().includes(q))) return false;
     return true;
   });
+  orderFilteredList = list;
   document.getElementById('orderStat').textContent = `顯示 ${list.length} / 共 ${orders.length} 筆`;
   renderOrderStats(list);
   if (!list.length) { box.innerHTML = '<div class="gm-empty">沒有符合篩選的訂單</div>'; return; }

@@ -179,7 +179,7 @@ function render(p, all) {
         ${soldout
           ? '<span class="btn-main disabled">已售完</span>'
           : `<a class="btn-main" href="/order?product=${p.code}">立即下單</a>`}
-        <a class="btn-line2 is-line" href="${LINE_URL}" target="_blank">LINE 詢問</a>
+        <a class="btn-line2 is-line" href="https://line.me/R/oaMessage/@795utfau/?${encodeURIComponent('我想詢問這款花禮：\n' + p.code + '｜' + p.name + '\n' + location.origin + '/product?code=' + p.code)}" target="_blank">LINE 詢問這款</a>
       </div>
 
       <div class="trust-badges trust-badges--inline">
