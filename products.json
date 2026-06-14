@@ -4,95 +4,168 @@
     "name": "小花店客製花束款（$2000以上, 可選擇色系）",
     "price": 2000,
     "description": "每一束花，都是一個說不出口的心意。\n告訴我你的故事——場合、顏色、心情——\n小花店為你從當季花材中，親手選配、設計、包紮，\n做出世界上唯一一束，只屬於你的花。",
-    "tags": ["生日", "日常", "粉色系", "紫色系", "情人節"],
+    "tags": [
+      "生日",
+      "日常",
+      "粉色系",
+      "紫色系",
+      "情人節"
+    ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780024261/flowerchan/lszasbrg5jjfmbkuydjb.jpg",
-    "cloudinary_id": "flowerchan/lszasbrg5jjfmbkuydjb"
+    "cloudinary_id": "flowerchan/lszasbrg5jjfmbkuydjb",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-002",
     "name": "夢幻混搭大花束",
     "price": 3500,
-    "tags": ["生日", "婚禮", "粉色系"],
+    "tags": [
+      "生日",
+      "婚禮",
+      "粉色系"
+    ],
     "published": false,
     "photo": "DSCF3412.JPG",
-    "cloudinary_id": "DSCF3412_xskzin"
+    "cloudinary_id": "DSCF3412_xskzin",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-003",
     "name": "向日葵花束",
     "price": 1800,
     "description": "",
-    "tags": ["日常", "向日葵", "畢業"],
+    "tags": [
+      "日常",
+      "向日葵",
+      "畢業"
+    ],
     "published": true,
     "photo": "DSCF3446.JPG",
-    "cloudinary_id": "DSCF3446_fynpeo"
+    "cloudinary_id": "DSCF3446_fynpeo",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-004",
     "name": "紫色鬱金香小束",
     "price": 1350,
     "description": "",
-    "tags": ["生日", "日常", "紫色系"],
+    "tags": [
+      "生日",
+      "日常",
+      "紫色系"
+    ],
     "published": true,
     "photo": "DSCF3465.JPG",
-    "cloudinary_id": "DSCF3465_i9pgr7"
+    "cloudinary_id": "DSCF3465_i9pgr7",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-005",
     "name": "紫粉混搭花束最愛浪漫",
     "price": 1780,
-    "tags": ["生日", "日常", "粉色系", "紫色系"],
+    "tags": [
+      "生日",
+      "日常",
+      "粉色系",
+      "紫色系"
+    ],
     "published": false,
     "photo": "DSCF3482.JPG",
-    "cloudinary_id": "DSCF3482_jv03w0"
+    "cloudinary_id": "DSCF3482_jv03w0",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-006",
     "name": "畢業花束",
     "price": 1300,
     "description": "",
-    "tags": ["日常", "向日葵", "畢業"],
+    "tags": [
+      "日常",
+      "向日葵",
+      "畢業"
+    ],
     "published": true,
     "photo": "DSCF3490.JPG",
-    "cloudinary_id": "DSCF3490_yto22l"
+    "cloudinary_id": "DSCF3490_yto22l",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-007",
     "name": "白色典雅瓶花",
     "price": 2800,
-    "tags": ["婚禮", "日常", "瓶花"],
+    "tags": [
+      "婚禮",
+      "日常",
+      "瓶花"
+    ],
     "published": false,
     "photo": "DSCF3517.JPG",
-    "cloudinary_id": "DSCF3517_dvpskk"
+    "cloudinary_id": "DSCF3517_dvpskk",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-008",
     "name": "向日葵大花束",
     "price": 1580,
-    "tags": ["生日", "日常", "向日葵"],
+    "tags": [
+      "生日",
+      "日常",
+      "向日葵"
+    ],
     "published": false,
     "photo": "DSCF3638.JPG",
-    "cloudinary_id": "DSCF3638_hckt3v"
+    "cloudinary_id": "DSCF3638_hckt3v",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-009",
     "name": "紫粉色系花束",
     "price": 1500,
     "description": "",
-    "tags": ["生日", "畢業", "非洲菊"],
+    "tags": [
+      "生日",
+      "畢業",
+      "非洲菊"
+    ],
     "published": true,
     "photo": "DSCF3652.JPG",
-    "cloudinary_id": "DSCF3652_wn4aaf"
+    "cloudinary_id": "DSCF3652_wn4aaf",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-010",
     "name": "英式玫瑰花禮盒",
     "price": 2380,
-    "tags": ["生日", "婚禮", "粉色系"],
+    "tags": [
+      "生日",
+      "婚禮",
+      "粉色系"
+    ],
     "published": false,
     "photo": "DSCF3656.JPG",
-    "cloudinary_id": "DSCF3656_bo9bz7"
+    "cloudinary_id": "DSCF3656_bo9bz7",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-011",
@@ -102,17 +175,26 @@
     "tags": [],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1779886548/flowerchan/aiiexgjndtnxns2wamdn.jpg",
-    "cloudinary_id": "flowerchan/aiiexgjndtnxns2wamdn"
+    "cloudinary_id": "flowerchan/aiiexgjndtnxns2wamdn",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-012",
     "name": "粉漸層非洲菊花束",
     "price": 880,
     "description": "",
-    "tags": ["日常", "畢業"],
+    "tags": [
+      "日常",
+      "畢業"
+    ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780025822/flowerchan/aiu0xgvr5ox5ww5iwahx.jpg",
-    "cloudinary_id": "flowerchan/aiu0xgvr5ox5ww5iwahx"
+    "cloudinary_id": "flowerchan/aiu0xgvr5ox5ww5iwahx",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-013",
@@ -122,87 +204,143 @@
     "tags": [],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780028383/flowerchan/osmhkgkirhjfy08o6igl.jpg",
-    "cloudinary_id": "flowerchan/osmhkgkirhjfy08o6igl"
+    "cloudinary_id": "flowerchan/osmhkgkirhjfy08o6igl",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-014",
     "name": "粉紫色系花束",
     "price": 1300,
     "description": "適合日常送禮，剛剛好的可愛",
-    "tags": ["日常", "粉色系", "紫色系"],
+    "tags": [
+      "日常",
+      "粉色系",
+      "紫色系"
+    ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780029081/flowerchan/mkvox3znorv4zwnd32u9.jpg",
-    "cloudinary_id": "flowerchan/mkvox3znorv4zwnd32u9"
+    "cloudinary_id": "flowerchan/mkvox3znorv4zwnd32u9",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-015",
     "name": "單枝向日葵",
     "price": 100,
     "description": "適合送給畢業生的單枝花禮",
-    "tags": ["向日葵", "畢業"],
+    "tags": [
+      "向日葵",
+      "畢業"
+    ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780029348/flowerchan/etygvwjjo1qkjj48g75l.jpg",
-    "cloudinary_id": "flowerchan/etygvwjjo1qkjj48g75l"
+    "cloudinary_id": "flowerchan/etygvwjjo1qkjj48g75l",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-016",
     "name": "輕巧版小花束",
     "price": 450,
     "description": "",
-    "tags": ["日常"],
+    "tags": [
+      "日常"
+    ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780030075/flowerchan/pmmnylskg8ttnu1wnvdc.png",
-    "cloudinary_id": "flowerchan/pmmnylskg8ttnu1wnvdc"
+    "cloudinary_id": "flowerchan/pmmnylskg8ttnu1wnvdc",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-017",
     "name": "向日葵青春",
     "price": 1800,
     "description": "充滿青春感的向日葵花束",
-    "tags": ["向日葵", "畢業"],
+    "tags": [
+      "向日葵",
+      "畢業"
+    ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780030571/flowerchan/zhwjd5eguzlq0bpz4spx.jpg",
-    "cloudinary_id": "flowerchan/zhwjd5eguzlq0bpz4spx"
+    "cloudinary_id": "flowerchan/zhwjd5eguzlq0bpz4spx",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-018",
     "name": "淡雅風格花束",
     "price": 1500,
     "description": "適合喜歡淡雅風格的花束",
-    "tags": ["生日", "日常"],
+    "tags": [
+      "生日",
+      "日常"
+    ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780031102/flowerchan/fofqj0urnofwqqouozxv.jpg",
-    "cloudinary_id": "flowerchan/fofqj0urnofwqqouozxv"
+    "cloudinary_id": "flowerchan/fofqj0urnofwqqouozxv",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-019",
     "name": "非洲菊花束",
     "price": 1000,
     "description": "藍色的包裝配上可愛的粉色非洲菊，給最可愛的你",
-    "tags": ["生日", "日常", "情人節", "畢業"],
+    "tags": [
+      "生日",
+      "日常",
+      "情人節",
+      "畢業"
+    ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780031540/flowerchan/zrtuwtl6ltoeeudntfjw.jpg",
-    "cloudinary_id": "flowerchan/zrtuwtl6ltoeeudntfjw"
+    "cloudinary_id": "flowerchan/zrtuwtl6ltoeeudntfjw",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-020",
     "name": "芍藥花束",
     "price": 2850,
     "description": "一期一會的芍藥花束，獨特的香氣與無可取代的華麗氣質，一定要送給最特別的她",
-    "tags": ["生日", "日常", "粉色系"],
+    "tags": [
+      "生日",
+      "日常",
+      "粉色系"
+    ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780044189/flowerchan/oagrp2yrqft1ob8nakzh.jpg",
-    "cloudinary_id": "flowerchan/oagrp2yrqft1ob8nakzh"
+    "cloudinary_id": "flowerchan/oagrp2yrqft1ob8nakzh",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-021",
     "name": "清新藍白風格花束",
     "price": 1200,
     "description": "",
-    "tags": ["生日", "日常", "自然", "清新"],
+    "tags": [
+      "生日",
+      "日常",
+      "自然",
+      "清新"
+    ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780044297/flowerchan/ztbw2stgh7vbaztxwk4v.jpg",
-    "cloudinary_id": "flowerchan/ztbw2stgh7vbaztxwk4v"
+    "cloudinary_id": "flowerchan/ztbw2stgh7vbaztxwk4v",
+    "occasions": [
+      "送禮靈感"
+    ]
   },
   {
     "code": "FC-PV01",
@@ -214,12 +352,26 @@
     "materials": "永生玫瑰 3 入、永生繡球、尤加利葉、緞帶、手工禮盒",
     "size": "盒徑約 15 cm × 高 12 cm",
     "care": "避免陽光直射與潮濕，請勿碰水。可用吹風機冷風輕除灰塵。妥善保存可維持 1–3 年。",
-    "tags": ["生日", "紀念日", "粉色系"],
-    "occasions": ["送禮靈感", "生日", "紀念日"],
+    "tags": [
+      "生日",
+      "紀念日",
+      "粉色系"
+    ],
+    "occasions": [
+      "送禮靈感",
+      "生日",
+      "紀念日"
+    ],
     "photos": [
-      { "cloudinary_id": "flowerchan/oagrp2yrqft1ob8nakzh" },
-      { "cloudinary_id": "flowerchan/mkvox3znorv4zwnd32u9" },
-      { "cloudinary_id": "flowerchan/lszasbrg5jjfmbkuydjb" }
+      {
+        "cloudinary_id": "flowerchan/oagrp2yrqft1ob8nakzh"
+      },
+      {
+        "cloudinary_id": "flowerchan/mkvox3znorv4zwnd32u9"
+      },
+      {
+        "cloudinary_id": "flowerchan/lszasbrg5jjfmbkuydjb"
+      }
     ],
     "cloudinary_id": "flowerchan/oagrp2yrqft1ob8nakzh",
     "published": true,

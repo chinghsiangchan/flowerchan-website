@@ -39,7 +39,7 @@ const OCCASIONS = [
   { key: '喬遷',        tags: ['喬遷'] },
   { key: '探病',        tags: ['探病'] },
   { key: '弔唁',        tags: ['弔唁'] },
-  { key: '送禮靈感',     tags: [] },
+  { key: '送禮靈感',     tags: ['送禮靈感'] },
 ];
 /* 所有「場合來源標籤」集合，用來把場合 tag 從風格 tag 裡分出來 */
 const OCCASION_SOURCE_TAGS = OCCASIONS.reduce((a, o) => a.concat(o.tags, o.key), []);
@@ -47,7 +47,6 @@ const OCCASION_SOURCE_TAGS = OCCASIONS.reduce((a, o) => a.concat(o.tags, o.key),
 function productMatchesOccasion(p, occKey) {
   const occ = OCCASIONS.find(o => o.key === occKey);
   if (!occ) return false;
-  if (!occ.tags.length) return true;                 // 送禮靈感＝全部
   const pool = (p.occasions || []).concat(p.tags || []);
   return occ.tags.some(t => pool.includes(t)) || pool.includes(occKey);
 }
