@@ -485,5 +485,40 @@
     ],
     "cloudinary_id": "flowerchan/hyogjfsiqi3tcoxldhpq",
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/hyogjfsiqi3tcoxldhpq"
+  },
+  {
+    "code": "TF-001",
+    "name": "桌花1",
+    "price": 2500,
+    "category": "桌花",
+    "status": "完售",
+    "description": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "tags": [],
+    "occasions": [
+      "日常",
+      "開幕·活動",
+      "送禮靈感"
+    ],
+    "published": true,
+    "featured": true,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/wilnspf4ugiz5ehtz4gp"
+      },
+      {
+        "cloudinary_id": "flowerchan/tdxftgla3nyst44p7ifi"
+      },
+      {
+        "cloudinary_id": "flowerchan/qgl9uyuou6e7l2un4eqd"
+      },
+      {
+        "cloudinary_id": "flowerchan/xjzqbld0id7djvn2mpn8"
+      }
+    ],
+    "cloudinary_id": "flowerchan/wilnspf4ugiz5ehtz4gp",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/wilnspf4ugiz5ehtz4gp"
   }
 ]
