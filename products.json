@@ -567,5 +567,42 @@
     ],
     "cloudinary_id": "flowerchan/f9ddi2aah0qwana7te2y",
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/f9ddi2aah0qwana7te2y"
+  },
+  {
+    "code": "TF-003",
+    "name": "桌花3",
+    "price": 2000,
+    "category": "桌花",
+    "status": "",
+    "description": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "tags": [],
+    "occasions": [
+      "日常",
+      "送禮靈感"
+    ],
+    "published": true,
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/uprp7d3wtifm9skajtj2"
+      },
+      {
+        "cloudinary_id": "flowerchan/c4z0x6q2atdmjggafasg"
+      },
+      {
+        "cloudinary_id": "flowerchan/v5jzun7mkklwvpsafufc"
+      },
+      {
+        "cloudinary_id": "flowerchan/yqjalsfxvdmiq3ypffk4"
+      },
+      {
+        "cloudinary_id": "flowerchan/q7gskcz8vlcxqmax8qpn"
+      }
+    ],
+    "cloudinary_id": "flowerchan/uprp7d3wtifm9skajtj2",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/uprp7d3wtifm9skajtj2"
   }
 ]
