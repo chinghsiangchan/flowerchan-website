@@ -342,13 +342,26 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
 .set-msg{width:100%;box-sizing:border-box;min-height:80px;padding:10px 12px;border:1px solid #e5e0d5;border-radius:10px;font-size:0.9rem;font-family:inherit;line-height:1.7;}
 
 /* ── 訂單看板 ── */
-.ord-card{background:#fff;border:1px solid #ece8df;border-radius:12px;padding:14px 16px;margin-bottom:12px;display:flex;justify-content:space-between;gap:14px;align-items:flex-start;flex-wrap:wrap;}
-.ord-fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:6px 18px;flex:1;min-width:0;}
+.ord-stats{margin-bottom:16px;}
+.ord-stat-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+.ord-stat-chip{font-size:0.8rem;padding:5px 13px;border-radius:999px;background:#f1efe8;color:#5a5750;}
+.ord-stat-chip b{font-weight:700;margin-right:2px;}
+.ord-stat-chip.ord-new{background:#E6F1FB;color:#185FA5;}
+.ord-stat-chip.ord-ok{background:#FAEEDA;color:#854F0B;}
+.ord-stat-chip.ord-making{background:#EAF3EE;color:#2D6A4A;}
+.ord-stat-chip.ord-done{background:#E1F5EE;color:#0F6E56;}
+.ord-stat-chip.ord-cancel{background:#FCEBEB;color:#A32D2D;}
+.ord-stat-cards{display:flex;gap:12px;flex-wrap:wrap;}
+.ord-stat-card{background:#fff;border:1px solid #ece8df;border-radius:10px;padding:12px 20px;min-width:130px;}
+.ord-stat-card .n{display:block;font-size:1.35rem;font-weight:600;color:#2D4A3E;line-height:1.3;}
+.ord-stat-card .l{font-size:0.74rem;color:#9a958a;}
+.ord-card{background:#fff;border:1px solid #ece8df;border-radius:12px;padding:16px 18px;margin-bottom:12px;display:flex;gap:20px;align-items:flex-start;}
+.ord-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 22px;flex:1 1 auto;min-width:0;}
 .ord-f{font-size:0.8rem;line-height:1.5;min-width:0;}
 .ord-f em{display:block;font-style:normal;color:#a8a499;font-size:0.66rem;margin-bottom:1px;}
 .ord-f span{color:#2c2a26;word-break:break-word;}
-.ord-pills{display:flex;flex-wrap:wrap;gap:6px;flex:0 0 auto;align-items:flex-start;max-width:280px;}
-.ord-pill{border:1px solid #e5e0d5;background:#fff;color:#8a857a;border-radius:999px;padding:6px 13px;font-size:0.78rem;cursor:pointer;transition:background .15s;}
+.ord-pills{display:flex;flex-direction:column;gap:6px;flex:0 0 104px;}
+.ord-pill{width:100%;text-align:center;border:1px solid #e5e0d5;background:#fff;color:#8a857a;border-radius:999px;padding:7px 12px;font-size:0.78rem;cursor:pointer;transition:background .15s;}
 .ord-pill:hover{background:#f5f2ea;}
 .ord-pill.active{font-weight:600;border-color:transparent;cursor:default;}
 .ord-pill.active.ord-new{background:#E6F1FB;color:#185FA5;}
@@ -356,6 +369,12 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
 .ord-pill.active.ord-making{background:#EAF3EE;color:#2D6A4A;}
 .ord-pill.active.ord-done{background:#E1F5EE;color:#0F6E56;}
 .ord-pill.active.ord-cancel{background:#FCEBEB;color:#A32D2D;}
+@media(max-width:600px){
+  .ord-card{flex-direction:column;}
+  .ord-fields{grid-template-columns:1fr 1fr;}
+  .ord-pills{flex-direction:row;flex-wrap:wrap;flex-basis:auto;width:100%;}
+  .ord-pill{width:auto;flex:1 1 auto;}
+}
 
 /* ── 通用滑出面板（課程 / Banner，沿用花品面板樣式）── */
 .slide-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.5);}
@@ -483,6 +502,7 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
         </div>
       </div>
     </div>
+    <div id="orderStats" class="ord-stats"></div>
     <div id="orderList" class="product-list"></div>
   </section>
 
@@ -1805,6 +1825,23 @@ function populateOrderCodeFilter() {
   sel.innerHTML = '<option value="全部">花品：全部</option>' + codes.map(c => `<option${c === cur ? ' selected' : ''}>${c}</option>`).join('');
 }
 function toggleHideDone() { orderHideDone = !orderHideDone; document.getElementById('orderHideDone').classList.toggle('on', orderHideDone); renderOrderList(); }
+function orderBudget(o) {
+  const h = orderHeaders.find(x => /預算|金額/.test(x));
+  const v = String((h && o[h]) || '').replace(/[^\d.]/g, '');
+  return parseFloat(v) || 0;
+}
+function renderOrderStats(list) {
+  const counts = {}; ORDER_STATUSES.forEach(s => counts[s] = 0);
+  orders.forEach(o => { const s = orderStatusOf(o); counts[s] = (counts[s] || 0) + 1; });
+  const sum = list.reduce((a, o) => a + orderBudget(o), 0);
+  const chips = ORDER_STATUSES.map(s => `<span class="ord-stat-chip ord-${orderStatusClass(s)}"><b>${counts[s]}</b> ${s}</span>`).join('');
+  document.getElementById('orderStats').innerHTML = `
+    <div class="ord-stat-chips">${chips}</div>
+    <div class="ord-stat-cards">
+      <div class="ord-stat-card"><span class="n">${list.length}</span><span class="l">符合筆數</span></div>
+      <div class="ord-stat-card"><span class="n">NT$ ${sum.toLocaleString()}</span><span class="l">總金額（預算加總）</span></div>
+    </div>`;
+}
 async function loadOrders() {
   const box = document.getElementById('orderList');
   box.innerHTML = '<div class="loading"><div class="spinner"></div>載入訂單中...</div>';
@@ -1827,7 +1864,7 @@ async function loadOrders() {
 function orderStatusClass(s) { return { '新訂單': 'new', '已確認': 'ok', '製作中': 'making', '已完成': 'done', '已取消': 'cancel' }[s] || 'new'; }
 function renderOrderList() {
   const box = document.getElementById('orderList');
-  if (!orders.length) { document.getElementById('orderStat').textContent = '共 0 筆'; box.innerHTML = '<div class="gm-empty">目前沒有訂單</div>'; return; }
+  if (!orders.length) { document.getElementById('orderStat').textContent = '共 0 筆'; document.getElementById('orderStats').innerHTML = ''; box.innerHTML = '<div class="gm-empty">目前沒有訂單</div>'; return; }
   const statusF = document.getElementById('orderFilter').value;
   const codeF = document.getElementById('orderCodeFilter').value;
   const q = (document.getElementById('orderSearch').value || '').trim().toLowerCase();
@@ -1840,6 +1877,7 @@ function renderOrderList() {
     return true;
   });
   document.getElementById('orderStat').textContent = `顯示 ${list.length} / 共 ${orders.length} 筆`;
+  renderOrderStats(list);
   if (!list.length) { box.innerHTML = '<div class="gm-empty">沒有符合篩選的訂單</div>'; return; }
   box.innerHTML = list.map(o => {
     const st = orderStatusOf(o);
