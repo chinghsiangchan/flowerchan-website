@@ -297,6 +297,7 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
 .product-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
 .pm-quick{border:1px solid #e5e0d5;background:#fff;color:#5a5750;border-radius:8px;padding:6px 10px;font-size:0.78rem;cursor:pointer;}
 .pm-quick.on{background:#FAEEDA;border-color:#e8cf9a;color:#854F0B;}
+.pm-quick[disabled]{opacity:0.35;cursor:default;}
 .pm-selects{display:flex;gap:6px;}
 .pm-tags{display:flex;flex-wrap:wrap;gap:4px;align-items:center;width:100%;margin-top:6px;}
 .pm-tags em{font-size:0.64rem;color:#b3aea2;font-style:normal;margin-right:4px;min-width:2.4em;display:inline-block;}
@@ -1475,11 +1476,20 @@ function renderBannerList() {
         <div class="gm-sub">${period}${b.link ? ' · → ' + b.link : ''}</div>
       </div>
       <div class="gm-actions">
+        <button class="pm-quick" onclick="moveBanner(${i},-1)" ${i === 0 ? 'disabled' : ''} title="上移">↑</button>
+        <button class="pm-quick" onclick="moveBanner(${i},1)" ${i === banners.length - 1 ? 'disabled' : ''} title="下移">↓</button>
         <button class="pm-quick" onclick="toggleBannerPublish(${i})">${b.published !== false ? '停用' : '啟用'}</button>
         <button class="btn-edit" onclick="openBanner(${i})">編輯</button>
       </div>
     </div>`;
   }).join('');
+}
+function moveBanner(i, dir) {
+  const j = i + dir;
+  if (j < 0 || j >= banners.length) return;
+  [banners[i], banners[j]] = [banners[j], banners[i]];
+  renderBannerList();
+  persistFile('banners.json', banners, '順序已更新').catch(e => showToast('儲存失敗：' + e.message));
 }
 function toggleBannerPublish(i) {
   banners[i].published = banners[i].published === false;

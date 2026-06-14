@@ -1,5 +1,18 @@
 [
   {
+    "id": "duanwu-2026",
+    "title": "端午安康",
+    "subtitle": "",
+    "eyebrow": "",
+    "cta": "",
+    "link": "/festival",
+    "image": "https://res.cloudinary.com/dcwgv05q1/image/upload/w_1600,h_640,c_fill,q_auto,f_auto/flowerchan/arvjerm35xdzrkqaiiid",
+    "text_in_image": true,
+    "published": true,
+    "start": "2026-06-14",
+    "end": "2026-06-22"
+  },
+  {
     "id": "graduation-2026",
     "title": "畢業季花禮 🎓 預購中",
     "subtitle": "向日葵花束・單枝花禮，陪你說一聲：畢業快樂",

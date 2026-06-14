@@ -9,14 +9,20 @@ const FILE_PATH = 'products.json';
 // 分支安全：依部署環境決定要寫入的 git 分支。
 // 正式站（production）寫 main；分支部署（如 redesign 測試站）只寫自己的分支，
 // 避免測試站後台儲存時覆蓋正式站資料。
-const GIT_BRANCH =
-  process.env.CONTEXT === 'production' ? 'main' : (process.env.BRANCH || 'main');
+// 分支安全：依「請求網址」判斷要寫哪個分支（function 執行時讀不到 process.env.BRANCH）。
+// 分支部署網址格式 <branch>--<site>.netlify.app；自訂網域或主站 → main。
+function branchFromHost(host) {
+  const m = (host || '').match(/^([^.]+)--/);
+  return m ? m[1] : 'main';
+}
 
 exports.handler = async (event) => {
   // 只允許 POST
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
+
+  const GIT_BRANCH = branchFromHost(event.headers['host'] || event.headers['Host'] || '');
 
   // 驗證 Netlify Identity token
   const authHeader = event.headers['authorization'] || '';

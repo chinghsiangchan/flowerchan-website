@@ -13,14 +13,21 @@ const ALLOWED = {
   'banners.json':  { type: 'array' },
 };
 
-// 分支安全：正式站（production）寫 main；分支部署（如 redesign 測試站）只寫自己的分支。
-const GIT_BRANCH =
-  process.env.CONTEXT === 'production' ? 'main' : (process.env.BRANCH || 'main');
+// 分支安全：依「請求網址」判斷要寫哪個分支。
+// Netlify function 執行時讀不到 process.env.BRANCH，因此改用 Host 標頭：
+// 分支部署網址格式為 <branch>--<site>.netlify.app（例：redesign--flowerchan.netlify.app）。
+// 自訂網域或主站（無 -- 前綴）→ main。
+function branchFromHost(host) {
+  const m = (host || '').match(/^([^.]+)--/);
+  return m ? m[1] : 'main';
+}
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
+
+  const GIT_BRANCH = branchFromHost(event.headers['host'] || event.headers['Host'] || '');
 
   // 驗證 Netlify Identity token
   const authHeader = event.headers['authorization'] || '';
