@@ -46,6 +46,8 @@ body { font-family: -apple-system, 'Noto Sans TC', sans-serif; background:var(--
   height:56px; align-items:center; justify-content:space-between;
 }
 #appHeader.show { display:flex; }
+.header-brand { display:flex; align-items:center; gap:0.6rem; }
+.header-logo { height:26px; width:auto; display:block; }
 .header-title { color:white; font-size:0.9rem; letter-spacing:0.12em; font-weight:400; }
 .header-btns { display:flex; gap:0.6rem; align-items:center; }
 .btn-logout {
@@ -313,7 +315,7 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
 <!-- 登入畫面 -->
 <div id="loginScreen">
   <div class="login-logo">
-    <h1>FLOWER CHAN</h1>
+    <img src="/FLOWERCHAN_WHITE.png" alt="Flower Chan" style="height:54px;width:auto;margin:0 auto 1rem;display:block;">
     <p>花品管理後台</p>
   </div>
   <button class="login-btn" onclick="netlifyIdentity.open('login')">
@@ -323,7 +325,10 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
 
 <!-- 頂部 Bar -->
 <header id="appHeader">
-  <span class="header-title">🌸 花品管理</span>
+  <div class="header-brand">
+    <img class="header-logo" src="/FLOWERCHAN_WHITE.png" alt="Flower Chan">
+    <span class="header-title">花品管理</span>
+  </div>
   <div class="header-btns">
     <button class="btn-logout" onclick="logout()">登出</button>
   </div>
