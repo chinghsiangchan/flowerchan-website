@@ -711,5 +711,43 @@
     ],
     "cloudinary_id": "flowerchan/k45rfr2bvyatebcuw63w",
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/k45rfr2bvyatebcuw63w"
+  },
+  {
+    "code": "OR-001",
+    "name": "蘭花",
+    "price": 2000,
+    "category": "蘭花",
+    "status": "完售",
+    "description": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "tags": [],
+    "occasions": [
+      "開幕·活動",
+      "喬遷",
+      "送禮靈感"
+    ],
+    "published": true,
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/bzdmqpdeiqlq3maophjj"
+      },
+      {
+        "cloudinary_id": "flowerchan/b2zmqebi1xecsfr5rkym"
+      },
+      {
+        "cloudinary_id": "flowerchan/xlpmr4hath7pmigoef9g"
+      },
+      {
+        "cloudinary_id": "flowerchan/ywk4lswbqpqg0ovkahib"
+      },
+      {
+        "cloudinary_id": "flowerchan/uv4hvgdlmxzbgs5yipgc"
+      }
+    ],
+    "cloudinary_id": "flowerchan/bzdmqpdeiqlq3maophjj",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/bzdmqpdeiqlq3maophjj"
   }
 ]
