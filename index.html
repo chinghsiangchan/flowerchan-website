@@ -324,7 +324,7 @@ async function initBanner() {
     // 輪播完全由 banners.json 驅動（含品牌形象，皆可後台管理）；萬一沒有任何 banner 才用內建 fallback
     if (!act.length) act = [DEFAULT_HERO];
     document.getElementById('hcTrack').innerHTML = act.map(b => `
-      <a class="hc-slide" href="${b.link || '#'}">
+      <a class="hc-slide${b.text_in_image ? ' hc-fullimg' : ''}" href="${b.link || '#'}">
         <img src="${b.image}" alt="${b.title || 'Flower Chan'}">
         ${!b.text_in_image && (b.title || b.subtitle || b.cta) ? `
         <div class="hc-overlay">
