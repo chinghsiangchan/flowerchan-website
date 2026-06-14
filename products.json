@@ -497,5 +497,35 @@
     "materials": "迷你蝴蝶蘭雙梗、簡約盆器",
     "size": "整體高度約 40 cm",
     "care": "每 7–10 天澆水一次，置於明亮處。"
+  },
+  {
+    "code": "FC-PV01",
+    "name": "永生玫瑰花盒（範例）",
+    "category": "永生花",
+    "price": 2280,
+    "status": "",
+    "description": "以進口永生玫瑰手工製作，免澆水、可長久保存，送禮或居家擺飾都雅緻耐看。（此為示範商品，可於後台刪除）",
+    "materials": "永生玫瑰 3 入、永生繡球、尤加利葉、緞帶、手工禮盒",
+    "size": "盒徑約 15 cm × 高 12 cm",
+    "care": "避免陽光直射與潮濕，請勿碰水。可用吹風機冷風輕除灰塵。妥善保存可維持 1–3 年。",
+    "tags": [
+      "生日",
+      "紀念日",
+      "粉色系"
+    ],
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/oagrp2yrqft1ob8nakzh"
+      },
+      {
+        "cloudinary_id": "flowerchan/mkvox3znorv4zwnd32u9"
+      },
+      {
+        "cloudinary_id": "flowerchan/lszasbrg5jjfmbkuydjb"
+      }
+    ],
+    "cloudinary_id": "flowerchan/oagrp2yrqft1ob8nakzh",
+    "published": true,
+    "featured": false
   }
 ]
