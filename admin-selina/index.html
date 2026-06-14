@@ -795,7 +795,7 @@ function getSelectedTags() {
 }
 
 // ── 場合（A3，與標籤同套 chip 機制，但獨立一組）──
-const DEFAULT_OCCASIONS = ['生日','情人節/紀念日','婚禮','畢業','開幕·活動','喬遷','探病','弔唁','送禮靈感'];
+const DEFAULT_OCCASIONS = ['日常','生日','情人節/紀念日','婚禮','畢業','開幕·活動','喬遷','探病','弔唁','送禮靈感'];
 let allOccasionPool = [...DEFAULT_OCCASIONS];
 function syncOccasionPool() {
   products.forEach(p => (p.occasions||[]).forEach(o => { if(!allOccasionPool.includes(o)) allOccasionPool.push(o); }));

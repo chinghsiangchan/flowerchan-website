@@ -32,6 +32,7 @@ const CATEGORIES = [
 /* 場合（C2）：起始 9 項。現階段相容——比對 product.occasions 欄位 + 現有 tags。
    送禮靈感為 catch-all（全部）。日後後台 A3 會把場合獨立成 occasions 欄位。 */
 const OCCASIONS = [
+  { key: '日常',        tags: ['日常'] },
   { key: '生日',        tags: ['生日'] },
   { key: '情人節/紀念日', tags: ['情人節', '紀念日'] },
   { key: '婚禮',        tags: ['婚禮'] },
