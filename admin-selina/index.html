@@ -1452,6 +1452,7 @@ let bannerIndex = -1;
 let bannerImgId = '';        // Cloudinary public_id
 let bannerFocalX = 0.5;      // 裁切焦點（0–1，水平）
 let bannerFocalY = 0.5;      // 裁切焦點（0–1，垂直）
+let bannerImgW = 0, bannerImgH = 0;  // 原圖像素尺寸（算焦點座標用）
 
 async function loadBanners() {
   try {
@@ -1520,6 +1521,7 @@ async function handleBannerImg(input) {
     const data = await res.json();
     if (!data.public_id) throw new Error();
     bannerImgId = data.public_id;
+    bannerImgW = data.width || 0; bannerImgH = data.height || 0;
     bannerFocalX = 0.5; bannerFocalY = 0.5;
     renderBannerCrop();
   } catch (e) { showToast('圖片上傳失敗，請重試'); }
@@ -1532,12 +1534,16 @@ function parseBannerId(url) {
   const m = (url || '').match(/\/upload\/[^/]+\/(.+)$/);
   return m ? m[1] : '';
 }
-// 依焦點組出最終 banner 圖網址（g_xy_center 讓焦點置中裁切）
+// 依焦點組出最終 banner 圖網址（用原圖像素座標，g_xy_center 讓焦點置中裁切）
 function bannerImageUrl() {
   if (!bannerImgId) return '';
-  const fx = Math.round(bannerFocalX * 1000) / 1000;
-  const fy = Math.round(bannerFocalY * 1000) / 1000;
-  return `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_1600,h_640,c_fill,g_xy_center,x_${fx},y_${fy},q_auto,f_auto/${bannerImgId}`;
+  if (bannerImgW && bannerImgH) {
+    const x = Math.round(bannerFocalX * bannerImgW);
+    const y = Math.round(bannerFocalY * bannerImgH);
+    return `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_1600,h_640,c_fill,g_xy_center,x_${x},y_${y},q_auto,f_auto/${bannerImgId}`;
+  }
+  // 尺寸還沒讀到時，先用置中裁切（安全 fallback）
+  return `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_1600,h_640,c_fill,q_auto,f_auto/${bannerImgId}`;
 }
 // 裁切調整介面：整張原圖 + 可拖點的 2.5:1 框 + 即時預覽
 function renderBannerCrop() {
@@ -1547,13 +1553,26 @@ function renderBannerCrop() {
   box.innerHTML = `
     <p class="crop-tip">點圖片任一處，決定要保留的重心；黃框內是 banner 會顯示的範圍。</p>
     <div id="bannerCropWrap">
-      <img id="bannerCropImg" src="${full}" onload="updateBannerCropBox()" onclick="setBannerFocal(event)">
+      <img id="bannerCropImg" src="${full}" onload="onCropImgLoad()" onclick="setBannerFocal(event)">
       <div id="bannerCropBox"></div>
       <div id="bannerFocalMarker"></div>
     </div>
     <p class="crop-tip" style="margin-top:10px;">實際 banner 預覽：</p>
     <img id="bannerCropPreview" src="${bannerImageUrl()}" style="width:100%;border-radius:8px;display:block;border:1px solid #e5e0d5;">
   `;
+}
+function onCropImgLoad() {
+  // 新上傳已有尺寸；舊 banner 沒存尺寸時，背景載入原圖讀真實像素尺寸
+  if (!bannerImgW || !bannerImgH) {
+    const probe = new Image();
+    probe.onload = function () {
+      bannerImgW = probe.naturalWidth; bannerImgH = probe.naturalHeight;
+      const p = document.getElementById('bannerCropPreview'); if (p) p.src = bannerImageUrl();
+    };
+    probe.src = `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/${bannerImgId}`;
+  }
+  updateBannerCropBox();
+  const p = document.getElementById('bannerCropPreview'); if (p) p.src = bannerImageUrl();
 }
 function setBannerFocal(ev) {
   const img = document.getElementById('bannerCropImg');
@@ -1596,6 +1615,7 @@ function openBanner(idx) {
   bannerImgId = parseBannerId(b.image || '');
   bannerFocalX = (typeof b.focal_x === 'number') ? b.focal_x : 0.5;
   bannerFocalY = (typeof b.focal_y === 'number') ? b.focal_y : 0.5;
+  bannerImgW = b.img_w || 0; bannerImgH = b.img_h || 0;
   document.getElementById('bannerPanelTitle').textContent = idx >= 0 ? '編輯 Banner' : '新增 Banner';
   document.getElementById('b_title').value = b.title || '';
   document.getElementById('b_subtitle').value = b.subtitle || '';
@@ -1636,6 +1656,8 @@ async function saveBanner() {
     image: bannerImageUrl(),
     focal_x: bannerFocalX,
     focal_y: bannerFocalY,
+    img_w: bannerImgW,
+    img_h: bannerImgH,
     text_in_image: document.getElementById('bannerTextInImageToggle').classList.contains('on'),
     published: document.getElementById('bannerPublishToggle').classList.contains('on')
   };
