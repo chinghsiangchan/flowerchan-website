@@ -27,6 +27,43 @@ const CATEGORIES = [
   { slug: 'orchid',       zh: '蘭花',   en: 'ORCHIDS' },
 ];
 
+/* 場合（C2）：起始 9 項。現階段相容——比對 product.occasions 欄位 + 現有 tags。
+   送禮靈感為 catch-all（全部）。日後後台 A3 會把場合獨立成 occasions 欄位。 */
+const OCCASIONS = [
+  { key: '生日',        tags: ['生日'] },
+  { key: '情人節/紀念日', tags: ['情人節', '紀念日'] },
+  { key: '婚禮',        tags: ['婚禮'] },
+  { key: '畢業',        tags: ['畢業'] },
+  { key: '開幕·活動',   tags: ['開幕', '會場', '企業'] },
+  { key: '喬遷',        tags: ['喬遷'] },
+  { key: '探病',        tags: ['探病'] },
+  { key: '弔唁',        tags: ['弔唁'] },
+  { key: '送禮靈感',     tags: [] },
+];
+/* 所有「場合來源標籤」集合，用來把場合 tag 從風格 tag 裡分出來 */
+const OCCASION_SOURCE_TAGS = OCCASIONS.reduce((a, o) => a.concat(o.tags, o.key), []);
+
+function productMatchesOccasion(p, occKey) {
+  const occ = OCCASIONS.find(o => o.key === occKey);
+  if (!occ) return false;
+  if (!occ.tags.length) return true;                 // 送禮靈感＝全部
+  const pool = (p.occasions || []).concat(p.tags || []);
+  return occ.tags.some(t => pool.includes(t)) || pool.includes(occKey);
+}
+/* 取花品的「風格/花材」標籤（排除場合來源標籤） */
+function styleTagsOf(p) {
+  return (p.tags || []).filter(t => !OCCASION_SOURCE_TAGS.includes(t));
+}
+/* 首頁 hero 下方場合 chips */
+function initOccasionBar() {
+  const box = document.getElementById('occasionChips');
+  if (!box) return;
+  box.innerHTML = OCCASIONS.map(o => {
+    const cls = o.key === '送禮靈感' ? 'occasion-chip occasion-chip--accent' : 'occasion-chip';
+    return `<a class="${cls}" href="/occasion.html?o=${encodeURIComponent(o.key)}">${o.key}</a>`;
+  }).join('');
+}
+
 /* 圖片 URL（Cloudinary 優先） */
 function getPhotoUrl(p, w = 600) {
   if (p.cloudinary_id) {
@@ -277,7 +314,7 @@ function scrollThumbs(dir) {
     menu.dataset.autoclose = '1';
     menu.addEventListener('click', (e) => { if (e.target.closest('a')) menu.classList.remove('open'); });
   }
-  const run = () => { initMobileCta(); initMenuAutoClose(); };
+  const run = () => { initMobileCta(); initMenuAutoClose(); initOccasionBar(); };
   if (document.readyState !== 'loading') run();
   else document.addEventListener('DOMContentLoaded', run);
 })();

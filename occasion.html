@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>依場合挑選｜Flower Chan 小花店</title>
+<meta name="description" content="依場合挑選花禮——生日、婚禮、開幕、喬遷、探病等。台北大安區手作花藝，線上訂購或 LINE 洽詢。">
+<link rel="icon" type="image/png" href="ICON.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+TC:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Flower Chan 小花店">
+<meta property="og:title" content="依場合挑選｜Flower Chan 小花店">
+<meta property="og:description" content="依場合挑選花禮——生日、婚禮、開幕、喬遷、探病等。">
+<meta property="og:image" content="https://res.cloudinary.com/dcwgv05q1/image/upload/w_1200,h_630,c_fill,q_auto,f_auto/flowerchan/oagrp2yrqft1ob8nakzh">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="/"><img class="nav-logo" src="/ICON.png" alt="Flower Chan logo"><span>FLOWER CHAN<small>小 花 店</small></span></a>
+  <ul class="nav-links">
+    <li><a href="/bouquet">花束</a></li>
+    <li><a href="/table-flower">桌花</a></li>
+    <li><a href="/flower-stand">高架花籃</a></li>
+    <li><a href="/orchid">蘭花</a></li>
+    <li><a href="/courses">花藝課程</a></li>
+    <li><a href="/#about">關於</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <a class="nav-cta" href="/#order">立即預訂</a>
+    <button class="nav-toggle" onclick="toggleMobileMenu()" aria-label="選單"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/bouquet">花束 BOUQUET</a>
+  <a href="/table-flower">桌花 TABLE FLOWERS</a>
+  <a href="/flower-stand">高架花籃 FLOWER STANDS</a>
+  <a href="/orchid">蘭花 ORCHIDS</a>
+  <a href="/courses">花藝課程 COURSES</a>
+  <a href="/#about">關於 ABOUT</a>
+</div>
+
+<header class="cat-hero">
+  <div class="cat-hero-inner">
+    <p class="cat-hero-eyebrow" id="occEyebrow">For This Occasion</p>
+    <h1 class="cat-hero-en" id="occEn">GIFTING</h1>
+    <p class="cat-hero-zh" id="occZh">送禮場合</p>
+  </div>
+</header>
+
+<section style="padding-top:2.5rem;">
+  <div class="filter-bar reveal" id="filterBar"></div>
+  <div class="gallery-grid" id="galleryGrid"></div>
+  <div class="gallery-more reveal">
+    <a href="https://www.instagram.com/flowerchan_tw/" target="_blank">在 Instagram 查看更多作品 ↗</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col footer-brand-col">
+      <img class="footer-logo" src="/FLOWERCHAN_WHITE.png" alt="Flower Chan">
+      <p class="footer-tagline">小花店 · 讓每個時刻都有花的陪伴</p>
+    </div>
+    <div class="footer-col">
+      <p class="footer-head">花禮選品</p>
+      <a href="/bouquet">花束</a><a href="/table-flower">桌花</a><a href="/flower-stand">高架花籃</a><a href="/orchid">蘭花</a>
+    </div>
+    <div class="footer-col">
+      <p class="footer-head">服務</p>
+      <a href="/courses">花藝課程</a><a href="/#order">訂購方式</a><a href="/#about">關於小花店</a>
+    </div>
+    <div class="footer-col">
+      <p class="footer-head">聯絡我們</p>
+      <p class="footer-info">TEL: <a href="tel:0223637539">02-2363-7539</a></p>
+      <p class="footer-info">台北市辛亥路二段43號1樓</p>
+      <p class="footer-info">預約制 · 歡迎私訊預約</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/flowerchan_tw/" target="_blank">Instagram</a>
+        <a href="https://www.facebook.com/freshasdaisyflower" target="_blank">Facebook</a>
+        <a href="https://lin.ee/jZUeNhm" target="_blank">LINE</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Flower Chan 小花店（小花序章企業社）· 台北市辛亥路二段43號1樓</div>
+</footer>
+
+<script src="/assets/site.js"></script>
+<script>
+const OCC_META = {
+  '生日':        { en:'BIRTHDAY',    tag:'為值得慶祝的日子，挑一束剛剛好的心意' },
+  '情人節/紀念日': { en:'WITH LOVE',   tag:'給最在意的那個人' },
+  '婚禮':        { en:'WEDDING',     tag:'為幸福的時刻增添色彩' },
+  '畢業':        { en:'GRADUATION',  tag:'獻給人生的新階段' },
+  '開幕·活動':   { en:'OPENING',     tag:'隆重祝賀，傳達大器的心意' },
+  '喬遷':        { en:'NEW HOME',    tag:'為新居獻上溫暖的祝福' },
+  '探病':        { en:'GET WELL',    tag:'溫柔的關懷與祝福' },
+  '弔唁':        { en:'CONDOLENCE',  tag:'致上最深的慰問' },
+  '送禮靈感':     { en:'INSPIRATION', tag:'不知道送什麼？讓我們陪你挑' },
+};
+
+const occKey = new URLSearchParams(location.search).get('o') || '送禮靈感';
+let occProducts = [];
+let styleFilter = '全部';
+
+function renderHero() {
+  const m = OCC_META[occKey] || { en:'GIFTING', tag:'' };
+  document.title = `${occKey}花禮｜Flower Chan 小花店`;
+  document.getElementById('occEn').textContent = m.en;
+  document.getElementById('occZh').textContent = occKey + (m.tag ? ' ・ ' + m.tag : '');
+}
+
+function renderFilter() {
+  const bar = document.getElementById('filterBar');
+  if (!occProducts.length) { bar.innerHTML = ''; return; }
+  const tags = ['全部'];
+  occProducts.forEach(p => styleTagsOf(p).forEach(t => { if (!tags.includes(t)) tags.push(t); }));
+  if (tags.length <= 1) { bar.innerHTML = ''; return; }   // 沒有風格標籤就不顯示篩選列
+  bar.innerHTML = '<span class="filter-label">風格</span>' +
+    tags.map(t => `<span class="tag${t === styleFilter ? ' active' : ''}" onclick="setStyle(this,'${t}')">${t}</span>`).join('');
+}
+
+function setStyle(el, tag) {
+  document.querySelectorAll('#filterBar .tag').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  styleFilter = tag;
+  renderGrid();
+}
+
+function renderGrid() {
+  const grid = document.getElementById('galleryGrid');
+  const list = styleFilter === '全部'
+    ? occProducts
+    : occProducts.filter(p => styleTagsOf(p).includes(styleFilter));
+  if (!list.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1;background:var(--cream);padding:5rem 8vw;text-align:center;">
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.2rem;color:var(--muted);margin-bottom:1rem;">Coming Soon</p>
+      <p style="font-size:0.85rem;color:var(--muted);font-weight:200;line-height:2;">這個場合的花禮即將上架。<br>想先看看或有急件需求，歡迎直接與我們聯繫。</p>
+      <a class="line-btn" href="https://lin.ee/jZUeNhm" target="_blank" style="margin-top:1.6rem;">LINE 洽詢</a>
+    </div>`;
+    return;
+  }
+  grid.innerHTML = list.map(flowerCardHtml).join('');
+  observeReveal();
+}
+
+async function init() {
+  renderHero();
+  try {
+    const all = await fetchProducts();
+    occProducts = all.filter(p => productMatchesOccasion(p, occKey));
+    renderFilter();
+    renderGrid();
+  } catch (e) {
+    document.getElementById('galleryGrid').innerHTML =
+      '<p style="padding:2rem 8vw;color:var(--muted);font-size:0.85rem;">花品載入中，請稍候...</p>';
+  }
+  observeReveal();
+}
+init();
+</script>
+<a class="fab-line" href="https://lin.ee/jZUeNhm" target="_blank" aria-label="LINE 詢問">
+<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 5.64 2 10.1c0 2.57 1.49 4.85 3.82 6.33-.13.46-.66 2.37-.69 2.53 0 0-.01.11.06.16.07.04.16.02.16.02.21-.03 2.44-1.6 3.4-2.27.74.11 1.49.16 2.25.16 5.52 0 10-3.64 10-8.13S17.52 2 12 2z"/></svg>
+</a>
+</body>
+</html>

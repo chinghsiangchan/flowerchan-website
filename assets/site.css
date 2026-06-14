@@ -606,3 +606,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .trust-badges--inline .trust-item{display:flex;align-items:center;gap:0.7rem;text-align:left;padding:0.7rem 1rem;}
 .trust-badges--inline .trust-ico{font-size:1.15rem;}
 .trust-badges--inline .trust-t{margin:0;font-size:0.85rem;}
+
+/* ═══ C2：依場合挑選 chips + 場合結果頁 ═══ */
+.occasion-bar{padding:2.4rem 8vw 0.5rem;}
+.occasion-title{font-family:'Noto Serif TC',serif;font-weight:300;color:var(--green);font-size:clamp(1.3rem,2.4vw,1.8rem);letter-spacing:0.06em;margin-bottom:1.3rem;}
+.occasion-chips{display:flex;flex-wrap:wrap;gap:0.6rem;}
+.occasion-chip{display:inline-block;padding:0.5rem 1.1rem;border-radius:999px;background:#fff;border:1px solid var(--border);color:var(--green);font-size:0.92rem;letter-spacing:0.04em;text-decoration:none;transition:all 0.2s;}
+.occasion-chip:hover{background:var(--green);color:#fff;border-color:var(--green);}
+.occasion-chip--accent{background:var(--pink);border-color:var(--pink);color:#7a3b2e;}
+.occasion-chip--accent:hover{background:#eaa996;border-color:#eaa996;color:#fff;}
+@media(max-width:768px){.occasion-bar{padding-top:1.8rem;}}
