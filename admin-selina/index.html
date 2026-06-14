@@ -270,6 +270,35 @@ body { font-family: -apple-system, 'Noto Sans TC', sans-serif; background:var(--
 .photo-thumb-bar{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:center;gap:3px;background:rgba(0,0,0,0.45);padding:3px 0;}
 .photo-thumb-bar button{background:rgba(255,255,255,0.92);border:none;border-radius:4px;width:22px;height:22px;font-size:13px;line-height:1;cursor:pointer;padding:0;}
 select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
+
+/* 產品管理頁工具列 */
+.pm-toolbar{margin-bottom:1rem;}
+.pm-search{width:100%;box-sizing:border-box;padding:10px 14px;border:1px solid #e5e0d5;border-radius:10px;font-size:0.95rem;background:#fff;margin-bottom:10px;}
+.pm-cats{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.pm-cat{border:1px solid #e5e0d5;background:#fff;color:#5a5750;border-radius:999px;padding:6px 13px;font-size:0.82rem;cursor:pointer;}
+.pm-cat b{color:#9a958a;font-weight:600;}
+.pm-cat.active{background:#2D4A3E;color:#fff;border-color:#2D4A3E;}
+.pm-cat.active b{color:#cfe0d6;}
+.pm-row2{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.pm-stat{font-size:0.8rem;color:#9a958a;}
+.pm-sort{appearance:auto;-webkit-appearance:auto;border:1px solid #e5e0d5;border-radius:8px;padding:6px 8px;font-size:0.82rem;background:#fff;}
+/* 列表列 */
+.product-item{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.pm-main{display:flex;align-items:center;gap:12px;flex:1;min-width:0;cursor:pointer;}
+.pm-badges{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;}
+.pm-b{font-size:0.68rem;padding:1px 8px;border-radius:999px;line-height:1.7;}
+.pm-b.on{background:#E1F5EE;color:#0F6E56;}
+.pm-b.off{background:#eee;color:#888;}
+.pm-b.sold{background:#FCEBEB;color:#A32D2D;}
+.pm-b.pre{background:#E6F1FB;color:#185FA5;}
+.pm-b.feat{background:#FAEEDA;color:#854F0B;}
+.product-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.pm-quick{border:1px solid #e5e0d5;background:#fff;color:#5a5750;border-radius:8px;padding:6px 10px;font-size:0.78rem;cursor:pointer;}
+.pm-quick.on{background:#FAEEDA;border-color:#e8cf9a;color:#854F0B;}
+@media(max-width:600px){
+  .pm-main{flex-basis:100%;}
+  .product-actions{flex-basis:100%;justify-content:flex-end;}
+}
 </style>
 </head>
 <body>
@@ -298,6 +327,20 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
   <div class="action-bar">
     <span class="page-title">花禮選品</span>
     <button class="btn-add" onclick="openNew()">＋ 新增花品</button>
+  </div>
+  <div class="pm-toolbar">
+    <input type="text" id="pmSearch" class="pm-search" placeholder="🔍 搜尋名稱或編號…" oninput="renderList()">
+    <div class="pm-cats" id="pmCats"></div>
+    <div class="pm-row2">
+      <span class="pm-stat" id="pmStat"></span>
+      <select id="pmSort" class="pm-sort" onchange="renderList()">
+        <option value="default">排序：預設</option>
+        <option value="new">最新加入</option>
+        <option value="code">編號</option>
+        <option value="price-asc">價格 低→高</option>
+        <option value="price-desc">價格 高→低</option>
+      </select>
+    </div>
   </div>
   <div id="productList" class="product-list">
     <div class="loading"><div class="spinner"></div>載入中...</div>
@@ -612,30 +655,97 @@ async function loadProducts() {
   }
 }
 
-// ── 渲染列表 ──
+// ── 產品管理頁：篩選 / 搜尋 / 排序 / 快切 ──
+let pmCategory = '全部';
+const PM_CATS = ['全部', '花束', '桌花', '高架花', '蘭花', '永生花'];
+const PM_CAT_LABEL = { '全部': '全部', '花束': '花束', '桌花': '桌花', '高架花': '高架花籃', '蘭花': '蘭花', '永生花': '永生花' };
+function catOf(p) { return p.category || '花束'; }
+function setPmCat(c) { pmCategory = c; renderList(); }
+
+function renderCatTabs() {
+  const box = document.getElementById('pmCats');
+  if (!box) return;
+  box.innerHTML = PM_CATS.map(c => {
+    const n = c === '全部' ? products.length : products.filter(p => catOf(p) === c).length;
+    return `<button class="pm-cat${c === pmCategory ? ' active' : ''}" onclick="setPmCat('${c}')">${PM_CAT_LABEL[c]} <b>${n}</b></button>`;
+  }).join('');
+}
+
 function renderList() {
   const list = document.getElementById('productList');
+  renderCatTabs();
+  const stat = document.getElementById('pmStat');
+  if (stat) stat.textContent = `共 ${products.length} 件 · 上架 ${products.filter(p => p.published !== false).length}`;
   if (products.length === 0) {
-    list.innerHTML = '<div class="loading">尚無花品，點右上角「＋ 新增花品」開始</div>';
+    list.innerHTML = '<div class="loading">尚無花品，點「＋ 新增花品」開始</div>';
     return;
   }
-  list.innerHTML = products.map((p, i) => `
-    <div class="product-item" onclick="openEdit(${i})">
-      ${p.cloudinary_id
-        ? `<img class="product-thumb" src="https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_120,h_120,c_fill/${p.cloudinary_id}" onerror="this.style.display='none'">`
-        : `<img class="product-thumb" src="${p.photo}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="product-thumb-placeholder" style="display:none">🌸</div>`
-      }
-      <div class="product-info">
-        <div class="product-code">${p.code}</div>
-        <div class="product-name">${p.name}</div>
-        <div class="product-price">NT$ ${Number(p.price).toLocaleString()}</div>
+  const q = (document.getElementById('pmSearch')?.value || '').trim().toLowerCase();
+  const sort = document.getElementById('pmSort')?.value || 'default';
+  let items = products.map((p, idx) => ({ p, idx }));
+  if (pmCategory !== '全部') items = items.filter(o => catOf(o.p) === pmCategory);
+  if (q) items = items.filter(o => (o.p.name || '').toLowerCase().includes(q) || (o.p.code || '').toLowerCase().includes(q));
+  if (sort === 'code') items.sort((a, b) => (a.p.code || '').localeCompare(b.p.code || ''));
+  else if (sort === 'price-asc') items.sort((a, b) => (a.p.price || 0) - (b.p.price || 0));
+  else if (sort === 'price-desc') items.sort((a, b) => (b.p.price || 0) - (a.p.price || 0));
+  else if (sort === 'new') items.reverse();
+
+  if (!items.length) { list.innerHTML = '<div class="loading">找不到符合的花品</div>'; return; }
+
+  list.innerHTML = items.map(({ p, idx }) => {
+    const thumb = p.cloudinary_id
+      ? `<img class="product-thumb" src="https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_120,h_120,c_fill/${p.cloudinary_id}" onerror="this.style.display='none'">`
+      : `<img class="product-thumb" src="${p.photo || ''}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="product-thumb-placeholder" style="display:none">🌸</div>`;
+    const badges = [
+      p.published !== false ? '<span class="pm-b on">上架</span>' : '<span class="pm-b off">下架</span>',
+      (p.status === '完售' || p.status === '售完') ? '<span class="pm-b sold">完售</span>' : '',
+      p.status === '預購中' ? '<span class="pm-b pre">預購</span>' : '',
+      p.featured ? '<span class="pm-b feat">★ 精選</span>' : ''
+    ].filter(Boolean).join('');
+    return `
+    <div class="product-item">
+      <div class="pm-main" onclick="openEdit(${idx})">
+        ${thumb}
+        <div class="product-info">
+          <div class="product-code">${p.code} · ${PM_CAT_LABEL[catOf(p)]}</div>
+          <div class="product-name">${p.name}</div>
+          <div class="product-price">NT$ ${Number(p.price).toLocaleString()}</div>
+          <div class="pm-badges">${badges}</div>
+        </div>
       </div>
       <div class="product-actions">
-        <span class="${p.published ? 'badge-on' : 'badge-off'}">${p.published ? '上架中' : '已下架'}</span>
-        <button class="btn-edit">編輯</button>
+        <button class="pm-quick" onclick="toggleListPublish('${p.code}')">${p.published !== false ? '下架' : '上架'}</button>
+        <button class="pm-quick${p.featured ? ' on' : ''}" onclick="toggleListFeatured('${p.code}')">${p.featured ? '取消精選' : '設精選'}</button>
+        <button class="btn-edit" onclick="openEdit(${idx})">編輯</button>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
+}
+
+// 共用存檔（快切用）
+async function persistProducts(msg) {
+  try {
+    const token = netlifyUser.token.access_token;
+    const res = await fetch('/.netlify/functions/save-products', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify(products)
+    });
+    const r = await res.json();
+    if (r.success) showToast('✓ ' + (msg || r.message)); else throw new Error(r.error || '儲存失敗');
+  } catch (e) { showToast('儲存失敗：' + e.message); }
+}
+function toggleListPublish(code) {
+  const p = products.find(x => x.code === code); if (!p) return;
+  p.published = p.published === false;   // 反轉（undefined/true → false；false → true）
+  renderList();
+  persistProducts(p.published ? '已上架' : '已下架');
+}
+function toggleListFeatured(code) {
+  const p = products.find(x => x.code === code); if (!p) return;
+  p.featured = !p.featured;
+  renderList();
+  persistProducts(p.featured ? '已設為精選' : '已取消精選');
 }
 
 // ── 開啟新增 ──
