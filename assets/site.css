@@ -358,6 +358,7 @@ footer{display:block;padding:4rem 8vw 1.5rem;}
 /* 5. 花品卡類別色記號 */
 .flower-card{--accent:var(--pink);}
 .flower-card.cat-bouquet{--accent:#5C8A72;}
+.flower-card.cat-festival{--accent:#C2614A;}
 .flower-card.cat-table{--accent:#E8A08E;}
 .flower-card.cat-stand{--accent:#C9952F;}
 .flower-card.cat-orchid{--accent:#9B7FB6;}

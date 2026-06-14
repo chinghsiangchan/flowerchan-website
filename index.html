@@ -26,7 +26,7 @@
 <nav>
   <a class="nav-brand" href="/"><img class="nav-logo" src="/ICON.png" alt="Flower Chan logo"><span>FLOWER CHAN<small>小 花 店</small></span></a>
   <ul class="nav-links">
-    <li><a href="/bouquet">花束</a></li>
+    <li><a href="/bouquet">花束</a></li><li><a href="/festival">節慶花禮</a></li>
     <li><a href="/table-flower">桌花</a></li>
     <li><a href="/flower-stand">高架花籃</a></li>
     <li><a href="/orchid">蘭花</a></li>
@@ -43,6 +43,7 @@
 </nav>
 <div class="mobile-menu" id="mobileMenu">
   <a href="/bouquet">花束 BOUQUET</a>
+  <a href="/festival">節慶花禮 FESTIVE</a>
   <a href="/table-flower">桌花 TABLE FLOWERS</a>
   <a href="/flower-stand">高架花籃 FLOWER STANDS</a>
   <a href="/orchid">蘭花 ORCHIDS</a>
@@ -79,6 +80,10 @@
     <a class="cat-card" href="/bouquet">
       <img src="https://res.cloudinary.com/dcwgv05q1/image/upload/w_600,c_fill,q_auto,f_auto/flowerchan/mkvox3znorv4zwnd32u9" alt="花束">
       <span class="cat-label"><span class="zh">花　束</span><span class="en">BOUQUET</span><span class="cat-price">多種預算 · 豐儉由人</span></span>
+    </a>
+    <a class="cat-card" href="/festival" id="catFestival">
+      <span class="cat-empty">即將上架</span>
+      <span class="cat-label"><span class="zh">節慶花禮</span><span class="en">FESTIVE FLOWERS</span><span class="cat-price">節慶限定 · 預購中</span></span>
     </a>
     <a class="cat-card" href="/table-flower" id="catTableFlower">
       <span class="cat-empty">即將上架</span>
@@ -230,7 +235,7 @@
     </div>
     <div class="footer-col">
       <p class="footer-head">花禮選品</p>
-      <a href="/bouquet">花束</a>
+      <a href="/bouquet">花束</a><a href="/festival">節慶花禮</a>
       <a href="/table-flower">桌花</a>
       <a href="/flower-stand">高架花籃</a>
       <a href="/orchid">蘭花</a>
@@ -287,7 +292,7 @@ async function initFeatured() {
 
 /* 類別卡片封面：該類別有花品時自動帶第一張照片 */
 function updateCategoryCovers() {
-  const map = { '桌花': 'catTableFlower', '高架花': 'catFlowerStand', '蘭花': 'catOrchid', '永生花': 'catPreserved' };
+  const map = { '節慶花禮': 'catFestival', '桌花': 'catTableFlower', '高架花': 'catFlowerStand', '蘭花': 'catOrchid', '永生花': 'catPreserved' };
   Object.entries(map).forEach(([cat, id]) => {
     const first = allProducts.find(p => p.category === cat && getPhotoUrl(p));
     if (first) {

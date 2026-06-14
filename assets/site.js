@@ -21,7 +21,8 @@ const LINE_URL = 'https://lin.ee/jZUeNhm';
 
 /* 類別定義（網站四類，2026-06-12 定案） */
 const CATEGORIES = [
-  { slug: 'bouquet',      zh: '花束',   en: 'BOUQUET' },
+  { slug: 'bouquet',      zh: '花束',     en: 'BOUQUET' },
+  { slug: 'festival',     zh: '節慶花禮', en: 'FESTIVE FLOWERS' },
   { slug: 'table-flower', zh: '桌花',   en: 'TABLE FLOWERS' },
   { slug: 'flower-stand', zh: '高架花', en: 'FLOWER STANDS' },
   { slug: 'orchid',       zh: '蘭花',   en: 'ORCHIDS' },
@@ -95,8 +96,8 @@ function statusBadge(p) {
 function isSoldout(p) { return p.status === '完售' || p.status === '售完'; }
 
 /* 花品卡片 HTML（共用：首頁精選、類別頁） */
-const CAT_CLASS = { '花束': 'cat-bouquet', '桌花': 'cat-table', '高架花': 'cat-stand', '蘭花': 'cat-orchid', '永生花': 'cat-preserved' };
-const CAT_LABEL = { '花束': '花束', '桌花': '桌花', '高架花': '高架花籃', '蘭花': '蘭花', '永生花': '永生花' };
+const CAT_CLASS = { '花束': 'cat-bouquet', '節慶花禮': 'cat-festival', '桌花': 'cat-table', '高架花': 'cat-stand', '蘭花': 'cat-orchid', '永生花': 'cat-preserved' };
+const CAT_LABEL = { '花束': '花束', '節慶花禮': '節慶花禮', '桌花': '桌花', '高架花': '高架花籃', '蘭花': '蘭花', '永生花': '永生花' };
 
 function flowerCardHtml(p) {
   const soldout = isSoldout(p);

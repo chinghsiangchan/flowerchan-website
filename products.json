@@ -376,5 +376,30 @@
     "cloudinary_id": "flowerchan/oagrp2yrqft1ob8nakzh",
     "published": true,
     "featured": false
+  },
+  {
+    "code": "FE-001",
+    "name": "端午安康・盛夏蘭韻設計花",
+    "price": 3800,
+    "category": "節慶花禮",
+    "status": "預購中",
+    "description": "為端午獻上一份不一樣的心意。\n以蝴蝶蘭的素雅為主角，搭配文心蘭的躍動金黃、火鶴的溫潤橙紅，佐以蓮蓬、金槌花與隨風搖曳的草穗；線條向上延伸，像盛夏裡一株自在生長的風景。\n適合送給長輩、客戶或重要的人，附上一句「端午安康」。",
+    "materials": "蝴蝶蘭、文心蘭、火鶴、金槌花、蓮蓬、季節草葉",
+    "size": "長型設計，整體高度約 70–90cm，實際依當日花材微調",
+    "care": "收到後請拆開包裝，置於通風陰涼處，避免陽光直射與空調直吹。鮮花請每 1–2 天換水、斜剪根部約 1cm；觀賞期約 5–7 天，會依季節與品種略有不同。",
+    "tags": [
+      "設計感",
+      "黃色系",
+      "送長輩"
+    ],
+    "occasions": [
+      "送禮靈感",
+      "端午"
+    ],
+    "published": true,
+    "featured": false,
+    "photos": [],
+    "cloudinary_id": "",
+    "photo": ""
   }
 ]
