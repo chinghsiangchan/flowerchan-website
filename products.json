@@ -41,7 +41,8 @@
     ],
     "published": true,
     "photo": "DSCF3446.JPG",
-    "cloudinary_id": "DSCF3446_fynpeo"
+    "cloudinary_id": "DSCF3446_fynpeo",
+    "featured": true
   },
   {
     "code": "FC-004",
