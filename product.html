@@ -225,8 +225,15 @@ function render(p, all) {
     </div>
   </div>`;
 
-  /* 相關花品：同類別其他 3 件 */
-  const related = all.filter(x => x.code !== p.code && (x.category || '花束') === cat).slice(0, 3);
+  /* 相關花品：同類別中，依共同場合/風格標籤相關度優先，相同相關度之間隨機；不足再隨機補 */
+  const tagPool = x => [...(x.occasions || []), ...(x.tags || [])];
+  const mine = new Set(tagPool(p));
+  const shuffle = arr => arr.map(v => [Math.random(), v]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
+  const cands = all.filter(x => x.code !== p.code && (x.category || '花束') === cat && x.published !== false);
+  const scored = cands.map(x => ({ x, s: tagPool(x).filter(t => mine.has(t)).length }));
+  const matched = shuffle(scored.filter(o => o.s > 0)).sort((a, b) => b.s - a.s).map(o => o.x);
+  const rest = shuffle(scored.filter(o => o.s === 0).map(o => o.x));
+  const related = [...matched, ...rest].slice(0, 3);
   if (related.length) {
     document.getElementById('relatedWrap').style.display = 'block';
     document.getElementById('relatedGrid').innerHTML = related.map(flowerCardHtml).join('');

@@ -354,6 +354,10 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
 #bannerCropImg{width:100%;display:block;cursor:crosshair;}
 #bannerCropBox{position:absolute;border:2px solid #E8B84B;box-shadow:0 0 0 9999px rgba(0,0,0,0.45);pointer-events:none;box-sizing:border-box;}
 #bannerFocalMarker{position:absolute;width:14px;height:14px;margin:-7px 0 0 -7px;border:2px solid #fff;border-radius:50%;background:rgba(45,74,62,0.7);pointer-events:none;}
+#imgLightbox{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.82);align-items:center;justify-content:center;padding:24px;cursor:zoom-out;}
+#imgLightbox.show{display:flex;}
+#imgLightboxImg{max-width:96vw;max-height:92vh;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,0.5);}
+.lightbox-close{position:fixed;top:16px;right:20px;background:rgba(255,255,255,0.9);border:none;border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer;line-height:1;}
 .safe-diagram{margin:8px 0;}
 .safe-frame{position:relative;width:100%;aspect-ratio:5/2;border-radius:6px;overflow:hidden;display:flex;background:repeating-linear-gradient(45deg,#efe9da,#efe9da 6px,#e7dfca 6px,#e7dfca 12px);}
 .safe-edge{flex:0 0 23.5%;display:flex;align-items:center;justify-content:center;text-align:center;font-size:0.62rem;line-height:1.3;color:#a8967a;background:rgba(120,100,70,0.12);}
@@ -721,6 +725,12 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
 <!-- 提示訊息 -->
 <div id="toast"></div>
 
+<!-- 圖片放大 lightbox -->
+<div id="imgLightbox" onclick="closeLightbox()">
+  <img id="imgLightboxImg" alt="放大圖">
+  <button type="button" class="lightbox-close" onclick="closeLightbox()" aria-label="關閉">✕</button>
+</div>
+
 <script>
 // ── Cloudinary 設定 ──
 const CLOUDINARY_CLOUD = 'dcwgv05q1';
@@ -823,7 +833,7 @@ function renderPhotos() {
   if(!box) return;
   box.innerHTML = currentPhotos.map((id,i)=>`
     <div class="photo-thumb">
-      <img src="https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_160,h_160,c_fill/${id}">
+      <img src="https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_160,h_160,c_fill/${id}" onclick="openLightbox('${id}')" style="cursor:zoom-in;" title="點擊放大">
       ${i===0?'<span class="photo-main-badge">主圖</span>':''}
       <div class="photo-thumb-bar">
         <button type="button" onclick="movePhoto(${i},-1)" title="左移">‹</button>
@@ -1348,7 +1358,7 @@ function renderCoursePhotos() {
   const box = document.getElementById('coursePhotoList');
   box.innerHTML = coursePhotos.map((id, i) => `
     <div class="photo-thumb">
-      <img src="https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_160,h_160,c_fill/${id}">
+      <img src="https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_160,h_160,c_fill/${id}" onclick="openLightbox('${id}')" style="cursor:zoom-in;" title="點擊放大">
       ${i === 0 ? '<span class="photo-main-badge">主圖</span>' : ''}
       <div class="photo-thumb-bar">
         <button type="button" onclick="moveCoursePhoto(${i},-1)">‹</button>
@@ -1681,6 +1691,16 @@ function deleteBanner() {
   persistFile('banners.json', banners, 'Banner 已刪除')
     .then(() => { closeBanner(); renderBannerList(); })
     .catch(e => { banners.splice(bannerIndex, 0, removed); showToast('刪除失敗：' + e.message); });
+}
+
+// ── 圖片放大 ──
+function openLightbox(id) {
+  const img = document.getElementById('imgLightboxImg');
+  img.src = `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_1400,q_auto,f_auto/${id}`;
+  document.getElementById('imgLightbox').classList.add('show');
+}
+function closeLightbox() {
+  document.getElementById('imgLightbox').classList.remove('show');
 }
 
 // ── Toast 提示 ──
