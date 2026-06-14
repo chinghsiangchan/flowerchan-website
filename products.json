@@ -45,10 +45,41 @@
       "畢業"
     ],
     "published": true,
-    "photo": "DSCF3446.JPG",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/DSCF3446_fynpeo",
     "cloudinary_id": "DSCF3446_fynpeo",
     "occasions": [
-      "送禮靈感"
+      "畢業",
+      "送禮靈感",
+      "紀念日"
+    ],
+    "category": "花束",
+    "status": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "DSCF3446_fynpeo"
+      },
+      {
+        "cloudinary_id": "flowerchan/yirpkgfvb7iavaunqaen"
+      },
+      {
+        "cloudinary_id": "flowerchan/cndn33l1ckjogg9kvsti"
+      },
+      {
+        "cloudinary_id": "flowerchan/vikknrsy3bju62gqv0ct"
+      },
+      {
+        "cloudinary_id": "flowerchan/ftsoycs8u4k11kuory8n"
+      },
+      {
+        "cloudinary_id": "flowerchan/krqxohottadfbomkxh2r"
+      },
+      {
+        "cloudinary_id": "flowerchan/l7m3ut7akipjvze5ktyb"
+      }
     ]
   },
   {
