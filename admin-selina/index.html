@@ -355,7 +355,12 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
 .ord-stat-card{background:#fff;border:1px solid #ece8df;border-radius:10px;padding:12px 20px;min-width:130px;}
 .ord-stat-card .n{display:block;font-size:1.35rem;font-weight:600;color:#2D4A3E;line-height:1.3;}
 .ord-stat-card .l{font-size:0.74rem;color:#9a958a;}
-.ord-card{background:#fff;border:1px solid #ece8df;border-radius:12px;padding:16px 18px;margin-bottom:12px;display:flex;gap:20px;align-items:flex-start;}
+.ord-card{background:#fff;border:1.5px solid #ece8df;border-radius:12px;padding:16px 18px;margin-bottom:12px;display:flex;gap:20px;align-items:flex-start;transition:border-color .2s;}
+.ord-card.ord-b-new{border-color:#9AC2EC;}
+.ord-card.ord-b-ok{border-color:#E6C078;}
+.ord-card.ord-b-making{border-color:#86C0A3;}
+.ord-card.ord-b-done{border-color:#6FCBB2;}
+.ord-card.ord-b-cancel{border-color:#E2A2A2;}
 .ord-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 22px;flex:1 1 auto;min-width:0;}
 .ord-f{font-size:0.8rem;line-height:1.5;min-width:0;}
 .ord-f em{display:block;font-style:normal;color:#a8a499;font-size:0.66rem;margin-bottom:1px;}
@@ -1888,7 +1893,7 @@ function renderOrderList() {
     const pills = ORDER_STATUSES.map(s =>
       `<button class="ord-pill${s === st ? ' active ord-' + orderStatusClass(s) : ''}" onclick="setOrderStatus(${o._row}, '${s}')">${s}</button>`
     ).join('');
-    return `<div class="ord-card">
+    return `<div class="ord-card ord-b-${orderStatusClass(st)}">
       <div class="ord-fields">${fields}</div>
       <div class="ord-pills">${pills}</div>
     </div>`;
