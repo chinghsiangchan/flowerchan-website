@@ -120,15 +120,12 @@
       <p class="sec-eyebrow">Floral Workshop</p>
       <h2 class="sec-title">花藝課程</h2>
       <p class="course-intro-lead">花，也可以親手做。</p>
-      <p class="course-intro-body">小班、慢步調，從一枝一葉開始，在 Selina 的引導下，把當季的花材變成屬於你的作品。<br><br>想給自己一段放鬆的午後，或和孩子、朋友一起留下回憶——植栽組盆、永生花、節慶花圈，總有一堂適合你。第一次也沒關係，我們會帶著你慢慢完成。</p>
-      <div class="course-tags">
-        <span>植栽組盆</span><span>親子花藝</span><span>永生花</span><span>節慶花圈</span>
-      </div>
+      <p class="course-intro-body">小班、慢步調，從一枝一葉開始，在花藝老師的引導下，把當季的花材變成屬於你的作品。<br><br>想給自己一段放鬆的午後，或和孩子、朋友一起留下回憶，總有一堂適合你。第一次也沒關係，會帶著你慢慢完成。</p>
+      <div class="course-tags" id="courseTags"></div>
       <a href="/courses" class="btn-dark" style="margin-top:1.9rem;">看所有課程</a>
     </div>
     <div class="course-intro-visual">
       <img src="https://res.cloudinary.com/dcwgv05q1/image/upload/w_900,c_fill,q_auto,f_auto/flowerchan/mkvox3znorv4zwnd32u9" alt="花藝課程" loading="lazy">
-      <span class="course-visual-badge">小班 · 預約制</span>
     </div>
   </div>
 </section>
@@ -187,7 +184,7 @@
         <div class="info-item"><span class="info-icon">💬</span><div><p class="info-label">LINE 官方帳號</p><p class="info-val"><a href="https://lin.ee/jZUeNhm" target="_blank">加入好友</a></p></div></div>
       </div>
       <div class="about-map">
-        <iframe src="https://www.google.com/maps?q=25.0228164,121.5364129(Flowerchan+小花店)&z=17&output=embed" loading="lazy" title="Flower Chan 小花店位置"></iframe>
+        <iframe src="https://www.google.com/maps?q=Flowerchan+小花店+台北市辛亥路二段43號1樓&z=17&output=embed" loading="lazy" title="Flower Chan 小花店位置"></iframe>
       </div>
       <div class="map-links">
         <a href="https://www.google.com/maps?cid=13413368461558242578" target="_blank">在 Google 地圖開啟 ↗</a>
@@ -374,9 +371,23 @@ function setupHcSwipe() {
   tr.addEventListener('click', e => { if (moved) { e.preventDefault(); moved = false; } }, true);
 }
 
+/* 課程標籤：自動帶入實際課程名稱（有幾堂顯示幾堂） */
+async function initCourseTags() {
+  try {
+    const courses = await fetchCourses();
+    const box = document.getElementById('courseTags');
+    if (!box || !courses.length) return;
+    const names = courses.map(c => c.name).filter(Boolean);
+    const show = names.slice(0, 6);
+    box.innerHTML = show.map(n => `<span>${n}</span>`).join('') +
+      (names.length > show.length ? '<span>…等</span>' : '');
+  } catch (e) { /* 靜默 */ }
+}
+
 async function init() {
   initBanner();
   await initFeatured();
+  initCourseTags();
 }
 
 init();
