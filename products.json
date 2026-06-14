@@ -56,7 +56,8 @@
     ],
     "published": true,
     "photo": "DSCF3465.JPG",
-    "cloudinary_id": "DSCF3465_i9pgr7"
+    "cloudinary_id": "DSCF3465_i9pgr7",
+    "featured": true
   },
   {
     "code": "FC-005",
