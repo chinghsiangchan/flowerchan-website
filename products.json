@@ -57,7 +57,7 @@
     "materials": "",
     "size": "",
     "care": "",
-    "featured": false,
+    "featured": true,
     "photos": [
       {
         "cloudinary_id": "DSCF3446_fynpeo"
