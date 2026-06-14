@@ -293,11 +293,29 @@
       "向日葵"
     ],
     "published": true,
-    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780029348/flowerchan/etygvwjjo1qkjj48g75l.jpg",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/etygvwjjo1qkjj48g75l",
     "cloudinary_id": "flowerchan/etygvwjjo1qkjj48g75l",
     "occasions": [
+      "日常",
       "畢業",
       "送禮靈感"
+    ],
+    "category": "花束",
+    "status": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/etygvwjjo1qkjj48g75l"
+      },
+      {
+        "cloudinary_id": "flowerchan/ik3vdpsxufejvw9dfg0r"
+      },
+      {
+        "cloudinary_id": "flowerchan/z8dvwnnvgdv4wk2fnl6x"
+      }
     ]
   },
   {
