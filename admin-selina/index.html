@@ -262,6 +262,15 @@ body { font-family: -apple-system, 'Noto Sans TC', sans-serif; background:var(--
 }
 @keyframes spin { to { transform:rotate(360deg); } }
 </style>
+<style>
+.photo-list{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px;}
+.photo-thumb{position:relative;width:96px;height:96px;border-radius:8px;overflow:hidden;border:1px solid #e5e0d5;}
+.photo-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.photo-main-badge{position:absolute;top:4px;left:4px;background:rgba(45,74,62,0.92);color:#fff;font-size:10px;padding:1px 7px;border-radius:999px;}
+.photo-thumb-bar{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:center;gap:3px;background:rgba(0,0,0,0.45);padding:3px 0;}
+.photo-thumb-bar button{background:rgba(255,255,255,0.92);border:none;border-radius:4px;width:22px;height:22px;font-size:13px;line-height:1;cursor:pointer;padding:0;}
+select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
+</style>
 </head>
 <body>
 
@@ -307,15 +316,15 @@ body { font-family: -apple-system, 'Noto Sans TC', sans-serif; background:var(--
   </div>
   <div class="panel-body">
 
-    <!-- 照片上傳 -->
+    <!-- 照片上傳（可多張，第一張為主圖） -->
     <div class="field">
-      <label class="field-label">花品照片</label>
+      <label class="field-label">花品照片（第一張為主圖，可多張）</label>
+      <div id="photoList" class="photo-list"></div>
       <div class="photo-upload-area" id="photoArea">
-        <input type="file" id="photoInput" accept="image/*" onchange="handlePhoto(this)">
-        <img id="photoPreview" class="photo-preview">
+        <input type="file" id="photoInput" accept="image/*" multiple onchange="handlePhoto(this)">
         <div id="photoHint">
           <span class="photo-upload-icon">📷</span>
-          <p class="photo-upload-hint">點此上傳照片<br>可直接從手機相簿選取</p>
+          <p class="photo-upload-hint">點此上傳照片<br>可一次選多張</p>
         </div>
         <p id="photoUploading" class="photo-uploading" style="display:none">上傳中...</p>
       </div>
@@ -338,15 +347,51 @@ body { font-family: -apple-system, 'Noto Sans TC', sans-serif; background:var(--
       <input class="field-input" id="f_name" placeholder="例如：粉漸層非洲菊花束">
     </div>
 
+    <!-- 類別 + 狀態 -->
+    <div class="field-row">
+      <div class="field">
+        <label class="field-label">類別 *</label>
+        <select class="field-input" id="f_category">
+          <option value="花束">花束</option>
+          <option value="桌花">桌花</option>
+          <option value="高架花">高架花籃</option>
+          <option value="蘭花">蘭花</option>
+          <option value="永生花">永生花</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="field-label">狀態</label>
+        <select class="field-input" id="f_status">
+          <option value="">無（正常）</option>
+          <option value="預購中">預購中</option>
+          <option value="完售">完售</option>
+        </select>
+      </div>
+    </div>
+
     <!-- 花品介紹 -->
     <div class="field">
       <label class="field-label">花品介紹</label>
       <textarea class="field-input" id="f_description" rows="4" placeholder="簡單介紹這款花禮的特色、適合場合或風格…" style="resize:vertical;min-height:90px;line-height:1.7;"></textarea>
     </div>
 
+    <!-- 花材 / 尺寸 / 照護 -->
+    <div class="field">
+      <label class="field-label">花材</label>
+      <textarea class="field-input" id="f_materials" rows="2" placeholder="例如：玫瑰、桔梗、尤加利葉、季節配花" style="resize:vertical;"></textarea>
+    </div>
+    <div class="field">
+      <label class="field-label">尺寸</label>
+      <input class="field-input" id="f_size" placeholder="例如：花面直徑約 30cm，整體高度約 45cm">
+    </div>
+    <div class="field">
+      <label class="field-label">照護提醒　<button type="button" class="tag-add-btn" onclick="fillCareTemplate()">帶入通用範本</button></label>
+      <textarea class="field-input" id="f_care" rows="3" placeholder="保鮮、換水、擺放提醒…（可按上方「帶入通用範本」再修改）" style="resize:vertical;"></textarea>
+    </div>
+
     <!-- 標籤 -->
     <div class="field">
-      <label class="field-label">標籤（可複選）</label>
+      <label class="field-label">風格 / 花材標籤（可複選）</label>
       <div class="tag-grid" id="tagGrid">
         <!-- 由 JS 動態產生 -->
       </div>
@@ -354,6 +399,17 @@ body { font-family: -apple-system, 'Noto Sans TC', sans-serif; background:var(--
         <input class="tag-add-input" id="newTagInput" placeholder="新增標籤…"
                onkeydown="if(event.key==='Enter'){event.preventDefault();addNewTag();}">
         <button class="tag-add-btn" onclick="addNewTag()">＋ 新增</button>
+      </div>
+    </div>
+
+    <!-- 場合（前台依場合篩選用） -->
+    <div class="field">
+      <label class="field-label">場合（可複選）</label>
+      <div class="tag-grid" id="occasionGrid"></div>
+      <div class="tag-add-row">
+        <input class="tag-add-input" id="newOccasionInput" placeholder="新增場合…"
+               onkeydown="if(event.key==='Enter'){event.preventDefault();addNewOccasion();}">
+        <button class="tag-add-btn" onclick="addNewOccasion()">＋ 新增</button>
       </div>
     </div>
 
@@ -383,8 +439,6 @@ const CLOUDINARY_PRESET = 'flowerchan';
 // ── 狀態 ──
 let products = [];
 let editIndex = -1; // -1 = 新增, 0+ = 編輯
-let currentPhotoUrl = '';
-let currentCloudinaryId = '';
 let netlifyUser = null;
 
 // ── 標籤池 ──
@@ -440,6 +494,67 @@ function getSelectedTags() {
     .map(c => c.childNodes[0].textContent.trim());
 }
 
+// ── 場合（A3，與標籤同套 chip 機制，但獨立一組）──
+const DEFAULT_OCCASIONS = ['生日','情人節/紀念日','婚禮','畢業','開幕·活動','喬遷','探病','弔唁','送禮靈感'];
+let allOccasionPool = [...DEFAULT_OCCASIONS];
+function syncOccasionPool() {
+  products.forEach(p => (p.occasions||[]).forEach(o => { if(!allOccasionPool.includes(o)) allOccasionPool.push(o); }));
+}
+function renderOccasionGrid(selected=[]) {
+  const grid = document.getElementById('occasionGrid');
+  grid.innerHTML = allOccasionPool.map(o => `
+    <span class="tag-chip${selected.includes(o)?' selected':''}" onclick="toggleTag(this)">
+      ${o}<span class="tag-del" onclick="event.stopPropagation();deleteOccasion('${o}')">✕</span>
+    </span>`).join('');
+}
+function addNewOccasion() {
+  const input = document.getElementById('newOccasionInput');
+  const o = input.value.trim();
+  if(!o) return;
+  if(!allOccasionPool.includes(o)) allOccasionPool.push(o);
+  const sel = getSelectedOccasions(); sel.push(o);
+  renderOccasionGrid(sel);
+  input.value=''; showToast('場合「'+o+'」已新增');
+}
+function deleteOccasion(o) {
+  if(!confirm('確定要刪除場合「'+o+'」嗎？')) return;
+  allOccasionPool = allOccasionPool.filter(x=>x!==o);
+  renderOccasionGrid(getSelectedOccasions().filter(x=>x!==o));
+  showToast('場合「'+o+'」已刪除');
+}
+function getSelectedOccasions() {
+  return [...document.querySelectorAll('#occasionGrid .tag-chip.selected')].map(c=>c.childNodes[0].textContent.trim());
+}
+
+// ── 多照片（A1 進階版：第一張為主圖，可移位/設主圖/刪除）──
+let currentPhotos = [];
+function renderPhotos() {
+  const box = document.getElementById('photoList');
+  if(!box) return;
+  box.innerHTML = currentPhotos.map((id,i)=>`
+    <div class="photo-thumb">
+      <img src="https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_160,h_160,c_fill/${id}">
+      ${i===0?'<span class="photo-main-badge">主圖</span>':''}
+      <div class="photo-thumb-bar">
+        <button type="button" onclick="movePhoto(${i},-1)" title="左移">‹</button>
+        ${i!==0?`<button type="button" onclick="setMainPhoto(${i})" title="設為主圖">★</button>`:''}
+        <button type="button" onclick="movePhoto(${i},1)" title="右移">›</button>
+        <button type="button" onclick="removePhoto(${i})" title="刪除">✕</button>
+      </div>
+    </div>`).join('');
+}
+function movePhoto(i,dir){ const j=i+dir; if(j<0||j>=currentPhotos.length)return; const t=currentPhotos[i]; currentPhotos[i]=currentPhotos[j]; currentPhotos[j]=t; renderPhotos(); }
+function setMainPhoto(i){ const m=currentPhotos.splice(i,1)[0]; currentPhotos.unshift(m); renderPhotos(); }
+function removePhoto(i){ currentPhotos.splice(i,1); renderPhotos(); }
+
+// ── 照護通用範本 ──
+const CARE_TEMPLATE = '收到後請拆開包裝，置於通風陰涼處，避免陽光直射與空調直吹。鮮花請每 1–2 天換水、斜剪根部約 1cm；觀賞期約 5–7 天，會依季節與品種略有不同。';
+function fillCareTemplate() {
+  const el = document.getElementById('f_care');
+  if(el.value.trim() && !confirm('照護欄已有內容，要用範本覆蓋嗎？')) return;
+  el.value = CARE_TEMPLATE;
+}
+
 // ── Netlify Identity ──
 netlifyIdentity.on('login', user => {
   netlifyUser = user;
@@ -481,6 +596,8 @@ async function loadProducts() {
   try {
     const res = await fetch('/products.json?t=' + Date.now());
     products = await res.json();
+    syncTagPool();
+    syncOccasionPool();
     renderList();
   } catch(e) {
     showToast('載入花品失敗，請重新整理');
@@ -516,19 +633,24 @@ function renderList() {
 // ── 開啟新增 ──
 function openNew() {
   editIndex = -1;
-  currentPhotoUrl = '';
-  currentCloudinaryId = '';
+  currentPhotos = [];
 
   document.getElementById('panelTitle').textContent = '新增花品';
   document.getElementById('f_code').value = `FC-${String(products.length + 1).padStart(3,'0')}`;
   document.getElementById('f_name').value = '';
   document.getElementById('f_price').value = '';
   document.getElementById('f_description').value = '';
-  document.getElementById('photoPreview').style.display = 'none';
+  document.getElementById('f_category').value = '花束';
+  document.getElementById('f_status').value = '';
+  document.getElementById('f_materials').value = '';
+  document.getElementById('f_size').value = '';
+  document.getElementById('f_care').value = '';
   document.getElementById('photoHint').style.display = 'block';
   document.getElementById('publishToggle').className = 'toggle on';
   document.getElementById('btnDelete').style.display = 'none';
+  renderPhotos();
   renderTagGrid([]);
+  renderOccasionGrid(['送禮靈感', '生日']);   // 新品預設場合，減少點擊
 
   openPanel();
 }
@@ -537,34 +659,33 @@ function openNew() {
 function openEdit(i) {
   editIndex = i;
   const p = products[i];
-  currentPhotoUrl = p.photo || '';
-  currentCloudinaryId = p.cloudinary_id || '';
 
   document.getElementById('panelTitle').textContent = '編輯花品';
   document.getElementById('f_code').value = p.code;
   document.getElementById('f_name').value = p.name;
   document.getElementById('f_price').value = p.price;
   document.getElementById('f_description').value = p.description || '';
+  document.getElementById('f_category').value = p.category || '花束';
+  document.getElementById('f_status').value = p.status || '';
+  document.getElementById('f_materials').value = p.materials || '';
+  document.getElementById('f_size').value = p.size || '';
+  document.getElementById('f_care').value = p.care || '';
   document.getElementById('publishToggle').className = 'toggle' + (p.published ? ' on' : '');
   document.getElementById('btnDelete').style.display = 'block';
 
-  // 照片預覽
-  const preview = document.getElementById('photoPreview');
-  if (p.cloudinary_id) {
-    preview.src = `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_400,c_fill/${p.cloudinary_id}`;
-    preview.style.display = 'block';
-    document.getElementById('photoHint').style.display = 'none';
-  } else if (p.photo) {
-    preview.src = p.photo;
-    preview.style.display = 'block';
-    document.getElementById('photoHint').style.display = 'none';
+  // 照片：photos 陣列優先，否則退回單張 cloudinary_id
+  if (Array.isArray(p.photos) && p.photos.length) {
+    currentPhotos = p.photos.map(ph => ph.cloudinary_id || ph).filter(Boolean);
+  } else if (p.cloudinary_id) {
+    currentPhotos = [p.cloudinary_id];
   } else {
-    preview.style.display = 'none';
-    document.getElementById('photoHint').style.display = 'block';
+    currentPhotos = [];
   }
+  document.getElementById('photoHint').style.display = 'block';
+  renderPhotos();
 
-  // 標籤
   renderTagGrid(p.tags || []);
+  renderOccasionGrid(p.occasions || []);
 
   openPanel();
 }
@@ -591,40 +712,32 @@ function togglePublish() {
 
 // ── 照片上傳到 Cloudinary ──
 async function handlePhoto(input) {
-  const file = input.files[0];
-  if (!file) return;
+  const files = [...input.files];
+  if (!files.length) return;
 
   document.getElementById('photoHint').style.display = 'none';
   document.getElementById('photoUploading').style.display = 'block';
 
-  const formData = new FormData();
-  formData.append('file', file);
-  formData.append('upload_preset', CLOUDINARY_PRESET);
-  formData.append('folder', 'flowerchan');
-
-  try {
-    const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, {
-      method: 'POST', body: formData
-    });
-    const data = await res.json();
-
-    if (data.public_id) {
-      currentCloudinaryId = data.public_id;
-      currentPhotoUrl = data.secure_url;
-
-      const preview = document.getElementById('photoPreview');
-      preview.src = data.secure_url;
-      preview.style.display = 'block';
-      document.getElementById('photoUploading').style.display = 'none';
-      showToast('照片上傳成功 ✓');
-    } else {
-      throw new Error('上傳失敗');
+  for (const file of files) {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLOUDINARY_PRESET);
+    formData.append('folder', 'flowerchan');
+    try {
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, {
+        method: 'POST', body: formData
+      });
+      const data = await res.json();
+      if (data.public_id) { currentPhotos.push(data.public_id); renderPhotos(); }
+      else throw new Error('上傳失敗');
+    } catch(e) {
+      showToast('部分照片上傳失敗，請重試');
     }
-  } catch(e) {
-    document.getElementById('photoUploading').style.display = 'none';
-    document.getElementById('photoHint').style.display = 'block';
-    showToast('照片上傳失敗，請重試');
   }
+
+  document.getElementById('photoUploading').style.display = 'none';
+  input.value = '';
+  showToast('照片上傳完成 ✓');
 }
 
 // ── 儲存花品 ──
@@ -635,22 +748,33 @@ async function saveProduct() {
   const published = document.getElementById('publishToggle').classList.contains('on');
   const tags = getSelectedTags();
   const description = document.getElementById('f_description').value.trim();
+  const category = document.getElementById('f_category').value;
+  const status = document.getElementById('f_status').value;
+  const materials = document.getElementById('f_materials').value.trim();
+  const size = document.getElementById('f_size').value.trim();
+  const care = document.getElementById('f_care').value.trim();
+  const occasions = getSelectedOccasions();
+  const photos = currentPhotos.map(id => ({ cloudinary_id: id }));
+  const mainId = currentPhotos[0] || '';
 
-  if (!code || !name || isNaN(price)) {
-    showToast('請填寫編號、名稱和價格');
+  if (!code || !name || isNaN(price) || !category) {
+    showToast('請填寫編號、名稱、價格與類別');
     return;
   }
 
   const product = {
-    code, name, price, description, tags, published,
-    photo: currentPhotoUrl || (editIndex >= 0 ? products[editIndex].photo : ''),
-    cloudinary_id: currentCloudinaryId || (editIndex >= 0 ? products[editIndex].cloudinary_id : '')
+    code, name, price, category, status, description,
+    materials, size, care, tags, occasions, published,
+    photos, cloudinary_id: mainId,
+    photo: mainId
+      ? `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/${mainId}`
+      : (editIndex >= 0 ? products[editIndex].photo : '')
   };
 
   if (editIndex === -1) {
     products.push(product);
   } else {
-    // 合併：保留後台表單尚未支援的欄位（category/status/materials/size/care/photos…），避免儲存時被洗掉
+    // 合併：保留未列出的舊欄位（如 featured 等），避免儲存時被洗掉
     products[editIndex] = { ...products[editIndex], ...product };
   }
 

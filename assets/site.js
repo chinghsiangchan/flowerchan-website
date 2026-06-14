@@ -89,18 +89,18 @@ async function fetchCourses() {
 
 /* 狀態標籤：status 欄位（無狀態/現貨/預訂中/售完），舊資料無此欄位則不顯示 */
 function statusBadge(p) {
-  if (p.status === '售完')   return '<span class="status-badge soldout">售　完</span>';
-  if (p.status === '預訂中') return '<span class="status-badge preorder">預訂中</span>';
-  if (p.status === '現貨')   return '<span class="status-badge instock">現　貨</span>';
+  if (p.status === '完售' || p.status === '售完')   return '<span class="status-badge soldout">完　售</span>';
+  if (p.status === '預購中' || p.status === '預訂中') return '<span class="status-badge preorder">預購中</span>';
   return '';
 }
+function isSoldout(p) { return p.status === '完售' || p.status === '售完'; }
 
 /* 花品卡片 HTML（共用：首頁精選、類別頁） */
 const CAT_CLASS = { '花束': 'cat-bouquet', '桌花': 'cat-table', '高架花': 'cat-stand', '蘭花': 'cat-orchid', '永生花': 'cat-preserved' };
 const CAT_LABEL = { '花束': '花束', '桌花': '桌花', '高架花': '高架花籃', '蘭花': '蘭花', '永生花': '永生花' };
 
 function flowerCardHtml(p) {
-  const soldout = p.status === '售完';
+  const soldout = isSoldout(p);
   const cat = p.category || '花束';
   const catClass = CAT_CLASS[cat] || 'cat-bouquet';
   const priceNote = cat === '高架花'
