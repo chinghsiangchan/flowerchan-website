@@ -380,7 +380,7 @@
   {
     "code": "FE-001",
     "name": "端午安康・盛夏蘭韻設計花",
-    "price": 3800,
+    "price": 1200,
     "category": "節慶花禮",
     "status": "預購中",
     "description": "為端午獻上一份不一樣的心意。\n以蝴蝶蘭的素雅為主角，搭配文心蘭的躍動金黃、火鶴的溫潤橙紅，佐以蓮蓬、金槌花與隨風搖曳的草穗；線條向上延伸，像盛夏裡一株自在生長的風景。\n適合送給長輩、客戶或重要的人，附上一句「端午安康」。",
@@ -397,9 +397,22 @@
       "端午"
     ],
     "published": true,
-    "featured": false,
-    "photos": [],
-    "cloudinary_id": "",
-    "photo": ""
+    "featured": true,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/hyogjfsiqi3tcoxldhpq"
+      },
+      {
+        "cloudinary_id": "flowerchan/dyfgka6sniijdfljupvf"
+      },
+      {
+        "cloudinary_id": "flowerchan/l0uwr9gtztqywq6cooec"
+      },
+      {
+        "cloudinary_id": "flowerchan/x599iob6cuy48ehbnpbg"
+      }
+    ],
+    "cloudinary_id": "flowerchan/hyogjfsiqi3tcoxldhpq",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/hyogjfsiqi3tcoxldhpq"
   }
 ]
