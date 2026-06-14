@@ -1,0 +1,70 @@
+[
+  {
+    "code": "CL-001",
+    "name": "植栽組盆課",
+    "name_en": "Potted Garden Workshop",
+    "type": "常態課程",
+    "price": 1880,
+    "duration": "約 2 小時",
+    "capacity": "2–6 人",
+    "date": "",
+    "description": "親手挑選綠植與盆器，從配土、層次到苔蘚鋪面，\n完成一座可以帶回家的迷你花園。\n課程含全部材料與工具，作品直接帶走，\n也會教你日後的澆水與照護方法，新手友善。",
+    "status": "報名中",
+    "published": true,
+    "photo": "",
+    "cloudinary_id": "",
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/ztbw2stgh7vbaztxwk4v"
+      },
+      {
+        "cloudinary_id": "flowerchan/fofqj0urnofwqqouozxv"
+      }
+    ]
+  },
+  {
+    "code": "CL-002",
+    "name": "親子花藝課",
+    "name_en": "Parent & Child Workshop",
+    "type": "常態課程",
+    "price": 1680,
+    "duration": "約 1.5 小時",
+    "capacity": "每組 1 大 1 小",
+    "date": "",
+    "description": "一堂屬於你們的花時間。\n和孩子一起認識花朵的名字、顏色與香氣，\n動手完成一束小小花禮，拍照、帶回家。\n適合 4 歲以上的小朋友與爸爸媽媽。",
+    "status": "報名中",
+    "published": true,
+    "photo": "",
+    "cloudinary_id": ""
+  },
+  {
+    "code": "CL-003",
+    "name": "永生花課程",
+    "name_en": "Preserved Flower Workshop",
+    "type": "常態課程",
+    "price": 2280,
+    "duration": "約 2 小時",
+    "capacity": "2–6 人",
+    "date": "",
+    "description": "永生花是被時間溫柔對待的花。\n學習永生花材的處理與配色，完成一件\n可以陪伴一兩年的盅花或花盒作品。\n含全部花材與盒裝，適合送禮或留給自己。",
+    "status": "報名中",
+    "published": true,
+    "photo": "",
+    "cloudinary_id": ""
+  },
+  {
+    "code": "CL-004",
+    "name": "節慶花圈課",
+    "name_en": "Seasonal Wreath Workshop",
+    "type": "固定梯次",
+    "price": 2580,
+    "duration": "約 2.5 小時",
+    "capacity": "6 人",
+    "date": "開課日期待公布",
+    "description": "跟著節慶的腳步，手作當季限定花圈。\n從藤圈纏繞、花材配置到緞帶收尾，\n完成一個掛上門就有節日氣氛的作品。\n小班 6 人，依檔期開課，請留意公告。",
+    "status": "報名中",
+    "published": false,
+    "photo": "",
+    "cloudinary_id": ""
+  }
+]
