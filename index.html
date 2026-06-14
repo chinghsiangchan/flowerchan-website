@@ -30,6 +30,7 @@
     <li><a href="/table-flower">桌花</a></li>
     <li><a href="/flower-stand">高架花籃</a></li>
     <li><a href="/orchid">蘭花</a></li>
+    <li><a href="/preserved">永生花</a></li>
     <li><a href="/courses">花藝課程</a></li>
     <li><a href="/#about">關於</a></li>
   </ul>
@@ -45,6 +46,7 @@
   <a href="/table-flower">桌花 TABLE FLOWERS</a>
   <a href="/flower-stand">高架花籃 FLOWER STANDS</a>
   <a href="/orchid">蘭花 ORCHIDS</a>
+  <a href="/preserved">永生花 PRESERVED FLOWERS</a>
   <a href="/courses">花藝課程 COURSES</a>
   <a href="/#about" onclick="toggleMobileMenu()">關於 ABOUT</a>
   <a href="/#order" onclick="toggleMobileMenu()">立即預訂 ORDER</a>
@@ -89,6 +91,10 @@
     <a class="cat-card" href="/orchid" id="catOrchid">
       <span class="cat-empty">即將上架</span>
       <span class="cat-label"><span class="zh">蘭　花</span><span class="en">ORCHIDS</span><span class="cat-price">NT$ 1,000 起</span></span>
+    </a>
+    <a class="cat-card" href="/preserved" id="catPreserved">
+      <span class="cat-empty">即將上架</span>
+      <span class="cat-label"><span class="zh">永生花</span><span class="en">PRESERVED FLOWERS</span><span class="cat-price">敬請期待</span></span>
     </a>
   </div>
 </section>
@@ -397,6 +403,7 @@
       <a href="/table-flower">桌花</a>
       <a href="/flower-stand">高架花籃</a>
       <a href="/orchid">蘭花</a>
+      <a href="/preserved">永生花</a>
     </div>
     <div class="footer-col">
       <p class="footer-head">服務</p>
@@ -441,7 +448,7 @@ async function initFeatured() {
 
 /* 類別卡片封面：該類別有花品時自動帶第一張照片 */
 function updateCategoryCovers() {
-  const map = { '桌花': 'catTableFlower', '高架花': 'catFlowerStand', '蘭花': 'catOrchid' };
+  const map = { '桌花': 'catTableFlower', '高架花': 'catFlowerStand', '蘭花': 'catOrchid', '永生花': 'catPreserved' };
   Object.entries(map).forEach(([cat, id]) => {
     const first = allProducts.find(p => p.category === cat && getPhotoUrl(p));
     if (first) {
@@ -613,7 +620,7 @@ function setupHcSwipe() {
 }
 
 /* ?order=FC-xxx 由其他頁帶入花品 */
-const CAT_ORDER = ['花束', '桌花', '高架花', '蘭花'];
+const CAT_ORDER = ['花束', '桌花', '高架花', '蘭花', '永生花'];
 
 function populateProductSelect() {
   const sel = document.getElementById('productSelect');

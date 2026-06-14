@@ -25,6 +25,7 @@ const CATEGORIES = [
   { slug: 'table-flower', zh: '桌花',   en: 'TABLE FLOWERS' },
   { slug: 'flower-stand', zh: '高架花', en: 'FLOWER STANDS' },
   { slug: 'orchid',       zh: '蘭花',   en: 'ORCHIDS' },
+  { slug: 'preserved',    zh: '永生花', en: 'PRESERVED FLOWERS' },
 ];
 
 /* 場合（C2）：起始 9 項。現階段相容——比對 product.occasions 欄位 + 現有 tags。
@@ -95,8 +96,8 @@ function statusBadge(p) {
 }
 
 /* 花品卡片 HTML（共用：首頁精選、類別頁） */
-const CAT_CLASS = { '花束': 'cat-bouquet', '桌花': 'cat-table', '高架花': 'cat-stand', '蘭花': 'cat-orchid' };
-const CAT_LABEL = { '花束': '花束', '桌花': '桌花', '高架花': '高架花籃', '蘭花': '蘭花' };
+const CAT_CLASS = { '花束': 'cat-bouquet', '桌花': 'cat-table', '高架花': 'cat-stand', '蘭花': 'cat-orchid', '永生花': 'cat-preserved' };
+const CAT_LABEL = { '花束': '花束', '桌花': '桌花', '高架花': '高架花籃', '蘭花': '蘭花', '永生花': '永生花' };
 
 function flowerCardHtml(p) {
   const soldout = p.status === '售完';
