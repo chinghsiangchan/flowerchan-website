@@ -893,14 +893,14 @@ function switchView(name) {
 
 // ── 通用存檔（settings / courses / banners）──
 async function persistFile(file, data, msg) {
-  const token = netlifyUser.token.access_token;
+  const token = await getAuthToken();
   const res = await fetch('/.netlify/functions/save-file', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
     body: JSON.stringify({ file, data })
   });
   const r = await res.json();
-  if (!r.success) throw new Error(r.error || '儲存失敗');
+  if (!r.success) { handleAuthError(r.error); throw new Error(r.error || '儲存失敗'); }
   showToast('✓ ' + (msg || r.message));
 }
 
@@ -912,6 +912,24 @@ function showLogin() {
 
 function logout() {
   netlifyIdentity.logout();
+}
+
+// 取得有效 token：自動續期，避免 token 過期導致存檔失敗、被「踢出來」
+async function getAuthToken() {
+  try {
+    const u = netlifyIdentity.currentUser();
+    if (u && typeof u.jwt === 'function') return await u.jwt();
+  } catch (e) {}
+  return (netlifyUser && netlifyUser.token) ? netlifyUser.token.access_token : '';
+}
+// 真的登入過期時，明確提示並跳出重新登入視窗
+function handleAuthError(msg) {
+  if (/登入|過期|401|unauthor/i.test(msg || '')) {
+    showToast('登入已過期，請重新登入');
+    netlifyIdentity.open('login');
+    return true;
+  }
+  return false;
 }
 
 // ── 載入花品 ──
@@ -1027,7 +1045,7 @@ function renderList() {
 // 共用存檔（快切用）
 async function persistProducts(msg) {
   try {
-    const token = netlifyUser.token.access_token;
+    const token = await getAuthToken();
     const res = await fetch('/.netlify/functions/save-products', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
@@ -1035,7 +1053,7 @@ async function persistProducts(msg) {
     });
     const r = await res.json();
     if (r.success) showToast('✓ ' + (msg || r.message)); else throw new Error(r.error || '儲存失敗');
-  } catch (e) { showToast('儲存失敗：' + e.message); }
+  } catch (e) { if (!handleAuthError(e.message)) showToast('儲存失敗：' + e.message); }
 }
 function toggleListPublish(code) {
   const p = products.find(x => x.code === code); if (!p) return;
@@ -1225,7 +1243,7 @@ async function saveProduct() {
   btn.textContent = '儲存中...';
 
   try {
-    const token = netlifyUser.token.access_token;
+    const token = await getAuthToken();
     const res = await fetch('/.netlify/functions/save-products', {
       method: 'POST',
       headers: {
@@ -1253,14 +1271,14 @@ async function saveProduct() {
 }
 
 // ── 刪除花品 ──
-function deleteProduct() {
+async function deleteProduct() {
   if (!confirm(`確定要刪除「${products[editIndex].name}」嗎？`)) return;
   products.splice(editIndex, 1);
 
   const btn = document.getElementById('btnSave');
   btn.disabled = true;
 
-  const token = netlifyUser.token.access_token;
+  const token = await getAuthToken();
   fetch('/.netlify/functions/save-products', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
@@ -1302,7 +1320,7 @@ async function saveSettings() {
   try {
     await persistFile('settings.json', data, '設定已更新');
     settings = data;
-  } catch (e) { showToast('儲存失敗：' + e.message); }
+  } catch (e) { if (!handleAuthError(e.message)) showToast('儲存失敗：' + e.message); }
   finally { btn.disabled = false; btn.textContent = '儲存設定'; }
 }
 
