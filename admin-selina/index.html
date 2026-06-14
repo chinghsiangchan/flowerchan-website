@@ -682,7 +682,22 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
     <div class="field"><label class="field-label">小標（英文，選填）</label><input class="field-input" id="b_eyebrow" placeholder="Graduation Season"></div>
     <div class="field-row">
       <div class="field"><label class="field-label">按鈕文字</label><input class="field-input" id="b_cta" placeholder="看畢業花禮"></div>
-      <div class="field"><label class="field-label">點擊連結</label><input class="field-input" id="b_link" placeholder="/bouquet"></div>
+      <div class="field"><label class="field-label">點擊連結</label>
+        <select class="field-input" id="b_link_select" onchange="onBannerLinkChange()">
+          <option value="/">首頁</option>
+          <option value="/order">訂購頁</option>
+          <option value="/festival">節慶花禮</option>
+          <option value="/bouquet">花束</option>
+          <option value="/table-flower">桌花</option>
+          <option value="/flower-stand">高架花籃</option>
+          <option value="/orchid">蘭花</option>
+          <option value="/preserved">永生花</option>
+          <option value="/courses">花藝課程</option>
+          <option value="/occasion">依場合挑選</option>
+          <option value="__custom__">自訂網址…</option>
+        </select>
+        <input class="field-input" id="b_link" placeholder="例如 /festival 或 https://..." style="margin-top:8px;display:none;">
+      </div>
     </div>
     <div class="field"><div class="toggle-row"><span class="toggle-label">長期顯示<span style="font-size:0.7rem;color:#9a958a;font-weight:normal;"> · 不受日期限制</span></span><div class="toggle" id="bannerAlwaysToggle" onclick="toggleBannerAlways()"></div></div></div>
     <div class="field-row" id="bannerDateWrap">
@@ -1080,9 +1095,9 @@ function openEdit(i) {
   document.getElementById('featuredToggle').className = 'toggle' + (p.featured ? ' on' : '');
   document.getElementById('btnDelete').style.display = 'block';
 
-  // 照片：photos 陣列優先，否則退回單張 cloudinary_id
+  // 照片：只取 Cloudinary 圖（本地路徑圖 ph.url 由照片管理器忽略，避免破圖），否則退回單張 cloudinary_id
   if (Array.isArray(p.photos) && p.photos.length) {
-    currentPhotos = p.photos.map(ph => ph.cloudinary_id || ph).filter(Boolean);
+    currentPhotos = p.photos.map(ph => (typeof ph === 'string' ? ph : ph.cloudinary_id)).filter(Boolean);
   } else if (p.cloudinary_id) {
     currentPhotos = [p.cloudinary_id];
   } else {
@@ -1498,6 +1513,21 @@ function renderBannerImgPreview() {
   document.getElementById('bannerImgPreview').innerHTML = bannerImg
     ? `<img src="${bannerImg}" style="width:100%;border-radius:10px;display:block;">` : '';
 }
+const BANNER_LINK_PRESETS = ['/','/order','/festival','/bouquet','/table-flower','/flower-stand','/orchid','/preserved','/courses','/occasion'];
+function onBannerLinkChange() {
+  const sel = document.getElementById('b_link_select');
+  document.getElementById('b_link').style.display = sel.value === '__custom__' ? 'block' : 'none';
+}
+function setBannerLink(link) {
+  const sel = document.getElementById('b_link_select'), inp = document.getElementById('b_link');
+  if (link && BANNER_LINK_PRESETS.includes(link)) { sel.value = link; inp.value = ''; inp.style.display = 'none'; }
+  else if (link) { sel.value = '__custom__'; inp.value = link; inp.style.display = 'block'; }
+  else { sel.value = '/festival'; inp.value = ''; inp.style.display = 'none'; }
+}
+function getBannerLink() {
+  const sel = document.getElementById('b_link_select');
+  return sel.value === '__custom__' ? document.getElementById('b_link').value.trim() : sel.value;
+}
 function openBanner(idx) {
   bannerIndex = idx;
   const b = idx >= 0 ? banners[idx] : {};
@@ -1507,7 +1537,7 @@ function openBanner(idx) {
   document.getElementById('b_subtitle').value = b.subtitle || '';
   document.getElementById('b_eyebrow').value = b.eyebrow || '';
   document.getElementById('b_cta').value = b.cta || '';
-  document.getElementById('b_link').value = b.link || '';
+  setBannerLink(b.link || '');
   document.getElementById('b_start').value = b.start || '';
   document.getElementById('b_end').value = b.end || '';
   document.getElementById('bannerAlwaysToggle').classList.toggle('on', b.always === true);
@@ -1538,7 +1568,7 @@ async function saveBanner() {
     subtitle: document.getElementById('b_subtitle').value.trim(),
     eyebrow: document.getElementById('b_eyebrow').value.trim(),
     cta: document.getElementById('b_cta').value.trim(),
-    link: document.getElementById('b_link').value.trim(),
+    link: getBannerLink(),
     image: bannerImg,
     text_in_image: document.getElementById('bannerTextInImageToggle').classList.contains('on'),
     published: document.getElementById('bannerPublishToggle').classList.contains('on')
