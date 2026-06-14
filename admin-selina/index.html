@@ -349,6 +349,11 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
 .banner-size-note{font-size:0.78rem;color:#7a766d;background:#f7f4ee;border:1px solid #ece3cf;border-radius:8px;padding:8px 11px;line-height:1.6;margin-bottom:10px;}
 .banner-size-note b{color:#2D4A3E;}
 .banner-size-note a{display:inline-block;margin-top:6px;color:#854F0B;font-weight:600;text-decoration:none;}
+.crop-tip{font-size:0.74rem;color:#7a766d;line-height:1.5;margin:0 0 6px;}
+#bannerCropWrap{position:relative;display:inline-block;max-width:100%;line-height:0;border-radius:8px;overflow:hidden;}
+#bannerCropImg{width:100%;display:block;cursor:crosshair;}
+#bannerCropBox{position:absolute;border:2px solid #E8B84B;box-shadow:0 0 0 9999px rgba(0,0,0,0.45);pointer-events:none;box-sizing:border-box;}
+#bannerFocalMarker{position:absolute;width:14px;height:14px;margin:-7px 0 0 -7px;border:2px solid #fff;border-radius:50%;background:rgba(45,74,62,0.7);pointer-events:none;}
 .safe-diagram{margin:8px 0;}
 .safe-frame{position:relative;width:100%;aspect-ratio:5/2;border-radius:6px;overflow:hidden;display:flex;background:repeating-linear-gradient(45deg,#efe9da,#efe9da 6px,#e7dfca 6px,#e7dfca 12px);}
 .safe-edge{flex:0 0 23.5%;display:flex;align-items:center;justify-content:center;text-align:center;font-size:0.62rem;line-height:1.3;color:#a8967a;background:rgba(120,100,70,0.12);}
@@ -1444,7 +1449,9 @@ function deleteCourse() {
 /* ═══════════════ B3 Banner 管理 ═══════════════ */
 let banners = [];
 let bannerIndex = -1;
-let bannerImg = '';   // 完整圖片 URL
+let bannerImgId = '';        // Cloudinary public_id
+let bannerFocalX = 0.5;      // 裁切焦點（0–1，水平）
+let bannerFocalY = 0.5;      // 裁切焦點（0–1，垂直）
 
 async function loadBanners() {
   try {
@@ -1512,16 +1519,61 @@ async function handleBannerImg(input) {
     const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, { method: 'POST', body: fd });
     const data = await res.json();
     if (!data.public_id) throw new Error();
-    bannerImg = `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_1600,h_640,c_fill,q_auto,f_auto/${data.public_id}`;
-    renderBannerImgPreview();
+    bannerImgId = data.public_id;
+    bannerFocalX = 0.5; bannerFocalY = 0.5;
+    renderBannerCrop();
   } catch (e) { showToast('圖片上傳失敗，請重試'); }
   document.getElementById('bannerImgUploading').style.display = 'none';
   document.getElementById('bannerImgHint').style.display = 'block';
   input.value = '';
 }
-function renderBannerImgPreview() {
-  document.getElementById('bannerImgPreview').innerHTML = bannerImg
-    ? `<img src="${bannerImg}" style="width:100%;border-radius:10px;display:block;">` : '';
+// 從現有 image 網址解析出 Cloudinary public_id
+function parseBannerId(url) {
+  const m = (url || '').match(/\/upload\/[^/]+\/(.+)$/);
+  return m ? m[1] : '';
+}
+// 依焦點組出最終 banner 圖網址（g_xy_center 讓焦點置中裁切）
+function bannerImageUrl() {
+  if (!bannerImgId) return '';
+  const fx = Math.round(bannerFocalX * 1000) / 1000;
+  const fy = Math.round(bannerFocalY * 1000) / 1000;
+  return `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_1600,h_640,c_fill,g_xy_center,x_${fx},y_${fy},q_auto,f_auto/${bannerImgId}`;
+}
+// 裁切調整介面：整張原圖 + 可拖點的 2.5:1 框 + 即時預覽
+function renderBannerCrop() {
+  const box = document.getElementById('bannerImgPreview');
+  if (!bannerImgId) { box.innerHTML = ''; return; }
+  const full = `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_900,c_limit,q_auto,f_auto/${bannerImgId}`;
+  box.innerHTML = `
+    <p class="crop-tip">點圖片任一處，決定要保留的重心；黃框內是 banner 會顯示的範圍。</p>
+    <div id="bannerCropWrap">
+      <img id="bannerCropImg" src="${full}" onload="updateBannerCropBox()" onclick="setBannerFocal(event)">
+      <div id="bannerCropBox"></div>
+      <div id="bannerFocalMarker"></div>
+    </div>
+    <p class="crop-tip" style="margin-top:10px;">實際 banner 預覽：</p>
+    <img id="bannerCropPreview" src="${bannerImageUrl()}" style="width:100%;border-radius:8px;display:block;border:1px solid #e5e0d5;">
+  `;
+}
+function setBannerFocal(ev) {
+  const img = document.getElementById('bannerCropImg');
+  const r = img.getBoundingClientRect();
+  bannerFocalX = Math.min(1, Math.max(0, (ev.clientX - r.left) / r.width));
+  bannerFocalY = Math.min(1, Math.max(0, (ev.clientY - r.top) / r.height));
+  updateBannerCropBox();
+  document.getElementById('bannerCropPreview').src = bannerImageUrl();
+}
+function updateBannerCropBox() {
+  const img = document.getElementById('bannerCropImg'); if (!img) return;
+  const W = img.clientWidth, H = img.clientHeight, target = 2.5;
+  let cw, ch;
+  if (W / H > target) { ch = H; cw = H * target; } else { cw = W; ch = W / target; }
+  let cx = Math.min(Math.max(0, bannerFocalX * W - cw / 2), W - cw);
+  let cy = Math.min(Math.max(0, bannerFocalY * H - ch / 2), H - ch);
+  const bx = document.getElementById('bannerCropBox');
+  bx.style.width = cw + 'px'; bx.style.height = ch + 'px'; bx.style.left = cx + 'px'; bx.style.top = cy + 'px';
+  const mk = document.getElementById('bannerFocalMarker');
+  mk.style.left = (bannerFocalX * W) + 'px'; mk.style.top = (bannerFocalY * H) + 'px';
 }
 const BANNER_LINK_PRESETS = ['/','/order','/festival','/bouquet','/table-flower','/flower-stand','/orchid','/preserved','/courses','/occasion'];
 function onBannerLinkChange() {
@@ -1541,7 +1593,9 @@ function getBannerLink() {
 function openBanner(idx) {
   bannerIndex = idx;
   const b = idx >= 0 ? banners[idx] : {};
-  bannerImg = b.image || '';
+  bannerImgId = parseBannerId(b.image || '');
+  bannerFocalX = (typeof b.focal_x === 'number') ? b.focal_x : 0.5;
+  bannerFocalY = (typeof b.focal_y === 'number') ? b.focal_y : 0.5;
   document.getElementById('bannerPanelTitle').textContent = idx >= 0 ? '編輯 Banner' : '新增 Banner';
   document.getElementById('b_title').value = b.title || '';
   document.getElementById('b_subtitle').value = b.subtitle || '';
@@ -1555,7 +1609,7 @@ function openBanner(idx) {
   document.getElementById('bannerTextInImageToggle').classList.toggle('on', b.text_in_image === true);
   document.getElementById('bannerPublishToggle').classList.toggle('on', b.published !== false);
   document.getElementById('btnDeleteBanner').style.display = idx >= 0 ? '' : 'none';
-  renderBannerImgPreview();
+  renderBannerCrop();
   document.getElementById('bannerOverlay').classList.add('show');
   document.getElementById('bannerPanel').classList.add('show');
   document.body.style.overflow = 'hidden';
@@ -1566,7 +1620,7 @@ function closeBanner() {
   document.body.style.overflow = '';
 }
 async function saveBanner() {
-  if (!bannerImg) { showToast('請先上傳 Banner 圖片'); return; }
+  if (!bannerImgId) { showToast('請先上傳 Banner 圖片'); return; }
   const always = document.getElementById('bannerAlwaysToggle').classList.contains('on');
   const start = document.getElementById('b_start').value;
   const end = document.getElementById('b_end').value;
@@ -1579,7 +1633,9 @@ async function saveBanner() {
     eyebrow: document.getElementById('b_eyebrow').value.trim(),
     cta: document.getElementById('b_cta').value.trim(),
     link: getBannerLink(),
-    image: bannerImg,
+    image: bannerImageUrl(),
+    focal_x: bannerFocalX,
+    focal_y: bannerFocalY,
     text_in_image: document.getElementById('bannerTextInImageToggle').classList.contains('on'),
     published: document.getElementById('bannerPublishToggle').classList.contains('on')
   };
