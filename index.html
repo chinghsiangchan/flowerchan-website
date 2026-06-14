@@ -377,10 +377,10 @@ async function initCourseTags() {
     const courses = await fetchCourses();
     const box = document.getElementById('courseTags');
     if (!box || !courses.length) return;
-    const names = courses.map(c => c.name).filter(Boolean);
-    const show = names.slice(0, 6);
-    box.innerHTML = show.map(n => `<span>${n}</span>`).join('') +
-      (names.length > show.length ? '<span>…等</span>' : '');
+    const list = courses.filter(c => c.name);
+    const show = list.slice(0, 6);
+    box.innerHTML = show.map(c => `<a href="/course.html?code=${c.code}">${c.name}</a>`).join('') +
+      (list.length > show.length ? '<a href="/courses">…等</a>' : '');
   } catch (e) { /* 靜默 */ }
 }
 
