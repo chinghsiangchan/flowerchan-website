@@ -581,3 +581,28 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 @media(min-width:768px) and (max-width:1024px){
   .sec-title,.product-title,.flower-name,.course-name,.cat-hero-zh,.cat-label .zh{word-break:keep-all;}
 }
+
+/* ═══ v10：價格帶 + 安心保證標章 ═══ */
+
+/* 首頁類別入口卡的價格提示 */
+.cat-label .cat-price{display:block;margin-top:0.4rem;font-family:'Cormorant Garamond',serif;font-size:0.8rem;letter-spacing:0.1em;color:var(--gold-soft);font-weight:400;}
+
+/* 類別頁 hero 的起價 */
+.cat-hero-price{margin-top:1rem;font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2vw,1.3rem);letter-spacing:0.12em;color:var(--gold-soft);font-weight:400;}
+
+/* 安心保證標章 */
+.trust-badges{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:880px;margin:0 auto;}
+.trust-item{text-align:center;padding:1.3rem 0.9rem;background:var(--cream);border:1px solid var(--border);border-radius:var(--radius);}
+.trust-ico{font-size:1.55rem;line-height:1;}
+.trust-t{font-family:'Noto Serif TC',serif;font-weight:400;color:var(--green);font-size:0.92rem;letter-spacing:0.04em;margin:0.55rem 0 0.3rem;}
+.trust-d{font-size:0.74rem;color:var(--muted);font-weight:200;line-height:1.6;margin:0;}
+@media(max-width:768px){
+  .trust-badges{grid-template-columns:1fr;gap:0.6rem;}
+  .trust-item{display:flex;align-items:center;gap:0.9rem;text-align:left;padding:0.9rem 1.1rem;}
+  .trust-item .trust-t{margin:0;}
+}
+/* 內頁精簡版：永遠單欄、icon+標題一行 */
+.trust-badges--inline{grid-template-columns:1fr;gap:0.5rem;max-width:none;margin:1.6rem 0 0;}
+.trust-badges--inline .trust-item{display:flex;align-items:center;gap:0.7rem;text-align:left;padding:0.7rem 1rem;}
+.trust-badges--inline .trust-ico{font-size:1.15rem;}
+.trust-badges--inline .trust-t{margin:0;font-size:0.85rem;}

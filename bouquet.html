@@ -101,7 +101,7 @@ const PAGE_CATEGORY = '花束';
 let products = [];
 let currentFilter = '全部';
 let priceFilter = '全部';
-const PRICE_RANGES = { '全部': [0, 99999999], 'NT$1,000 以下': [0, 1000], 'NT$1,000–2,000': [1000, 2000], 'NT$2,000 以上': [2000, 99999999] };
+const PRICE_RANGES = { '全部': [0, Infinity], 'NT$1,000 以下': [0, 1000], 'NT$1,000–2,000': [1000, 2000], 'NT$2,000–3,500': [2000, 3500], 'NT$3,500 以上': [3500, Infinity] };
 
 function renderFilter() {
   const tags = ['全部'];
@@ -130,9 +130,9 @@ function setFilter(el, tag) {
 
 function renderGrid() {
   const grid = document.getElementById('galleryGrid');
-  const [lo, hi] = PRICE_RANGES[priceFilter] || [0, 99999999];
+  const [lo, hi] = PRICE_RANGES[priceFilter] || [0, Infinity];
   let list = currentFilter === '全部' ? products : products.filter(p => p.tags && p.tags.includes(currentFilter));
-  list = list.filter(p => p.price >= lo && p.price <= hi);
+  list = list.filter(p => p.price >= lo && p.price < hi);
   if (!list.length) {
     grid.innerHTML = `<div style="grid-column:1/-1;background:var(--cream);padding:5rem 8vw;text-align:center;">
       <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.2rem;color:var(--muted);margin-bottom:1rem;">Coming Soon</p>
