@@ -52,12 +52,13 @@
     "id": "qixi-2026",
     "title": "七夕情人節 💐 開始預約",
     "subtitle": "為最重要的人，預訂一束說不出口的心意",
+    "eyebrow": "Qixi Festival",
     "cta": "提前預訂",
-    "link": "/#order",
-    "image": "https://res.cloudinary.com/dcwgv05q1/image/upload/w_1600,h_640,c_fill,q_auto,f_auto/flowerchan/lszasbrg5jjfmbkuydjb",
-    "start": "2026-08-01",
-    "end": "2026-08-19",
+    "link": "/bouquet",
+    "image": "https://res.cloudinary.com/dcwgv05q1/image/upload/w_1600,h_640,c_fill,q_auto,f_auto/flowerchan/uuyy1vlxpyyiftbc3gdm",
+    "text_in_image": false,
     "published": true,
-    "eyebrow": "Qixi Festival"
+    "start": "2026-07-01",
+    "end": "2026-08-19"
   }
 ]
