@@ -643,5 +643,29 @@
     ],
     "cloudinary_id": "flowerchan/phs42fgnsw5ntjyuzt1y",
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/phs42fgnsw5ntjyuzt1y"
+  },
+  {
+    "code": "PV-002",
+    "name": "永生2",
+    "price": 2000,
+    "category": "永生花",
+    "status": "",
+    "description": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "tags": [],
+    "occasions": [
+      "送禮靈感"
+    ],
+    "published": true,
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/w49ia03wtl8tklaucjel"
+      }
+    ],
+    "cloudinary_id": "flowerchan/w49ia03wtl8tklaucjel",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/w49ia03wtl8tklaucjel"
   }
 ]
