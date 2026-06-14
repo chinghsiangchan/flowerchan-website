@@ -63,7 +63,7 @@
     "date": "開課日期待公布",
     "description": "跟著節慶的腳步，手作當季限定花圈。\n從藤圈纏繞、花材配置到緞帶收尾，\n完成一個掛上門就有節日氣氛的作品。\n小班 6 人，依檔期開課，請留意公告。",
     "status": "報名中",
-    "published": false,
+    "published": true,
     "photo": "",
     "cloudinary_id": ""
   }
