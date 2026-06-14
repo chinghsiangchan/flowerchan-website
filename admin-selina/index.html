@@ -650,7 +650,8 @@ async function saveProduct() {
   if (editIndex === -1) {
     products.push(product);
   } else {
-    products[editIndex] = product;
+    // 合併：保留後台表單尚未支援的欄位（category/status/materials/size/care/photos…），避免儲存時被洗掉
+    products[editIndex] = { ...products[editIndex], ...product };
   }
 
   const btn = document.getElementById('btnSave');
