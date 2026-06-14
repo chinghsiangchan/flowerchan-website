@@ -619,3 +619,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 
 /* 永生花類別配色（第五類） */
 .flower-card.cat-preserved{--accent:#B5806C;background:#FDFAF8;}
+
+/* 手機選單底部 CTA */
+.mobile-menu .mm-cta{margin-top:0.9rem;text-align:center;background:var(--green);color:#fff;border-radius:999px;padding:0.85rem 0;letter-spacing:0.18em;border-bottom:none;font-weight:400;}
+.mobile-menu .mm-cta:hover{background:#22392f;}

@@ -49,7 +49,7 @@
   <a href="/preserved">永生花 PRESERVED FLOWERS</a>
   <a href="/courses">花藝課程 COURSES</a>
   <a href="/#about" onclick="toggleMobileMenu()">關於 ABOUT</a>
-  <a href="/order" onclick="toggleMobileMenu()">立即預訂 ORDER</a>
+  <a class="mm-cta" href="/order" onclick="toggleMobileMenu()">立即預訂</a>
 </div>
 
 <!-- 輪播 HERO（banners.json 驅動：節慶/活動/品牌形象，自動切換） -->
@@ -118,11 +118,10 @@
   <div class="reveal">
     <p class="sec-eyebrow">Floral Workshop</p>
     <h2 class="sec-title">花藝課程</h2>
-    <p style="margin-top:1.4rem;font-size:0.9rem;color:var(--muted);font-weight:200;line-height:2;">小班教學，在輕鬆愉快的氛圍中，學習花藝的溫柔語言。</p>
+    <p style="margin-top:1.4rem;font-size:0.9rem;color:var(--muted);font-weight:200;line-height:2;max-width:560px;margin-left:auto;margin-right:auto;">小班教學，在輕鬆愉快的氛圍中，學習花藝的溫柔語言。<br>從植栽組盆、永生花到節慶花圈，跟著 Selina 一起把花藝帶進生活。</p>
   </div>
-  <div class="course-grid" id="coursePreviewGrid"></div>
-  <div style="text-align:center;margin-top:3rem;" class="reveal">
-    <a href="/courses" class="btn-dark">查看所有課程</a>
+  <div style="text-align:center;margin-top:2.5rem;" class="reveal">
+    <a href="/courses" class="btn-dark">看所有課程</a>
   </div>
 </section>
 
@@ -257,12 +256,21 @@
 <script>
 let allProducts = [];
 
-/* 精選花品：優先 featured 標記，否則取前 6 件 */
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
+
+/* 精選花品：從「精選首頁」池隨機抽 3，不足從其他上架隨機補滿 */
 async function initFeatured() {
   try {
     allProducts = await fetchProducts();
-    const featured = allProducts.filter(p => p.featured === true);
-    const list = (featured.length ? featured : allProducts).slice(0, 4);
+    let list = shuffle(allProducts.filter(p => p.featured === true)).slice(0, 3);
+    if (list.length < 3) {
+      const rest = shuffle(allProducts.filter(p => !list.includes(p)));
+      list = list.concat(rest).slice(0, 3);
+    }
     document.getElementById('featuredGrid').innerHTML = list.map(flowerCardHtml).join('');
     updateCategoryCovers();
     observeReveal();
@@ -286,28 +294,24 @@ function updateCategoryCovers() {
   });
 }
 
-/* 課程預告 */
-async function initCoursePreview() {
-  try {
-    const courses = await fetchCourses();
-    document.getElementById('coursePreviewGrid').innerHTML =
-      courses.slice(0, 3).map(courseCardHtml).join('');
-    observeReveal();
-  } catch (e) {
-    document.getElementById('coursePreviewGrid').innerHTML = '';
-  }
-}
-
 /* 輪播 hero：banners.json 驅動，依日期自動上下架，5 秒自動切換 */
 let hcIndex = 0, hcCount = 0, hcTimer = null;
+const DEFAULT_HERO = {
+  image: 'https://res.cloudinary.com/dcwgv05q1/image/upload/w_1600,c_fill,q_auto,f_auto/flowerchan/oagrp2yrqft1ob8nakzh',
+  eyebrow: 'Flower Chan 小花店',
+  title: '讓每個時刻都有花的陪伴',
+  subtitle: '台北大安區 · 手作花禮與花藝課程',
+  cta: '立即預訂',
+  link: '/order'
+};
 async function initBanner() {
   try {
     const res = await fetch('/banners.json?t=' + Date.now());
     const banners = await res.json();
     const today = new Date().toISOString().slice(0, 10);
-    const act = banners.filter(b => b.published !== false &&
+    let act = banners.filter(b => b.published !== false &&
       (b.always === true || (b.start <= today && today <= b.end)));
-    if (!act.length) return;
+    if (!act.length) act = [DEFAULT_HERO];   // 無節慶 banner 時顯示品牌形象圖
     document.getElementById('hcTrack').innerHTML = act.map(b => `
       <a class="hc-slide" href="${b.link || '#'}">
         <img src="${b.image}" alt="${b.title || 'Flower Chan'}">
@@ -363,7 +367,6 @@ function setupHcSwipe() {
 async function init() {
   initBanner();
   await initFeatured();
-  initCoursePreview();
 }
 
 init();

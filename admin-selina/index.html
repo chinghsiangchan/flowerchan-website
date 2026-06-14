@@ -421,6 +421,14 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
       </div>
     </div>
 
+    <!-- 精選首頁開關 -->
+    <div class="field">
+      <div class="toggle-row">
+        <span class="toggle-label">精選首頁<span style="font-size:0.7rem;color:#9a958a;font-weight:normal;"> · 勾選後會進首頁「精選花品」隨機輪替池</span></span>
+        <div class="toggle" id="featuredToggle" onclick="toggleFeatured()"></div>
+      </div>
+    </div>
+
   </div>
   <div class="panel-footer">
     <button class="btn-delete" id="btnDelete" onclick="deleteProduct()" style="display:none">刪除</button>
@@ -647,6 +655,7 @@ function openNew() {
   document.getElementById('f_care').value = '';
   document.getElementById('photoHint').style.display = 'block';
   document.getElementById('publishToggle').className = 'toggle on';
+  document.getElementById('featuredToggle').className = 'toggle';
   document.getElementById('btnDelete').style.display = 'none';
   renderPhotos();
   renderTagGrid([]);
@@ -671,6 +680,7 @@ function openEdit(i) {
   document.getElementById('f_size').value = p.size || '';
   document.getElementById('f_care').value = p.care || '';
   document.getElementById('publishToggle').className = 'toggle' + (p.published ? ' on' : '');
+  document.getElementById('featuredToggle').className = 'toggle' + (p.featured ? ' on' : '');
   document.getElementById('btnDelete').style.display = 'block';
 
   // 照片：photos 陣列優先，否則退回單張 cloudinary_id
@@ -709,6 +719,9 @@ function toggleTag(el) { el.classList.toggle('selected'); }
 function togglePublish() {
   document.getElementById('publishToggle').classList.toggle('on');
 }
+function toggleFeatured() {
+  document.getElementById('featuredToggle').classList.toggle('on');
+}
 
 // ── 照片上傳到 Cloudinary ──
 async function handlePhoto(input) {
@@ -746,6 +759,7 @@ async function saveProduct() {
   const name = document.getElementById('f_name').value.trim();
   const price = parseInt(document.getElementById('f_price').value);
   const published = document.getElementById('publishToggle').classList.contains('on');
+  const featured = document.getElementById('featuredToggle').classList.contains('on');
   const tags = getSelectedTags();
   const description = document.getElementById('f_description').value.trim();
   const category = document.getElementById('f_category').value;
@@ -764,7 +778,7 @@ async function saveProduct() {
 
   const product = {
     code, name, price, category, status, description,
-    materials, size, care, tags, occasions, published,
+    materials, size, care, tags, occasions, published, featured,
     photos, cloudinary_id: mainId,
     photo: mainId
       ? `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/${mainId}`
