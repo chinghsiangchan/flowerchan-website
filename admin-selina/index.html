@@ -747,11 +747,29 @@ const DEFAULT_TAGS = ['向日葵','粉色系','紫色系','瓶花'];
 const OCC_TAG_SET = new Set(['日常','生日','情人節','紀念日','情人節/紀念日','婚禮','畢業','開幕','會場','企業','開幕·活動','喬遷','探病','弔唁','送禮靈感','端午','母親節','七夕']);
 let allTagPool = [...DEFAULT_TAGS];
 
+// 標籤分組排序：色系 → 花材 → 風格 → 其他（與前台一致）
+const TAG_COLORS = ['粉色系','紫色系','藍色系','黃色系','橘色系','紅色系','綠色系','白色系'];
+const TAG_FLOWERS = ['向日葵','非洲菊','玫瑰','鬱金香','繡球','芍藥','瓶花'];
+const TAG_STYLES = ['自然','清新','花園風','線條感','設計感','雅緻','日系','典雅'];
+function tagGroupKey(t) {
+  if (/色系$/.test(t)) { const i = TAG_COLORS.indexOf(t); return [0, i < 0 ? 50 : i]; }
+  let i = TAG_FLOWERS.indexOf(t); if (i >= 0) return [1, i];
+  i = TAG_STYLES.indexOf(t); if (i >= 0) return [2, i];
+  return [3, 0];
+}
+function sortTagPool() {
+  allTagPool.sort((a, b) => {
+    const ka = tagGroupKey(a), kb = tagGroupKey(b);
+    return ka[0] - kb[0] || ka[1] - kb[1] || a.localeCompare(b);
+  });
+}
+
 function syncTagPool() {
   allTagPool = [...DEFAULT_TAGS];
   products.forEach(p => {
     (p.tags||[]).forEach(t => { if(!OCC_TAG_SET.has(t) && !allTagPool.includes(t)) allTagPool.push(t); });
   });
+  sortTagPool();
 }
 
 function renderTagGrid(selectedTags=[]) {
@@ -778,6 +796,7 @@ function addNewTag() {
     return;
   }
   allTagPool.push(tag);
+  sortTagPool();
   const selectedTags = getSelectedTags();
   selectedTags.push(tag);
   renderTagGrid(selectedTags);
@@ -1092,12 +1111,14 @@ function openNew() {
   editIndex = -1;
   currentPhotos = [];
 
+  // 依目前所在的分類頁籤帶入類別與編號前綴（全部/精選 → 預設花束）
+  const startCat = CODE_PREFIX[pmCategory] ? pmCategory : '花束';
   document.getElementById('panelTitle').textContent = '新增花品';
-  document.getElementById('f_code').value = nextCode('花束');
+  document.getElementById('f_code').value = nextCode(startCat);
   document.getElementById('f_name').value = '';
   document.getElementById('f_price').value = '';
   document.getElementById('f_description').value = '';
-  document.getElementById('f_category').value = '花束';
+  document.getElementById('f_category').value = startCat;
   document.getElementById('f_status').value = '';
   document.getElementById('f_materials').value = '';
   document.getElementById('f_size').value = '';

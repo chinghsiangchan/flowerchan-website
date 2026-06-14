@@ -371,8 +371,7 @@ footer{display:block;padding:4rem 8vw 1.5rem;}
 .flower-card .flower-btn{border-color:var(--accent);color:var(--accent);}
 .flower-card .flower-btn:hover{background:var(--accent);color:#fff;}
 .flower-card::before{content:'';display:block;height:3px;background:var(--accent);opacity:0.65;}
-.flower-card.cat-table .flower-photo{aspect-ratio:4/3;}
-.flower-card.cat-stand .flower-photo{aspect-ratio:2/3;}
+/* 卡片圖片統一直式 3/4（避免混類別區塊高度不齊跑版）；各類別仍用色彩記號區分 */
 
 /* 6. 首頁課程卡：米色手作感 */
 .course-card{background:var(--cream-dark);border:1px solid rgba(232,184,75,0.45);box-shadow:none;}

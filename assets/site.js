@@ -74,6 +74,34 @@ function getPhotoUrl(p, w = 600) {
   return p.photo || '';
 }
 
+/* 風格/花材標籤排序：色系 → 花材 → 風格 → 其他（前後台一致） */
+const TAG_COLORS = ['粉色系', '紫色系', '藍色系', '黃色系', '橘色系', '紅色系', '綠色系', '白色系'];
+const TAG_FLOWERS = ['向日葵', '非洲菊', '玫瑰', '鬱金香', '繡球', '芍藥', '瓶花'];
+const TAG_STYLES = ['自然', '清新', '花園風', '線條感', '設計感', '雅緻', '日系', '典雅'];
+function tagGroupKey(t) {
+  if (/色系$/.test(t)) { const i = TAG_COLORS.indexOf(t); return [0, i < 0 ? 50 : i]; }
+  let i = TAG_FLOWERS.indexOf(t); if (i >= 0) return [1, i];
+  i = TAG_STYLES.indexOf(t); if (i >= 0) return [2, i];
+  return [3, 0];
+}
+function sortStyleTags(tags) {
+  return tags.slice().sort((a, b) => {
+    const ka = tagGroupKey(a), kb = tagGroupKey(b);
+    return ka[0] - kb[0] || ka[1] - kb[1] || a.localeCompare(b);
+  });
+}
+
+/* 分類頁 hero：從該分類商品隨機抽一張當背景（壓深色遮罩，文字仍清楚） */
+function applyCategoryHero(prods) {
+  const withPhoto = (prods || []).filter(p => getPhotoUrl(p));
+  if (!withPhoto.length) return;
+  const p = withPhoto[Math.floor(Math.random() * withPhoto.length)];
+  const hero = document.querySelector('.cat-hero');
+  if (!hero) return;
+  hero.style.setProperty('--hero-img', `url('${getPhotoUrl(p, 1600)}')`);
+  hero.classList.add('cat-hero--photo');
+}
+
 /* 載入花品資料 */
 async function fetchProducts() {
   const res = await fetch('/products.json?t=' + Date.now());

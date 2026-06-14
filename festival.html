@@ -106,6 +106,7 @@ let currentFilter = '全部';
 function renderFilter() {
   const tags = ['全部'];
   products.forEach(p => (p.tags || []).forEach(t => { if (!tags.includes(t)) tags.push(t); }));
+  { const _s = sortStyleTags(tags.slice(1)); tags.length = 1; _s.forEach(t => tags.push(t)); }
   const bar = document.getElementById('filterBar');
   if (products.length === 0 || tags.length <= 1) { bar.innerHTML = ''; return; }
   bar.innerHTML = '<span class="filter-label">篩選</span>' +
@@ -138,6 +139,7 @@ async function init() {
   try {
     const all = await fetchProducts();
     products = all.filter(p => (p.category || '花束') === PAGE_CATEGORY);
+    applyCategoryHero(products);
     renderFilter();
     renderGrid();
   } catch (e) {

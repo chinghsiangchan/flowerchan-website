@@ -294,12 +294,13 @@ async function initFeatured() {
 function updateCategoryCovers() {
   const map = { '節慶花禮': 'catFestival', '桌花': 'catTableFlower', '高架花': 'catFlowerStand', '蘭花': 'catOrchid', '永生花': 'catPreserved' };
   Object.entries(map).forEach(([cat, id]) => {
-    const first = allProducts.find(p => p.category === cat && getPhotoUrl(p));
-    if (first) {
+    const pool = allProducts.filter(p => p.category === cat && getPhotoUrl(p));
+    if (pool.length) {
+      const pick = pool[Math.floor(Math.random() * pool.length)];
       const card = document.getElementById(id);
       card.querySelector('.cat-empty')?.remove();
       card.insertAdjacentHTML('afterbegin',
-        `<img src="${getPhotoUrl(first)}" alt="${cat}">`);
+        `<img src="${getPhotoUrl(pick)}" alt="${cat}">`);
     }
   });
 }
