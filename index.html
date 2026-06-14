@@ -322,7 +322,7 @@ async function initBanner() {
     document.getElementById('hcTrack').innerHTML = act.map(b => `
       <a class="hc-slide" href="${b.link || '#'}">
         <img src="${b.image}" alt="${b.title || 'Flower Chan'}">
-        ${b.title || b.subtitle || b.cta ? `
+        ${!b.text_in_image && (b.title || b.subtitle || b.cta) ? `
         <div class="hc-overlay">
           ${b.eyebrow ? `<p class="hc-eyebrow">${b.eyebrow}</p>` : ''}
           ${b.title ? `<p class="hc-title hc-title-zh">${b.title}</p>` : ''}
