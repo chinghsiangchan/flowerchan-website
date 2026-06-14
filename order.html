@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>線上預訂｜Flower Chan 小花店</title>
+<meta name="description" content="台北大安區手作花店線上預訂，挑選花品、填寫訂購資料，小花店將在 24 小時內與您確認。">
+<link rel="icon" type="image/png" href="ICON.png">
+<link rel="apple-touch-icon" href="ICON.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Great+Vibes&family=Noto+Serif+TC:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Flower Chan 小花店">
+<meta property="og:title" content="線上預訂｜Flower Chan 小花店">
+<meta property="og:description" content="台北大安區手作花店線上預訂，挑選花品、填寫訂購資料，小花店將在 24 小時內與您確認。">
+<meta property="og:image" content="https://res.cloudinary.com/dcwgv05q1/image/upload/w_1200,h_630,c_fill,q_auto,f_auto/flowerchan/oagrp2yrqft1ob8nakzh">
+<meta property="og:url" content="https://flowerchan.com/order">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="/"><img class="nav-logo" src="/ICON.png" alt="Flower Chan logo"><span>FLOWER CHAN<small>小 花 店</small></span></a>
+  <ul class="nav-links">
+    <li><a href="/bouquet">花束</a></li>
+    <li><a href="/table-flower">桌花</a></li>
+    <li><a href="/flower-stand">高架花籃</a></li>
+    <li><a href="/orchid">蘭花</a></li>
+    <li><a href="/preserved">永生花</a></li>
+    <li><a href="/courses">花藝課程</a></li>
+    <li><a href="/#about">關於</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <a class="nav-cta" href="/order">立即預訂</a>
+    <button class="nav-toggle" onclick="toggleMobileMenu()" aria-label="選單">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/bouquet">花束 BOUQUET</a>
+  <a href="/table-flower">桌花 TABLE FLOWERS</a>
+  <a href="/flower-stand">高架花籃 FLOWER STANDS</a>
+  <a href="/orchid">蘭花 ORCHIDS</a>
+  <a href="/preserved">永生花 PRESERVED FLOWERS</a>
+  <a href="/courses">花藝課程 COURSES</a>
+  <a href="/#about" onclick="toggleMobileMenu()">關於 ABOUT</a>
+  <a href="/order" onclick="toggleMobileMenu()">立即預訂 ORDER</a>
+</div>
+
+<!-- ORDER -->
+<section class="order-section" id="order"><div id="orderSection">
+  <div class="reveal">
+    <p class="sec-eyebrow">Order Now</p>
+    <h2 class="sec-title">立即預訂</h2>
+  </div>
+  <div class="order-steps reveal">
+    <span class="order-step"><b>1</b>挑選喜歡的花品</span><span class="order-step-arrow">→</span>
+    <span class="order-step"><b>2</b>填寫訂購資料</span><span class="order-step-arrow">→</span>
+    <span class="order-step"><b>3</b>我們與您確認後付款</span>
+    <a class="btn-ghost" href="/#categories">還沒選？先去挑花品</a>
+  </div>
+  <div class="order-grid reveal">
+    <div class="order-notice">
+      <p class="notice-title">訂購須知</p>
+      <div class="notice-item"><span class="notice-dot">·</span><span>花束皆為花藝師手工設計，照片僅供參考，花材依當日市場供應為準，整體色系與風格維持一致。</span></div>
+      <div class="notice-item"><span class="notice-dot">·</span><span>請至少於送花日前 <strong>3 天</strong>完成訂購。節日旺季（情人節、母親節）建議提前 5–7 天預約。</span></div>
+      <div class="notice-item"><span class="notice-dot">·</span><span>訂單確認後請於 <strong>24 小時內</strong>完成付款，未付款視同未完成訂購。</span></div>
+      <div class="notice-item"><span class="notice-dot">·</span><span>付款方式：LINE Pay、銀行轉帳。</span></div>
+      <div class="notice-item"><span class="notice-dot">·</span><span>配送費用依地區與品項另計，訂單確認時一併報價。高架花、大型佈置之配送請先以 LINE 洽詢。</span></div>
+      <div class="notice-item"><span class="notice-dot">·</span><span>進入備貨設計階段後，恕不接受取消或退款。</span></div>
+      <div class="notice-item"><span class="notice-dot">·</span><span>本店保留接受或婉拒訂單之權利，如遇備貨、花材或時程無法配合，將主動聯繫說明。</span></div>
+      <div class="notice-item" style="margin-top:1.2rem;padding-top:1.2rem;border-top:0.5px solid var(--border)"><span class="notice-dot">✓</span><span>填寫並送出表單，即代表您同意以上訂購須知。</span></div>
+    </div>
+    <div class="order-form-wrap">
+      <form id="orderForm" onsubmit="submitOrder(event)">
+        <input type="hidden" id="productCode" name="product_code" value="">
+        <input type="hidden" id="productName" name="product_name" value="">
+
+        <div class="form-row">
+          <label class="form-label">選擇花品 <span style="color:#C0392B;">*</span></label>
+          <select class="form-select" id="productSelect" required onchange="onProductSelect(this.value)">
+            <option value="">請選擇花品</option>
+          </select>
+        </div>
+
+        <div class="form-row" id="selectedProduct" style="display:none">
+          <label class="form-label">您選擇的花品</label>
+          <div class="price-display" id="selectedProductDisplay" style="font-size:0.85rem;color:var(--muted);font-weight:300;"></div>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label">訂購人姓名 <span style="color:#C0392B;">*</span></label>
+          <input class="form-input" type="text" name="name" required placeholder="您的姓名">
+        </div>
+        <div class="form-row">
+          <label class="form-label">聯絡電話 *<span style="font-size:0.6rem;color:var(--muted);font-weight:200;letter-spacing:0.05em;margin-left:0.5rem;">請留正確號碼，以便小花店與您確認訂單</span></label>
+          <input class="form-input" type="tel" name="phone" required placeholder="0912-345-678">
+        </div>
+        <div class="form-row">
+          <label class="form-label">電子信箱 <span style="color:#C0392B;">*</span></label>
+          <input class="form-input" type="email" name="email" required placeholder="your@email.com">
+        </div>
+        <div class="form-row">
+          <label class="form-label">偏好聯絡方式 <span style="color:#C0392B;">*</span></label>
+          <select class="form-select" name="contact_pref" required>
+            <option value="EMAIL" selected>EMAIL</option>
+            <option>電話</option>
+            <option>其他（請於備註填寫）</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label class="form-label">訂購用途 <span style="color:#C0392B;">*</span></label>
+          <select class="form-select" name="occasion" required>
+            <option value="">請選擇</option>
+            <option>生日</option>
+            <option>情人節 / 紀念日</option>
+            <option>婚禮/求婚</option>
+            <option>感謝/探病</option>
+            <option>畢業/升遷</option>
+            <option>開幕/喬遷</option>
+            <option>會場/弔唁</option>
+            <option>自用</option>
+            <option>其他（請在下方說明）</option>
+          </select>
+        </div>
+        <div class="form-row" id="stylePrefRow">
+          <label class="form-label">花材偏好與顏色風格</label>
+          <input class="form-input" type="text" name="style_pref" placeholder="例如：偏粉、不要百合、要滿天星">
+        </div>
+        <div class="form-row">
+          <label class="form-label">代寫卡片 / 賀詞內容</label>
+          <textarea class="form-textarea" name="card_text" style="min-height:70px;" placeholder="想附上的卡片祝福、賀詞或輓聯文字（高架花請註明上款／下款）"></textarea>
+        </div>
+        <div class="form-row">
+          <label class="form-label">預算（NT$）</label>
+          <div class="form-price-row">
+            <div class="price-display" id="basePriceDisplay">依花品定價</div>
+            <input class="form-input" type="number" name="budget" id="budgetInput" placeholder="可調整金額" min="0">
+          </div>
+          <p style="font-size:0.6rem;color:var(--muted);margin-top:0.5rem;font-weight:200;">預設為花品定價。NT$1,000 以下定價固定，如需更豐富的設計，歡迎選擇其他花品。</p>
+        </div>
+        <div class="form-row">
+          <label class="form-label">自取 / 配送（運費另計） <span style="color:#C0392B;">*</span></label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="delivery" value="自取" onchange="toggleDelivery(false)" required> 自取</label>
+            <label class="radio-label"><input type="radio" name="delivery" value="配送" onchange="toggleDelivery(true)"> 配送</label>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="form-label">取 / 送花日期 <span style="color:#C0392B;">*</span><span style="font-size:0.6rem;color:var(--muted);font-weight:200;letter-spacing:0.05em;margin-left:0.5rem;">建議 3 天前預訂最安心，急單歡迎 LINE 詢問</span></label>
+          <input class="form-input" type="date" name="date" id="dateInput" required>
+        </div>
+        <div class="form-row">
+          <label class="form-label">希望時段 <span style="color:#C0392B;">*</span></label>
+          <select class="form-select" name="time_slot" required>
+            <option value="">請選擇</option>
+            <option>上午09:00–12:00</option>
+            <option>下午13:00–17:00</option>
+            <option>晚間18:00–20:00</option>
+            <option>不指定</option>
+          </select>
+        </div>
+        <div class="delivery-fields" id="deliveryFields">
+          <div class="form-row">
+            <label class="form-label">收件人姓名 <span style="color:#C0392B;">*</span></label>
+            <input class="form-input" type="text" name="recipient_name" placeholder="收件人姓名" required>
+          </div>
+          <div class="form-row">
+            <label class="form-label">收件人電話 <span style="color:#C0392B;">*</span></label>
+            <input class="form-input" type="tel" name="recipient_phone" placeholder="收件人聯絡電話" required>
+          </div>
+          <div class="form-row">
+            <label class="form-label">配送地址 <span style="color:#C0392B;">*</span></label>
+            <input class="form-input" type="text" name="address" placeholder="完整地址（含樓層門號）" required>
+          </div>
+          <div class="form-row">
+            <label class="form-label">收件人不在時，可放置管理室嗎？</label>
+            <select class="form-select" name="concierge_ok">
+              <option value="">請選擇</option>
+              <option>可以，可放管理室</option>
+              <option>不行，請務必本人簽收</option>
+              <option>無管理室</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="form-label">付款方式 <span style="color:#C0392B;">*</span></label>
+          <select class="form-select" name="payment" required>
+            <option value="">請選擇</option>
+            <option>LINE Pay</option>
+            <option>銀行轉帳</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label class="form-label">備註</label>
+          <textarea class="form-textarea" name="note" placeholder="特殊指示、留言或過敏花材等"></textarea>
+        </div>
+        <p style="font-size:0.65rem;color:rgba(45,74,62,0.5);font-weight:200;letter-spacing:0.05em;margin-bottom:1rem;"><span style="color:#C0392B;">*</span> 標示欄位務必填寫</p>
+        <button type="submit" class="form-submit">送出預訂申請</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+  <!-- 完成頁 -->
+  <div id="thankYouPage" style="display:none;padding:4rem 0;">
+    <div style="max-width:640px;margin:0 auto;text-align:center;">
+      <p style="font-family:'Great Vibes',cursive;font-size:3.8rem;color:#2D4A3E;line-height:1.2;margin-bottom:0.6rem;letter-spacing:0.02em;">Thank You</p>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:2.8rem;color:#2D4A3E;line-height:1.15;letter-spacing:0.02em;margin-bottom:1.5rem;">感謝您的預訂申請</h2>
+      <div style="width:28px;height:1px;background:#E8B84B;margin:0 auto 2rem;"></div>
+      <div id="orderSummary" style="background:#FFFFFF;border:1px solid rgba(232,184,75,0.5);border-radius:14px;padding:1.6rem 2rem;text-align:left;margin:0 auto 2rem;max-width:480px;font-size:0.85rem;color:#3A6B53;line-height:2.1;font-weight:300;"></div>
+      <p style="font-size:0.72rem;color:rgba(45,74,62,0.45);font-weight:200;margin-bottom:2rem;">📱 建議截圖保存此頁，方便後續與小花店核對</p>
+      <p style="font-size:0.95rem;color:rgba(45,74,62,0.5);line-height:2.3;font-weight:200;margin-bottom:3rem;">小花店會在 <strong style="color:#2D4A3E;font-weight:400;">24 小時內</strong>透過您選擇的聯絡方式與您確認訂單內容。<br>確認後請於 <strong style="color:#2D4A3E;font-weight:400;">24 小時內</strong>付款，經商家確認聯繫後，即完成預訂流程。</p>
+
+      <div style="background:#F7F4EE;padding:2.5rem;text-align:left;margin-bottom:2rem;">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:#2D4A3E;font-weight:300;letter-spacing:0.08em;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:0.5px solid rgba(45,74,62,0.11);">付款方式</p>
+        <p style="font-size:0.72rem;letter-spacing:0.22em;color:rgba(45,74,62,0.42);margin-bottom:1rem;font-weight:200;">銀行轉帳</p>
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem 1.5rem;margin-bottom:2rem;">
+          <span style="font-size:0.82rem;color:rgba(45,74,62,0.42);font-weight:200;">銀行</span>
+          <span style="font-size:0.82rem;color:#2D4A3E;font-weight:300;">元大銀行（806）和平分行</span>
+          <span style="font-size:0.82rem;color:rgba(45,74,62,0.42);font-weight:200;">戶名</span>
+          <span style="font-size:0.82rem;color:#2D4A3E;font-weight:300;">小花序章企業社</span>
+          <span style="font-size:0.82rem;color:rgba(45,74,62,0.42);font-weight:200;">帳號</span>
+          <span style="font-size:1.05rem;color:#2D4A3E;font-family:'Cormorant Garamond',serif;font-weight:400;letter-spacing:0.08em;">21592000029639</span>
+        </div>
+        <p style="font-size:0.72rem;letter-spacing:0.22em;color:rgba(45,74,62,0.42);margin-bottom:0.8rem;font-weight:200;">LINE Pay</p>
+        <p style="font-size:0.82rem;color:rgba(45,74,62,0.5);font-weight:200;line-height:1.8;">請於訂單確認後，由小花店提供 LINE Pay 付款連結。</p>
+      </div>
+
+      <p style="font-size:0.8rem;color:rgba(45,74,62,0.4);font-weight:200;line-height:2;margin-bottom:2.5rem;">轉帳後請保留收據，並透過 LINE 或 IG 私訊告知小花店，<br>以便確認付款狀態。</p>
+      <a href="/" style="display:inline-block;background:#2D4A3E;color:#F7F4EE;font-size:0.72rem;padding:13px 28px;letter-spacing:0.26em;text-decoration:none;font-family:'Noto Serif TC',serif;font-weight:300;transition:opacity 0.3s;">回到首頁</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col footer-brand-col">
+      <img class="footer-logo" src="/FLOWERCHAN_WHITE.png" alt="Flower Chan">
+      <p class="footer-tagline">小花店 · 讓每個時刻都有花的陪伴</p>
+    </div>
+    <div class="footer-col">
+      <p class="footer-head">花禮選品</p>
+      <a href="/bouquet">花束</a>
+      <a href="/table-flower">桌花</a>
+      <a href="/flower-stand">高架花籃</a>
+      <a href="/orchid">蘭花</a>
+      <a href="/preserved">永生花</a>
+    </div>
+    <div class="footer-col">
+      <p class="footer-head">服務</p>
+      <a href="/courses">花藝課程</a>
+      <a href="/order">訂購方式</a>
+      <a href="/#about">關於小花店</a>
+    </div>
+    <div class="footer-col">
+      <p class="footer-head">聯絡我們</p>
+      <p class="footer-info">TEL: <a href="tel:0223637539">02-2363-7539</a></p>
+      <p class="footer-info">台北市辛亥路二段43號1樓</p>
+      <p class="footer-info">預約制 · 歡迎私訊預約</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/flowerchan_tw/" target="_blank">Instagram</a>
+        <a href="https://www.facebook.com/freshasdaisyflower" target="_blank">Facebook</a>
+        <a href="https://lin.ee/jZUeNhm" target="_blank">LINE</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Flower Chan 小花店（小花序章企業社）· 台北市辛亥路二段43號1樓</div>
+</footer>
+
+<script src="/assets/site.js"></script>
+<script>
+let allProducts = [];
+
+/* ── 訂購表單（沿用既有邏輯） ── */
+function selectProductByCode(code) {
+  const p = allProducts.find(x => x.code === code);
+  if (!p) return;
+  selectProduct(p.code, p.name, p.price);
+}
+
+function selectProduct(code, name, price) {
+  const sel = document.getElementById('productSelect');
+  if (sel) sel.value = code;
+  document.getElementById('productCode').value = code;
+  document.getElementById('productName').value = name;
+  document.getElementById('selectedProduct').style.display = 'block';
+  document.getElementById('selectedProductDisplay').textContent = `${code} · ${name} — NT$ ${price.toLocaleString()}`;
+  document.getElementById('basePriceDisplay').textContent = `NT$ ${price.toLocaleString()}`;
+  const budgetInput = document.getElementById('budgetInput');
+  const stylePrefRow = document.getElementById('stylePrefRow');
+  if (price <= 1000) {
+    budgetInput.readOnly = true;
+    budgetInput.value = price;
+    budgetInput.placeholder = '此花品價格固定';
+  } else {
+    budgetInput.readOnly = false;
+    budgetInput.value = price;
+    budgetInput.placeholder = '可調整金額';
+  }
+  if (stylePrefRow) stylePrefRow.style.display = price < 2000 ? 'none' : 'block';
+  document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+}
+
+function toggleDelivery(show) {
+  const fields = document.getElementById('deliveryFields');
+  if (show) {
+    fields.classList.add('show');
+    fields.querySelectorAll('input').forEach(i => i.required = true);
+  } else {
+    fields.classList.remove('show');
+    fields.querySelectorAll('input').forEach(i => { i.required = false; i.value = ''; });
+  }
+}
+
+async function submitOrder(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  btn.disabled = true;
+  btn.textContent = '送出中…';
+
+  const data = new FormData(e.target);
+  const payload = {};
+  for (const [key, val] of data.entries()) payload[key] = val;
+
+  // 新欄位併入備註（後端與試算表欄位不需變動）
+  const extras = [];
+  if (payload.card_text) extras.push(`【卡片/賀詞】${payload.card_text}`);
+  if (payload.concierge_ok) extras.push(`【管理室】${payload.concierge_ok}`);
+  if (extras.length) payload.note = extras.join('\n') + (payload.note ? '\n' + payload.note : '');
+  delete payload.card_text;
+  delete payload.concierge_ok;
+
+  try {
+    const res = await fetch('/.netlify/functions/submit-order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const sum = document.getElementById('orderSummary');
+    if (sum) sum.innerHTML = [
+      payload.product_name ? '🌸 花品｜' + payload.product_name : '',
+      payload.budget ? '💰 預算｜NT$ ' + Number(payload.budget).toLocaleString() : '',
+      payload.date ? '📅 日期｜' + payload.date + '（' + (payload.time_slot || '') + '）' : '',
+      '🚚 方式｜' + (payload.delivery || ''),
+      '👤 訂購人｜' + (payload.name || '')
+    ].filter(Boolean).join('<br>');
+    document.getElementById('orderSection').style.display = 'none';
+    document.getElementById('thankYouPage').style.display = 'block';
+    window.scrollTo({ top: document.getElementById('thankYouPage').offsetTop - 80, behavior: 'smooth' });
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = '送出預訂申請';
+    alert('送出失敗，請稍後再試或直接聯絡小花店。');
+    console.error('submitOrder error:', err);
+  }
+}
+
+/* ?product=FC-xxx 由其他頁帶入花品 */
+const CAT_ORDER = ['花束', '桌花', '高架花', '蘭花', '永生花'];
+
+function populateProductSelect() {
+  const sel = document.getElementById('productSelect');
+  if (!sel) return;
+  const groups = CAT_ORDER.map(cat => {
+    const items = allProducts.filter(p => (p.category || '花束') === cat && p.status !== '售完');
+    if (!items.length) return '';
+    const label = cat === '高架花' ? '高架花籃' : cat;
+    return `<optgroup label="${label}">` + items.map(p =>
+      `<option value="${p.code}">${p.name}｜NT$ ${Number(p.price).toLocaleString()}</option>`).join('') + '</optgroup>';
+  }).join('');
+  sel.innerHTML = '<option value="">請選擇花品</option>' + groups +
+    '<optgroup label="客製"><option value="CUSTOM">客製花束（NT$ 2,000 起）／由小花店為您設計</option></optgroup>';
+}
+
+function onProductSelect(val) {
+  const budgetInput = document.getElementById('budgetInput');
+  if (val === 'CUSTOM') {
+    document.getElementById('productCode').value = 'CUSTOM';
+    document.getElementById('productName').value = '客製花束（$2000以上）';
+    document.getElementById('selectedProduct').style.display = 'block';
+    document.getElementById('selectedProductDisplay').textContent = '客製花束 — NT$ 2,000 起，依您的需求設計';
+    document.getElementById('basePriceDisplay').textContent = 'NT$ 2,000 起';
+    budgetInput.readOnly = false;
+    budgetInput.min = 2000;
+    budgetInput.value = 2000;
+    const stylePrefRow = document.getElementById('stylePrefRow');
+    if (stylePrefRow) stylePrefRow.style.display = 'block';
+    return;
+  }
+  budgetInput.min = 0;
+  if (val) selectProductByCode(val);
+}
+
+function setDefaultDate() {
+  const d = new Date();
+  d.setDate(d.getDate() + 3);
+  const el = document.getElementById('dateInput');
+  if (el && !el.value) el.value = d.toISOString().slice(0, 10);
+}
+
+/* 暫停接單開關（settings.json，後台開關第二階段） */
+async function checkAcceptingOrders() {
+  try {
+    const res = await fetch('/settings.json?t=' + Date.now());
+    const s = await res.json();
+    if (s.accepting_orders === false) {
+      document.getElementById('orderSection').innerHTML = `
+        <div class="reveal visible"><p class="sec-eyebrow">Order Now</p><h2 class="sec-title">立即預訂</h2></div>
+        <div class="closed-notice">
+          <h3>🌸 本檔期已滿單</h3>
+          <p>${s.closed_message || '感謝大家的喜愛，目前訂單已滿。<br>歡迎透過 LINE 詢問下一檔期，或追蹤 IG 獲得最新消息。'}</p>
+          <a class="btn-line2 is-line" href="${LINE_URL}" target="_blank" style="margin-top:1.4rem;">LINE 詢問</a>
+        </div>`;
+    }
+  } catch (e) { /* 無設定檔時照常 */ }
+}
+
+async function initOrderPage(){
+  try { allProducts = await fetchProducts(); } catch(e){}
+  populateProductSelect();
+  setDefaultDate();
+  checkAcceptingOrders();
+  const params = new URLSearchParams(location.search);
+  const code = params.get('product') || params.get('order');
+  if (code) selectProductByCode(code);
+  observeReveal();
+}
+initOrderPage();
+</script>
+<a class="fab-line" href="https://lin.ee/jZUeNhm" target="_blank" aria-label="LINE 詢問">
+<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 5.64 2 10.1c0 2.57 1.49 4.85 3.82 6.33-.13.46-.66 2.37-.69 2.53 0 0-.01.11.06.16.07.04.16.02.16.02.21-.03 2.44-1.6 3.4-2.27.74.11 1.49.16 2.25.16 5.52 0 10-3.64 10-8.13S17.52 2 12 2z"/></svg>
+</a>
+</body>
+</html>

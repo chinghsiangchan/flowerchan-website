@@ -127,7 +127,7 @@ function flowerCardHtml(p) {
           <a class="btn-line2" href="/product.html?code=${p.code}">查看詳情</a>
           ${soldout
             ? '<span class="btn-main disabled">已售完</span>'
-            : `<a class="btn-main" href="/#order?product=${p.code}" onclick="return goOrder('${p.code}')">立即下單</a>`}
+            : `<a class="btn-main" href="/order?product=${p.code}" onclick="return goOrder('${p.code}')">立即下單</a>`}
         </div>
       </div>
     </div>`;
@@ -139,7 +139,7 @@ function goOrder(code) {
     selectProductByCode(code);
     return false;
   }
-  location.href = '/?order=' + encodeURIComponent(code) + '#order';
+  location.href = '/order?product=' + encodeURIComponent(code);
   return false;
 }
 
@@ -302,7 +302,7 @@ function scrollThumbs(dir) {
     bar.className = 'mobile-cta';
     bar.innerHTML =
       '<a class="mcta-btn mcta-line" href="' + LINE_URL + '" target="_blank">LINE 詢問</a>' +
-      '<a class="mcta-btn mcta-order" href="/#order">立即預訂</a>';
+      '<a class="mcta-btn mcta-order" href="/order">立即預訂</a>';
     document.body.appendChild(bar);
     const onScroll = () => { bar.classList.toggle('show', window.scrollY > 360); };
     window.addEventListener('scroll', onScroll, { passive: true });
