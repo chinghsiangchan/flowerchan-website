@@ -113,15 +113,23 @@
   </div>
 </section>
 
-<!-- 課程預告 -->
-<section class="section" id="courses-preview" style="background:var(--cream-dark);">
-  <div class="reveal">
-    <p class="sec-eyebrow">Floral Workshop</p>
-    <h2 class="sec-title">花藝課程</h2>
-    <p style="margin-top:1.4rem;font-size:0.9rem;color:var(--muted);font-weight:200;line-height:2;max-width:560px;margin-left:auto;margin-right:auto;">小班教學，在輕鬆愉快的氛圍中，學習花藝的溫柔語言。<br>從植栽組盆、永生花到節慶花圈，跟著 Selina 一起把花藝帶進生活。</p>
-  </div>
-  <div style="text-align:center;margin-top:2.5rem;" class="reveal">
-    <a href="/courses" class="btn-dark">看所有課程</a>
+<!-- 花藝課程 介紹 -->
+<section class="section course-intro" id="courses-preview" style="background:var(--cream-dark);">
+  <div class="course-intro-grid reveal">
+    <div class="course-intro-text">
+      <p class="sec-eyebrow">Floral Workshop</p>
+      <h2 class="sec-title">花藝課程</h2>
+      <p class="course-intro-lead">花，也可以親手做。</p>
+      <p class="course-intro-body">小班、慢步調，從一枝一葉開始，在 Selina 的引導下，把當季的花材變成屬於你的作品。<br><br>想給自己一段放鬆的午後，或和孩子、朋友一起留下回憶——植栽組盆、永生花、節慶花圈，總有一堂適合你。第一次也沒關係，我們會帶著你慢慢完成。</p>
+      <div class="course-tags">
+        <span>植栽組盆</span><span>親子花藝</span><span>永生花</span><span>節慶花圈</span>
+      </div>
+      <a href="/courses" class="btn-dark" style="margin-top:1.9rem;">看所有課程</a>
+    </div>
+    <div class="course-intro-visual">
+      <img src="https://res.cloudinary.com/dcwgv05q1/image/upload/w_900,c_fill,q_auto,f_auto/flowerchan/mkvox3znorv4zwnd32u9" alt="花藝課程" loading="lazy">
+      <span class="course-visual-badge">小班 · 預約制</span>
+    </div>
   </div>
 </section>
 
@@ -311,7 +319,9 @@ async function initBanner() {
     const today = new Date().toISOString().slice(0, 10);
     let act = banners.filter(b => b.published !== false &&
       (b.always === true || (b.start <= today && today <= b.end)));
-    if (!act.length) act = [DEFAULT_HERO];   // 無節慶 banner 時顯示品牌形象圖
+    // 品牌形象圖固定在輪播裡：沒 banner 時就只有它；有 banner 時第一張仍是 banner，形象圖插中間
+    if (!act.length) act = [DEFAULT_HERO];
+    else act.splice(Math.max(1, Math.floor(act.length / 2)), 0, DEFAULT_HERO);
     document.getElementById('hcTrack').innerHTML = act.map(b => `
       <a class="hc-slide" href="${b.link || '#'}">
         <img src="${b.image}" alt="${b.title || 'Flower Chan'}">
