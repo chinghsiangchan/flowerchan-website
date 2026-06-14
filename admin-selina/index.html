@@ -308,6 +308,43 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
   .pm-main{flex-basis:100%;}
   .product-actions{flex-basis:100%;justify-content:flex-end;}
 }
+
+/* ── 後台分頁 ── */
+.admin-tabs{position:sticky;top:56px;z-index:40;display:flex;gap:2px;background:#fff;border-bottom:1px solid #ece8df;padding:0 0.4rem;overflow-x:auto;}
+.atab{flex:0 0 auto;background:transparent;border:none;border-bottom:2px solid transparent;color:#7a766d;font-size:0.86rem;letter-spacing:0.04em;padding:13px 16px;cursor:pointer;}
+.atab.active{color:#2D4A3E;border-bottom-color:#2D4A3E;font-weight:600;}
+.admin-view[hidden]{display:none;}
+
+/* ── 通用列表列（課程/Banner）── */
+.gm-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #f0ece3;}
+.gm-thumb{width:60px;height:60px;border-radius:8px;object-fit:cover;background:#f1efe8;flex:0 0 auto;}
+.gm-thumb.empty{display:flex;align-items:center;justify-content:center;color:#c4bfb3;font-size:0.7rem;}
+.gm-info{flex:1;min-width:0;}
+.gm-name{font-size:0.95rem;color:#2c2a26;}
+.gm-sub{font-size:0.76rem;color:#9a958a;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.gm-actions{display:flex;align-items:center;gap:6px;flex:0 0 auto;}
+.gm-empty{text-align:center;padding:2.5rem 1rem;color:#9a958a;font-size:0.9rem;}
+
+/* ── 設定頁 ── */
+.set-card{background:#fff;border:1px solid #ece8df;border-radius:12px;padding:1.4rem;max-width:560px;}
+.set-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.1rem;}
+.set-label b{display:block;font-size:0.95rem;color:#2c2a26;}
+.set-label span{display:block;font-size:0.76rem;color:#9a958a;margin-top:3px;}
+.switch{position:relative;width:50px;height:28px;flex:0 0 auto;cursor:pointer;}
+.switch input{display:none;}
+.switch .track{position:absolute;inset:0;background:#d8d3c8;border-radius:999px;transition:0.2s;}
+.switch .track::before{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;background:#fff;border-radius:50%;transition:0.2s;}
+.switch input:checked + .track{background:#2D4A3E;}
+.switch input:checked + .track::before{transform:translateX(22px);}
+.set-hint{font-size:0.78rem;color:#a32d2d;margin-bottom:1rem;}
+.set-msg-label{font-size:0.82rem;color:#5a5750;display:block;margin-bottom:6px;}
+.set-msg{width:100%;box-sizing:border-box;min-height:80px;padding:10px 12px;border:1px solid #e5e0d5;border-radius:10px;font-size:0.9rem;font-family:inherit;line-height:1.7;}
+
+/* ── 通用滑出面板（課程 / Banner，沿用花品面板樣式）── */
+.slide-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.5);}
+.slide-overlay.show{display:block;}
+.slide-panel{position:fixed;bottom:0;left:0;right:0;z-index:201;background:#fff;border-radius:12px 12px 0 0;max-height:92vh;overflow-y:auto;transform:translateY(100%);transition:transform 0.35s cubic-bezier(0.32,0.72,0,1);padding-bottom:env(safe-area-inset-bottom);}
+.slide-panel.show{transform:translateY(0);}
 </style>
 </head>
 <body>
@@ -336,6 +373,15 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
 
 <!-- 主畫面 -->
 <div id="mainScreen">
+  <nav class="admin-tabs" id="adminTabs">
+    <button class="atab active" data-view="products" onclick="switchView('products')">花品</button>
+    <button class="atab" data-view="courses" onclick="switchView('courses')">課程</button>
+    <button class="atab" data-view="banners" onclick="switchView('banners')">Banner</button>
+    <button class="atab" data-view="settings" onclick="switchView('settings')">設定</button>
+  </nav>
+
+  <!-- 花品管理 -->
+  <section class="admin-view" id="view-products">
   <div class="action-bar">
     <span class="page-title">花禮選品</span>
     <button class="btn-add" onclick="openNew()">＋ 新增花品</button>
@@ -360,6 +406,50 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
   <div id="productList" class="product-list">
     <div class="loading"><div class="spinner"></div>載入中...</div>
   </div>
+  </section>
+
+  <!-- 課程管理 -->
+  <section class="admin-view" id="view-courses" hidden>
+    <div class="action-bar">
+      <span class="page-title">花藝課程</span>
+      <button class="btn-add" onclick="openCourse(-1)">＋ 新增課程</button>
+    </div>
+    <div id="courseList" class="product-list"></div>
+  </section>
+
+  <!-- Banner 管理 -->
+  <section class="admin-view" id="view-banners" hidden>
+    <div class="action-bar">
+      <span class="page-title">首頁輪播 Banner</span>
+      <button class="btn-add" onclick="openBanner(-1)">＋ 新增 Banner</button>
+    </div>
+    <p class="set-hint" style="color:#9a958a;">品牌形象圖會自動固定顯示在輪播中，這裡管理的是節慶／活動／課程等檔期 banner。</p>
+    <div id="bannerList" class="product-list"></div>
+  </section>
+
+  <!-- 設定 -->
+  <section class="admin-view" id="view-settings" hidden>
+    <div class="action-bar">
+      <span class="page-title">商店設定</span>
+    </div>
+    <div class="set-card">
+      <div class="set-row">
+        <div class="set-label">
+          <b>接受訂單</b>
+          <span>關閉後，訂購頁會顯示「暫停接單」並停用送出按鈕</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="setAccepting" onchange="onAcceptingToggle()">
+          <span class="track"></span>
+        </label>
+      </div>
+      <div id="setMsgWrap">
+        <label class="set-msg-label" for="setClosedMsg">暫停接單時顯示的訊息</label>
+        <textarea id="setClosedMsg" class="set-msg" placeholder="例：本檔期訂單已滿，歡迎透過 LINE 詢問下一檔期。"></textarea>
+      </div>
+      <button class="btn-add" style="margin-top:1.2rem;" onclick="saveSettings()" id="btnSaveSettings">儲存設定</button>
+    </div>
+  </section>
 </div>
 
 <!-- 編輯面板遮罩 -->
@@ -491,6 +581,92 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
   <div class="panel-footer">
     <button class="btn-delete" id="btnDelete" onclick="deleteProduct()" style="display:none">刪除</button>
     <button class="btn-save" id="btnSave" onclick="saveProduct()">儲存</button>
+  </div>
+</div>
+
+<!-- 課程編輯面板 -->
+<div id="courseOverlay" class="slide-overlay" onclick="closeCourse()"></div>
+<div id="coursePanel" class="slide-panel">
+  <div class="panel-handle"></div>
+  <div class="panel-header">
+    <span class="panel-title" id="coursePanelTitle">新增課程</span>
+    <button class="btn-close" onclick="closeCourse()">✕</button>
+  </div>
+  <div class="panel-body">
+    <div class="field">
+      <label class="field-label">課程照片（第一張為主圖，可多張）</label>
+      <div id="coursePhotoList" class="photo-list"></div>
+      <div class="photo-upload-area">
+        <input type="file" id="coursePhotoInput" accept="image/*" multiple onchange="handleCoursePhoto(this)">
+        <div id="coursePhotoHint"><span class="photo-upload-icon">📷</span><p class="photo-upload-hint">點此上傳照片<br>可一次選多張</p></div>
+        <p id="coursePhotoUploading" class="photo-uploading" style="display:none">上傳中...</p>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label class="field-label">課程編號 *</label><input class="field-input" id="c_code" placeholder="CL-005" maxlength="10"></div>
+      <div class="field"><label class="field-label">費用（NT$）*</label><input class="field-input" id="c_price" type="number" placeholder="1880" min="0"></div>
+    </div>
+    <div class="field"><label class="field-label">課程名稱 *</label><input class="field-input" id="c_name" placeholder="例如：植栽組盆課"></div>
+    <div class="field"><label class="field-label">英文名稱</label><input class="field-input" id="c_name_en" placeholder="Potted Garden Workshop"></div>
+    <div class="field-row">
+      <div class="field"><label class="field-label">類型</label>
+        <select class="field-input" id="c_type"><option value="常態課程">常態課程</option><option value="固定梯次">固定梯次</option></select>
+      </div>
+      <div class="field"><label class="field-label">狀態</label>
+        <select class="field-input" id="c_status"><option value="報名中">報名中</option><option value="額滿">額滿</option><option value="已結束">已結束</option></select>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label class="field-label">時長</label><input class="field-input" id="c_duration" placeholder="約 2 小時"></div>
+      <div class="field"><label class="field-label">人數</label><input class="field-input" id="c_capacity" placeholder="2–6 人"></div>
+    </div>
+    <div class="field"><label class="field-label">開課日期（固定梯次用，選填）</label><input class="field-input" id="c_date" placeholder="例如：開課日期待公布 / 2026-07-15"></div>
+    <div class="field"><label class="field-label">課程介紹</label>
+      <textarea class="field-input" id="c_description" rows="5" placeholder="介紹課程內容、適合對象、含哪些材料…" style="resize:vertical;min-height:100px;line-height:1.7;"></textarea>
+    </div>
+    <div class="field"><div class="toggle-row"><span class="toggle-label">上架顯示</span><div class="toggle on" id="coursePublishToggle" onclick="this.classList.toggle('on')"></div></div></div>
+  </div>
+  <div class="panel-footer">
+    <button class="btn-delete" id="btnDeleteCourse" onclick="deleteCourse()" style="display:none">刪除</button>
+    <button class="btn-save" id="btnSaveCourse" onclick="saveCourse()">儲存</button>
+  </div>
+</div>
+
+<!-- Banner 編輯面板 -->
+<div id="bannerOverlay" class="slide-overlay" onclick="closeBanner()"></div>
+<div id="bannerPanel" class="slide-panel">
+  <div class="panel-handle"></div>
+  <div class="panel-header">
+    <span class="panel-title" id="bannerPanelTitle">新增 Banner</span>
+    <button class="btn-close" onclick="closeBanner()">✕</button>
+  </div>
+  <div class="panel-body">
+    <div class="field">
+      <label class="field-label">Banner 圖片 *（寬版橫圖最佳）</label>
+      <div id="bannerImgPreview" style="margin-bottom:10px;"></div>
+      <div class="photo-upload-area">
+        <input type="file" id="bannerImgInput" accept="image/*" onchange="handleBannerImg(this)">
+        <div id="bannerImgHint"><span class="photo-upload-icon">🖼️</span><p class="photo-upload-hint">點此上傳橫幅圖片</p></div>
+        <p id="bannerImgUploading" class="photo-uploading" style="display:none">上傳中...</p>
+      </div>
+    </div>
+    <div class="field"><label class="field-label">主標題</label><input class="field-input" id="b_title" placeholder="例如：畢業季花禮 🎓 預購中"></div>
+    <div class="field"><label class="field-label">副標題</label><input class="field-input" id="b_subtitle" placeholder="一句話說明這個檔期"></div>
+    <div class="field"><label class="field-label">小標（英文，選填）</label><input class="field-input" id="b_eyebrow" placeholder="Graduation Season"></div>
+    <div class="field-row">
+      <div class="field"><label class="field-label">按鈕文字</label><input class="field-input" id="b_cta" placeholder="看畢業花禮"></div>
+      <div class="field"><label class="field-label">點擊連結</label><input class="field-input" id="b_link" placeholder="/bouquet"></div>
+    </div>
+    <div class="field"><div class="toggle-row"><span class="toggle-label">長期顯示<span style="font-size:0.7rem;color:#9a958a;font-weight:normal;"> · 不受日期限制</span></span><div class="toggle" id="bannerAlwaysToggle" onclick="toggleBannerAlways()"></div></div></div>
+    <div class="field-row" id="bannerDateWrap">
+      <div class="field"><label class="field-label">開始日期</label><input class="field-input" id="b_start" type="date"></div>
+      <div class="field"><label class="field-label">結束日期</label><input class="field-input" id="b_end" type="date"></div>
+    </div>
+    <div class="field"><div class="toggle-row"><span class="toggle-label">啟用此 Banner</span><div class="toggle on" id="bannerPublishToggle" onclick="this.classList.toggle('on')"></div></div></div>
+  </div>
+  <div class="panel-footer">
+    <button class="btn-delete" id="btnDeleteBanner" onclick="deleteBanner()" style="display:none">刪除</button>
+    <button class="btn-save" id="btnSaveBanner" onclick="saveBanner()">儲存</button>
   </div>
 </div>
 
@@ -645,6 +821,29 @@ function showApp() {
   document.getElementById('appHeader').classList.add('show');
   document.getElementById('mainScreen').classList.add('show');
   loadProducts();
+  loadCourses();
+  loadBanners();
+  loadSettings();
+}
+
+// ── 分頁切換 ──
+function switchView(name) {
+  document.querySelectorAll('.admin-view').forEach(v => v.hidden = (v.id !== 'view-' + name));
+  document.querySelectorAll('.atab').forEach(b => b.classList.toggle('active', b.dataset.view === name));
+  window.scrollTo(0, 0);
+}
+
+// ── 通用存檔（settings / courses / banners）──
+async function persistFile(file, data, msg) {
+  const token = netlifyUser.token.access_token;
+  const res = await fetch('/.netlify/functions/save-file', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+    body: JSON.stringify({ file, data })
+  });
+  const r = await res.json();
+  if (!r.success) throw new Error(r.error || '儲存失敗');
+  showToast('✓ ' + (msg || r.message));
 }
 
 function showLogin() {
@@ -1016,6 +1215,325 @@ function deleteProduct() {
     }
   }).catch(() => showToast('刪除失敗，請重試'))
     .finally(() => { btn.disabled = false; });
+}
+
+/* ═══════════════ B2 設定（暫停接單）═══════════════ */
+let settings = { accepting_orders: true, closed_message: '' };
+async function loadSettings() {
+  try {
+    const res = await fetch('/settings.json?t=' + Date.now());
+    settings = await res.json();
+  } catch (e) { /* 用預設值 */ }
+  const acc = settings.accepting_orders !== false;
+  document.getElementById('setAccepting').checked = acc;
+  document.getElementById('setClosedMsg').value = settings.closed_message || '';
+  onAcceptingToggle();
+}
+function onAcceptingToggle() {
+  const acc = document.getElementById('setAccepting').checked;
+  // 接單中時，暫停訊息欄位淡化（仍可編輯，方便先寫好）
+  document.getElementById('setMsgWrap').style.opacity = acc ? '0.5' : '1';
+}
+async function saveSettings() {
+  const data = {
+    accepting_orders: document.getElementById('setAccepting').checked,
+    closed_message: document.getElementById('setClosedMsg').value.trim()
+  };
+  const btn = document.getElementById('btnSaveSettings');
+  btn.disabled = true; btn.textContent = '儲存中...';
+  try {
+    await persistFile('settings.json', data, '設定已更新');
+    settings = data;
+  } catch (e) { showToast('儲存失敗：' + e.message); }
+  finally { btn.disabled = false; btn.textContent = '儲存設定'; }
+}
+
+/* ═══════════════ B1 課程管理 ═══════════════ */
+let courses = [];
+let courseIndex = -1;
+let coursePhotos = [];
+
+async function loadCourses() {
+  try {
+    const res = await fetch('/courses.json?t=' + Date.now());
+    courses = await res.json();
+  } catch (e) { courses = []; }
+  renderCourseList();
+}
+function courseThumbId(c) {
+  return c.cloudinary_id || (Array.isArray(c.photos) && c.photos[0] && (c.photos[0].cloudinary_id || c.photos[0])) || '';
+}
+function renderCourseList() {
+  const box = document.getElementById('courseList');
+  if (!box) return;
+  if (!courses.length) { box.innerHTML = '<div class="gm-empty">尚無課程，點「＋ 新增課程」開始</div>'; return; }
+  box.innerHTML = courses.map((c, i) => {
+    const id = courseThumbId(c);
+    const thumb = id
+      ? `<img class="gm-thumb" src="https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_120,h_120,c_fill/${id}" onerror="this.style.display='none'">`
+      : '<div class="gm-thumb empty">無圖</div>';
+    return `<div class="gm-item">
+      ${thumb}
+      <div class="gm-info">
+        <div class="gm-name">${c.name || '(未命名)'} ${c.published === false ? '<span class="pm-b off">未上架</span>' : ''}</div>
+        <div class="gm-sub">${c.code || ''} · NT$ ${Number(c.price || 0).toLocaleString()} · ${c.type || ''} · ${c.status || ''}</div>
+      </div>
+      <div class="gm-actions">
+        <button class="pm-quick" onclick="toggleCoursePublish(${i})">${c.published !== false ? '下架' : '上架'}</button>
+        <button class="btn-edit" onclick="openCourse(${i})">編輯</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function toggleCoursePublish(i) {
+  courses[i].published = courses[i].published === false;
+  renderCourseList();
+  persistFile('courses.json', courses, courses[i].published ? '課程已上架' : '課程已下架')
+    .catch(e => showToast('儲存失敗：' + e.message));
+}
+function nextCourseCode() {
+  let max = 0;
+  courses.forEach(c => { const m = (c.code || '').match(/^CL-(\d+)$/); if (m) max = Math.max(max, parseInt(m[1], 10)); });
+  return 'CL-' + String(max + 1).padStart(3, '0');
+}
+function renderCoursePhotos() {
+  const box = document.getElementById('coursePhotoList');
+  box.innerHTML = coursePhotos.map((id, i) => `
+    <div class="photo-thumb">
+      <img src="https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_160,h_160,c_fill/${id}">
+      ${i === 0 ? '<span class="photo-main-badge">主圖</span>' : ''}
+      <div class="photo-thumb-bar">
+        <button type="button" onclick="moveCoursePhoto(${i},-1)">‹</button>
+        ${i !== 0 ? `<button type="button" onclick="setCourseMain(${i})">★</button>` : ''}
+        <button type="button" onclick="moveCoursePhoto(${i},1)">›</button>
+        <button type="button" onclick="removeCoursePhoto(${i})">✕</button>
+      </div>
+    </div>`).join('');
+}
+function moveCoursePhoto(i, dir) { const j = i + dir; if (j < 0 || j >= coursePhotos.length) return; const t = coursePhotos[i]; coursePhotos[i] = coursePhotos[j]; coursePhotos[j] = t; renderCoursePhotos(); }
+function setCourseMain(i) { const m = coursePhotos.splice(i, 1)[0]; coursePhotos.unshift(m); renderCoursePhotos(); }
+function removeCoursePhoto(i) { coursePhotos.splice(i, 1); renderCoursePhotos(); }
+async function handleCoursePhoto(input) {
+  const files = [...input.files];
+  if (!files.length) return;
+  document.getElementById('coursePhotoHint').style.display = 'none';
+  document.getElementById('coursePhotoUploading').style.display = 'block';
+  for (const file of files) {
+    const fd = new FormData();
+    fd.append('file', file); fd.append('upload_preset', CLOUDINARY_PRESET); fd.append('folder', 'flowerchan');
+    try {
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, { method: 'POST', body: fd });
+      const data = await res.json();
+      if (data.public_id) { coursePhotos.push(data.public_id); renderCoursePhotos(); } else throw new Error();
+    } catch (e) { showToast('部分照片上傳失敗，請重試'); }
+  }
+  document.getElementById('coursePhotoUploading').style.display = 'none';
+  document.getElementById('coursePhotoHint').style.display = 'block';
+  input.value = '';
+}
+function openCourse(idx) {
+  courseIndex = idx;
+  const c = idx >= 0 ? courses[idx] : {};
+  coursePhotos = Array.isArray(c.photos) ? c.photos.map(p => p.cloudinary_id || p).filter(Boolean) : (c.cloudinary_id ? [c.cloudinary_id] : []);
+  document.getElementById('coursePanelTitle').textContent = idx >= 0 ? '編輯課程' : '新增課程';
+  document.getElementById('c_code').value = idx >= 0 ? (c.code || '') : nextCourseCode();
+  document.getElementById('c_price').value = c.price || '';
+  document.getElementById('c_name').value = c.name || '';
+  document.getElementById('c_name_en').value = c.name_en || '';
+  document.getElementById('c_type').value = c.type || '常態課程';
+  document.getElementById('c_status').value = c.status || '報名中';
+  document.getElementById('c_duration').value = c.duration || '';
+  document.getElementById('c_capacity').value = c.capacity || '';
+  document.getElementById('c_date').value = c.date || '';
+  document.getElementById('c_description').value = c.description || '';
+  document.getElementById('coursePublishToggle').classList.toggle('on', c.published !== false);
+  document.getElementById('btnDeleteCourse').style.display = idx >= 0 ? '' : 'none';
+  renderCoursePhotos();
+  document.getElementById('courseOverlay').classList.add('show');
+  document.getElementById('coursePanel').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeCourse() {
+  document.getElementById('courseOverlay').classList.remove('show');
+  document.getElementById('coursePanel').classList.remove('show');
+  document.body.style.overflow = '';
+}
+async function saveCourse() {
+  const code = document.getElementById('c_code').value.trim();
+  const name = document.getElementById('c_name').value.trim();
+  const price = parseInt(document.getElementById('c_price').value);
+  if (!code || !name || isNaN(price)) { showToast('請填寫編號、名稱與費用'); return; }
+  const course = {
+    code, name,
+    name_en: document.getElementById('c_name_en').value.trim(),
+    type: document.getElementById('c_type').value,
+    price,
+    duration: document.getElementById('c_duration').value.trim(),
+    capacity: document.getElementById('c_capacity').value.trim(),
+    date: document.getElementById('c_date').value.trim(),
+    description: document.getElementById('c_description').value.trim(),
+    status: document.getElementById('c_status').value,
+    published: document.getElementById('coursePublishToggle').classList.contains('on'),
+    photo: '',
+    cloudinary_id: coursePhotos[0] || '',
+    photos: coursePhotos.map(id => ({ cloudinary_id: id }))
+  };
+  const btn = document.getElementById('btnSaveCourse');
+  btn.disabled = true; btn.textContent = '儲存中...';
+  if (courseIndex === -1) courses.push(course);
+  else courses[courseIndex] = { ...courses[courseIndex], ...course };
+  try {
+    await persistFile('courses.json', courses, '課程已儲存');
+    closeCourse(); renderCourseList();
+  } catch (e) {
+    showToast('儲存失敗：' + e.message);
+    if (courseIndex === -1) courses.pop();
+  } finally { btn.disabled = false; btn.textContent = '儲存'; }
+}
+function deleteCourse() {
+  if (courseIndex < 0 || !confirm(`確定刪除課程「${courses[courseIndex].name}」嗎？`)) return;
+  const removed = courses.splice(courseIndex, 1)[0];
+  persistFile('courses.json', courses, '課程已刪除')
+    .then(() => { closeCourse(); renderCourseList(); })
+    .catch(e => { courses.splice(courseIndex, 0, removed); showToast('刪除失敗：' + e.message); });
+}
+
+/* ═══════════════ B3 Banner 管理 ═══════════════ */
+let banners = [];
+let bannerIndex = -1;
+let bannerImg = '';   // 完整圖片 URL
+
+async function loadBanners() {
+  try {
+    const res = await fetch('/banners.json?t=' + Date.now());
+    banners = await res.json();
+  } catch (e) { banners = []; }
+  renderBannerList();
+}
+function bannerActive(b) {
+  if (b.published === false) return false;
+  if (b.always === true) return true;
+  const today = new Date().toISOString().slice(0, 10);
+  return b.start <= today && today <= b.end;
+}
+function renderBannerList() {
+  const box = document.getElementById('bannerList');
+  if (!box) return;
+  if (!banners.length) { box.innerHTML = '<div class="gm-empty">尚無 Banner，點「＋ 新增 Banner」開始</div>'; return; }
+  box.innerHTML = banners.map((b, i) => {
+    const thumb = b.image ? `<img class="gm-thumb" src="${b.image}" onerror="this.style.display='none'">` : '<div class="gm-thumb empty">無圖</div>';
+    const period = b.always ? '長期顯示' : ((b.start || '?') + ' ~ ' + (b.end || '?'));
+    const live = bannerActive(b)
+      ? '<span class="pm-b on">顯示中</span>'
+      : (b.published === false ? '<span class="pm-b off">已停用</span>' : '<span class="pm-b pre">未到檔期</span>');
+    return `<div class="gm-item">
+      ${thumb}
+      <div class="gm-info">
+        <div class="gm-name">${b.title || '(無標題)'} ${live}</div>
+        <div class="gm-sub">${period}${b.link ? ' · → ' + b.link : ''}</div>
+      </div>
+      <div class="gm-actions">
+        <button class="pm-quick" onclick="toggleBannerPublish(${i})">${b.published !== false ? '停用' : '啟用'}</button>
+        <button class="btn-edit" onclick="openBanner(${i})">編輯</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function toggleBannerPublish(i) {
+  banners[i].published = banners[i].published === false;
+  renderBannerList();
+  persistFile('banners.json', banners, banners[i].published ? 'Banner 已啟用' : 'Banner 已停用')
+    .catch(e => showToast('儲存失敗：' + e.message));
+}
+function toggleBannerAlways() {
+  const on = document.getElementById('bannerAlwaysToggle').classList.toggle('on');
+  document.getElementById('bannerDateWrap').style.display = on ? 'none' : 'flex';
+}
+async function handleBannerImg(input) {
+  const file = input.files[0];
+  if (!file) return;
+  document.getElementById('bannerImgHint').style.display = 'none';
+  document.getElementById('bannerImgUploading').style.display = 'block';
+  const fd = new FormData();
+  fd.append('file', file); fd.append('upload_preset', CLOUDINARY_PRESET); fd.append('folder', 'flowerchan');
+  try {
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, { method: 'POST', body: fd });
+    const data = await res.json();
+    if (!data.public_id) throw new Error();
+    bannerImg = `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_1600,h_640,c_fill,q_auto,f_auto/${data.public_id}`;
+    renderBannerImgPreview();
+  } catch (e) { showToast('圖片上傳失敗，請重試'); }
+  document.getElementById('bannerImgUploading').style.display = 'none';
+  document.getElementById('bannerImgHint').style.display = 'block';
+  input.value = '';
+}
+function renderBannerImgPreview() {
+  document.getElementById('bannerImgPreview').innerHTML = bannerImg
+    ? `<img src="${bannerImg}" style="width:100%;border-radius:10px;display:block;">` : '';
+}
+function openBanner(idx) {
+  bannerIndex = idx;
+  const b = idx >= 0 ? banners[idx] : {};
+  bannerImg = b.image || '';
+  document.getElementById('bannerPanelTitle').textContent = idx >= 0 ? '編輯 Banner' : '新增 Banner';
+  document.getElementById('b_title').value = b.title || '';
+  document.getElementById('b_subtitle').value = b.subtitle || '';
+  document.getElementById('b_eyebrow').value = b.eyebrow || '';
+  document.getElementById('b_cta').value = b.cta || '';
+  document.getElementById('b_link').value = b.link || '';
+  document.getElementById('b_start').value = b.start || '';
+  document.getElementById('b_end').value = b.end || '';
+  document.getElementById('bannerAlwaysToggle').classList.toggle('on', b.always === true);
+  document.getElementById('bannerDateWrap').style.display = b.always === true ? 'none' : 'flex';
+  document.getElementById('bannerPublishToggle').classList.toggle('on', b.published !== false);
+  document.getElementById('btnDeleteBanner').style.display = idx >= 0 ? '' : 'none';
+  renderBannerImgPreview();
+  document.getElementById('bannerOverlay').classList.add('show');
+  document.getElementById('bannerPanel').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeBanner() {
+  document.getElementById('bannerOverlay').classList.remove('show');
+  document.getElementById('bannerPanel').classList.remove('show');
+  document.body.style.overflow = '';
+}
+async function saveBanner() {
+  if (!bannerImg) { showToast('請先上傳 Banner 圖片'); return; }
+  const always = document.getElementById('bannerAlwaysToggle').classList.contains('on');
+  const start = document.getElementById('b_start').value;
+  const end = document.getElementById('b_end').value;
+  if (!always && (!start || !end)) { showToast('請設定開始與結束日期，或改為長期顯示'); return; }
+  const old = bannerIndex >= 0 ? banners[bannerIndex] : {};
+  const banner = {
+    id: old.id || ('banner-' + Date.now()),
+    title: document.getElementById('b_title').value.trim(),
+    subtitle: document.getElementById('b_subtitle').value.trim(),
+    eyebrow: document.getElementById('b_eyebrow').value.trim(),
+    cta: document.getElementById('b_cta').value.trim(),
+    link: document.getElementById('b_link').value.trim(),
+    image: bannerImg,
+    published: document.getElementById('bannerPublishToggle').classList.contains('on')
+  };
+  if (always) banner.always = true;
+  else { banner.start = start; banner.end = end; }
+  const btn = document.getElementById('btnSaveBanner');
+  btn.disabled = true; btn.textContent = '儲存中...';
+  if (bannerIndex === -1) banners.push(banner);
+  else banners[bannerIndex] = banner;
+  try {
+    await persistFile('banners.json', banners, 'Banner 已儲存');
+    closeBanner(); renderBannerList();
+  } catch (e) {
+    showToast('儲存失敗：' + e.message);
+    if (bannerIndex === -1) banners.pop();
+  } finally { btn.disabled = false; btn.textContent = '儲存'; }
+}
+function deleteBanner() {
+  if (bannerIndex < 0 || !confirm(`確定刪除 Banner「${banners[bannerIndex].title || ''}」嗎？`)) return;
+  const removed = banners.splice(bannerIndex, 1)[0];
+  persistFile('banners.json', banners, 'Banner 已刪除')
+    .then(() => { closeBanner(); renderBannerList(); })
+    .catch(e => { banners.splice(bannerIndex, 0, removed); showToast('刪除失敗：' + e.message); });
 }
 
 // ── Toast 提示 ──
