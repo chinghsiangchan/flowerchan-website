@@ -525,5 +525,43 @@
     ],
     "cloudinary_id": "flowerchan/wilnspf4ugiz5ehtz4gp",
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/wilnspf4ugiz5ehtz4gp"
+  },
+  {
+    "code": "TF-002",
+    "name": "桌花2",
+    "price": 3000,
+    "category": "桌花",
+    "status": "完售",
+    "description": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "tags": [
+      "黃色系"
+    ],
+    "occasions": [
+      "日常",
+      "開幕·活動",
+      "喬遷",
+      "送禮靈感"
+    ],
+    "published": true,
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/f9ddi2aah0qwana7te2y"
+      },
+      {
+        "cloudinary_id": "flowerchan/blsdgko8geom8ptaojwz"
+      },
+      {
+        "cloudinary_id": "flowerchan/fjbumnwnc8bzt8hjlx2s"
+      },
+      {
+        "cloudinary_id": "flowerchan/otevsj0v4yrzcpckwn9g"
+      }
+    ],
+    "cloudinary_id": "flowerchan/f9ddi2aah0qwana7te2y",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/f9ddi2aah0qwana7te2y"
   }
 ]
