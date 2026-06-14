@@ -28,13 +28,12 @@
       "婚禮",
       "粉色系"
     ],
-    "published": true,
+    "published": false,
     "photo": "DSCF3412.JPG",
     "cloudinary_id": "DSCF3412_xskzin",
     "occasions": [
       "送禮靈感"
-    ],
-    "status": "完售"
+    ]
   },
   {
     "code": "FC-003",
@@ -175,14 +174,39 @@
     "description": "",
     "tags": [
       "生日",
-      "畢業",
       "非洲菊"
     ],
     "published": true,
-    "photo": "DSCF3652.JPG",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/DSCF3652_wn4aaf",
     "cloudinary_id": "DSCF3652_wn4aaf",
     "occasions": [
-      "送禮靈感"
+      "生日",
+      "畢業",
+      "送禮靈感",
+      "紀念日"
+    ],
+    "category": "花束",
+    "status": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "featured": true,
+    "photos": [
+      {
+        "cloudinary_id": "DSCF3652_wn4aaf"
+      },
+      {
+        "cloudinary_id": "flowerchan/kl3tpdhu0l7tjxfdefwf"
+      },
+      {
+        "cloudinary_id": "flowerchan/x3hrwgppwhhbu10e41s2"
+      },
+      {
+        "cloudinary_id": "flowerchan/wijg2m9qatpsp907gw1r"
+      },
+      {
+        "cloudinary_id": "flowerchan/aui7bimzpubceyugowwu"
+      }
     ]
   },
   {
