@@ -670,5 +670,34 @@
     ],
     "cloudinary_id": "flowerchan/w49ia03wtl8tklaucjel",
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/w49ia03wtl8tklaucjel"
+  },
+  {
+    "code": "PV-003",
+    "name": "永生3",
+    "price": 1800,
+    "category": "永生花",
+    "status": "",
+    "description": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "tags": [],
+    "occasions": [
+      "生日",
+      "情人節/紀念日",
+      "送禮靈感"
+    ],
+    "published": true,
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/k45rfr2bvyatebcuw63w"
+      },
+      {
+        "cloudinary_id": "flowerchan/qb9fhilirujlqldhv3ro"
+      }
+    ],
+    "cloudinary_id": "flowerchan/k45rfr2bvyatebcuw63w",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/k45rfr2bvyatebcuw63w"
   }
 ]
