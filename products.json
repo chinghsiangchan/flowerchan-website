@@ -604,5 +604,39 @@
     ],
     "cloudinary_id": "flowerchan/uprp7d3wtifm9skajtj2",
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/uprp7d3wtifm9skajtj2"
+  },
+  {
+    "code": "FS-001",
+    "name": "高架1",
+    "price": 4500,
+    "category": "高架花",
+    "status": "",
+    "description": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "tags": [],
+    "occasions": [
+      "開幕·活動",
+      "送禮靈感"
+    ],
+    "published": true,
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/kyslbap4hivienexacj7"
+      },
+      {
+        "cloudinary_id": "flowerchan/cnr84m7uqo972a1mp9uk"
+      },
+      {
+        "cloudinary_id": "flowerchan/ehpq2tgu8w9jpxuganpm"
+      },
+      {
+        "cloudinary_id": "flowerchan/rjygakdkp7640h6cku2d"
+      }
+    ],
+    "cloudinary_id": "flowerchan/kyslbap4hivienexacj7",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/kyslbap4hivienexacj7"
   }
 ]
