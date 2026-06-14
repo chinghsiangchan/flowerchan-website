@@ -14,7 +14,7 @@
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780024261/flowerchan/lszasbrg5jjfmbkuydjb.jpg",
     "cloudinary_id": "flowerchan/lszasbrg5jjfmbkuydjb",
-    "featured": true
+    "status": "預購中"
   },
   {
     "code": "FC-002",
@@ -41,8 +41,7 @@
     ],
     "published": true,
     "photo": "DSCF3446.JPG",
-    "cloudinary_id": "DSCF3446_fynpeo",
-    "featured": true
+    "cloudinary_id": "DSCF3446_fynpeo"
   },
   {
     "code": "FC-004",
@@ -56,8 +55,7 @@
     ],
     "published": true,
     "photo": "DSCF3465.JPG",
-    "cloudinary_id": "DSCF3465_i9pgr7",
-    "featured": true
+    "cloudinary_id": "DSCF3465_i9pgr7"
   },
   {
     "code": "FC-005",
@@ -70,21 +68,8 @@
       "紫色系"
     ],
     "published": false,
-    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/DSCF3482_jv03w0",
-    "cloudinary_id": "DSCF3482_jv03w0",
-    "category": "花束",
-    "status": "",
-    "description": "",
-    "materials": "",
-    "size": "",
-    "care": "",
-    "occasions": [],
-    "featured": false,
-    "photos": [
-      {
-        "cloudinary_id": "DSCF3482_jv03w0"
-      }
-    ]
+    "photo": "DSCF3482.JPG",
+    "cloudinary_id": "DSCF3482_jv03w0"
   },
   {
     "code": "FC-006",
