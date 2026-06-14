@@ -321,9 +321,8 @@ async function initBanner() {
     const today = new Date().toISOString().slice(0, 10);
     let act = banners.filter(b => b.published !== false &&
       (b.always === true || (b.start <= today && today <= b.end)));
-    // 品牌形象圖固定在輪播裡：沒 banner 時就只有它；有 banner 時第一張仍是 banner，形象圖插中間
+    // 輪播完全由 banners.json 驅動（含品牌形象，皆可後台管理）；萬一沒有任何 banner 才用內建 fallback
     if (!act.length) act = [DEFAULT_HERO];
-    else act.splice(Math.max(1, Math.floor(act.length / 2)), 0, DEFAULT_HERO);
     document.getElementById('hcTrack').innerHTML = act.map(b => `
       <a class="hc-slide" href="${b.link || '#'}">
         <img src="${b.image}" alt="${b.title || 'Flower Chan'}">
