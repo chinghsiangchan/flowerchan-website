@@ -48,7 +48,11 @@
     "eyebrow": "Floral Workshop",
     "cta": "看課程",
     "link": "/courses",
-    "image": "https://res.cloudinary.com/dcwgv05q1/image/upload/w_1600,h_640,c_fill,q_auto,f_auto/flowerchan/xfq3eet23arfo6oswiyp",
+    "image": "https://res.cloudinary.com/dcwgv05q1/image/upload/w_1600,h_640,c_fill,g_xy_center,x_1278,y_2045,q_auto,f_auto/flowerchan/ckggljnzwp8akeidtmru",
+    "focal_x": 0.6142274305555555,
+    "focal_y": 0.6553298611111111,
+    "img_w": 2080,
+    "img_h": 3120,
     "text_in_image": false,
     "published": true,
     "always": true
