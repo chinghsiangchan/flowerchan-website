@@ -73,6 +73,7 @@ function flowerCardHtml(p) {
       <span class="cat-ribbon">${CAT_LABEL[cat] || cat}</span>
       <a class="flower-link" href="/product.html?code=${p.code}">
         <img class="flower-photo${soldout ? ' dimmed' : ''}" src="${getPhotoUrl(p)}" alt="${p.name}"
+          loading="lazy" decoding="async"
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="flower-photo-placeholder" style="display:none">🌸</div>
       </a>
@@ -117,7 +118,7 @@ function courseCardHtml(c) {
     <div class="course-card reveal">
       <a class="flower-link" href="${detailUrl}">
       ${photo
-        ? `<img class="course-photo" src="${photo}" alt="${c.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        ? `<img class="course-photo" src="${photo}" alt="${c.name}" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
            <div class="course-photo-placeholder" style="display:none">🌿</div>`
         : '<div class="course-photo-placeholder">🌿</div>'}
       </a>
@@ -253,3 +254,30 @@ function scrollThumbs(dir) {
   const tr = document.getElementById('thumbTrack');
   if (tr) tr.scrollBy({ left: dir * tr.clientWidth, behavior: 'smooth' });
 }
+
+/* ── 手機 sticky 底部 CTA：捲過 hero 後出現雙鈕（LINE｜立即預訂）── */
+(function () {
+  function initMobileCta() {
+    if (document.getElementById('mobileCta')) return;
+    const bar = document.createElement('div');
+    bar.id = 'mobileCta';
+    bar.className = 'mobile-cta';
+    bar.innerHTML =
+      '<a class="mcta-btn mcta-line" href="' + LINE_URL + '" target="_blank">LINE 詢問</a>' +
+      '<a class="mcta-btn mcta-order" href="/#order">立即預訂</a>';
+    document.body.appendChild(bar);
+    const onScroll = () => { bar.classList.toggle('show', window.scrollY > 360); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+  /* ── 手機選單：點任一連結後自動收起 ── */
+  function initMenuAutoClose() {
+    const menu = document.getElementById('mobileMenu');
+    if (!menu || menu.dataset.autoclose) return;
+    menu.dataset.autoclose = '1';
+    menu.addEventListener('click', (e) => { if (e.target.closest('a')) menu.classList.remove('open'); });
+  }
+  const run = () => { initMobileCta(); initMenuAutoClose(); };
+  if (document.readyState !== 'loading') run();
+  else document.addEventListener('DOMContentLoaded', run);
+})();

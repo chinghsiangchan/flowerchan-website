@@ -557,3 +557,27 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .cat-hero-en{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2.6rem,7vw,5.4rem);letter-spacing:0.24em;text-indent:0.24em;line-height:1;text-transform:uppercase;margin:0;text-shadow:0 2px 18px rgba(45,74,62,0.4);}
 .cat-hero-zh{font-family:'Noto Serif TC',serif;font-weight:200;font-size:clamp(0.85rem,1.6vw,1.05rem);letter-spacing:0.26em;margin-top:1.5rem;opacity:0.94;}
 @media(max-width:768px){.cat-hero{min-height:38vh;}}
+
+/* ═══ v9：手機 sticky CTA + 可用性快修（顧客視角報告） ═══ */
+
+/* (P1) 手機底部固定雙鈕 CTA，捲過 hero 才滑出；桌機不顯示 */
+.mobile-cta{position:fixed;left:0;right:0;bottom:0;z-index:150;display:none;transform:translateY(100%);transition:transform 0.3s ease;box-shadow:0 -2px 16px rgba(45,74,62,0.18);}
+.mobile-cta.show{transform:translateY(0);}
+.mobile-cta .mcta-btn{flex:1;text-align:center;padding:15px 0;font-size:0.95rem;letter-spacing:0.1em;font-weight:500;text-decoration:none;color:#fff;}
+.mobile-cta .mcta-line{background:#06C755;}
+.mobile-cta .mcta-order{background:var(--green);}
+@media(max-width:768px){
+  .mobile-cta{display:flex;}
+  .fab-line{display:none;}            /* 與底部 bar 的 LINE 鈕擇一，避免重複 */
+}
+
+/* (P2a) 漢堡選單觸控區加大至 ≥44×44px */
+.nav-toggle{padding:12px;}
+
+/* (P2c) 金色小字在淺底對比加深（裝飾用 --gold 維持原值，僅文字加深） */
+.sec-eyebrow{color:#B8901F;}
+
+/* (P2d) 平板 768–1024：中文標題不尷尬斷字 */
+@media(min-width:768px) and (max-width:1024px){
+  .sec-title,.product-title,.flower-name,.course-name,.cat-hero-zh,.cat-label .zh{word-break:keep-all;}
+}
