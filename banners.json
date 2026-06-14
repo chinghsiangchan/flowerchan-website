@@ -29,12 +29,13 @@
     "id": "brand-default",
     "title": "每一束花，都是一個故事的開始",
     "subtitle": "台北大安區・手作花藝　Flower Chan 小花店",
+    "eyebrow": "Flower Chan · Taipei",
     "cta": "探索花禮",
-    "link": "/#categories",
-    "image": "https://res.cloudinary.com/dcwgv05q1/image/upload/w_1600,h_640,c_fill,q_auto,f_auto/flowerchan/oagrp2yrqft1ob8nakzh",
-    "always": true,
+    "link": "/bouquet",
+    "image": "https://res.cloudinary.com/dcwgv05q1/image/upload/w_1600,h_640,c_fill,q_auto,f_auto/flowerchan/axq5rb2o8i5t1tdrisfv",
+    "text_in_image": false,
     "published": true,
-    "eyebrow": "Flower Chan · Taipei"
+    "always": true
   },
   {
     "id": "course-promo",
