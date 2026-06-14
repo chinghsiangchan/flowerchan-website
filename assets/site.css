@@ -619,3 +619,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 
 /* 永生花類別配色（第五類） */
 .flower-card.cat-preserved{--accent:#B5806C;background:#FDFAF8;}
+
+/* 永生花首頁卡：設計過的空狀態（深綠漸層 + 金花標，與其他類別有區別） */
+.cat-card .cat-empty--preserved{background:linear-gradient(155deg,#3a5a4b,#22372d);}
+.cat-card .cat-empty--preserved::before{color:rgba(232,184,75,0.6);}
+.cat-card .cat-empty--preserved .en{color:rgba(255,255,255,0.85);}
