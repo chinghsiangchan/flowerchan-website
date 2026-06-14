@@ -749,5 +749,32 @@
     ],
     "cloudinary_id": "flowerchan/bzdmqpdeiqlq3maophjj",
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/bzdmqpdeiqlq3maophjj"
+  },
+  {
+    "code": "OR-002",
+    "name": "蘭花2",
+    "price": 2500,
+    "category": "蘭花",
+    "status": "完售",
+    "description": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "tags": [],
+    "occasions": [
+      "送禮靈感"
+    ],
+    "published": true,
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/clxu2whgrdibgzdffl8v"
+      },
+      {
+        "cloudinary_id": "flowerchan/b2ginqlcfyptiiukmoed"
+      }
+    ],
+    "cloudinary_id": "flowerchan/clxu2whgrdibgzdffl8v",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/clxu2whgrdibgzdffl8v"
   }
 ]
