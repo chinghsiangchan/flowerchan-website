@@ -347,13 +347,15 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
 .ord-f{font-size:0.8rem;line-height:1.5;min-width:0;}
 .ord-f em{display:block;font-style:normal;color:#a8a499;font-size:0.66rem;margin-bottom:1px;}
 .ord-f span{color:#2c2a26;word-break:break-word;}
-.ord-foot{flex:0 0 auto;}
-.ord-st{appearance:auto;-webkit-appearance:auto;border-radius:8px;padding:7px 10px;font-size:0.82rem;border:1px solid #e5e0d5;font-weight:600;cursor:pointer;}
-.ord-st.ord-new{background:#E6F1FB;color:#185FA5;}
-.ord-st.ord-ok{background:#FAEEDA;color:#854F0B;}
-.ord-st.ord-making{background:#EAF3EE;color:#2D6A4A;}
-.ord-st.ord-done{background:#E1F5EE;color:#0F6E56;}
-.ord-st.ord-cancel{background:#FCEBEB;color:#A32D2D;}
+.ord-pills{display:flex;flex-wrap:wrap;gap:6px;flex:0 0 auto;align-items:flex-start;max-width:280px;}
+.ord-pill{border:1px solid #e5e0d5;background:#fff;color:#8a857a;border-radius:999px;padding:6px 13px;font-size:0.78rem;cursor:pointer;transition:background .15s;}
+.ord-pill:hover{background:#f5f2ea;}
+.ord-pill.active{font-weight:600;border-color:transparent;cursor:default;}
+.ord-pill.active.ord-new{background:#E6F1FB;color:#185FA5;}
+.ord-pill.active.ord-ok{background:#FAEEDA;color:#854F0B;}
+.ord-pill.active.ord-making{background:#EAF3EE;color:#2D6A4A;}
+.ord-pill.active.ord-done{background:#E1F5EE;color:#0F6E56;}
+.ord-pill.active.ord-cancel{background:#FCEBEB;color:#A32D2D;}
 
 /* ── 通用滑出面板（課程 / Banner，沿用花品面板樣式）── */
 .slide-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.5);}
@@ -468,12 +470,17 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
       <button class="btn-add" onclick="loadOrders()">↻ 重新整理</button>
     </div>
     <div class="pm-toolbar">
+      <input type="text" id="orderSearch" class="pm-search" placeholder="🔍 搜尋姓名 / 電話 / 花品編號…" oninput="renderOrderList()">
       <div class="pm-row2">
         <span class="pm-stat" id="orderStat"></span>
-        <select id="orderFilter" class="pm-sort" onchange="renderOrderList()">
-          <option value="全部">狀態：全部</option>
-          <option>新訂單</option><option>已確認</option><option>製作中</option><option>已完成</option><option>已取消</option>
-        </select>
+        <div class="pm-selects">
+          <select id="orderCodeFilter" class="pm-sort" onchange="renderOrderList()"><option value="全部">花品：全部</option></select>
+          <select id="orderFilter" class="pm-sort" onchange="renderOrderList()">
+            <option value="全部">狀態：全部</option>
+            <option>新訂單</option><option>已確認</option><option>製作中</option><option>已完成</option><option>已取消</option>
+          </select>
+          <button class="pm-quick on" id="orderHideDone" onclick="toggleHideDone()">隱藏已完成</button>
+        </div>
       </div>
     </div>
     <div id="orderList" class="product-list"></div>
@@ -1775,7 +1782,29 @@ function deleteBanner() {
 /* ═══════════════ C1 訂單看板 ═══════════════ */
 const ORDER_STATUSES = ['新訂單', '已確認', '製作中', '已完成', '已取消'];
 let orders = [], orderHeaders = [];
+let orderHideDone = true;                         // 預設隱藏已完成/已取消
+const ORDER_PRODUCT_HEADER = '花品編號與名稱';
 function orderStatusOf(o) { return o['狀態'] || '新訂單'; }
+function fmtOrderVal(header, v) {
+  if (v == null || v === '') return v;
+  const s = String(v);
+  if (/^\d{4}-\d{2}-\d{2}T/.test(s)) {            // ISO 時間 → 台北時間
+    const d = new Date(s); if (isNaN(d)) return s;
+    const tw = new Date(d.getTime() + 8 * 3600000);
+    const p = n => String(n).padStart(2, '0');
+    const ymd = `${tw.getUTCFullYear()}/${p(tw.getUTCMonth() + 1)}/${p(tw.getUTCDate())}`;
+    return /日期/.test(header) ? ymd : `${ymd} ${p(tw.getUTCHours())}:${p(tw.getUTCMinutes())}`;
+  }
+  return s;
+}
+function orderProductCode(o) { return String(o[ORDER_PRODUCT_HEADER] || '').split('｜')[0].trim(); }
+function populateOrderCodeFilter() {
+  const sel = document.getElementById('orderCodeFilter'); if (!sel) return;
+  const cur = sel.value || '全部';
+  const codes = [...new Set(orders.map(orderProductCode).filter(Boolean))].sort();
+  sel.innerHTML = '<option value="全部">花品：全部</option>' + codes.map(c => `<option${c === cur ? ' selected' : ''}>${c}</option>`).join('');
+}
+function toggleHideDone() { orderHideDone = !orderHideDone; document.getElementById('orderHideDone').classList.toggle('on', orderHideDone); renderOrderList(); }
 async function loadOrders() {
   const box = document.getElementById('orderList');
   box.innerHTML = '<div class="loading"><div class="spinner"></div>載入訂單中...</div>';
@@ -1789,6 +1818,7 @@ async function loadOrders() {
     if (r.error) throw new Error(r.error);
     orders = r.orders || [];
     orderHeaders = (r.headers || []).filter(h => h && h !== '狀態');
+    populateOrderCodeFilter();
     renderOrderList();
   } catch (e) {
     box.innerHTML = `<div class="gm-empty">訂單載入失敗：${e.message}<br><span style="font-size:0.76rem;color:#a8a499;">請確認 Apps Script 已部署、Netlify 環境變數 GOOGLE_ORDERS_URL / GOOGLE_ORDERS_TOKEN 已設定</span></div>`;
@@ -1797,23 +1827,32 @@ async function loadOrders() {
 function orderStatusClass(s) { return { '新訂單': 'new', '已確認': 'ok', '製作中': 'making', '已完成': 'done', '已取消': 'cancel' }[s] || 'new'; }
 function renderOrderList() {
   const box = document.getElementById('orderList');
-  const f = document.getElementById('orderFilter').value;
-  const list = f === '全部' ? orders : orders.filter(o => orderStatusOf(o) === f);
-  document.getElementById('orderStat').textContent = `共 ${orders.length} 筆`;
-  if (!orders.length) { box.innerHTML = '<div class="gm-empty">目前沒有訂單</div>'; return; }
+  if (!orders.length) { document.getElementById('orderStat').textContent = '共 0 筆'; box.innerHTML = '<div class="gm-empty">目前沒有訂單</div>'; return; }
+  const statusF = document.getElementById('orderFilter').value;
+  const codeF = document.getElementById('orderCodeFilter').value;
+  const q = (document.getElementById('orderSearch').value || '').trim().toLowerCase();
+  const list = orders.filter(o => {
+    const st = orderStatusOf(o);
+    if (orderHideDone && (st === '已完成' || st === '已取消')) return false;
+    if (statusF !== '全部' && st !== statusF) return false;
+    if (codeF !== '全部' && orderProductCode(o) !== codeF) return false;
+    if (q && !orderHeaders.some(h => String(o[h] || '').toLowerCase().includes(q))) return false;
+    return true;
+  });
+  document.getElementById('orderStat').textContent = `顯示 ${list.length} / 共 ${orders.length} 筆`;
   if (!list.length) { box.innerHTML = '<div class="gm-empty">沒有符合篩選的訂單</div>'; return; }
   box.innerHTML = list.map(o => {
     const st = orderStatusOf(o);
     const fields = orderHeaders.map(h => {
-      const v = o[h];
+      const v = fmtOrderVal(h, o[h]);
       return (v !== '' && v != null) ? `<div class="ord-f"><em>${h}</em><span>${String(v)}</span></div>` : '';
     }).join('');
-    const opts = ORDER_STATUSES.map(s => `<option${s === st ? ' selected' : ''}>${s}</option>`).join('');
+    const pills = ORDER_STATUSES.map(s =>
+      `<button class="ord-pill${s === st ? ' active ord-' + orderStatusClass(s) : ''}" onclick="setOrderStatus(${o._row}, '${s}')">${s}</button>`
+    ).join('');
     return `<div class="ord-card">
       <div class="ord-fields">${fields}</div>
-      <div class="ord-foot">
-        <select class="pm-status ord-st ord-${orderStatusClass(st)}" onchange="setOrderStatus(${o._row}, this.value)">${opts}</select>
-      </div>
+      <div class="ord-pills">${pills}</div>
     </div>`;
   }).join('');
 }
