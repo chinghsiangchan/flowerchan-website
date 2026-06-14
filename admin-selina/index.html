@@ -295,6 +295,9 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
 .product-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
 .pm-quick{border:1px solid #e5e0d5;background:#fff;color:#5a5750;border-radius:8px;padding:6px 10px;font-size:0.78rem;cursor:pointer;}
 .pm-quick.on{background:#FAEEDA;border-color:#e8cf9a;color:#854F0B;}
+.pm-selects{display:flex;gap:6px;}
+.pm-occ{font-size:0.72rem;color:#9a958a;margin-top:4px;}
+.pm-status{appearance:auto;-webkit-appearance:auto;border:1px solid #e5e0d5;border-radius:8px;padding:5px 7px;font-size:0.76rem;background:#fff;}
 @media(max-width:600px){
   .pm-main{flex-basis:100%;}
   .product-actions{flex-basis:100%;justify-content:flex-end;}
@@ -333,13 +336,16 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
     <div class="pm-cats" id="pmCats"></div>
     <div class="pm-row2">
       <span class="pm-stat" id="pmStat"></span>
-      <select id="pmSort" class="pm-sort" onchange="renderList()">
-        <option value="default">排序：預設</option>
-        <option value="new">最新加入</option>
-        <option value="code">編號</option>
-        <option value="price-asc">價格 低→高</option>
-        <option value="price-desc">價格 高→低</option>
-      </select>
+      <div class="pm-selects">
+        <select id="pmOccasion" class="pm-sort" onchange="renderList()"><option value="全部">場合：全部</option></select>
+        <select id="pmSort" class="pm-sort" onchange="renderList()">
+          <option value="default">排序：預設</option>
+          <option value="new">最新加入</option>
+          <option value="code">編號</option>
+          <option value="price-asc">價格 低→高</option>
+          <option value="price-desc">價格 高→低</option>
+        </select>
+      </div>
     </div>
   </div>
   <div id="productList" class="product-list">
@@ -394,7 +400,7 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
     <div class="field-row">
       <div class="field">
         <label class="field-label">類別 *</label>
-        <select class="field-input" id="f_category">
+        <select class="field-input" id="f_category" onchange="onCategoryChange()">
           <option value="花束">花束</option>
           <option value="桌花">桌花</option>
           <option value="高架花">高架花籃</option>
@@ -657,16 +663,35 @@ async function loadProducts() {
 
 // ── 產品管理頁：篩選 / 搜尋 / 排序 / 快切 ──
 let pmCategory = '全部';
-const PM_CATS = ['全部', '花束', '桌花', '高架花', '蘭花', '永生花'];
-const PM_CAT_LABEL = { '全部': '全部', '花束': '花束', '桌花': '桌花', '高架花': '高架花籃', '蘭花': '蘭花', '永生花': '永生花' };
+const PM_CATS = ['全部', '精選', '花束', '桌花', '高架花', '蘭花', '永生花'];
+const PM_CAT_LABEL = { '全部': '全部', '精選': '★ 精選', '花束': '花束', '桌花': '桌花', '高架花': '高架花籃', '蘭花': '蘭花', '永生花': '永生花' };
 function catOf(p) { return p.category || '花束'; }
 function setPmCat(c) { pmCategory = c; renderList(); }
+
+// 各類別編號前綴（舊花束維持 FC-，其餘新前綴）
+const CODE_PREFIX = { '花束': 'FC', '桌花': 'TF', '高架花': 'FS', '蘭花': 'OR', '永生花': 'PV' };
+function nextCode(category) {
+  const prefix = CODE_PREFIX[category] || 'FC';
+  let max = 0;
+  products.forEach(p => {
+    const m = (p.code || '').match(new RegExp('^' + prefix + '-(\\d+)$'));
+    if (m) max = Math.max(max, parseInt(m[1], 10));
+  });
+  return prefix + '-' + String(max + 1).padStart(3, '0');
+}
+// 新增花品時，選了類別就自動建議下一個編號
+function onCategoryChange() {
+  if (editIndex !== -1) return;   // 編輯既有花品不動編號
+  document.getElementById('f_code').value = nextCode(document.getElementById('f_category').value);
+}
 
 function renderCatTabs() {
   const box = document.getElementById('pmCats');
   if (!box) return;
   box.innerHTML = PM_CATS.map(c => {
-    const n = c === '全部' ? products.length : products.filter(p => catOf(p) === c).length;
+    const n = c === '全部' ? products.length
+      : c === '精選' ? products.filter(p => p.featured).length
+      : products.filter(p => catOf(p) === c).length;
     return `<button class="pm-cat${c === pmCategory ? ' active' : ''}" onclick="setPmCat('${c}')">${PM_CAT_LABEL[c]} <b>${n}</b></button>`;
   }).join('');
 }
@@ -674,6 +699,7 @@ function renderCatTabs() {
 function renderList() {
   const list = document.getElementById('productList');
   renderCatTabs();
+  renderOccasionFilter();
   const stat = document.getElementById('pmStat');
   if (stat) stat.textContent = `共 ${products.length} 件 · 上架 ${products.filter(p => p.published !== false).length}`;
   if (products.length === 0) {
@@ -682,8 +708,11 @@ function renderList() {
   }
   const q = (document.getElementById('pmSearch')?.value || '').trim().toLowerCase();
   const sort = document.getElementById('pmSort')?.value || 'default';
+  const occ = document.getElementById('pmOccasion')?.value || '全部';
   let items = products.map((p, idx) => ({ p, idx }));
-  if (pmCategory !== '全部') items = items.filter(o => catOf(o.p) === pmCategory);
+  if (pmCategory === '精選') items = items.filter(o => o.p.featured);
+  else if (pmCategory !== '全部') items = items.filter(o => catOf(o.p) === pmCategory);
+  if (occ !== '全部') items = items.filter(o => (o.p.occasions || []).includes(occ));
   if (q) items = items.filter(o => (o.p.name || '').toLowerCase().includes(q) || (o.p.code || '').toLowerCase().includes(q));
   if (sort === 'code') items.sort((a, b) => (a.p.code || '').localeCompare(b.p.code || ''));
   else if (sort === 'price-asc') items.sort((a, b) => (a.p.price || 0) - (b.p.price || 0));
@@ -711,9 +740,15 @@ function renderList() {
           <div class="product-name">${p.name}</div>
           <div class="product-price">NT$ ${Number(p.price).toLocaleString()}</div>
           <div class="pm-badges">${badges}</div>
+          ${(p.occasions && p.occasions.length) ? `<div class="pm-occ">場合：${p.occasions.join('、')}</div>` : ''}
         </div>
       </div>
       <div class="product-actions">
+        <select class="pm-status" onclick="event.stopPropagation()" onchange="setStatus('${p.code}', this.value)">
+          <option value=""${!p.status ? ' selected' : ''}>售況：無</option>
+          <option value="預購中"${p.status === '預購中' ? ' selected' : ''}>預購中</option>
+          <option value="完售"${(p.status === '完售' || p.status === '售完') ? ' selected' : ''}>完售</option>
+        </select>
         <button class="pm-quick" onclick="toggleListPublish('${p.code}')">${p.published !== false ? '下架' : '上架'}</button>
         <button class="pm-quick${p.featured ? ' on' : ''}" onclick="toggleListFeatured('${p.code}')">${p.featured ? '取消精選' : '設精選'}</button>
         <button class="btn-edit" onclick="openEdit(${idx})">編輯</button>
@@ -747,6 +782,22 @@ function toggleListFeatured(code) {
   renderList();
   persistProducts(p.featured ? '已設為精選' : '已取消精選');
 }
+function setStatus(code, val) {
+  const p = products.find(x => x.code === code); if (!p) return;
+  p.status = val;
+  renderList();
+  persistProducts('售況已更新');
+}
+// 場合篩選下拉：選項來自所有花品實際用到的場合
+function renderOccasionFilter() {
+  const sel = document.getElementById('pmOccasion');
+  if (!sel) return;
+  const set = new Set();
+  products.forEach(p => (p.occasions || []).forEach(o => set.add(o)));
+  const cur = sel.value || '全部';
+  const opts = ['全部', ...[...set].sort()];
+  sel.innerHTML = opts.map(o => `<option value="${o}"${o === cur ? ' selected' : ''}>${o === '全部' ? '場合：全部' : o}</option>`).join('');
+}
 
 // ── 開啟新增 ──
 function openNew() {
@@ -754,7 +805,7 @@ function openNew() {
   currentPhotos = [];
 
   document.getElementById('panelTitle').textContent = '新增花品';
-  document.getElementById('f_code').value = `FC-${String(products.length + 1).padStart(3,'0')}`;
+  document.getElementById('f_code').value = nextCode('花束');
   document.getElementById('f_name').value = '';
   document.getElementById('f_price').value = '';
   document.getElementById('f_description').value = '';
