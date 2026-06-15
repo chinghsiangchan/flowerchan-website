@@ -45,12 +45,9 @@ exports.handler = async function(event) {
       params.append(entryId, body[key] || '');
     }
 
-    // 日期（年月日分開）
+    // 日期（表單為新版日期題，吃單一值 YYYY-MM-DD）
     if (body.date) {
-      const [y, m, d] = body.date.split('-');
-      params.append('entry.1085798317_year', y);
-      params.append('entry.1085798317_month', m);
-      params.append('entry.1085798317_day', d);
+      params.append('entry.1085798317', body.date);
     }
 
     await fetch(FORM_URL, {
