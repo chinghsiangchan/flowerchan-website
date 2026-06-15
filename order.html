@@ -392,13 +392,18 @@ async function submitOrder(e) {
 }
 
 /* ?product=FC-xxx 由其他頁帶入花品 */
-const CAT_ORDER = ['花束', '桌花', '高架花', '蘭花', '永生花'];
+const CAT_ORDER = ['花束', '節慶花禮', '桌花', '高架花', '蘭花', '永生花'];
 
 function populateProductSelect() {
   const sel = document.getElementById('productSelect');
   if (!sel) return;
-  const groups = CAT_ORDER.map(cat => {
-    const items = allProducts.filter(p => (p.category || '花束') === cat && p.status !== '售完');
+  const orderable = allProducts.filter(p => p.published !== false && !/完售|售完/.test(p.status || ''));
+  // 先依 CAT_ORDER 排序；資料裡若出現未列在 CAT_ORDER 的新分類，自動接在後面（不會再漏掉）
+  const seen = new Set();
+  const cats = [...CAT_ORDER, ...orderable.map(p => p.category || '花束')]
+    .filter(c => (seen.has(c) ? false : seen.add(c)));
+  const groups = cats.map(cat => {
+    const items = orderable.filter(p => (p.category || '花束') === cat);
     if (!items.length) return '';
     const label = cat === '高架花' ? '高架花籃' : cat;
     return `<optgroup label="${label}">` + items.map(p =>
