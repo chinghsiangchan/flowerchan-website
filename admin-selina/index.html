@@ -387,6 +387,8 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
 .ph-meta { font-size:11px; color:#666; margin-top:3px; }
 .ord-daterange { display:inline-flex; align-items:center; gap:5px; font-size:0.78rem; color:#7a766d; }
 .ord-date { font-size:0.76rem; padding:5px 7px; border:1px solid #d9d3c4; border-radius:7px; background:#fff; color:#2D4A3E; font-family:inherit; }
+.ord-daterange.active { color:#854F0B; font-weight:600; }
+.ord-daterange.active .ord-date { border-color:#e8cf9a; background:#FAEEDA; color:#854F0B; }
 @page {
   @top-right { content: "第 " counter(page) " 頁 / 共 " counter(pages) " 頁"; font-size: 10px; color: #555; }
 }
@@ -1898,6 +1900,7 @@ function setOrderRange(r) {
     document.getElementById('orderFrom').value = '';
     document.getElementById('orderTo').value = '';
     document.getElementById('orderRangeClear').style.display = 'none';
+    document.querySelector('.ord-daterange').classList.remove('active');
   }
   document.getElementById('orderRangeToday').classList.toggle('on', orderRange === 'today');
   document.getElementById('orderRange3d').classList.toggle('on', orderRange === '3d');
@@ -1911,12 +1914,14 @@ function onCustomRange() {
     ['orderRangeToday', 'orderRange3d', 'orderRange7d'].forEach(id => document.getElementById(id).classList.remove('on'));
   }
   document.getElementById('orderRangeClear').style.display = has ? '' : 'none';
+  document.querySelector('.ord-daterange').classList.toggle('active', !!has);
   renderOrderList();
 }
 function clearCustomRange() {
   document.getElementById('orderFrom').value = '';
   document.getElementById('orderTo').value = '';
   document.getElementById('orderRangeClear').style.display = 'none';
+  document.querySelector('.ord-daterange').classList.remove('active');
   renderOrderList();
 }
 function printOrders() {
