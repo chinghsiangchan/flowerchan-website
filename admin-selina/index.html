@@ -542,14 +542,14 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
         </div>
       </div>
       <div class="pm-row3">
-        <button class="pm-quick" id="orderRangeToday" onclick="setOrderRange('today')">今日</button>
-        <button class="pm-quick" id="orderRange3d" onclick="setOrderRange('3d')">三日內</button>
-        <button class="pm-quick" id="orderRange7d" onclick="setOrderRange('7d')">一週內</button>
         <span class="ord-daterange">交件日期
           <input type="date" id="orderFrom" class="ord-date" onchange="onCustomRange()">～
           <input type="date" id="orderTo" class="ord-date" onchange="onCustomRange()">
           <button class="pm-quick" id="orderRangeClear" onclick="clearCustomRange()" style="display:none;">✕清除</button>
         </span>
+        <button class="pm-quick" id="orderRangeToday" onclick="setOrderRange('today')">今日</button>
+        <button class="pm-quick" id="orderRange3d" onclick="setOrderRange('3d')">三日內</button>
+        <button class="pm-quick" id="orderRange7d" onclick="setOrderRange('7d')">一週內</button>
       </div>
     </div>
     <div id="printHead"></div>
