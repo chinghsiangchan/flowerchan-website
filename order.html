@@ -67,6 +67,9 @@
     <div class="order-notice">
       <p class="notice-title">訂購須知</p>
       <div class="notice-item"><span class="notice-dot">·</span><span>花束皆為花藝師手工設計，照片僅供參考，花材依當日市場供應為準，整體色系與風格維持一致。</span></div>
+      <div class="notice-item"><span class="notice-dot">·</span><span><strong>NT$ 1,000 以下</strong>的花品為固定款式與定價，內容已設計完成，恕無法調整。</span></div>
+      <div class="notice-item"><span class="notice-dot">·</span><span><strong>NT$ 1,000–2,000</strong> 可加價提升花束份量，款式仍以原設計為主，無法指定花材與色系。</span></div>
+      <div class="notice-item"><span class="notice-dot">·</span><span><strong>NT$ 2,000 以上</strong> 即可為你量身設計，歡迎告訴我們花材偏好、喜歡的色系與整體風格。</span></div>
       <div class="notice-item"><span class="notice-dot">·</span><span>請至少於送花日前 <strong>3 天</strong>完成訂購。節日旺季（情人節、母親節）建議提前 5–7 天預約。</span></div>
       <div class="notice-item"><span class="notice-dot">·</span><span>訂單確認後請於 <strong>24 小時內</strong>完成付款，未付款視同未完成訂購。</span></div>
       <div class="notice-item"><span class="notice-dot">·</span><span>付款方式：LINE Pay、銀行轉帳。</span></div>
@@ -138,10 +141,16 @@
         <div class="form-row">
           <label class="form-label">預算（NT$）</label>
           <div class="form-price-row">
-            <div class="price-display" id="basePriceDisplay">依花品定價</div>
-            <input class="form-input" type="number" name="budget" id="budgetInput" placeholder="可調整金額" min="0">
+            <div>
+              <span class="price-cap">花品定價</span>
+              <div class="price-display" id="basePriceDisplay">依花品定價</div>
+            </div>
+            <div>
+              <span class="price-cap">預算調整（NT$）</span>
+              <input class="form-input" type="number" name="budget" id="budgetInput" placeholder="可調整金額" min="0">
+            </div>
           </div>
-          <p style="font-size:0.6rem;color:var(--muted);margin-top:0.5rem;font-weight:200;">預設為花品定價。NT$1,000 以下定價固定，如需更豐富的設計，歡迎選擇其他花品。</p>
+          <p style="font-size:0.6rem;color:var(--muted);margin-top:0.5rem;font-weight:200;">預設為花品定價。NT$ 2,000 以上可為你量身設計花材與風格，分級說明詳見訂購須知。</p>
         </div>
         <div class="form-row">
           <label class="form-label">自取 / 配送（運費另計） <span style="color:#C0392B;">*</span></label>
