@@ -401,7 +401,7 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
   .admin-view:not(#view-orders) { display:none !important; }
   #printHead { display:block !important; margin-bottom:8px; padding-bottom:6px; border-bottom:2px solid #2D4A3E; }
   /* 左邊資訊收窄、字放大；右邊店家註記加寬；卡片壓扁，一頁可塞 2 張以上 */
-  .ord-card { display:flex !important; align-items:stretch !important; gap:18px; border:1px solid #999 !important; break-inside:avoid; page-break-inside:avoid; margin-bottom:9px; padding:9px 16px; }
+  .ord-card { display:flex !important; align-items:stretch !important; min-height:80mm; gap:18px; border:1px solid #999 !important; break-inside:avoid; page-break-inside:avoid; margin-bottom:8px; padding:10px 16px; }
   .ord-fields { flex:0 0 50% !important; gap:4px 14px !important; align-content:start; }
   .ord-f { font-size:0.98rem !important; line-height:1.25 !important; }
   .ord-f em { font-size:0.74rem !important; margin-bottom:0 !important; }
@@ -409,7 +409,7 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
   .ord-status-print { display:block !important; grid-column:1 / -1; font-weight:700; font-size:1rem; color:#0F6E56; margin-bottom:2px; }
   .ord-note-print { display:flex !important; flex-direction:column; flex:1 1 auto !important; border:1px solid #bbb; border-radius:6px; padding:7px 12px; }
   .ord-note-print em { font-style:normal; font-size:12px; color:#999; letter-spacing:0.05em; margin-bottom:3px; }
-  .ord-note-blank { flex:1 1 auto; min-height:64px; background:repeating-linear-gradient(to bottom, transparent 0, transparent 29px, #e0ddd3 29px, #e0ddd3 30px); }
+  .ord-note-blank { flex:1 1 auto; min-height:64px; background:repeating-linear-gradient(to bottom, transparent 0, transparent 33px, #e0ddd3 33px, #e0ddd3 34px); }
 }
 
 /* ── 通用滑出面板（課程 / Banner，沿用花品面板樣式）── */
