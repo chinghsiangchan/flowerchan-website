@@ -236,9 +236,9 @@
       <div style="background:#F7F4EE;padding:2.5rem;text-align:left;margin-bottom:2.5rem;">
         <p style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:#2D4A3E;font-weight:300;letter-spacing:0.08em;margin-bottom:1rem;padding-bottom:1rem;border-bottom:0.5px solid rgba(45,74,62,0.11);">聯絡小花店</p>
         <p style="font-size:0.8rem;color:rgba(45,74,62,0.5);font-weight:200;line-height:1.9;margin-bottom:1.6rem;">訂單確認、付款、或任何問題，都歡迎直接聯絡我們，加 LINE 最快：</p>
-        <a href="https://lin.ee/jZUeNhm" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:0.6rem;background:#06C755;color:#FFFFFF;font-size:0.92rem;padding:15px 24px;border-radius:10px;text-decoration:none;font-family:'Noto Serif TC',serif;font-weight:400;letter-spacing:0.08em;margin-bottom:1.8rem;transition:opacity 0.3s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+        <a id="lineContactBtn" href="https://lin.ee/jZUeNhm" target="_blank" onclick="return lineOrderContact(this)" style="display:flex;align-items:center;justify-content:center;gap:0.6rem;background:#06C755;color:#FFFFFF;font-size:0.92rem;padding:15px 24px;border-radius:10px;text-decoration:none;font-family:'Noto Serif TC',serif;font-weight:400;letter-spacing:0.08em;margin-bottom:1.8rem;transition:opacity 0.3s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
           <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:#FFFFFF;flex-shrink:0;"><path d="M12 2C6.48 2 2 5.64 2 10.1c0 2.57 1.49 4.85 3.82 6.33-.13.46-.66 2.37-.69 2.53 0 0-.01.11.06.16.07.04.16.02.16.02.21-.03 2.44-1.6 3.4-2.27.74.11 1.49.16 2.25.16 5.52 0 10-3.64 10-8.13S17.52 2 12 2z"/></svg>
-          透過 LINE 聯絡小花店
+          傳訂單資訊給小花店（LINE）
         </a>
         <div style="display:grid;grid-template-columns:auto 1fr;gap:0.7rem 1.5rem;">
           <span style="font-size:0.78rem;color:rgba(45,74,62,0.42);font-weight:200;">電話</span>
@@ -327,6 +327,31 @@
 <script src="/assets/site.js"></script>
 <script>
 let allProducts = [];
+let lastOrder = null;
+
+/* 下單完成頁的 LINE 按鈕：帶入簡易訂單資訊（日期/姓名/花品）*/
+function lineOrderContact(el) {
+  const o = lastOrder || {};
+  const lines = ['我完成線上預訂了，想跟小花店確認：'];
+  if (o.date) lines.push('日期：' + o.date);
+  if (o.name) lines.push('姓名：' + o.name);
+  if (o.product) lines.push('花品：' + o.product);
+  const text = lines.join('\n');
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if (isMobile) {
+    location.href = 'https://line.me/R/oaMessage/@795utfau/?' + encodeURIComponent(text);
+    return false;
+  }
+  try {
+    navigator.clipboard.writeText(text);
+    const txt = el.querySelector('span') || el;
+    const old = el.lastChild;
+    const prev = old.nodeType === 3 ? old.textContent : null;
+    if (prev !== null) { old.textContent = ' 已複製訂單資訊，貼上即可 ✓'; setTimeout(() => { old.textContent = prev; }, 2500); }
+  } catch (e) {}
+  window.open('https://lin.ee/jZUeNhm', '_blank');
+  return false;
+}
 
 /* ── 訂購表單（沿用既有邏輯） ── */
 function selectProductByCode(code) {
@@ -394,6 +419,7 @@ async function submitOrder(e) {
       body: JSON.stringify(payload)
     });
     if (!res.ok) throw new Error('HTTP ' + res.status);
+    lastOrder = { name: payload.name || '', date: payload.date || '', product: payload.product_name || payload.product_code || '' };
     const sum = document.getElementById('orderSummary');
     if (sum) sum.innerHTML = [
       payload.product_name ? '🌸 花品｜' + payload.product_name : '',

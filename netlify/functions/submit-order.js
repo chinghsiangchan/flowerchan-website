@@ -10,7 +10,10 @@ exports.handler = async function(event) {
 
     // 測試站防混入：非正式站（如 redesign 分支部署）送出的訂單，
     // 姓名與備註自動加【測試】標記，避免混入真訂單。
-    if (process.env.CONTEXT !== 'production') {
+    // 註：process.env.CONTEXT 在 function 執行階段讀不到，改用請求 Host 判斷。
+    const host = (event.headers['host'] || '').toLowerCase();
+    const isProduction = host === 'flowerchan.com' || host === 'www.flowerchan.com';
+    if (!isProduction) {
       body.name = `【測試】${body.name || ''}`;
       body.note = `【測試站訂單，請勿處理】${body.note || ''}`;
     }
