@@ -39,7 +39,7 @@
     "code": "FC-003",
     "name": "向日葵花束",
     "price": 1800,
-    "description": "",
+    "description": "滿滿的向日葵，把整個夏天的陽光都收進花束裡。明亮又帶點設計感，送給需要被打氣的人，或想為自己留住一點好天氣的日子，都剛剛好。",
     "tags": [
       "向日葵",
       "設計感",
@@ -88,7 +88,7 @@
     "code": "FC-004",
     "name": "紫色鬱金香小束",
     "price": 1350,
-    "description": "",
+    "description": "小巧的紫色鬱金香束，溫柔裡帶一點優雅。鬱金香的花語是體貼與祝福，份量不多不少，適合輕輕放在某個人心上。",
     "tags": [
       "紫色系"
     ],
@@ -123,7 +123,7 @@
     "code": "FC-006",
     "name": "畢業花束",
     "price": 1300,
-    "description": "",
+    "description": "為驪歌響起的日子準備的花束。以向日葵為主角，象徵勇敢向前、迎著光走。獻給每一個努力到最後的畢業生——這一程辛苦了，恭喜你。",
     "tags": [
       "向日葵"
     ],
@@ -173,7 +173,7 @@
     "code": "FC-009",
     "name": "紫粉色系花束",
     "price": 1500,
-    "description": "",
+    "description": "紫與粉交織的溫柔色調，以非洲菊點出活潑的氣息。甜而不膩，浪漫裡帶著一點俏皮，送禮、告白、日常小驚喜都很合適。",
     "tags": [
       "非洲菊"
     ],
@@ -243,7 +243,7 @@
     "code": "FC-012",
     "name": "粉漸層非洲菊花束",
     "price": 880,
-    "description": "",
+    "description": "由深到淺的粉色非洲菊，像漸層的好心情。非洲菊代表開朗與正能量，價格輕巧、份量可愛，想對誰說聲「為你加油」時最順手。",
     "tags": [],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780025822/flowerchan/aiu0xgvr5ox5ww5iwahx.jpg",
@@ -322,7 +322,7 @@
     "code": "FC-016",
     "name": "輕巧版小花束",
     "price": 450,
-    "description": "",
+    "description": "小巧不佔手的迷你花束，份量剛剛好。不用特別的理由，下班順路帶一束回家，或隨手送給想到的人——讓送花變成很日常的事。",
     "tags": [],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780030075/flowerchan/pmmnylskg8ttnu1wnvdc.png",
@@ -401,7 +401,7 @@
     "code": "FC-021",
     "name": "清新藍白風格花束",
     "price": 1200,
-    "description": "",
+    "description": "藍與白的清爽配色，像夏天的一場微風。走自然不做作的路線，乾淨又耐看，送給喜歡簡單質感的人，怎麼擺都好看。",
     "tags": [
       "自然",
       "清新"
