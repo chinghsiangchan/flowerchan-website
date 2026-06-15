@@ -455,6 +455,7 @@ async function submitOrder(e) {
     document.getElementById('orderSection').style.display = 'none';
     document.getElementById('thankYouPage').style.display = 'block';
     window.scrollTo({ top: document.getElementById('thankYouPage').offsetTop - 80, behavior: 'smooth' });
+    if (window.gtag) gtag('event', 'order_submit', { product: lastOrder.product || '', budget: Number(payload.budget) || 0 });
   } catch (err) {
     btn.disabled = false;
     btn.textContent = '送出預訂申請';

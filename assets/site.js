@@ -16,6 +16,15 @@
   gtag('config', GA_ID);
 })();
 
+/* ── 轉換事件：點任何 LINE 按鈕（lin.ee / oaMessage）全站一處監聽 ── */
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('a');
+  if (!a || !a.href) return;
+  if (/lin\.ee|line\.me\/R\/oaMessage/i.test(a.href) && window.gtag) {
+    gtag('event', 'line_click', { link_url: a.href, page_path: location.pathname });
+  }
+}, true);
+
 const CLOUDINARY_CLOUD = 'dcwgv05q1';
 const LINE_URL = 'https://lin.ee/jZUeNhm';
 
