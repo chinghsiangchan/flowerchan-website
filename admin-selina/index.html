@@ -992,6 +992,7 @@ function fillCareTemplate() {
 // ── Netlify Identity ──
 netlifyIdentity.on('login', user => {
   netlifyUser = user;
+  sessionPromptShown = false;
   netlifyIdentity.close();
   showApp();
 });
@@ -1056,13 +1057,24 @@ async function getAuthToken() {
     const u = netlifyIdentity.currentUser();
     if (u && typeof u.jwt === 'function') return await u.jwt();
   } catch (e) {}
-  return (netlifyUser && netlifyUser.token) ? netlifyUser.token.access_token : '';
+  const fallback = (netlifyUser && netlifyUser.token) ? netlifyUser.token.access_token : '';
+  if (!fallback) sessionExpiredPrompt();   // 完全沒有有效登入 → 明確提示
+  return fallback;
 }
-// 真的登入過期時，明確提示並跳出重新登入視窗
+// 登入過期：明確提示 + 回到登入畫面（不再靜默失效，讓使用者知道要重登）
+let sessionPromptShown = false;
+function sessionExpiredPrompt() {
+  if (sessionPromptShown) return;
+  sessionPromptShown = true;
+  netlifyUser = null;
+  showToast('登入已過期，請重新登入');
+  showLogin();
+  setTimeout(() => { netlifyIdentity.open('login'); }, 400);
+  setTimeout(() => { sessionPromptShown = false; }, 3000);
+}
 function handleAuthError(msg) {
   if (/登入|過期|401|unauthor/i.test(msg || '')) {
-    showToast('登入已過期，請重新登入');
-    netlifyIdentity.open('login');
+    sessionExpiredPrompt();
     return true;
   }
   return false;
