@@ -130,7 +130,7 @@
             <option>其他（請在下方說明）</option>
           </select>
         </div>
-        <div class="form-row" id="stylePrefRow">
+        <div class="form-row" id="stylePrefRow" style="display:none;">
           <label class="form-label">花材偏好與顏色風格</label>
           <input class="form-input" type="text" name="style_pref" placeholder="例如：偏粉、不要百合、要滿天星">
         </div>
@@ -147,7 +147,7 @@
             </div>
             <div>
               <span class="price-cap">預算調整（NT$）</span>
-              <input class="form-input" type="number" name="budget" id="budgetInput" placeholder="可調整金額" min="0">
+              <input class="form-input" type="number" name="budget" id="budgetInput" placeholder="可調整金額" min="0" oninput="updateStylePrefByBudget()">
             </div>
           </div>
           <p style="font-size:0.6rem;color:var(--muted);margin-top:0.5rem;font-weight:200;">預設為花品定價。NT$ 2,000 以上可為你量身設計花材與風格，分級說明詳見訂購須知。</p>
@@ -389,8 +389,15 @@ function selectProduct(code, name, price) {
     budgetInput.value = price;
     budgetInput.placeholder = '可調整金額';
   }
-  if (stylePrefRow) stylePrefRow.style.display = price < 2000 ? 'none' : 'block';
+  updateStylePrefByBudget();
   document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+}
+
+/* 預算 ≥ 2000 時，自動展開「花材偏好與顏色風格」欄；低於 2000 收起 */
+function updateStylePrefByBudget() {
+  const v = parseFloat(document.getElementById('budgetInput').value) || 0;
+  const row = document.getElementById('stylePrefRow');
+  if (row) row.style.display = v >= 2000 ? 'block' : 'none';
 }
 
 function toggleDelivery(show) {
@@ -489,8 +496,7 @@ function onProductSelect(val) {
     budgetInput.readOnly = false;
     budgetInput.min = 2000;
     budgetInput.value = 2000;
-    const stylePrefRow = document.getElementById('stylePrefRow');
-    if (stylePrefRow) stylePrefRow.style.display = 'block';
+    updateStylePrefByBudget();
     return;
   }
   budgetInput.min = 0;
