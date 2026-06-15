@@ -382,9 +382,11 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
 }
 @media print {
   #appHeader, #adminTabs, .action-bar, .pm-toolbar, .ord-stat-chips, .ord-pills { display:none !important; }
+  /* 收起來的滑出面板與彈窗在列印時會跑回版面，全部強制隱藏 */
+  .slide-overlay, .slide-panel, #editPanel, #imgLightbox, #toast { display:none !important; }
   body { background:#fff; }
   .admin-view:not(#view-orders) { display:none !important; }
-  .ord-card { border:1px solid #bbb !important; break-inside:avoid; page-break-inside:avoid; }
+  .ord-card { border:1px solid #bbb !important; break-inside:avoid; page-break-inside:avoid; margin-bottom:10px; }
   .ord-stat-cards { margin-bottom:10px; }
 }
 
