@@ -331,7 +331,7 @@ function scrollThumbs(dir) {
     bar.className = 'mobile-cta';
     bar.innerHTML =
       '<a class="mcta-btn mcta-line" href="' + LINE_URL + '" target="_blank">LINE 詢問</a>' +
-      '<a class="mcta-btn mcta-order" href="/order">立即預訂</a>';
+      '<a class="mcta-btn mcta-order" href="/order">線上訂購</a>';
     document.body.appendChild(bar);
     const onScroll = () => { bar.classList.toggle('show', window.scrollY > 360); };
     window.addEventListener('scroll', onScroll, { passive: true });

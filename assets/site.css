@@ -205,6 +205,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,
 .form-label{display:block;font-size:0.65rem;letter-spacing:0.22em;color:var(--muted);margin-bottom:0.6rem;font-weight:200;}
 .form-input,.form-select,.form-textarea{width:100%;padding:12px 16px;border:1px solid var(--border);background:var(--daisy);font-family:'Noto Serif TC',serif;font-size:0.9rem;font-weight:300;color:var(--green);outline:none;transition:border-color 0.25s;-webkit-appearance:none;border-radius:10px;}
 .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--green);}
+.form-select{appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:42px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%232D4A3E' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;background-size:12px;}
 .form-textarea{resize:vertical;min-height:100px;}
 .form-price-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
 .price-display{padding:12px 16px;border:1px solid var(--border);background:rgba(232,184,75,0.07);font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--green);font-weight:400;border-radius:10px;}
