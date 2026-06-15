@@ -333,9 +333,10 @@ let lastOrder = null;
 function lineOrderContact(el) {
   const o = lastOrder || {};
   const lines = ['我完成線上預訂了，想跟小花店確認：'];
-  if (o.date) lines.push('日期：' + o.date + (o.time ? '（' + o.time + '）' : ''));
+  if (o.orderedAt) lines.push('下單時間：' + o.orderedAt);
   if (o.name) lines.push('姓名：' + o.name);
   if (o.product) lines.push('花品：' + o.product);
+  if (o.date) lines.push('取貨日期：' + o.date + (o.time ? '（' + o.time + '）' : ''));
   const text = lines.join('\n');
   const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   if (isMobile) {
@@ -419,7 +420,14 @@ async function submitOrder(e) {
       body: JSON.stringify(payload)
     });
     if (!res.ok) throw new Error('HTTP ' + res.status);
-    lastOrder = { name: payload.name || '', date: payload.date || '', time: payload.time_slot || '', product: payload.product_name || payload.product_code || '' };
+    const _n = new Date(Date.now() + 8 * 3600000), _p = x => String(x).padStart(2, '0');
+    lastOrder = {
+      orderedAt: `${_n.getUTCFullYear()}-${_p(_n.getUTCMonth() + 1)}-${_p(_n.getUTCDate())} ${_p(_n.getUTCHours())}:${_p(_n.getUTCMinutes())}`,
+      name: payload.name || '',
+      product: payload.product_name || payload.product_code || '',
+      date: payload.date || '',
+      time: payload.time_slot || ''
+    };
     const sum = document.getElementById('orderSummary');
     if (sum) sum.innerHTML = [
       payload.product_name ? '🌸 花品｜' + payload.product_name : '',
