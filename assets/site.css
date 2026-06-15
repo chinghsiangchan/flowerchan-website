@@ -574,10 +574,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .mobile-cta .mcta-btn{flex:1;text-align:center;padding:15px 0;font-size:0.95rem;letter-spacing:0.1em;font-weight:500;text-decoration:none;color:#fff;}
 .mobile-cta .mcta-line{background:#06C755;}
 .mobile-cta .mcta-order{background:var(--green);}
-@media(max-width:768px){
-  .mobile-cta{display:flex;}
-  .fab-line{display:none;}            /* 與底部 bar 的 LINE 鈕擇一，避免重複 */
-}
+/* 手機改用右下角圓球 LINE 鈕（.fab-line 預設即顯示），底部雙鈕列已停用 */
 
 /* (P2a) 漢堡選單觸控區加大至 ≥44×44px */
 .nav-toggle{padding:12px;}

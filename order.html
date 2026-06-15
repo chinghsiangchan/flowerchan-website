@@ -333,7 +333,7 @@ let lastOrder = null;
 function lineOrderContact(el) {
   const o = lastOrder || {};
   const lines = ['我完成線上預訂了，想跟小花店確認：'];
-  if (o.date) lines.push('日期：' + o.date);
+  if (o.date) lines.push('日期：' + o.date + (o.time ? '（' + o.time + '）' : ''));
   if (o.name) lines.push('姓名：' + o.name);
   if (o.product) lines.push('花品：' + o.product);
   const text = lines.join('\n');
@@ -419,7 +419,7 @@ async function submitOrder(e) {
       body: JSON.stringify(payload)
     });
     if (!res.ok) throw new Error('HTTP ' + res.status);
-    lastOrder = { name: payload.name || '', date: payload.date || '', product: payload.product_name || payload.product_code || '' };
+    lastOrder = { name: payload.name || '', date: payload.date || '', time: payload.time_slot || '', product: payload.product_name || payload.product_code || '' };
     const sum = document.getElementById('orderSummary');
     if (sum) sum.innerHTML = [
       payload.product_name ? '🌸 花品｜' + payload.product_name : '',

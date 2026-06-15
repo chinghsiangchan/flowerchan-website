@@ -325,17 +325,8 @@ function scrollThumbs(dir) {
 /* ── 手機 sticky 底部 CTA：捲過 hero 後出現雙鈕（LINE｜立即預訂）── */
 (function () {
   function initMobileCta() {
-    if (document.getElementById('mobileCta')) return;
-    const bar = document.createElement('div');
-    bar.id = 'mobileCta';
-    bar.className = 'mobile-cta';
-    bar.innerHTML =
-      '<a class="mcta-btn mcta-line" href="' + LINE_URL + '" target="_blank">LINE 詢問</a>' +
-      '<a class="mcta-btn mcta-order" href="/order">線上訂購</a>';
-    document.body.appendChild(bar);
-    const onScroll = () => { bar.classList.toggle('show', window.scrollY > 360); };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    /* 手機改用右下角圓球 LINE 鈕（.fab-line），不再注入底部雙鈕列，避免被誤會成訂某品項 */
+    return;
   }
   /* ── 手機選單：點任一連結後自動收起 ── */
   function initMenuAutoClose() {
