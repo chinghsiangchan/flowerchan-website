@@ -46,6 +46,8 @@ body { font-family: -apple-system, 'Noto Sans TC', sans-serif; background:var(--
   height:56px; align-items:center; justify-content:space-between;
 }
 #appHeader.show { display:flex; }
+.header-brand { display:flex; align-items:center; gap:0.6rem; }
+.header-logo { height:26px; width:auto; display:block; }
 .header-title { color:white; font-size:0.9rem; letter-spacing:0.12em; font-weight:400; }
 .header-btns { display:flex; gap:0.6rem; align-items:center; }
 .btn-logout {
@@ -262,13 +264,186 @@ body { font-family: -apple-system, 'Noto Sans TC', sans-serif; background:var(--
 }
 @keyframes spin { to { transform:rotate(360deg); } }
 </style>
+<style>
+.photo-list{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px;}
+.photo-thumb{position:relative;width:96px;height:96px;border-radius:8px;overflow:hidden;border:1px solid #e5e0d5;}
+.photo-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.photo-main-badge{position:absolute;top:4px;left:4px;background:rgba(45,74,62,0.92);color:#fff;font-size:10px;padding:1px 7px;border-radius:999px;}
+.photo-thumb-bar{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:center;gap:3px;background:rgba(0,0,0,0.45);padding:3px 0;}
+.photo-thumb-bar button{background:rgba(255,255,255,0.92);border:none;border-radius:4px;width:22px;height:22px;font-size:13px;line-height:1;cursor:pointer;padding:0;}
+select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
+
+/* 產品管理頁工具列 */
+.pm-toolbar{margin-bottom:1rem;}
+.pm-search{width:100%;box-sizing:border-box;padding:10px 14px;border:1px solid #e5e0d5;border-radius:10px;font-size:0.95rem;background:#fff;margin-bottom:10px;}
+.pm-cats{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.pm-cat{border:1px solid #e5e0d5;background:#fff;color:#5a5750;border-radius:999px;padding:6px 13px;font-size:0.82rem;cursor:pointer;}
+.pm-cat b{color:#9a958a;font-weight:600;}
+.pm-cat.active{background:#2D4A3E;color:#fff;border-color:#2D4A3E;}
+.pm-cat.active b{color:#cfe0d6;}
+.pm-row2{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.pm-stat{font-size:0.8rem;color:#9a958a;}
+.pm-sort{appearance:auto;-webkit-appearance:auto;border:1px solid #e5e0d5;border-radius:8px;padding:6px 8px;font-size:0.82rem;background:#fff;}
+/* 列表列 */
+.product-item{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.pm-main{display:flex;align-items:center;gap:12px;flex:1;min-width:0;cursor:pointer;}
+.pm-badges{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;}
+.pm-b{font-size:0.68rem;padding:1px 8px;border-radius:999px;line-height:1.7;}
+.pm-b.on{background:#E1F5EE;color:#0F6E56;}
+.pm-b.off{background:#eee;color:#888;}
+.pm-b.sold{background:#FCEBEB;color:#A32D2D;}
+.pm-b.pre{background:#E6F1FB;color:#185FA5;}
+.pm-b.feat{background:#FAEEDA;color:#854F0B;}
+.product-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.pm-quick{border:1px solid #e5e0d5;background:#fff;color:#5a5750;border-radius:8px;padding:6px 10px;font-size:0.78rem;cursor:pointer;}
+.pm-quick.on{background:#FAEEDA;border-color:#e8cf9a;color:#854F0B;}
+.pm-quick[disabled]{opacity:0.35;cursor:default;}
+.pm-selects{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;}
+.pm-row3{display:flex;justify-content:flex-end;align-items:center;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.pm-tags{display:flex;flex-wrap:wrap;gap:4px;align-items:center;width:100%;margin-top:6px;}
+.pm-tags em{font-size:0.64rem;color:#b3aea2;font-style:normal;margin-right:4px;min-width:2.4em;display:inline-block;}
+.pm-tags span{font-size:0.68rem;border-radius:999px;padding:1px 8px;}
+.pm-occ span{color:#6b6b66;background:#f1efe8;}
+.pm-style span{color:#3b6d4f;background:#eaf3ee;}
+.pm-status{appearance:auto;-webkit-appearance:auto;border:1px solid #e5e0d5;border-radius:8px;padding:5px 7px;font-size:0.76rem;background:#fff;}
+@media(max-width:600px){
+  .pm-main{flex-basis:100%;}
+  .product-actions{flex-basis:100%;justify-content:flex-end;}
+}
+
+/* ── 後台分頁 ── */
+.admin-tabs{position:sticky;top:56px;z-index:40;display:flex;gap:2px;background:#fff;border-bottom:1px solid #ece8df;padding:0 0.4rem;overflow-x:auto;}
+.atab{flex:0 0 auto;background:transparent;border:none;border-bottom:2px solid transparent;color:#7a766d;font-size:0.86rem;letter-spacing:0.04em;padding:13px 16px;cursor:pointer;}
+.atab.active{color:#2D4A3E;border-bottom-color:#2D4A3E;font-weight:600;}
+.admin-view[hidden]{display:none;}
+
+/* ── 通用列表列（課程/Banner）── */
+.gm-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #f0ece3;}
+.gm-thumb{width:60px;height:60px;border-radius:8px;object-fit:cover;background:#f1efe8;flex:0 0 auto;}
+.gm-thumb.empty{display:flex;align-items:center;justify-content:center;color:#c4bfb3;font-size:0.7rem;}
+.gm-info{flex:1;min-width:0;}
+.gm-name{font-size:0.95rem;color:#2c2a26;}
+.gm-sub{font-size:0.76rem;color:#9a958a;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.gm-actions{display:flex;align-items:center;gap:6px;flex:0 0 auto;}
+.gm-empty{text-align:center;padding:2.5rem 1rem;color:#9a958a;font-size:0.9rem;}
+
+/* ── 設定頁 ── */
+.set-card{background:#fff;border:1px solid #ece8df;border-radius:12px;padding:1.4rem;max-width:560px;}
+.set-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.1rem;}
+.set-label b{display:block;font-size:0.95rem;color:#2c2a26;}
+.set-label span{display:block;font-size:0.76rem;color:#9a958a;margin-top:3px;}
+.switch{position:relative;width:50px;height:28px;flex:0 0 auto;cursor:pointer;}
+.switch input{display:none;}
+.switch .track{position:absolute;inset:0;background:#d8d3c8;border-radius:999px;transition:0.2s;}
+.switch .track::before{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;background:#fff;border-radius:50%;transition:0.2s;}
+.switch input:checked + .track{background:#2D4A3E;}
+.switch input:checked + .track::before{transform:translateX(22px);}
+.set-hint{font-size:0.78rem;color:#a32d2d;margin-bottom:1rem;}
+.set-msg-label{font-size:0.82rem;color:#5a5750;display:block;margin-bottom:6px;}
+.set-msg{width:100%;box-sizing:border-box;min-height:80px;padding:10px 12px;border:1px solid #e5e0d5;border-radius:10px;font-size:0.9rem;font-family:inherit;line-height:1.7;}
+
+/* ── 訂單看板 ── */
+.ord-stats{margin-bottom:16px;}
+.ord-stat-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+.ord-stat-chip{font-size:0.8rem;padding:5px 13px;border-radius:999px;background:#f1efe8;color:#5a5750;}
+.ord-stat-chip b{font-weight:700;margin-right:2px;}
+.ord-stat-chip.ord-new{background:#E6F1FB;color:#185FA5;}
+.ord-stat-chip.ord-ok{background:#FAEEDA;color:#854F0B;}
+.ord-stat-chip.ord-making{background:#EAF3EE;color:#2D6A4A;}
+.ord-stat-chip.ord-done{background:#E1F5EE;color:#0F6E56;}
+.ord-stat-chip.ord-cancel{background:#FCEBEB;color:#A32D2D;}
+.ord-stat-cards{display:flex;gap:12px;flex-wrap:wrap;}
+.ord-stat-card{background:#fff;border:1px solid #ece8df;border-radius:10px;padding:12px 20px;min-width:130px;}
+.ord-stat-card .n{display:block;font-size:1.35rem;font-weight:600;color:#2D4A3E;line-height:1.3;}
+.ord-stat-card .l{font-size:0.74rem;color:#9a958a;}
+.ord-card{background:#fff;border:1.5px solid #ece8df;border-radius:12px;padding:16px 18px;margin-bottom:12px;display:flex;gap:20px;align-items:flex-start;transition:border-color .2s;}
+.ord-card.ord-b-new{border-color:#9AC2EC;}
+.ord-card.ord-b-ok{border-color:#E6C078;}
+.ord-card.ord-b-making{border-color:#86C0A3;}
+.ord-card.ord-b-done{border-color:#6FCBB2;}
+.ord-card.ord-b-cancel{border-color:#E2A2A2;}
+.ord-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 22px;flex:1 1 auto;min-width:0;}
+.ord-f{font-size:0.8rem;line-height:1.5;min-width:0;}
+.ord-f em{display:block;font-style:normal;color:#a8a499;font-size:0.66rem;margin-bottom:1px;}
+.ord-f span{color:#2c2a26;word-break:break-word;}
+.ord-pills{display:flex;flex-direction:column;gap:6px;flex:0 0 104px;}
+.ord-pill{width:100%;text-align:center;border:1px solid #e5e0d5;background:#fff;color:#8a857a;border-radius:999px;padding:7px 12px;font-size:0.78rem;cursor:pointer;transition:background .15s;}
+.ord-pill:hover{background:#f5f2ea;}
+.ord-pill.active{font-weight:600;border-color:transparent;cursor:default;}
+.ord-pill.active.ord-new{background:#E6F1FB;color:#185FA5;}
+.ord-pill.active.ord-ok{background:#FAEEDA;color:#854F0B;}
+.ord-pill.active.ord-making{background:#EAF3EE;color:#2D6A4A;}
+.ord-pill.active.ord-done{background:#E1F5EE;color:#0F6E56;}
+.ord-pill.active.ord-cancel{background:#FCEBEB;color:#A32D2D;}
+@media(max-width:600px){
+  .ord-card{flex-direction:column;}
+  .ord-fields{grid-template-columns:1fr 1fr;}
+  .ord-pills{flex-direction:row;flex-wrap:wrap;flex-basis:auto;width:100%;}
+  .ord-pill{width:auto;flex:1 1 auto;}
+}
+/* 列印專用元素，螢幕上隱藏 */
+#printHead, .ord-note-print, .ord-status-print { display:none; }
+.ph-title { font-size:18px; font-weight:700; color:#2D4A3E; }
+.ph-meta { font-size:11px; color:#666; margin-top:3px; }
+.ord-daterange { display:inline-flex; align-items:center; gap:5px; font-size:0.78rem; color:#7a766d; }
+.ord-date { font-size:0.76rem; padding:5px 7px; border:1px solid #d9d3c4; border-radius:7px; background:#fff; color:#2D4A3E; font-family:inherit; }
+.ord-daterange.active { color:#854F0B; font-weight:600; }
+.ord-daterange.active .ord-date { border-color:#e8cf9a; background:#FAEEDA; color:#854F0B; }
+@page {
+  @top-right { content: "第 " counter(page) " 頁 / 共 " counter(pages) " 頁"; font-size: 10px; color: #555; }
+}
+@media print {
+  #appHeader, #adminTabs, .action-bar, .pm-toolbar, .ord-stat-chips, .ord-pills, .ord-stats { display:none !important; }
+  /* 收起來的滑出面板與彈窗在列印時會跑回版面，全部強制隱藏 */
+  .slide-overlay, .slide-panel, #editPanel, #imgLightbox, #toast { display:none !important; }
+  body { background:#fff; }
+  /* 列印時解除主畫面 600px 限寬，內容拉到滿版 */
+  #mainScreen { max-width:none !important; padding:0 !important; margin:0 !important; }
+  .admin-view:not(#view-orders) { display:none !important; }
+  #printHead { display:block !important; margin-bottom:8px; padding-bottom:6px; border-bottom:2px solid #2D4A3E; }
+  /* 左邊資訊收窄、字放大；右邊店家註記加寬；卡片壓扁，一頁可塞 2 張以上 */
+  .ord-card { display:flex !important; align-items:stretch !important; min-height:80mm; gap:18px; border:1px solid #999 !important; break-inside:avoid; page-break-inside:avoid; margin-bottom:8px; padding:10px 16px; }
+  .ord-fields { flex:0 0 50% !important; gap:4px 14px !important; align-content:start; }
+  .ord-f { font-size:0.98rem !important; line-height:1.25 !important; }
+  .ord-f em { font-size:0.74rem !important; margin-bottom:0 !important; }
+  .ord-f span { font-size:0.98rem !important; }
+  .ord-status-print { display:block !important; grid-column:1 / -1; font-weight:700; font-size:1rem; color:#0F6E56; margin-bottom:2px; }
+  .ord-note-print { display:flex !important; flex-direction:column; flex:1 1 auto !important; border:1px solid #bbb; border-radius:6px; padding:7px 12px; }
+  .ord-note-print em { font-style:normal; font-size:12px; color:#999; letter-spacing:0.05em; margin-bottom:3px; }
+  .ord-note-blank { flex:1 1 auto; min-height:64px; background:repeating-linear-gradient(to bottom, transparent 0, transparent 33px, #e0ddd3 33px, #e0ddd3 34px); }
+}
+
+/* ── 通用滑出面板（課程 / Banner，沿用花品面板樣式）── */
+.slide-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.5);}
+.slide-overlay.show{display:block;}
+.slide-panel{position:fixed;bottom:0;left:0;right:0;z-index:201;background:#fff;border-radius:12px 12px 0 0;max-height:92vh;overflow-y:auto;transform:translateY(100%);transition:transform 0.35s cubic-bezier(0.32,0.72,0,1);padding-bottom:env(safe-area-inset-bottom);}
+.slide-panel.show{transform:translateY(0);}
+.banner-size-note{font-size:0.78rem;color:#7a766d;background:#f7f4ee;border:1px solid #ece3cf;border-radius:8px;padding:8px 11px;line-height:1.6;margin-bottom:10px;}
+.banner-size-note b{color:#2D4A3E;}
+.banner-size-note a{display:inline-block;margin-top:6px;color:#854F0B;font-weight:600;text-decoration:none;}
+.crop-tip{font-size:0.74rem;color:#7a766d;line-height:1.5;margin:0 0 6px;}
+#bannerCropWrap{position:relative;display:inline-block;max-width:100%;line-height:0;border-radius:8px;overflow:hidden;}
+#bannerCropImg{width:100%;display:block;cursor:crosshair;}
+#bannerCropBox{position:absolute;border:2px solid #E8B84B;box-shadow:0 0 0 9999px rgba(0,0,0,0.45);pointer-events:none;box-sizing:border-box;}
+#bannerFocalMarker{position:absolute;width:14px;height:14px;margin:-7px 0 0 -7px;border:2px solid #fff;border-radius:50%;background:rgba(45,74,62,0.7);pointer-events:none;}
+#imgLightbox{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.82);align-items:center;justify-content:center;padding:24px;cursor:zoom-out;}
+#imgLightbox.show{display:flex;}
+#imgLightboxImg{max-width:96vw;max-height:92vh;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,0.5);}
+.lightbox-close{position:fixed;top:16px;right:20px;background:rgba(255,255,255,0.9);border:none;border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer;line-height:1;}
+.safe-diagram{margin:8px 0;}
+.safe-frame{position:relative;width:100%;aspect-ratio:5/2;border-radius:6px;overflow:hidden;display:flex;background:repeating-linear-gradient(45deg,#efe9da,#efe9da 6px,#e7dfca 6px,#e7dfca 12px);}
+.safe-edge{flex:0 0 23.5%;display:flex;align-items:center;justify-content:center;text-align:center;font-size:0.62rem;line-height:1.3;color:#a8967a;background:rgba(120,100,70,0.12);}
+.safe-zone{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;font-size:0.66rem;line-height:1.4;color:#2D4A3E;font-weight:600;background:rgba(45,74,62,0.1);border-left:1px dashed #b9a98a;border-right:1px dashed #b9a98a;}
+.safe-cap{font-size:0.72rem;color:#7a766d;line-height:1.6;margin-top:6px;}
+.safe-cap b{color:#2D4A3E;}
+</style>
 </head>
 <body>
 
 <!-- 登入畫面 -->
 <div id="loginScreen">
   <div class="login-logo">
-    <h1>FLOWER CHAN</h1>
+    <img src="/FLOWERCHAN_WHITE.png" alt="Flower Chan" style="height:200px;width:auto;margin:0 auto 1.6rem;display:block;">
     <p>花品管理後台</p>
   </div>
   <button class="login-btn" onclick="netlifyIdentity.open('login')">
@@ -278,7 +453,10 @@ body { font-family: -apple-system, 'Noto Sans TC', sans-serif; background:var(--
 
 <!-- 頂部 Bar -->
 <header id="appHeader">
-  <span class="header-title">🌸 花品管理</span>
+  <div class="header-brand">
+    <img class="header-logo" src="/FLOWERCHAN_WHITE.png" alt="Flower Chan">
+    <span class="header-title">花品管理</span>
+  </div>
   <div class="header-btns">
     <button class="btn-logout" onclick="logout()">登出</button>
   </div>
@@ -286,13 +464,123 @@ body { font-family: -apple-system, 'Noto Sans TC', sans-serif; background:var(--
 
 <!-- 主畫面 -->
 <div id="mainScreen">
+  <nav class="admin-tabs" id="adminTabs">
+    <button class="atab active" data-view="products" onclick="switchView('products')">花品</button>
+    <button class="atab" data-view="courses" onclick="switchView('courses')">課程</button>
+    <button class="atab" data-view="banners" onclick="switchView('banners')">Banner</button>
+    <button class="atab" data-view="orders" onclick="switchView('orders')">訂單</button>
+    <button class="atab" data-view="settings" onclick="switchView('settings')">設定</button>
+  </nav>
+
+  <!-- 花品管理 -->
+  <section class="admin-view" id="view-products">
   <div class="action-bar">
     <span class="page-title">花禮選品</span>
     <button class="btn-add" onclick="openNew()">＋ 新增花品</button>
   </div>
+  <div class="pm-toolbar">
+    <input type="text" id="pmSearch" class="pm-search" placeholder="🔍 搜尋名稱或編號…" oninput="renderList()">
+    <div class="pm-cats" id="pmCats"></div>
+    <div class="pm-row2">
+      <span class="pm-stat" id="pmStat"></span>
+      <div class="pm-selects">
+        <select id="pmOccasion" class="pm-sort" onchange="renderList()"><option value="全部">場合：全部</option></select>
+        <select id="pmSort" class="pm-sort" onchange="renderList()">
+          <option value="default">排序：預設</option>
+          <option value="new">最新加入</option>
+          <option value="code">編號</option>
+          <option value="price-asc">價格 低→高</option>
+          <option value="price-desc">價格 高→低</option>
+        </select>
+      </div>
+    </div>
+  </div>
   <div id="productList" class="product-list">
     <div class="loading"><div class="spinner"></div>載入中...</div>
   </div>
+  </section>
+
+  <!-- 課程管理 -->
+  <section class="admin-view" id="view-courses" hidden>
+    <div class="action-bar">
+      <span class="page-title">花藝課程</span>
+      <button class="btn-add" onclick="openCourse(-1)">＋ 新增課程</button>
+    </div>
+    <div id="courseList" class="product-list"></div>
+  </section>
+
+  <!-- Banner 管理 -->
+  <section class="admin-view" id="view-banners" hidden>
+    <div class="action-bar">
+      <span class="page-title">首頁輪播 Banner</span>
+      <button class="btn-add" onclick="openBanner(-1)">＋ 新增 Banner</button>
+    </div>
+    <p class="set-hint" style="color:#9a958a;">品牌形象圖會自動固定顯示在輪播中，這裡管理的是節慶／活動／課程等檔期 banner。</p>
+    <div id="bannerList" class="product-list"></div>
+  </section>
+
+  <!-- 訂單看板 -->
+  <section class="admin-view" id="view-orders" hidden>
+    <div class="action-bar">
+      <span class="page-title">訂單</span>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="pm-quick" onclick="exportOrdersCSV()">⬇ 匯出 CSV</button>
+        <button class="pm-quick" onclick="printOrders()">🖨 列印</button>
+        <button class="btn-add" onclick="loadOrders()">↻ 重新整理</button>
+      </div>
+    </div>
+    <div class="pm-toolbar">
+      <input type="text" id="orderSearch" class="pm-search" placeholder="🔍 搜尋姓名 / 電話 / 花品編號…" oninput="renderOrderList()">
+      <div class="pm-row2">
+        <span class="pm-stat" id="orderStat"></span>
+        <div class="pm-selects">
+          <select id="orderCodeFilter" class="pm-sort" onchange="renderOrderList()"><option value="全部">花品：全部</option></select>
+          <select id="orderFilter" class="pm-sort" onchange="renderOrderList()">
+            <option value="全部">狀態：全部</option>
+            <option>新訂單</option><option>已確認</option><option>製作中</option><option>已完成</option><option>已取消</option>
+          </select>
+          <button class="pm-quick on" id="orderHideDone" onclick="toggleHideDone()">隱藏已完成</button>
+        </div>
+      </div>
+      <div class="pm-row3">
+        <span class="ord-daterange">交件日期
+          <input type="date" id="orderFrom" class="ord-date" onchange="onCustomRange()">～
+          <input type="date" id="orderTo" class="ord-date" onchange="onCustomRange()">
+          <button class="pm-quick" id="orderRangeClear" onclick="clearCustomRange()" style="display:none;">✕清除</button>
+        </span>
+        <button class="pm-quick" id="orderRangeToday" onclick="setOrderRange('today')">今日</button>
+        <button class="pm-quick" id="orderRange3d" onclick="setOrderRange('3d')">三日內</button>
+        <button class="pm-quick" id="orderRange7d" onclick="setOrderRange('7d')">一週內</button>
+      </div>
+    </div>
+    <div id="printHead"></div>
+    <div id="orderStats" class="ord-stats"></div>
+    <div id="orderList" class="product-list"></div>
+  </section>
+
+  <!-- 設定 -->
+  <section class="admin-view" id="view-settings" hidden>
+    <div class="action-bar">
+      <span class="page-title">商店設定</span>
+    </div>
+    <div class="set-card">
+      <div class="set-row">
+        <div class="set-label">
+          <b>接受訂單</b>
+          <span>關閉後，訂購頁會顯示「暫停接單」並停用送出按鈕</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="setAccepting" onchange="onAcceptingToggle()">
+          <span class="track"></span>
+        </label>
+      </div>
+      <div id="setMsgWrap">
+        <label class="set-msg-label" for="setClosedMsg">暫停接單時顯示的訊息</label>
+        <textarea id="setClosedMsg" class="set-msg" placeholder="例：本檔期訂單已滿，歡迎透過 LINE 詢問下一檔期。"></textarea>
+      </div>
+      <button class="btn-add" style="margin-top:1.2rem;" onclick="saveSettings()" id="btnSaveSettings">儲存設定</button>
+    </div>
+  </section>
 </div>
 
 <!-- 編輯面板遮罩 -->
@@ -307,15 +595,15 @@ body { font-family: -apple-system, 'Noto Sans TC', sans-serif; background:var(--
   </div>
   <div class="panel-body">
 
-    <!-- 照片上傳 -->
+    <!-- 照片上傳（可多張，第一張為主圖） -->
     <div class="field">
-      <label class="field-label">花品照片</label>
+      <label class="field-label">花品照片（第一張為主圖，可多張）</label>
+      <div id="photoList" class="photo-list"></div>
       <div class="photo-upload-area" id="photoArea">
-        <input type="file" id="photoInput" accept="image/*" onchange="handlePhoto(this)">
-        <img id="photoPreview" class="photo-preview">
+        <input type="file" id="photoInput" accept="image/*" multiple onchange="handlePhoto(this)">
         <div id="photoHint">
           <span class="photo-upload-icon">📷</span>
-          <p class="photo-upload-hint">點此上傳照片<br>可直接從手機相簿選取</p>
+          <p class="photo-upload-hint">點此上傳照片<br>可一次選多張</p>
         </div>
         <p id="photoUploading" class="photo-uploading" style="display:none">上傳中...</p>
       </div>
@@ -338,15 +626,52 @@ body { font-family: -apple-system, 'Noto Sans TC', sans-serif; background:var(--
       <input class="field-input" id="f_name" placeholder="例如：粉漸層非洲菊花束">
     </div>
 
+    <!-- 類別 + 狀態 -->
+    <div class="field-row">
+      <div class="field">
+        <label class="field-label">類別 *</label>
+        <select class="field-input" id="f_category" onchange="onCategoryChange()">
+          <option value="花束">花束</option>
+          <option value="節慶花禮">節慶花禮</option>
+          <option value="桌花">桌花</option>
+          <option value="高架花">高架花籃</option>
+          <option value="蘭花">蘭花</option>
+          <option value="永生花">永生花</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="field-label">狀態</label>
+        <select class="field-input" id="f_status">
+          <option value="">正常販售</option>
+          <option value="預購中">預購中</option>
+          <option value="完售">完售</option>
+        </select>
+      </div>
+    </div>
+
     <!-- 花品介紹 -->
     <div class="field">
       <label class="field-label">花品介紹</label>
       <textarea class="field-input" id="f_description" rows="4" placeholder="簡單介紹這款花禮的特色、適合場合或風格…" style="resize:vertical;min-height:90px;line-height:1.7;"></textarea>
     </div>
 
+    <!-- 花材 / 尺寸 / 照護 -->
+    <div class="field">
+      <label class="field-label">花材</label>
+      <textarea class="field-input" id="f_materials" rows="2" placeholder="例如：玫瑰、桔梗、尤加利葉、季節配花" style="resize:vertical;"></textarea>
+    </div>
+    <div class="field">
+      <label class="field-label">尺寸</label>
+      <input class="field-input" id="f_size" placeholder="例如：花面直徑約 30cm，整體高度約 45cm">
+    </div>
+    <div class="field">
+      <label class="field-label">照護提醒　<button type="button" class="tag-add-btn" onclick="fillCareTemplate()">帶入通用範本</button></label>
+      <textarea class="field-input" id="f_care" rows="3" placeholder="保鮮、換水、擺放提醒…（可按上方「帶入通用範本」再修改）" style="resize:vertical;"></textarea>
+    </div>
+
     <!-- 標籤 -->
     <div class="field">
-      <label class="field-label">標籤（可複選）</label>
+      <label class="field-label">風格 / 花材標籤（可複選）</label>
       <div class="tag-grid" id="tagGrid">
         <!-- 由 JS 動態產生 -->
       </div>
@@ -354,6 +679,17 @@ body { font-family: -apple-system, 'Noto Sans TC', sans-serif; background:var(--
         <input class="tag-add-input" id="newTagInput" placeholder="新增標籤…"
                onkeydown="if(event.key==='Enter'){event.preventDefault();addNewTag();}">
         <button class="tag-add-btn" onclick="addNewTag()">＋ 新增</button>
+      </div>
+    </div>
+
+    <!-- 場合（前台依場合篩選用） -->
+    <div class="field">
+      <label class="field-label">場合（可複選）</label>
+      <div class="tag-grid" id="occasionGrid"></div>
+      <div class="tag-add-row">
+        <input class="tag-add-input" id="newOccasionInput" placeholder="新增場合…"
+               onkeydown="if(event.key==='Enter'){event.preventDefault();addNewOccasion();}">
+        <button class="tag-add-btn" onclick="addNewOccasion()">＋ 新增</button>
       </div>
     </div>
 
@@ -365,6 +701,14 @@ body { font-family: -apple-system, 'Noto Sans TC', sans-serif; background:var(--
       </div>
     </div>
 
+    <!-- 精選首頁開關 -->
+    <div class="field">
+      <div class="toggle-row">
+        <span class="toggle-label">精選首頁<span style="font-size:0.7rem;color:#9a958a;font-weight:normal;"> · 勾選後會進首頁「精選花品」隨機輪替池</span></span>
+        <div class="toggle" id="featuredToggle" onclick="toggleFeatured()"></div>
+      </div>
+    </div>
+
   </div>
   <div class="panel-footer">
     <button class="btn-delete" id="btnDelete" onclick="deleteProduct()" style="display:none">刪除</button>
@@ -372,8 +716,132 @@ body { font-family: -apple-system, 'Noto Sans TC', sans-serif; background:var(--
   </div>
 </div>
 
+<!-- 課程編輯面板 -->
+<div id="courseOverlay" class="slide-overlay" onclick="closeCourse()"></div>
+<div id="coursePanel" class="slide-panel">
+  <div class="panel-handle"></div>
+  <div class="panel-header">
+    <span class="panel-title" id="coursePanelTitle">新增課程</span>
+    <button class="btn-close" onclick="closeCourse()">✕</button>
+  </div>
+  <div class="panel-body">
+    <div class="field">
+      <label class="field-label">課程照片（第一張為主圖，可多張）</label>
+      <div id="coursePhotoList" class="photo-list"></div>
+      <div class="photo-upload-area">
+        <input type="file" id="coursePhotoInput" accept="image/*" multiple onchange="handleCoursePhoto(this)">
+        <div id="coursePhotoHint"><span class="photo-upload-icon">📷</span><p class="photo-upload-hint">點此上傳照片<br>可一次選多張</p></div>
+        <p id="coursePhotoUploading" class="photo-uploading" style="display:none">上傳中...</p>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label class="field-label">課程編號 *</label><input class="field-input" id="c_code" placeholder="CL-005" maxlength="10"></div>
+      <div class="field"><label class="field-label">費用（NT$）*</label><input class="field-input" id="c_price" type="number" placeholder="1880" min="0"></div>
+    </div>
+    <div class="field"><label class="field-label">課程名稱 *</label><input class="field-input" id="c_name" placeholder="例如：植栽組盆課"></div>
+    <div class="field"><label class="field-label">英文名稱</label><input class="field-input" id="c_name_en" placeholder="Potted Garden Workshop"></div>
+    <div class="field-row">
+      <div class="field"><label class="field-label">類型</label>
+        <select class="field-input" id="c_type"><option value="常態課程">常態課程</option><option value="固定梯次">固定梯次</option></select>
+      </div>
+      <div class="field"><label class="field-label">狀態</label>
+        <select class="field-input" id="c_status"><option value="報名中">報名中</option><option value="額滿">額滿</option><option value="已結束">已結束</option></select>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label class="field-label">時長</label><input class="field-input" id="c_duration" placeholder="約 2 小時"></div>
+      <div class="field"><label class="field-label">人數</label><input class="field-input" id="c_capacity" placeholder="2–6 人"></div>
+    </div>
+    <div class="field"><label class="field-label">開課日期（固定梯次用，選填）</label><input class="field-input" id="c_date" placeholder="例如：開課日期待公布 / 2026-07-15"></div>
+    <div class="field"><label class="field-label">課程介紹</label>
+      <textarea class="field-input" id="c_description" rows="5" placeholder="介紹課程內容、適合對象、含哪些材料…" style="resize:vertical;min-height:100px;line-height:1.7;"></textarea>
+    </div>
+    <div class="field"><div class="toggle-row"><span class="toggle-label">上架顯示</span><div class="toggle on" id="coursePublishToggle" onclick="this.classList.toggle('on')"></div></div></div>
+  </div>
+  <div class="panel-footer">
+    <button class="btn-delete" id="btnDeleteCourse" onclick="deleteCourse()" style="display:none">刪除</button>
+    <button class="btn-save" id="btnSaveCourse" onclick="saveCourse()">儲存</button>
+  </div>
+</div>
+
+<!-- Banner 編輯面板 -->
+<div id="bannerOverlay" class="slide-overlay" onclick="closeBanner()"></div>
+<div id="bannerPanel" class="slide-panel">
+  <div class="panel-handle"></div>
+  <div class="panel-header">
+    <span class="panel-title" id="bannerPanelTitle">新增 Banner</span>
+    <button class="btn-close" onclick="closeBanner()">✕</button>
+  </div>
+  <div class="panel-body">
+    <div class="field">
+      <label class="field-label">Banner 圖片 *</label>
+      <div class="banner-size-note">
+        建議尺寸 <b>1600 × 640 px</b>（比例 2.5:1）。
+        <div class="safe-diagram">
+          <div class="safe-frame">
+            <span class="safe-edge safe-edge-l">手機<br>會裁</span>
+            <div class="safe-zone">手機安全區<br>文字／重點放這</div>
+            <span class="safe-edge safe-edge-r">手機<br>會裁</span>
+          </div>
+          <p class="safe-cap">桌機顯示全圖；手機從中央裁成接近正方，左右兩側會被切掉。<b>標題、重點、Logo 請放中央約 6 成範圍內</b>，並避開最上、最下緣。</p>
+        </div>
+        <a href="https://www.canva.com/" target="_blank" rel="noopener">用 Canva 製作 ↗</a>
+      </div>
+      <div id="bannerImgPreview" style="margin-bottom:10px;"></div>
+      <div class="photo-upload-area">
+        <input type="file" id="bannerImgInput" accept="image/*" onchange="handleBannerImg(this)">
+        <div id="bannerImgHint"><span class="photo-upload-icon">🖼️</span><p class="photo-upload-hint">點此上傳橫幅圖片</p></div>
+        <p id="bannerImgUploading" class="photo-uploading" style="display:none">上傳中...</p>
+      </div>
+    </div>
+
+    <div class="field"><div class="toggle-row">
+      <span class="toggle-label">整張圖含文字<span style="font-size:0.7rem;color:#9a958a;font-weight:normal;"> · 開啟後不疊系統文字，下方文字欄可留空</span></span>
+      <div class="toggle" id="bannerTextInImageToggle" onclick="this.classList.toggle('on')"></div>
+    </div></div>
+    <div class="field"><label class="field-label">主標題</label><input class="field-input" id="b_title" placeholder="例如：畢業季花禮 🎓 預購中"></div>
+    <div class="field"><label class="field-label">副標題</label><input class="field-input" id="b_subtitle" placeholder="一句話說明這個檔期"></div>
+    <div class="field"><label class="field-label">小標（英文，選填）</label><input class="field-input" id="b_eyebrow" placeholder="Graduation Season"></div>
+    <div class="field-row">
+      <div class="field"><label class="field-label">按鈕文字</label><input class="field-input" id="b_cta" placeholder="看畢業花禮"></div>
+      <div class="field"><label class="field-label">點擊連結</label>
+        <select class="field-input" id="b_link_select" onchange="onBannerLinkChange()">
+          <option value="/">首頁</option>
+          <option value="/order">訂購頁</option>
+          <option value="/festival">節慶花禮</option>
+          <option value="/bouquet">花束</option>
+          <option value="/table-flower">桌花</option>
+          <option value="/flower-stand">高架花籃</option>
+          <option value="/orchid">蘭花</option>
+          <option value="/preserved">永生花</option>
+          <option value="/courses">花藝課程</option>
+          <option value="/occasion">依場合挑選</option>
+          <option value="__custom__">自訂網址…</option>
+        </select>
+        <input class="field-input" id="b_link" placeholder="例如 /festival 或 https://..." style="margin-top:8px;display:none;">
+      </div>
+    </div>
+    <div class="field"><div class="toggle-row"><span class="toggle-label">長期顯示<span style="font-size:0.7rem;color:#9a958a;font-weight:normal;"> · 不受日期限制</span></span><div class="toggle" id="bannerAlwaysToggle" onclick="toggleBannerAlways()"></div></div></div>
+    <div class="field-row" id="bannerDateWrap">
+      <div class="field"><label class="field-label">開始日期</label><input class="field-input" id="b_start" type="date"></div>
+      <div class="field"><label class="field-label">結束日期</label><input class="field-input" id="b_end" type="date"></div>
+    </div>
+    <div class="field"><div class="toggle-row"><span class="toggle-label">啟用此 Banner</span><div class="toggle on" id="bannerPublishToggle" onclick="this.classList.toggle('on')"></div></div></div>
+  </div>
+  <div class="panel-footer">
+    <button class="btn-delete" id="btnDeleteBanner" onclick="deleteBanner()" style="display:none">刪除</button>
+    <button class="btn-save" id="btnSaveBanner" onclick="saveBanner()">儲存</button>
+  </div>
+</div>
+
 <!-- 提示訊息 -->
 <div id="toast"></div>
+
+<!-- 圖片放大 lightbox -->
+<div id="imgLightbox" onclick="closeLightbox()">
+  <img id="imgLightboxImg" alt="放大圖">
+  <button type="button" class="lightbox-close" onclick="closeLightbox()" aria-label="關閉">✕</button>
+</div>
 
 <script>
 // ── Cloudinary 設定 ──
@@ -383,18 +851,37 @@ const CLOUDINARY_PRESET = 'flowerchan';
 // ── 狀態 ──
 let products = [];
 let editIndex = -1; // -1 = 新增, 0+ = 編輯
-let currentPhotoUrl = '';
-let currentCloudinaryId = '';
 let netlifyUser = null;
 
-// ── 標籤池 ──
-const DEFAULT_TAGS = ['生日','婚禮','日常','向日葵','粉色系','紫色系','瓶花','情人節'];
+// ── 標籤池（純風格/花材，排除場合值）──
+const DEFAULT_TAGS = ['向日葵','粉色系','紫色系','瓶花'];
+// 場合值集合（含各種變體），用來把場合從風格標籤池過濾掉
+const OCC_TAG_SET = new Set(['日常','生日','情人節','紀念日','情人節/紀念日','婚禮','畢業','開幕','會場','企業','開幕·活動','喬遷','探病','弔唁','送禮靈感','端午','母親節','七夕']);
 let allTagPool = [...DEFAULT_TAGS];
 
-function syncTagPool() {
-  products.forEach(p => {
-    (p.tags||[]).forEach(t => { if(!allTagPool.includes(t)) allTagPool.push(t); });
+// 標籤分組排序：色系 → 花材 → 風格 → 其他（與前台一致）
+const TAG_COLORS = ['粉色系','紫色系','藍色系','黃色系','橘色系','紅色系','綠色系','白色系'];
+const TAG_FLOWERS = ['向日葵','非洲菊','玫瑰','鬱金香','繡球','芍藥','瓶花'];
+const TAG_STYLES = ['自然','清新','花園風','線條感','設計感','雅緻','日系','典雅'];
+function tagGroupKey(t) {
+  if (/色系$/.test(t)) { const i = TAG_COLORS.indexOf(t); return [0, i < 0 ? 50 : i]; }
+  let i = TAG_FLOWERS.indexOf(t); if (i >= 0) return [1, i];
+  i = TAG_STYLES.indexOf(t); if (i >= 0) return [2, i];
+  return [3, 0];
+}
+function sortTagPool() {
+  allTagPool.sort((a, b) => {
+    const ka = tagGroupKey(a), kb = tagGroupKey(b);
+    return ka[0] - kb[0] || ka[1] - kb[1] || a.localeCompare(b);
   });
+}
+
+function syncTagPool() {
+  allTagPool = [...DEFAULT_TAGS];
+  products.forEach(p => {
+    (p.tags||[]).forEach(t => { if(!OCC_TAG_SET.has(t) && !allTagPool.includes(t)) allTagPool.push(t); });
+  });
+  sortTagPool();
 }
 
 function renderTagGrid(selectedTags=[]) {
@@ -421,6 +908,7 @@ function addNewTag() {
     return;
   }
   allTagPool.push(tag);
+  sortTagPool();
   const selectedTags = getSelectedTags();
   selectedTags.push(tag);
   renderTagGrid(selectedTags);
@@ -438,6 +926,67 @@ function deleteTag(tag) {
 function getSelectedTags() {
   return [...document.querySelectorAll('#tagGrid .tag-chip.selected')]
     .map(c => c.childNodes[0].textContent.trim());
+}
+
+// ── 場合（A3，與標籤同套 chip 機制，但獨立一組）──
+const DEFAULT_OCCASIONS = ['日常','生日','情人節/紀念日','婚禮','畢業','開幕·活動','喬遷','探病','弔唁','送禮靈感'];
+let allOccasionPool = [...DEFAULT_OCCASIONS];
+function syncOccasionPool() {
+  products.forEach(p => (p.occasions||[]).forEach(o => { if(!allOccasionPool.includes(o)) allOccasionPool.push(o); }));
+}
+function renderOccasionGrid(selected=[]) {
+  const grid = document.getElementById('occasionGrid');
+  grid.innerHTML = allOccasionPool.map(o => `
+    <span class="tag-chip${selected.includes(o)?' selected':''}" onclick="toggleTag(this)">
+      ${o}<span class="tag-del" onclick="event.stopPropagation();deleteOccasion('${o}')">✕</span>
+    </span>`).join('');
+}
+function addNewOccasion() {
+  const input = document.getElementById('newOccasionInput');
+  const o = input.value.trim();
+  if(!o) return;
+  if(!allOccasionPool.includes(o)) allOccasionPool.push(o);
+  const sel = getSelectedOccasions(); sel.push(o);
+  renderOccasionGrid(sel);
+  input.value=''; showToast('場合「'+o+'」已新增');
+}
+function deleteOccasion(o) {
+  if(!confirm('確定要刪除場合「'+o+'」嗎？')) return;
+  allOccasionPool = allOccasionPool.filter(x=>x!==o);
+  renderOccasionGrid(getSelectedOccasions().filter(x=>x!==o));
+  showToast('場合「'+o+'」已刪除');
+}
+function getSelectedOccasions() {
+  return [...document.querySelectorAll('#occasionGrid .tag-chip.selected')].map(c=>c.childNodes[0].textContent.trim());
+}
+
+// ── 多照片（A1 進階版：第一張為主圖，可移位/設主圖/刪除）──
+let currentPhotos = [];
+function renderPhotos() {
+  const box = document.getElementById('photoList');
+  if(!box) return;
+  box.innerHTML = currentPhotos.map((id,i)=>`
+    <div class="photo-thumb">
+      <img src="https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_160,h_160,c_fill/${id}" onclick="openLightbox('${id}')" style="cursor:zoom-in;" title="點擊放大">
+      ${i===0?'<span class="photo-main-badge">主圖</span>':''}
+      <div class="photo-thumb-bar">
+        <button type="button" onclick="movePhoto(${i},-1)" title="左移">‹</button>
+        ${i!==0?`<button type="button" onclick="setMainPhoto(${i})" title="設為主圖">★</button>`:''}
+        <button type="button" onclick="movePhoto(${i},1)" title="右移">›</button>
+        <button type="button" onclick="removePhoto(${i})" title="刪除">✕</button>
+      </div>
+    </div>`).join('');
+}
+function movePhoto(i,dir){ const j=i+dir; if(j<0||j>=currentPhotos.length)return; const t=currentPhotos[i]; currentPhotos[i]=currentPhotos[j]; currentPhotos[j]=t; renderPhotos(); }
+function setMainPhoto(i){ const m=currentPhotos.splice(i,1)[0]; currentPhotos.unshift(m); renderPhotos(); }
+function removePhoto(i){ currentPhotos.splice(i,1); renderPhotos(); }
+
+// ── 照護通用範本 ──
+const CARE_TEMPLATE = '收到後請拆開包裝，置於通風陰涼處，避免陽光直射與空調直吹。鮮花請每 1–2 天換水、斜剪根部約 1cm；觀賞期約 5–7 天，會依季節與品種略有不同。';
+function fillCareTemplate() {
+  const el = document.getElementById('f_care');
+  if(el.value.trim() && !confirm('照護欄已有內容，要用範本覆蓋嗎？')) return;
+  el.value = CARE_TEMPLATE;
 }
 
 // ── Netlify Identity ──
@@ -464,6 +1013,31 @@ function showApp() {
   document.getElementById('appHeader').classList.add('show');
   document.getElementById('mainScreen').classList.add('show');
   loadProducts();
+  loadCourses();
+  loadBanners();
+  loadSettings();
+}
+
+// ── 分頁切換 ──
+let ordersLoaded = false;
+function switchView(name) {
+  document.querySelectorAll('.admin-view').forEach(v => v.hidden = (v.id !== 'view-' + name));
+  document.querySelectorAll('.atab').forEach(b => b.classList.toggle('active', b.dataset.view === name));
+  window.scrollTo(0, 0);
+  if (name === 'orders' && !ordersLoaded) { ordersLoaded = true; loadOrders(); }
+}
+
+// ── 通用存檔（settings / courses / banners）──
+async function persistFile(file, data, msg) {
+  const token = await getAuthToken();
+  const res = await fetch('/.netlify/functions/save-file', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+    body: JSON.stringify({ file, data })
+  });
+  const r = await res.json();
+  if (!r.success) { handleAuthError(r.error); throw new Error(r.error || '儲存失敗'); }
+  showToast('✓ ' + (msg || r.message));
 }
 
 function showLogin() {
@@ -476,59 +1050,200 @@ function logout() {
   netlifyIdentity.logout();
 }
 
+// 取得有效 token：自動續期，避免 token 過期導致存檔失敗、被「踢出來」
+async function getAuthToken() {
+  try {
+    const u = netlifyIdentity.currentUser();
+    if (u && typeof u.jwt === 'function') return await u.jwt();
+  } catch (e) {}
+  return (netlifyUser && netlifyUser.token) ? netlifyUser.token.access_token : '';
+}
+// 真的登入過期時，明確提示並跳出重新登入視窗
+function handleAuthError(msg) {
+  if (/登入|過期|401|unauthor/i.test(msg || '')) {
+    showToast('登入已過期，請重新登入');
+    netlifyIdentity.open('login');
+    return true;
+  }
+  return false;
+}
+
 // ── 載入花品 ──
 async function loadProducts() {
   try {
     const res = await fetch('/products.json?t=' + Date.now());
     products = await res.json();
+    syncTagPool();
+    syncOccasionPool();
     renderList();
   } catch(e) {
     showToast('載入花品失敗，請重新整理');
   }
 }
 
-// ── 渲染列表 ──
+// ── 產品管理頁：篩選 / 搜尋 / 排序 / 快切 ──
+let pmCategory = '全部';
+const PM_CATS = ['全部', '精選', '花束', '節慶花禮', '桌花', '高架花', '蘭花', '永生花'];
+const PM_CAT_LABEL = { '全部': '全部', '精選': '★ 精選', '花束': '花束', '節慶花禮': '節慶花禮', '桌花': '桌花', '高架花': '高架花籃', '蘭花': '蘭花', '永生花': '永生花' };
+function catOf(p) { return p.category || '花束'; }
+function setPmCat(c) { pmCategory = c; renderList(); }
+
+// 各類別編號前綴（舊花束維持 FC-，其餘新前綴）
+const CODE_PREFIX = { '花束': 'FC', '節慶花禮': 'FE', '桌花': 'TF', '高架花': 'FS', '蘭花': 'OR', '永生花': 'PV' };
+function nextCode(category) {
+  const prefix = CODE_PREFIX[category] || 'FC';
+  let max = 0;
+  products.forEach(p => {
+    const m = (p.code || '').match(new RegExp('^' + prefix + '-(\\d+)$'));
+    if (m) max = Math.max(max, parseInt(m[1], 10));
+  });
+  return prefix + '-' + String(max + 1).padStart(3, '0');
+}
+// 新增花品時，選了類別就自動建議下一個編號
+function onCategoryChange() {
+  if (editIndex !== -1) return;   // 編輯既有花品不動編號
+  document.getElementById('f_code').value = nextCode(document.getElementById('f_category').value);
+}
+
+function renderCatTabs() {
+  const box = document.getElementById('pmCats');
+  if (!box) return;
+  box.innerHTML = PM_CATS.map(c => {
+    const n = c === '全部' ? products.length
+      : c === '精選' ? products.filter(p => p.featured).length
+      : products.filter(p => catOf(p) === c).length;
+    return `<button class="pm-cat${c === pmCategory ? ' active' : ''}" onclick="setPmCat('${c}')">${PM_CAT_LABEL[c]} <b>${n}</b></button>`;
+  }).join('');
+}
+
 function renderList() {
   const list = document.getElementById('productList');
+  renderCatTabs();
+  renderOccasionFilter();
+  const stat = document.getElementById('pmStat');
+  if (stat) stat.textContent = `共 ${products.length} 件 · 上架 ${products.filter(p => p.published !== false).length}`;
   if (products.length === 0) {
-    list.innerHTML = '<div class="loading">尚無花品，點右上角「＋ 新增花品」開始</div>';
+    list.innerHTML = '<div class="loading">尚無花品，點「＋ 新增花品」開始</div>';
     return;
   }
-  list.innerHTML = products.map((p, i) => `
-    <div class="product-item" onclick="openEdit(${i})">
-      ${p.cloudinary_id
-        ? `<img class="product-thumb" src="https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_120,h_120,c_fill/${p.cloudinary_id}" onerror="this.style.display='none'">`
-        : `<img class="product-thumb" src="${p.photo}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="product-thumb-placeholder" style="display:none">🌸</div>`
-      }
-      <div class="product-info">
-        <div class="product-code">${p.code}</div>
-        <div class="product-name">${p.name}</div>
-        <div class="product-price">NT$ ${Number(p.price).toLocaleString()}</div>
+  const q = (document.getElementById('pmSearch')?.value || '').trim().toLowerCase();
+  const sort = document.getElementById('pmSort')?.value || 'default';
+  const occ = document.getElementById('pmOccasion')?.value || '全部';
+  let items = products.map((p, idx) => ({ p, idx }));
+  if (pmCategory === '精選') items = items.filter(o => o.p.featured);
+  else if (pmCategory !== '全部') items = items.filter(o => catOf(o.p) === pmCategory);
+  if (occ !== '全部') items = items.filter(o => (o.p.occasions || []).includes(occ));
+  if (q) items = items.filter(o => (o.p.name || '').toLowerCase().includes(q) || (o.p.code || '').toLowerCase().includes(q));
+  if (sort === 'code') items.sort((a, b) => (a.p.code || '').localeCompare(b.p.code || ''));
+  else if (sort === 'price-asc') items.sort((a, b) => (a.p.price || 0) - (b.p.price || 0));
+  else if (sort === 'price-desc') items.sort((a, b) => (b.p.price || 0) - (a.p.price || 0));
+  else if (sort === 'new') items.reverse();
+
+  if (!items.length) { list.innerHTML = '<div class="loading">找不到符合的花品</div>'; return; }
+
+  list.innerHTML = items.map(({ p, idx }) => {
+    const thumb = p.cloudinary_id
+      ? `<img class="product-thumb" src="https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_120,h_120,c_fill/${p.cloudinary_id}" onerror="this.style.display='none'">`
+      : `<img class="product-thumb" src="${p.photo || ''}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="product-thumb-placeholder" style="display:none">🌸</div>`;
+    const badges = [
+      p.published !== false ? '<span class="pm-b on">上架</span>' : '<span class="pm-b off">下架</span>',
+      (p.status === '完售' || p.status === '售完') ? '<span class="pm-b sold">完售</span>' : '',
+      p.status === '預購中' ? '<span class="pm-b pre">預購</span>' : '',
+      p.featured ? '<span class="pm-b feat">★ 精選</span>' : ''
+    ].filter(Boolean).join('');
+    return `
+    <div class="product-item">
+      <div class="pm-main" onclick="openEdit(${idx})">
+        ${thumb}
+        <div class="product-info">
+          <div class="product-code">${p.code} · ${PM_CAT_LABEL[catOf(p)]}</div>
+          <div class="product-name">${p.name}</div>
+          <div class="product-price">NT$ ${Number(p.price).toLocaleString()}</div>
+          <div class="pm-badges">${badges}</div>
+          ${(p.occasions && p.occasions.length) ? `<div class="pm-tags pm-occ"><em>場合</em>${p.occasions.map(o => `<span>${o}</span>`).join('')}</div>` : ''}
+          ${(p.tags && p.tags.length) ? `<div class="pm-tags pm-style"><em>風格</em>${p.tags.map(t => `<span>${t}</span>`).join('')}</div>` : ''}
+        </div>
       </div>
       <div class="product-actions">
-        <span class="${p.published ? 'badge-on' : 'badge-off'}">${p.published ? '上架中' : '已下架'}</span>
-        <button class="btn-edit">編輯</button>
+        <select class="pm-status" onclick="event.stopPropagation()" onchange="setStatus('${p.code}', this.value)">
+          <option value=""${!p.status ? ' selected' : ''}>正常販售</option>
+          <option value="預購中"${p.status === '預購中' ? ' selected' : ''}>預購中</option>
+          <option value="完售"${(p.status === '完售' || p.status === '售完') ? ' selected' : ''}>完售</option>
+        </select>
+        <button class="pm-quick" onclick="toggleListPublish('${p.code}')">${p.published !== false ? '下架' : '上架'}</button>
+        <button class="pm-quick${p.featured ? ' on' : ''}" onclick="toggleListFeatured('${p.code}')">${p.featured ? '取消精選' : '設精選'}</button>
+        <button class="btn-edit" onclick="openEdit(${idx})">編輯</button>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
+}
+
+// 共用存檔（快切用）
+async function persistProducts(msg) {
+  try {
+    const token = await getAuthToken();
+    const res = await fetch('/.netlify/functions/save-products', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify(products)
+    });
+    const r = await res.json();
+    if (r.success) showToast('✓ ' + (msg || r.message)); else throw new Error(r.error || '儲存失敗');
+  } catch (e) { if (!handleAuthError(e.message)) showToast('儲存失敗：' + e.message); }
+}
+function toggleListPublish(code) {
+  const p = products.find(x => x.code === code); if (!p) return;
+  p.published = p.published === false;   // 反轉（undefined/true → false；false → true）
+  renderList();
+  persistProducts(p.published ? '已上架' : '已下架');
+}
+function toggleListFeatured(code) {
+  const p = products.find(x => x.code === code); if (!p) return;
+  p.featured = !p.featured;
+  renderList();
+  persistProducts(p.featured ? '已設為精選' : '已取消精選');
+}
+function setStatus(code, val) {
+  const p = products.find(x => x.code === code); if (!p) return;
+  p.status = val;
+  renderList();
+  persistProducts('售況已更新');
+}
+// 場合篩選下拉：選項來自所有花品實際用到的場合
+function renderOccasionFilter() {
+  const sel = document.getElementById('pmOccasion');
+  if (!sel) return;
+  const cur = sel.value || '全部';
+  // 列出所有場合（場合池 + 花品實際用到的），就算選了沒結果也照列
+  const all = [...new Set([...allOccasionPool, ...products.flatMap(p => p.occasions || [])])];
+  const opts = ['全部', ...all];
+  sel.innerHTML = opts.map(o => `<option value="${o}"${o === cur ? ' selected' : ''}>${o === '全部' ? '場合：全部' : o}</option>`).join('');
 }
 
 // ── 開啟新增 ──
 function openNew() {
   editIndex = -1;
-  currentPhotoUrl = '';
-  currentCloudinaryId = '';
+  currentPhotos = [];
 
+  // 依目前所在的分類頁籤帶入類別與編號前綴（全部/精選 → 預設花束）
+  const startCat = CODE_PREFIX[pmCategory] ? pmCategory : '花束';
   document.getElementById('panelTitle').textContent = '新增花品';
-  document.getElementById('f_code').value = `FC-${String(products.length + 1).padStart(3,'0')}`;
+  document.getElementById('f_code').value = nextCode(startCat);
   document.getElementById('f_name').value = '';
   document.getElementById('f_price').value = '';
   document.getElementById('f_description').value = '';
-  document.getElementById('photoPreview').style.display = 'none';
+  document.getElementById('f_category').value = startCat;
+  document.getElementById('f_status').value = '';
+  document.getElementById('f_materials').value = '';
+  document.getElementById('f_size').value = '';
+  document.getElementById('f_care').value = '';
   document.getElementById('photoHint').style.display = 'block';
   document.getElementById('publishToggle').className = 'toggle on';
+  document.getElementById('featuredToggle').className = 'toggle';
   document.getElementById('btnDelete').style.display = 'none';
+  renderPhotos();
   renderTagGrid([]);
+  renderOccasionGrid(['送禮靈感']);   // 新品預設場合（全站通用入口）
 
   openPanel();
 }
@@ -537,34 +1252,34 @@ function openNew() {
 function openEdit(i) {
   editIndex = i;
   const p = products[i];
-  currentPhotoUrl = p.photo || '';
-  currentCloudinaryId = p.cloudinary_id || '';
 
   document.getElementById('panelTitle').textContent = '編輯花品';
   document.getElementById('f_code').value = p.code;
   document.getElementById('f_name').value = p.name;
   document.getElementById('f_price').value = p.price;
   document.getElementById('f_description').value = p.description || '';
+  document.getElementById('f_category').value = p.category || '花束';
+  document.getElementById('f_status').value = p.status || '';
+  document.getElementById('f_materials').value = p.materials || '';
+  document.getElementById('f_size').value = p.size || '';
+  document.getElementById('f_care').value = p.care || '';
   document.getElementById('publishToggle').className = 'toggle' + (p.published ? ' on' : '');
+  document.getElementById('featuredToggle').className = 'toggle' + (p.featured ? ' on' : '');
   document.getElementById('btnDelete').style.display = 'block';
 
-  // 照片預覽
-  const preview = document.getElementById('photoPreview');
-  if (p.cloudinary_id) {
-    preview.src = `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_400,c_fill/${p.cloudinary_id}`;
-    preview.style.display = 'block';
-    document.getElementById('photoHint').style.display = 'none';
-  } else if (p.photo) {
-    preview.src = p.photo;
-    preview.style.display = 'block';
-    document.getElementById('photoHint').style.display = 'none';
+  // 照片：只取 Cloudinary 圖（本地路徑圖 ph.url 由照片管理器忽略，避免破圖），否則退回單張 cloudinary_id
+  if (Array.isArray(p.photos) && p.photos.length) {
+    currentPhotos = p.photos.map(ph => (typeof ph === 'string' ? ph : ph.cloudinary_id)).filter(Boolean);
+  } else if (p.cloudinary_id) {
+    currentPhotos = [p.cloudinary_id];
   } else {
-    preview.style.display = 'none';
-    document.getElementById('photoHint').style.display = 'block';
+    currentPhotos = [];
   }
+  document.getElementById('photoHint').style.display = 'block';
+  renderPhotos();
 
-  // 標籤
   renderTagGrid(p.tags || []);
+  renderOccasionGrid(Array.isArray(p.occasions) ? p.occasions : ['送禮靈感']);
 
   openPanel();
 }
@@ -588,43 +1303,38 @@ function toggleTag(el) { el.classList.toggle('selected'); }
 function togglePublish() {
   document.getElementById('publishToggle').classList.toggle('on');
 }
+function toggleFeatured() {
+  document.getElementById('featuredToggle').classList.toggle('on');
+}
 
 // ── 照片上傳到 Cloudinary ──
 async function handlePhoto(input) {
-  const file = input.files[0];
-  if (!file) return;
+  const files = [...input.files];
+  if (!files.length) return;
 
   document.getElementById('photoHint').style.display = 'none';
   document.getElementById('photoUploading').style.display = 'block';
 
-  const formData = new FormData();
-  formData.append('file', file);
-  formData.append('upload_preset', CLOUDINARY_PRESET);
-  formData.append('folder', 'flowerchan');
-
-  try {
-    const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, {
-      method: 'POST', body: formData
-    });
-    const data = await res.json();
-
-    if (data.public_id) {
-      currentCloudinaryId = data.public_id;
-      currentPhotoUrl = data.secure_url;
-
-      const preview = document.getElementById('photoPreview');
-      preview.src = data.secure_url;
-      preview.style.display = 'block';
-      document.getElementById('photoUploading').style.display = 'none';
-      showToast('照片上傳成功 ✓');
-    } else {
-      throw new Error('上傳失敗');
+  for (const file of files) {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLOUDINARY_PRESET);
+    formData.append('folder', 'flowerchan');
+    try {
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, {
+        method: 'POST', body: formData
+      });
+      const data = await res.json();
+      if (data.public_id) { currentPhotos.push(data.public_id); renderPhotos(); }
+      else throw new Error('上傳失敗');
+    } catch(e) {
+      showToast('部分照片上傳失敗，請重試');
     }
-  } catch(e) {
-    document.getElementById('photoUploading').style.display = 'none';
-    document.getElementById('photoHint').style.display = 'block';
-    showToast('照片上傳失敗，請重試');
   }
+
+  document.getElementById('photoUploading').style.display = 'none';
+  input.value = '';
+  showToast('照片上傳完成 ✓');
 }
 
 // ── 儲存花品 ──
@@ -633,24 +1343,37 @@ async function saveProduct() {
   const name = document.getElementById('f_name').value.trim();
   const price = parseInt(document.getElementById('f_price').value);
   const published = document.getElementById('publishToggle').classList.contains('on');
+  const featured = document.getElementById('featuredToggle').classList.contains('on');
   const tags = getSelectedTags();
   const description = document.getElementById('f_description').value.trim();
+  const category = document.getElementById('f_category').value;
+  const status = document.getElementById('f_status').value;
+  const materials = document.getElementById('f_materials').value.trim();
+  const size = document.getElementById('f_size').value.trim();
+  const care = document.getElementById('f_care').value.trim();
+  const occasions = getSelectedOccasions();
+  const photos = currentPhotos.map(id => ({ cloudinary_id: id }));
+  const mainId = currentPhotos[0] || '';
 
-  if (!code || !name || isNaN(price)) {
-    showToast('請填寫編號、名稱和價格');
+  if (!code || !name || isNaN(price) || !category) {
+    showToast('請填寫編號、名稱、價格與類別');
     return;
   }
 
   const product = {
-    code, name, price, description, tags, published,
-    photo: currentPhotoUrl || (editIndex >= 0 ? products[editIndex].photo : ''),
-    cloudinary_id: currentCloudinaryId || (editIndex >= 0 ? products[editIndex].cloudinary_id : '')
+    code, name, price, category, status, description,
+    materials, size, care, tags, occasions, published, featured,
+    photos, cloudinary_id: mainId,
+    photo: mainId
+      ? `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/${mainId}`
+      : (editIndex >= 0 ? products[editIndex].photo : '')
   };
 
   if (editIndex === -1) {
     products.push(product);
   } else {
-    products[editIndex] = product;
+    // 合併：保留未列出的舊欄位（如 featured 等），避免儲存時被洗掉
+    products[editIndex] = { ...products[editIndex], ...product };
   }
 
   const btn = document.getElementById('btnSave');
@@ -658,7 +1381,7 @@ async function saveProduct() {
   btn.textContent = '儲存中...';
 
   try {
-    const token = netlifyUser.token.access_token;
+    const token = await getAuthToken();
     const res = await fetch('/.netlify/functions/save-products', {
       method: 'POST',
       headers: {
@@ -686,14 +1409,14 @@ async function saveProduct() {
 }
 
 // ── 刪除花品 ──
-function deleteProduct() {
+async function deleteProduct() {
   if (!confirm(`確定要刪除「${products[editIndex].name}」嗎？`)) return;
   products.splice(editIndex, 1);
 
   const btn = document.getElementById('btnSave');
   btn.disabled = true;
 
-  const token = netlifyUser.token.access_token;
+  const token = await getAuthToken();
   fetch('/.netlify/functions/save-products', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
@@ -706,6 +1429,639 @@ function deleteProduct() {
     }
   }).catch(() => showToast('刪除失敗，請重試'))
     .finally(() => { btn.disabled = false; });
+}
+
+/* ═══════════════ B2 設定（暫停接單）═══════════════ */
+let settings = { accepting_orders: true, closed_message: '' };
+async function loadSettings() {
+  try {
+    const res = await fetch('/settings.json?t=' + Date.now());
+    settings = await res.json();
+  } catch (e) { /* 用預設值 */ }
+  const acc = settings.accepting_orders !== false;
+  document.getElementById('setAccepting').checked = acc;
+  document.getElementById('setClosedMsg').value = settings.closed_message || '';
+  onAcceptingToggle();
+}
+function onAcceptingToggle() {
+  const acc = document.getElementById('setAccepting').checked;
+  // 接單中時，暫停訊息欄位淡化（仍可編輯，方便先寫好）
+  document.getElementById('setMsgWrap').style.opacity = acc ? '0.5' : '1';
+}
+async function saveSettings() {
+  const data = {
+    accepting_orders: document.getElementById('setAccepting').checked,
+    closed_message: document.getElementById('setClosedMsg').value.trim()
+  };
+  const btn = document.getElementById('btnSaveSettings');
+  btn.disabled = true; btn.textContent = '儲存中...';
+  try {
+    await persistFile('settings.json', data, '設定已更新');
+    settings = data;
+  } catch (e) { if (!handleAuthError(e.message)) showToast('儲存失敗：' + e.message); }
+  finally { btn.disabled = false; btn.textContent = '儲存設定'; }
+}
+
+/* ═══════════════ B1 課程管理 ═══════════════ */
+let courses = [];
+let courseIndex = -1;
+let coursePhotos = [];
+
+async function loadCourses() {
+  try {
+    const res = await fetch('/courses.json?t=' + Date.now());
+    courses = await res.json();
+  } catch (e) { courses = []; }
+  renderCourseList();
+}
+function courseThumbId(c) {
+  return c.cloudinary_id || (Array.isArray(c.photos) && c.photos[0] && (c.photos[0].cloudinary_id || c.photos[0])) || '';
+}
+function renderCourseList() {
+  const box = document.getElementById('courseList');
+  if (!box) return;
+  if (!courses.length) { box.innerHTML = '<div class="gm-empty">尚無課程，點「＋ 新增課程」開始</div>'; return; }
+  box.innerHTML = courses.map((c, i) => {
+    const id = courseThumbId(c);
+    const thumb = id
+      ? `<img class="gm-thumb" src="https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_120,h_120,c_fill/${id}" onerror="this.style.display='none'">`
+      : '<div class="gm-thumb empty">無圖</div>';
+    return `<div class="gm-item">
+      ${thumb}
+      <div class="gm-info">
+        <div class="gm-name">${c.name || '(未命名)'} ${c.published === false ? '<span class="pm-b off">未上架</span>' : ''}</div>
+        <div class="gm-sub">${c.code || ''} · NT$ ${Number(c.price || 0).toLocaleString()} · ${c.type || ''} · ${c.status || ''}</div>
+      </div>
+      <div class="gm-actions">
+        <button class="pm-quick" onclick="toggleCoursePublish(${i})">${c.published !== false ? '下架' : '上架'}</button>
+        <button class="btn-edit" onclick="openCourse(${i})">編輯</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function toggleCoursePublish(i) {
+  courses[i].published = courses[i].published === false;
+  renderCourseList();
+  persistFile('courses.json', courses, courses[i].published ? '課程已上架' : '課程已下架')
+    .catch(e => showToast('儲存失敗：' + e.message));
+}
+function nextCourseCode() {
+  let max = 0;
+  courses.forEach(c => { const m = (c.code || '').match(/^CL-(\d+)$/); if (m) max = Math.max(max, parseInt(m[1], 10)); });
+  return 'CL-' + String(max + 1).padStart(3, '0');
+}
+function renderCoursePhotos() {
+  const box = document.getElementById('coursePhotoList');
+  box.innerHTML = coursePhotos.map((id, i) => `
+    <div class="photo-thumb">
+      <img src="https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_160,h_160,c_fill/${id}" onclick="openLightbox('${id}')" style="cursor:zoom-in;" title="點擊放大">
+      ${i === 0 ? '<span class="photo-main-badge">主圖</span>' : ''}
+      <div class="photo-thumb-bar">
+        <button type="button" onclick="moveCoursePhoto(${i},-1)">‹</button>
+        ${i !== 0 ? `<button type="button" onclick="setCourseMain(${i})">★</button>` : ''}
+        <button type="button" onclick="moveCoursePhoto(${i},1)">›</button>
+        <button type="button" onclick="removeCoursePhoto(${i})">✕</button>
+      </div>
+    </div>`).join('');
+}
+function moveCoursePhoto(i, dir) { const j = i + dir; if (j < 0 || j >= coursePhotos.length) return; const t = coursePhotos[i]; coursePhotos[i] = coursePhotos[j]; coursePhotos[j] = t; renderCoursePhotos(); }
+function setCourseMain(i) { const m = coursePhotos.splice(i, 1)[0]; coursePhotos.unshift(m); renderCoursePhotos(); }
+function removeCoursePhoto(i) { coursePhotos.splice(i, 1); renderCoursePhotos(); }
+async function handleCoursePhoto(input) {
+  const files = [...input.files];
+  if (!files.length) return;
+  document.getElementById('coursePhotoHint').style.display = 'none';
+  document.getElementById('coursePhotoUploading').style.display = 'block';
+  for (const file of files) {
+    const fd = new FormData();
+    fd.append('file', file); fd.append('upload_preset', CLOUDINARY_PRESET); fd.append('folder', 'flowerchan');
+    try {
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, { method: 'POST', body: fd });
+      const data = await res.json();
+      if (data.public_id) { coursePhotos.push(data.public_id); renderCoursePhotos(); } else throw new Error();
+    } catch (e) { showToast('部分照片上傳失敗，請重試'); }
+  }
+  document.getElementById('coursePhotoUploading').style.display = 'none';
+  document.getElementById('coursePhotoHint').style.display = 'block';
+  input.value = '';
+}
+function openCourse(idx) {
+  courseIndex = idx;
+  const c = idx >= 0 ? courses[idx] : {};
+  coursePhotos = Array.isArray(c.photos) ? c.photos.map(p => p.cloudinary_id || p).filter(Boolean) : (c.cloudinary_id ? [c.cloudinary_id] : []);
+  document.getElementById('coursePanelTitle').textContent = idx >= 0 ? '編輯課程' : '新增課程';
+  document.getElementById('c_code').value = idx >= 0 ? (c.code || '') : nextCourseCode();
+  document.getElementById('c_price').value = c.price || '';
+  document.getElementById('c_name').value = c.name || '';
+  document.getElementById('c_name_en').value = c.name_en || '';
+  document.getElementById('c_type').value = c.type || '常態課程';
+  document.getElementById('c_status').value = c.status || '報名中';
+  document.getElementById('c_duration').value = c.duration || '';
+  document.getElementById('c_capacity').value = c.capacity || '';
+  document.getElementById('c_date').value = c.date || '';
+  document.getElementById('c_description').value = c.description || '';
+  document.getElementById('coursePublishToggle').classList.toggle('on', c.published !== false);
+  document.getElementById('btnDeleteCourse').style.display = idx >= 0 ? '' : 'none';
+  renderCoursePhotos();
+  document.getElementById('courseOverlay').classList.add('show');
+  document.getElementById('coursePanel').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeCourse() {
+  document.getElementById('courseOverlay').classList.remove('show');
+  document.getElementById('coursePanel').classList.remove('show');
+  document.body.style.overflow = '';
+}
+async function saveCourse() {
+  const code = document.getElementById('c_code').value.trim();
+  const name = document.getElementById('c_name').value.trim();
+  const price = parseInt(document.getElementById('c_price').value);
+  if (!code || !name || isNaN(price)) { showToast('請填寫編號、名稱與費用'); return; }
+  const course = {
+    code, name,
+    name_en: document.getElementById('c_name_en').value.trim(),
+    type: document.getElementById('c_type').value,
+    price,
+    duration: document.getElementById('c_duration').value.trim(),
+    capacity: document.getElementById('c_capacity').value.trim(),
+    date: document.getElementById('c_date').value.trim(),
+    description: document.getElementById('c_description').value.trim(),
+    status: document.getElementById('c_status').value,
+    published: document.getElementById('coursePublishToggle').classList.contains('on'),
+    photo: '',
+    cloudinary_id: coursePhotos[0] || '',
+    photos: coursePhotos.map(id => ({ cloudinary_id: id }))
+  };
+  const btn = document.getElementById('btnSaveCourse');
+  btn.disabled = true; btn.textContent = '儲存中...';
+  if (courseIndex === -1) courses.push(course);
+  else courses[courseIndex] = { ...courses[courseIndex], ...course };
+  try {
+    await persistFile('courses.json', courses, '課程已儲存');
+    closeCourse(); renderCourseList();
+  } catch (e) {
+    showToast('儲存失敗：' + e.message);
+    if (courseIndex === -1) courses.pop();
+  } finally { btn.disabled = false; btn.textContent = '儲存'; }
+}
+function deleteCourse() {
+  if (courseIndex < 0 || !confirm(`確定刪除課程「${courses[courseIndex].name}」嗎？`)) return;
+  const removed = courses.splice(courseIndex, 1)[0];
+  persistFile('courses.json', courses, '課程已刪除')
+    .then(() => { closeCourse(); renderCourseList(); })
+    .catch(e => { courses.splice(courseIndex, 0, removed); showToast('刪除失敗：' + e.message); });
+}
+
+/* ═══════════════ B3 Banner 管理 ═══════════════ */
+let banners = [];
+let bannerIndex = -1;
+let bannerImgId = '';        // Cloudinary public_id
+let bannerFocalX = 0.5;      // 裁切焦點（0–1，水平）
+let bannerFocalY = 0.5;      // 裁切焦點（0–1，垂直）
+let bannerImgW = 0, bannerImgH = 0;  // 原圖像素尺寸（算焦點座標用）
+
+async function loadBanners() {
+  try {
+    const res = await fetch('/banners.json?t=' + Date.now());
+    banners = await res.json();
+  } catch (e) { banners = []; }
+  renderBannerList();
+}
+function bannerActive(b) {
+  if (b.published === false) return false;
+  if (b.always === true) return true;
+  const today = new Date().toISOString().slice(0, 10);
+  return b.start <= today && today <= b.end;
+}
+function renderBannerList() {
+  const box = document.getElementById('bannerList');
+  if (!box) return;
+  if (!banners.length) { box.innerHTML = '<div class="gm-empty">尚無 Banner，點「＋ 新增 Banner」開始</div>'; return; }
+  box.innerHTML = banners.map((b, i) => {
+    const thumb = b.image ? `<img class="gm-thumb" src="${b.image}" onerror="this.style.display='none'">` : '<div class="gm-thumb empty">無圖</div>';
+    const period = b.always ? '長期顯示' : ((b.start || '?') + ' ~ ' + (b.end || '?'));
+    const live = bannerActive(b)
+      ? '<span class="pm-b on">顯示中</span>'
+      : (b.published === false ? '<span class="pm-b off">已停用</span>' : '<span class="pm-b pre">未到檔期</span>');
+    return `<div class="gm-item">
+      ${thumb}
+      <div class="gm-info">
+        <div class="gm-name">${b.title || '(無標題)'} ${live}</div>
+        <div class="gm-sub">${period}${b.link ? ' · → ' + linkLabel(b.link) : ''}</div>
+      </div>
+      <div class="gm-actions">
+        <button class="pm-quick" onclick="moveBanner(${i},-1)" ${i === 0 ? 'disabled' : ''} title="上移">↑</button>
+        <button class="pm-quick" onclick="moveBanner(${i},1)" ${i === banners.length - 1 ? 'disabled' : ''} title="下移">↓</button>
+        <button class="pm-quick" onclick="toggleBannerPublish(${i})">${b.published !== false ? '停用' : '啟用'}</button>
+        <button class="btn-edit" onclick="openBanner(${i})">編輯</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function moveBanner(i, dir) {
+  const j = i + dir;
+  if (j < 0 || j >= banners.length) return;
+  [banners[i], banners[j]] = [banners[j], banners[i]];
+  renderBannerList();
+  persistFile('banners.json', banners, '順序已更新').catch(e => showToast('儲存失敗：' + e.message));
+}
+function toggleBannerPublish(i) {
+  banners[i].published = banners[i].published === false;
+  renderBannerList();
+  persistFile('banners.json', banners, banners[i].published ? 'Banner 已啟用' : 'Banner 已停用')
+    .catch(e => showToast('儲存失敗：' + e.message));
+}
+function toggleBannerAlways() {
+  const on = document.getElementById('bannerAlwaysToggle').classList.toggle('on');
+  document.getElementById('bannerDateWrap').style.display = on ? 'none' : 'flex';
+}
+async function handleBannerImg(input) {
+  const file = input.files[0];
+  if (!file) return;
+  document.getElementById('bannerImgHint').style.display = 'none';
+  document.getElementById('bannerImgUploading').style.display = 'block';
+  const fd = new FormData();
+  fd.append('file', file); fd.append('upload_preset', CLOUDINARY_PRESET); fd.append('folder', 'flowerchan');
+  try {
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, { method: 'POST', body: fd });
+    const data = await res.json();
+    if (!data.public_id) throw new Error();
+    bannerImgId = data.public_id;
+    bannerImgW = data.width || 0; bannerImgH = data.height || 0;
+    bannerFocalX = 0.5; bannerFocalY = 0.5;
+    renderBannerCrop();
+  } catch (e) { showToast('圖片上傳失敗，請重試'); }
+  document.getElementById('bannerImgUploading').style.display = 'none';
+  document.getElementById('bannerImgHint').style.display = 'block';
+  input.value = '';
+}
+// 從現有 image 網址解析出 Cloudinary public_id
+function parseBannerId(url) {
+  const m = (url || '').match(/\/upload\/[^/]+\/(.+)$/);
+  return m ? m[1] : '';
+}
+// 依焦點組出最終 banner 圖網址（用原圖像素座標，g_xy_center 讓焦點置中裁切）
+function bannerImageUrl() {
+  if (!bannerImgId) return '';
+  if (bannerImgW && bannerImgH) {
+    const x = Math.round(bannerFocalX * bannerImgW);
+    const y = Math.round(bannerFocalY * bannerImgH);
+    return `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_1600,h_640,c_fill,g_xy_center,x_${x},y_${y},q_auto,f_auto/${bannerImgId}`;
+  }
+  // 尺寸還沒讀到時，先用置中裁切（安全 fallback）
+  return `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_1600,h_640,c_fill,q_auto,f_auto/${bannerImgId}`;
+}
+// 裁切調整介面：整張原圖 + 可拖點的 2.5:1 框 + 即時預覽
+function renderBannerCrop() {
+  const box = document.getElementById('bannerImgPreview');
+  if (!bannerImgId) { box.innerHTML = ''; return; }
+  const full = `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_900,c_limit,q_auto,f_auto/${bannerImgId}`;
+  box.innerHTML = `
+    <p class="crop-tip">點圖片任一處，決定要保留的重心；黃框內是 banner 會顯示的範圍。</p>
+    <div id="bannerCropWrap">
+      <img id="bannerCropImg" src="${full}" onload="onCropImgLoad()" onclick="setBannerFocal(event)">
+      <div id="bannerCropBox"></div>
+      <div id="bannerFocalMarker"></div>
+    </div>
+    <p class="crop-tip" style="margin-top:10px;">實際 banner 預覽：</p>
+    <img id="bannerCropPreview" src="${bannerImageUrl()}" style="width:100%;border-radius:8px;display:block;border:1px solid #e5e0d5;">
+  `;
+}
+function onCropImgLoad() {
+  // 新上傳已有尺寸；舊 banner 沒存尺寸時，背景載入原圖讀真實像素尺寸
+  if (!bannerImgW || !bannerImgH) {
+    const probe = new Image();
+    probe.onload = function () {
+      bannerImgW = probe.naturalWidth; bannerImgH = probe.naturalHeight;
+      const p = document.getElementById('bannerCropPreview'); if (p) p.src = bannerImageUrl();
+    };
+    probe.src = `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/${bannerImgId}`;
+  }
+  updateBannerCropBox();
+  const p = document.getElementById('bannerCropPreview'); if (p) p.src = bannerImageUrl();
+}
+function setBannerFocal(ev) {
+  const img = document.getElementById('bannerCropImg');
+  const r = img.getBoundingClientRect();
+  bannerFocalX = Math.min(1, Math.max(0, (ev.clientX - r.left) / r.width));
+  bannerFocalY = Math.min(1, Math.max(0, (ev.clientY - r.top) / r.height));
+  updateBannerCropBox();
+  document.getElementById('bannerCropPreview').src = bannerImageUrl();
+}
+function updateBannerCropBox() {
+  const img = document.getElementById('bannerCropImg'); if (!img) return;
+  const W = img.clientWidth, H = img.clientHeight, target = 2.5;
+  let cw, ch;
+  if (W / H > target) { ch = H; cw = H * target; } else { cw = W; ch = W / target; }
+  let cx = Math.min(Math.max(0, bannerFocalX * W - cw / 2), W - cw);
+  let cy = Math.min(Math.max(0, bannerFocalY * H - ch / 2), H - ch);
+  const bx = document.getElementById('bannerCropBox');
+  bx.style.width = cw + 'px'; bx.style.height = ch + 'px'; bx.style.left = cx + 'px'; bx.style.top = cy + 'px';
+  const mk = document.getElementById('bannerFocalMarker');
+  mk.style.left = (bannerFocalX * W) + 'px'; mk.style.top = (bannerFocalY * H) + 'px';
+}
+const BANNER_LINK_PRESETS = ['/','/order','/festival','/bouquet','/table-flower','/flower-stand','/orchid','/preserved','/courses','/occasion'];
+const BANNER_LINK_LABEL = { '/':'首頁','/order':'訂購頁','/festival':'節慶花禮','/bouquet':'花束','/table-flower':'桌花','/flower-stand':'高架花籃','/orchid':'蘭花','/preserved':'永生花','/courses':'花藝課程','/occasion':'依場合挑選' };
+function linkLabel(link) { return BANNER_LINK_LABEL[link] || link || ''; }
+function onBannerLinkChange() {
+  const sel = document.getElementById('b_link_select');
+  document.getElementById('b_link').style.display = sel.value === '__custom__' ? 'block' : 'none';
+}
+function setBannerLink(link) {
+  const sel = document.getElementById('b_link_select'), inp = document.getElementById('b_link');
+  if (link && BANNER_LINK_PRESETS.includes(link)) { sel.value = link; inp.value = ''; inp.style.display = 'none'; }
+  else if (link) { sel.value = '__custom__'; inp.value = link; inp.style.display = 'block'; }
+  else { sel.value = '/festival'; inp.value = ''; inp.style.display = 'none'; }
+}
+function getBannerLink() {
+  const sel = document.getElementById('b_link_select');
+  return sel.value === '__custom__' ? document.getElementById('b_link').value.trim() : sel.value;
+}
+function openBanner(idx) {
+  bannerIndex = idx;
+  const b = idx >= 0 ? banners[idx] : {};
+  bannerImgId = parseBannerId(b.image || '');
+  bannerFocalX = (typeof b.focal_x === 'number') ? b.focal_x : 0.5;
+  bannerFocalY = (typeof b.focal_y === 'number') ? b.focal_y : 0.5;
+  bannerImgW = b.img_w || 0; bannerImgH = b.img_h || 0;
+  document.getElementById('bannerPanelTitle').textContent = idx >= 0 ? '編輯 Banner' : '新增 Banner';
+  document.getElementById('b_title').value = b.title || '';
+  document.getElementById('b_subtitle').value = b.subtitle || '';
+  document.getElementById('b_eyebrow').value = b.eyebrow || '';
+  document.getElementById('b_cta').value = b.cta || '';
+  setBannerLink(b.link || '');
+  document.getElementById('b_start').value = b.start || '';
+  document.getElementById('b_end').value = b.end || '';
+  document.getElementById('bannerAlwaysToggle').classList.toggle('on', b.always === true);
+  document.getElementById('bannerDateWrap').style.display = b.always === true ? 'none' : 'flex';
+  document.getElementById('bannerTextInImageToggle').classList.toggle('on', b.text_in_image === true);
+  document.getElementById('bannerPublishToggle').classList.toggle('on', b.published !== false);
+  document.getElementById('btnDeleteBanner').style.display = idx >= 0 ? '' : 'none';
+  renderBannerCrop();
+  document.getElementById('bannerOverlay').classList.add('show');
+  document.getElementById('bannerPanel').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeBanner() {
+  document.getElementById('bannerOverlay').classList.remove('show');
+  document.getElementById('bannerPanel').classList.remove('show');
+  document.body.style.overflow = '';
+}
+async function saveBanner() {
+  if (!bannerImgId) { showToast('請先上傳 Banner 圖片'); return; }
+  const always = document.getElementById('bannerAlwaysToggle').classList.contains('on');
+  const start = document.getElementById('b_start').value;
+  const end = document.getElementById('b_end').value;
+  if (!always && (!start || !end)) { showToast('請設定開始與結束日期，或改為長期顯示'); return; }
+  const old = bannerIndex >= 0 ? banners[bannerIndex] : {};
+  const banner = {
+    id: old.id || ('banner-' + Date.now()),
+    title: document.getElementById('b_title').value.trim(),
+    subtitle: document.getElementById('b_subtitle').value.trim(),
+    eyebrow: document.getElementById('b_eyebrow').value.trim(),
+    cta: document.getElementById('b_cta').value.trim(),
+    link: getBannerLink(),
+    image: bannerImageUrl(),
+    focal_x: bannerFocalX,
+    focal_y: bannerFocalY,
+    img_w: bannerImgW,
+    img_h: bannerImgH,
+    text_in_image: document.getElementById('bannerTextInImageToggle').classList.contains('on'),
+    published: document.getElementById('bannerPublishToggle').classList.contains('on')
+  };
+  if (always) banner.always = true;
+  else { banner.start = start; banner.end = end; }
+  const btn = document.getElementById('btnSaveBanner');
+  btn.disabled = true; btn.textContent = '儲存中...';
+  if (bannerIndex === -1) banners.push(banner);
+  else banners[bannerIndex] = banner;
+  try {
+    await persistFile('banners.json', banners, 'Banner 已儲存');
+    closeBanner(); renderBannerList();
+  } catch (e) {
+    showToast('儲存失敗：' + e.message);
+    if (bannerIndex === -1) banners.pop();
+  } finally { btn.disabled = false; btn.textContent = '儲存'; }
+}
+function deleteBanner() {
+  if (bannerIndex < 0 || !confirm(`確定刪除 Banner「${banners[bannerIndex].title || ''}」嗎？`)) return;
+  const removed = banners.splice(bannerIndex, 1)[0];
+  persistFile('banners.json', banners, 'Banner 已刪除')
+    .then(() => { closeBanner(); renderBannerList(); })
+    .catch(e => { banners.splice(bannerIndex, 0, removed); showToast('刪除失敗：' + e.message); });
+}
+
+/* ═══════════════ C1 訂單看板 ═══════════════ */
+const ORDER_STATUSES = ['新訂單', '已確認', '製作中', '已完成', '已取消'];
+let orders = [], orderHeaders = [];
+let orderHideDone = true;                         // 預設隱藏已完成/已取消
+const ORDER_PRODUCT_HEADER = '花品編號與名稱';
+function orderStatusOf(o) { return o['狀態'] || '新訂單'; }
+function fmtOrderVal(header, v) {
+  if (v == null || v === '') return v;
+  const s = String(v);
+  if (/^\d{4}-\d{2}-\d{2}T/.test(s)) {            // ISO 時間 → 台北時間
+    const d = new Date(s); if (isNaN(d)) return s;
+    const tw = new Date(d.getTime() + 8 * 3600000);
+    const p = n => String(n).padStart(2, '0');
+    const ymd = `${tw.getUTCFullYear()}/${p(tw.getUTCMonth() + 1)}/${p(tw.getUTCDate())}`;
+    return /日期/.test(header) ? ymd : `${ymd} ${p(tw.getUTCHours())}:${p(tw.getUTCMinutes())}`;
+  }
+  return s;
+}
+function orderProductCode(o) { return String(o[ORDER_PRODUCT_HEADER] || '').split('｜')[0].trim(); }
+function populateOrderCodeFilter() {
+  const sel = document.getElementById('orderCodeFilter'); if (!sel) return;
+  const cur = sel.value || '全部';
+  const codes = [...new Set(orders.map(orderProductCode).filter(Boolean))].sort();
+  sel.innerHTML = '<option value="全部">花品：全部</option>' + codes.map(c => `<option${c === cur ? ' selected' : ''}>${c}</option>`).join('');
+}
+function toggleHideDone() { orderHideDone = !orderHideDone; document.getElementById('orderHideDone').classList.toggle('on', orderHideDone); renderOrderList(); }
+let orderRange = '', orderFilteredList = [];
+function twTodayYMD() {
+  const tw = new Date(Date.now() + 8 * 3600000); const p = n => String(n).padStart(2, '0');
+  return `${tw.getUTCFullYear()}/${p(tw.getUTCMonth() + 1)}/${p(tw.getUTCDate())}`;
+}
+function orderDeliveryYMD(o) {
+  const h = orderHeaders.find(x => /日期/.test(x));
+  const s = fmtOrderVal(h || '', h ? o[h] : '');
+  return typeof s === 'string' ? s : '';
+}
+function orderDeliveryDiff(o) {
+  const s = orderDeliveryYMD(o);
+  if (!/^\d{4}\/\d{2}\/\d{2}$/.test(s)) return null;
+  const [y, m, d] = s.split('/').map(Number);
+  const t = twTodayYMD().split('/').map(Number);
+  return Math.round((Date.UTC(y, m - 1, d) - Date.UTC(t[0], t[1] - 1, t[2])) / 86400000);
+}
+function setOrderRange(r) {
+  orderRange = (orderRange === r) ? '' : r;
+  if (orderRange) {  // 切到快速範圍時，清掉自訂日期區間，避免兩種互打
+    document.getElementById('orderFrom').value = '';
+    document.getElementById('orderTo').value = '';
+    document.getElementById('orderRangeClear').style.display = 'none';
+    document.querySelector('.ord-daterange').classList.remove('active');
+  }
+  document.getElementById('orderRangeToday').classList.toggle('on', orderRange === 'today');
+  document.getElementById('orderRange3d').classList.toggle('on', orderRange === '3d');
+  document.getElementById('orderRange7d').classList.toggle('on', orderRange === '7d');
+  renderOrderList();
+}
+function onCustomRange() {
+  const has = document.getElementById('orderFrom').value || document.getElementById('orderTo').value;
+  if (has) {  // 設了自訂區間就取消三顆快速鈕
+    orderRange = '';
+    ['orderRangeToday', 'orderRange3d', 'orderRange7d'].forEach(id => document.getElementById(id).classList.remove('on'));
+  }
+  document.getElementById('orderRangeClear').style.display = has ? '' : 'none';
+  document.querySelector('.ord-daterange').classList.toggle('active', !!has);
+  renderOrderList();
+}
+function clearCustomRange() {
+  document.getElementById('orderFrom').value = '';
+  document.getElementById('orderTo').value = '';
+  document.getElementById('orderRangeClear').style.display = 'none';
+  document.querySelector('.ord-daterange').classList.remove('active');
+  renderOrderList();
+}
+function printOrders() {
+  const now = new Date(Date.now() + 8 * 3600000);
+  const p = n => String(n).padStart(2, '0');
+  const ts = `${now.getUTCFullYear()}/${p(now.getUTCMonth() + 1)}/${p(now.getUTCDate())} ${p(now.getUTCHours())}:${p(now.getUTCMinutes())}`;
+  const parts = [];
+  const cFrom = document.getElementById('orderFrom').value;
+  const cTo = document.getElementById('orderTo').value;
+  const rangeLabel = { today: '今日要交', '3d': '三日內', '7d': '一週內' }[orderRange];
+  if (cFrom || cTo) parts.push(`交件 ${cFrom || '…'}～${cTo || '…'}`);
+  else if (rangeLabel) parts.push(rangeLabel);
+  const statusF = document.getElementById('orderFilter').value;
+  if (statusF !== '全部') parts.push('狀態：' + statusF);
+  const codeF = document.getElementById('orderCodeFilter').value;
+  if (codeF !== '全部') parts.push('花品：' + codeF);
+  const q = (document.getElementById('orderSearch').value || '').trim();
+  if (q) parts.push('搜尋：' + q);
+  if (orderHideDone) parts.push('已隱藏完成/取消');
+  const filterText = parts.length ? parts.join('・') : '全部訂單';
+  document.getElementById('printHead').innerHTML =
+    `<div class="ph-title">🌼 小花店 訂單</div>` +
+    `<div class="ph-meta">列印時間：${ts}　|　範圍：${filterText}　|　共 ${orderFilteredList.length} 筆</div>`;
+  window.print();
+}
+function exportOrdersCSV() {
+  if (!orderFilteredList.length) { showToast('沒有可匯出的訂單'); return; }
+  const cols = [...orderHeaders, '狀態'];
+  const esc = v => { const s = String(v == null ? '' : v); return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
+  const rows = orderFilteredList.map(o => cols.map(h => esc(h === '狀態' ? orderStatusOf(o) : fmtOrderVal(h, o[h]))).join(','));
+  const csv = '﻿' + cols.map(esc).join(',') + '\n' + rows.join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+  a.download = `訂單_${twTodayYMD().replace(/\//g, '')}.csv`;
+  a.click(); URL.revokeObjectURL(a.href);
+  showToast('✓ 已匯出 ' + orderFilteredList.length + ' 筆');
+}
+function orderBudget(o) {
+  const h = orderHeaders.find(x => /預算|金額/.test(x));
+  const v = String((h && o[h]) || '').replace(/[^\d.]/g, '');
+  return parseFloat(v) || 0;
+}
+function renderOrderStats(list) {
+  const counts = {}; ORDER_STATUSES.forEach(s => counts[s] = 0);
+  orders.forEach(o => { const s = orderStatusOf(o); counts[s] = (counts[s] || 0) + 1; });
+  const sum = list.reduce((a, o) => a + orderBudget(o), 0);
+  const chips = ORDER_STATUSES.map(s => `<span class="ord-stat-chip ord-${orderStatusClass(s)}"><b>${counts[s]}</b> ${s}</span>`).join('');
+  document.getElementById('orderStats').innerHTML = `
+    <div class="ord-stat-chips">${chips}</div>
+    <div class="ord-stat-cards">
+      <div class="ord-stat-card"><span class="n">${list.length}</span><span class="l">符合筆數</span></div>
+      <div class="ord-stat-card"><span class="n">NT$ ${sum.toLocaleString()}</span><span class="l">總金額（預算加總）</span></div>
+    </div>`;
+}
+async function loadOrders() {
+  const box = document.getElementById('orderList');
+  box.innerHTML = '<div class="loading"><div class="spinner"></div>載入訂單中...</div>';
+  try {
+    const token = await getAuthToken();
+    const res = await fetch('/.netlify/functions/orders', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({ action: 'list' })
+    });
+    const r = await res.json();
+    if (r.error) throw new Error(r.error);
+    orders = r.orders || [];
+    orderHeaders = (r.headers || []).filter(h => h && h !== '狀態');
+    populateOrderCodeFilter();
+    renderOrderList();
+  } catch (e) {
+    box.innerHTML = `<div class="gm-empty">訂單載入失敗：${e.message}<br><span style="font-size:0.76rem;color:#a8a499;">請確認 Apps Script 已部署、Netlify 環境變數 GOOGLE_ORDERS_URL / GOOGLE_ORDERS_TOKEN 已設定</span></div>`;
+  }
+}
+function orderStatusClass(s) { return { '新訂單': 'new', '已確認': 'ok', '製作中': 'making', '已完成': 'done', '已取消': 'cancel' }[s] || 'new'; }
+function renderOrderList() {
+  const box = document.getElementById('orderList');
+  if (!orders.length) { document.getElementById('orderStat').textContent = '共 0 筆'; document.getElementById('orderStats').innerHTML = ''; box.innerHTML = '<div class="gm-empty">目前沒有訂單</div>'; return; }
+  const statusF = document.getElementById('orderFilter').value;
+  const codeF = document.getElementById('orderCodeFilter').value;
+  const q = (document.getElementById('orderSearch').value || '').trim().toLowerCase();
+  const list = orders.filter(o => {
+    const st = orderStatusOf(o);
+    if (orderHideDone && (st === '已完成' || st === '已取消')) return false;
+    if (statusF !== '全部' && st !== statusF) return false;
+    if (codeF !== '全部' && orderProductCode(o) !== codeF) return false;
+    const cFrom = document.getElementById('orderFrom').value;
+    const cTo = document.getElementById('orderTo').value;
+    if (cFrom || cTo) {
+      const ymd = orderDeliveryYMD(o).replace(/\//g, '-');
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(ymd)) return false;
+      if (cFrom && ymd < cFrom) return false;
+      if (cTo && ymd > cTo) return false;
+    } else if (orderRange) {
+      const diff = orderDeliveryDiff(o);
+      if (diff === null) return false;
+      if (orderRange === 'today' && (diff < -1 || diff > 0)) return false;
+      if (orderRange === '3d' && (diff < -1 || diff > 3)) return false;
+      if (orderRange === '7d' && (diff < -1 || diff > 7)) return false;
+    }
+    if (q && !orderHeaders.some(h => String(o[h] || '').toLowerCase().includes(q))) return false;
+    return true;
+  });
+  orderFilteredList = list;
+  document.getElementById('orderStat').textContent = `顯示 ${list.length} / 共 ${orders.length} 筆`;
+  renderOrderStats(list);
+  if (!list.length) { box.innerHTML = '<div class="gm-empty">沒有符合篩選的訂單</div>'; return; }
+  box.innerHTML = list.map(o => {
+    const st = orderStatusOf(o);
+    const fields = orderHeaders.map(h => {
+      const v = fmtOrderVal(h, o[h]);
+      return (v !== '' && v != null) ? `<div class="ord-f"><em>${h}</em><span>${String(v)}</span></div>` : '';
+    }).join('');
+    const pills = ORDER_STATUSES.map(s =>
+      `<button class="ord-pill${s === st ? ' active ord-' + orderStatusClass(s) : ''}" onclick="setOrderStatus(${o._row}, '${s}')">${s}</button>`
+    ).join('');
+    return `<div class="ord-card ord-b-${orderStatusClass(st)}">
+      <div class="ord-fields"><div class="ord-status-print">狀態：${st}</div>${fields}</div>
+      <div class="ord-pills">${pills}</div>
+      <div class="ord-note-print"><em>店家註記</em><span class="ord-note-blank"></span></div>
+    </div>`;
+  }).join('');
+}
+function setOrderStatus(row, status) {
+  getAuthToken().then(token => fetch('/.netlify/functions/orders', {
+    method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+    body: JSON.stringify({ action: 'update', row, status })
+  }).then(r => r.json()).then(r => {
+    if (r.success) { const o = orders.find(x => x._row === row); if (o) o['狀態'] = status; showToast('✓ 狀態已更新'); renderOrderList(); }
+    else throw new Error(r.error || '更新失敗');
+  }).catch(e => showToast('更新失敗：' + e.message)));
+}
+
+// ── 圖片放大 ──
+function openLightbox(id) {
+  const img = document.getElementById('imgLightboxImg');
+  img.src = `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_1400,q_auto,f_auto/${id}`;
+  document.getElementById('imgLightbox').classList.add('show');
+}
+function closeLightbox() {
+  document.getElementById('imgLightbox').classList.remove('show');
 }
 
 // ── Toast 提示 ──

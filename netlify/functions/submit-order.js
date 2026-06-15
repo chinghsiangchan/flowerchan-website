@@ -8,6 +8,13 @@ exports.handler = async function(event) {
   try {
     const body = JSON.parse(event.body);
 
+    // 測試站防混入：非正式站（如 redesign 分支部署）送出的訂單，
+    // 姓名與備註自動加【測試】標記，避免混入真訂單。
+    if (process.env.CONTEXT !== 'production') {
+      body.name = `【測試】${body.name || ''}`;
+      body.note = `【測試站訂單，請勿處理】${body.note || ''}`;
+    }
+
     const params = new URLSearchParams();
 
     // 花品
@@ -38,12 +45,9 @@ exports.handler = async function(event) {
       params.append(entryId, body[key] || '');
     }
 
-    // 日期（年月日分開）
+    // 日期（表單為新版日期題，吃單一值 YYYY-MM-DD）
     if (body.date) {
-      const [y, m, d] = body.date.split('-');
-      params.append('entry.1085798317_year', y);
-      params.append('entry.1085798317_month', m);
-      params.append('entry.1085798317_day', d);
+      params.append('entry.1085798317', body.date);
     }
 
     await fetch(FORM_URL, {

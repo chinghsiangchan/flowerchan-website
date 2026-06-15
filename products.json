@@ -5,32 +5,33 @@
     "price": 2000,
     "description": "每一束花，都是一個說不出口的心意。\n告訴我你的故事——場合、顏色、心情——\n小花店為你從當季花材中，親手選配、設計、包紮，\n做出世界上唯一一束，只屬於你的花。",
     "tags": [
-      "生日",
-      "日常",
       "粉色系",
-      "紫色系",
-      "情人節"
+      "紫色系"
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780024261/flowerchan/lszasbrg5jjfmbkuydjb.jpg",
     "cloudinary_id": "flowerchan/lszasbrg5jjfmbkuydjb",
     "occasions": [
+      "日常",
+      "生日",
+      "情人節/紀念日",
       "送禮靈感"
-    ]
+    ],
+    "featured": true
   },
   {
     "code": "FC-002",
     "name": "夢幻混搭大花束",
     "price": 3500,
     "tags": [
-      "生日",
-      "婚禮",
       "粉色系"
     ],
     "published": false,
     "photo": "DSCF3412.JPG",
     "cloudinary_id": "DSCF3412_xskzin",
     "occasions": [
+      "生日",
+      "婚禮",
       "送禮靈感"
     ]
   },
@@ -40,15 +41,47 @@
     "price": 1800,
     "description": "",
     "tags": [
-      "日常",
       "向日葵",
-      "畢業"
+      "設計感",
+      "黃色系"
     ],
     "published": true,
-    "photo": "DSCF3446.JPG",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/DSCF3446_fynpeo",
     "cloudinary_id": "DSCF3446_fynpeo",
     "occasions": [
+      "日常",
+      "情人節/紀念日",
+      "畢業",
       "送禮靈感"
+    ],
+    "category": "花束",
+    "status": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "featured": true,
+    "photos": [
+      {
+        "cloudinary_id": "DSCF3446_fynpeo"
+      },
+      {
+        "cloudinary_id": "flowerchan/yirpkgfvb7iavaunqaen"
+      },
+      {
+        "cloudinary_id": "flowerchan/cndn33l1ckjogg9kvsti"
+      },
+      {
+        "cloudinary_id": "flowerchan/vikknrsy3bju62gqv0ct"
+      },
+      {
+        "cloudinary_id": "flowerchan/ftsoycs8u4k11kuory8n"
+      },
+      {
+        "cloudinary_id": "flowerchan/krqxohottadfbomkxh2r"
+      },
+      {
+        "cloudinary_id": "flowerchan/l7m3ut7akipjvze5ktyb"
+      }
     ]
   },
   {
@@ -57,14 +90,14 @@
     "price": 1350,
     "description": "",
     "tags": [
-      "生日",
-      "日常",
       "紫色系"
     ],
     "published": true,
     "photo": "DSCF3465.JPG",
     "cloudinary_id": "DSCF3465_i9pgr7",
     "occasions": [
+      "日常",
+      "生日",
       "送禮靈感"
     ]
   },
@@ -73,17 +106,18 @@
     "name": "紫粉混搭花束最愛浪漫",
     "price": 1780,
     "tags": [
-      "生日",
-      "日常",
       "粉色系",
       "紫色系"
     ],
-    "published": false,
+    "published": true,
     "photo": "DSCF3482.JPG",
     "cloudinary_id": "DSCF3482_jv03w0",
     "occasions": [
+      "日常",
+      "生日",
       "送禮靈感"
-    ]
+    ],
+    "status": "完售"
   },
   {
     "code": "FC-006",
@@ -91,30 +125,31 @@
     "price": 1300,
     "description": "",
     "tags": [
-      "日常",
-      "向日葵",
-      "畢業"
+      "向日葵"
     ],
     "published": true,
     "photo": "DSCF3490.JPG",
     "cloudinary_id": "DSCF3490_yto22l",
     "occasions": [
+      "日常",
+      "畢業",
       "送禮靈感"
-    ]
+    ],
+    "featured": false
   },
   {
     "code": "FC-007",
     "name": "白色典雅瓶花",
     "price": 2800,
     "tags": [
-      "婚禮",
-      "日常",
       "瓶花"
     ],
     "published": false,
     "photo": "DSCF3517.JPG",
     "cloudinary_id": "DSCF3517_dvpskk",
     "occasions": [
+      "日常",
+      "婚禮",
       "送禮靈感"
     ]
   },
@@ -123,14 +158,14 @@
     "name": "向日葵大花束",
     "price": 1580,
     "tags": [
-      "生日",
-      "日常",
       "向日葵"
     ],
     "published": false,
     "photo": "DSCF3638.JPG",
     "cloudinary_id": "DSCF3638_hckt3v",
     "occasions": [
+      "日常",
+      "生日",
       "送禮靈感"
     ]
   },
@@ -140,15 +175,39 @@
     "price": 1500,
     "description": "",
     "tags": [
-      "生日",
-      "畢業",
       "非洲菊"
     ],
     "published": true,
-    "photo": "DSCF3652.JPG",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/DSCF3652_wn4aaf",
     "cloudinary_id": "DSCF3652_wn4aaf",
     "occasions": [
+      "生日",
+      "情人節/紀念日",
+      "畢業",
       "送禮靈感"
+    ],
+    "category": "花束",
+    "status": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "featured": true,
+    "photos": [
+      {
+        "cloudinary_id": "DSCF3652_wn4aaf"
+      },
+      {
+        "cloudinary_id": "flowerchan/kl3tpdhu0l7tjxfdefwf"
+      },
+      {
+        "cloudinary_id": "flowerchan/x3hrwgppwhhbu10e41s2"
+      },
+      {
+        "cloudinary_id": "flowerchan/wijg2m9qatpsp907gw1r"
+      },
+      {
+        "cloudinary_id": "flowerchan/aui7bimzpubceyugowwu"
+      }
     ]
   },
   {
@@ -156,14 +215,14 @@
     "name": "英式玫瑰花禮盒",
     "price": 2380,
     "tags": [
-      "生日",
-      "婚禮",
       "粉色系"
     ],
     "published": false,
     "photo": "DSCF3656.JPG",
     "cloudinary_id": "DSCF3656_bo9bz7",
     "occasions": [
+      "生日",
+      "婚禮",
       "送禮靈感"
     ]
   },
@@ -185,14 +244,13 @@
     "name": "粉漸層非洲菊花束",
     "price": 880,
     "description": "",
-    "tags": [
-      "日常",
-      "畢業"
-    ],
+    "tags": [],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780025822/flowerchan/aiu0xgvr5ox5ww5iwahx.jpg",
     "cloudinary_id": "flowerchan/aiu0xgvr5ox5ww5iwahx",
     "occasions": [
+      "日常",
+      "畢業",
       "送禮靈感"
     ]
   },
@@ -207,7 +265,8 @@
     "cloudinary_id": "flowerchan/osmhkgkirhjfy08o6igl",
     "occasions": [
       "送禮靈感"
-    ]
+    ],
+    "featured": true
   },
   {
     "code": "FC-014",
@@ -215,7 +274,6 @@
     "price": 1300,
     "description": "適合日常送禮，剛剛好的可愛",
     "tags": [
-      "日常",
       "粉色系",
       "紫色系"
     ],
@@ -223,6 +281,7 @@
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780029081/flowerchan/mkvox3znorv4zwnd32u9.jpg",
     "cloudinary_id": "flowerchan/mkvox3znorv4zwnd32u9",
     "occasions": [
+      "日常",
       "送禮靈感"
     ]
   },
@@ -232,14 +291,32 @@
     "price": 100,
     "description": "適合送給畢業生的單枝花禮",
     "tags": [
-      "向日葵",
-      "畢業"
+      "向日葵"
     ],
     "published": true,
-    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780029348/flowerchan/etygvwjjo1qkjj48g75l.jpg",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/etygvwjjo1qkjj48g75l",
     "cloudinary_id": "flowerchan/etygvwjjo1qkjj48g75l",
     "occasions": [
+      "日常",
+      "畢業",
       "送禮靈感"
+    ],
+    "category": "花束",
+    "status": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/etygvwjjo1qkjj48g75l"
+      },
+      {
+        "cloudinary_id": "flowerchan/ik3vdpsxufejvw9dfg0r"
+      },
+      {
+        "cloudinary_id": "flowerchan/z8dvwnnvgdv4wk2fnl6x"
+      }
     ]
   },
   {
@@ -247,13 +324,12 @@
     "name": "輕巧版小花束",
     "price": 450,
     "description": "",
-    "tags": [
-      "日常"
-    ],
+    "tags": [],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780030075/flowerchan/pmmnylskg8ttnu1wnvdc.png",
     "cloudinary_id": "flowerchan/pmmnylskg8ttnu1wnvdc",
     "occasions": [
+      "日常",
       "送禮靈感"
     ]
   },
@@ -263,13 +339,13 @@
     "price": 1800,
     "description": "充滿青春感的向日葵花束",
     "tags": [
-      "向日葵",
-      "畢業"
+      "向日葵"
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780030571/flowerchan/zhwjd5eguzlq0bpz4spx.jpg",
     "cloudinary_id": "flowerchan/zhwjd5eguzlq0bpz4spx",
     "occasions": [
+      "畢業",
       "送禮靈感"
     ]
   },
@@ -278,14 +354,13 @@
     "name": "淡雅風格花束",
     "price": 1500,
     "description": "適合喜歡淡雅風格的花束",
-    "tags": [
-      "生日",
-      "日常"
-    ],
+    "tags": [],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780031102/flowerchan/fofqj0urnofwqqouozxv.jpg",
     "cloudinary_id": "flowerchan/fofqj0urnofwqqouozxv",
     "occasions": [
+      "日常",
+      "生日",
       "送禮靈感"
     ]
   },
@@ -294,16 +369,15 @@
     "name": "非洲菊花束",
     "price": 1000,
     "description": "藍色的包裝配上可愛的粉色非洲菊，給最可愛的你",
-    "tags": [
-      "生日",
-      "日常",
-      "情人節",
-      "畢業"
-    ],
+    "tags": [],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780031540/flowerchan/zrtuwtl6ltoeeudntfjw.jpg",
     "cloudinary_id": "flowerchan/zrtuwtl6ltoeeudntfjw",
     "occasions": [
+      "日常",
+      "生日",
+      "情人節/紀念日",
+      "畢業",
       "送禮靈感"
     ]
   },
@@ -313,14 +387,14 @@
     "price": 2850,
     "description": "一期一會的芍藥花束，獨特的香氣與無可取代的華麗氣質，一定要送給最特別的她",
     "tags": [
-      "生日",
-      "日常",
       "粉色系"
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780044189/flowerchan/oagrp2yrqft1ob8nakzh.jpg",
     "cloudinary_id": "flowerchan/oagrp2yrqft1ob8nakzh",
     "occasions": [
+      "日常",
+      "生日",
       "送禮靈感"
     ]
   },
@@ -330,8 +404,6 @@
     "price": 1200,
     "description": "",
     "tags": [
-      "生日",
-      "日常",
       "自然",
       "清新"
     ],
@@ -339,43 +411,11 @@
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780044297/flowerchan/ztbw2stgh7vbaztxwk4v.jpg",
     "cloudinary_id": "flowerchan/ztbw2stgh7vbaztxwk4v",
     "occasions": [
+      "日常",
+      "生日",
       "送禮靈感"
-    ]
-  },
-  {
-    "code": "FC-PV01",
-    "name": "永生玫瑰花盒（範例）",
-    "category": "永生花",
-    "price": 2280,
-    "status": "",
-    "description": "以進口永生玫瑰手工製作，免澆水、可長久保存，送禮或居家擺飾都雅緻耐看。（此為示範商品，可於後台刪除）",
-    "materials": "永生玫瑰 3 入、永生繡球、尤加利葉、緞帶、手工禮盒",
-    "size": "盒徑約 15 cm × 高 12 cm",
-    "care": "避免陽光直射與潮濕，請勿碰水。可用吹風機冷風輕除灰塵。妥善保存可維持 1–3 年。",
-    "tags": [
-      "生日",
-      "紀念日",
-      "粉色系"
     ],
-    "occasions": [
-      "送禮靈感",
-      "生日",
-      "紀念日"
-    ],
-    "photos": [
-      {
-        "cloudinary_id": "flowerchan/oagrp2yrqft1ob8nakzh"
-      },
-      {
-        "cloudinary_id": "flowerchan/mkvox3znorv4zwnd32u9"
-      },
-      {
-        "cloudinary_id": "flowerchan/lszasbrg5jjfmbkuydjb"
-      }
-    ],
-    "cloudinary_id": "flowerchan/oagrp2yrqft1ob8nakzh",
-    "published": true,
-    "featured": false
+    "featured": true
   },
   {
     "code": "FE-001",
@@ -400,19 +440,356 @@
     "featured": true,
     "photos": [
       {
-        "cloudinary_id": "flowerchan/fskmlb0vvrheaudmqphn"
+        "cloudinary_id": "flowerchan/hyogjfsiqi3tcoxldhpq"
       },
       {
-        "cloudinary_id": "flowerchan/ycugaqjdy0opk8m0gkdl"
+        "cloudinary_id": "flowerchan/dyfgka6sniijdfljupvf"
       },
       {
-        "cloudinary_id": "flowerchan/ewzz1wxaf9hc12ah6bqx"
+        "cloudinary_id": "flowerchan/l0uwr9gtztqywq6cooec"
       },
       {
-        "cloudinary_id": "flowerchan/dgec6g7ur8jh5qm4oa5m"
+        "cloudinary_id": "flowerchan/x599iob6cuy48ehbnpbg"
       }
     ],
-    "cloudinary_id": "flowerchan/fskmlb0vvrheaudmqphn",
-    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/fskmlb0vvrheaudmqphn"
+    "cloudinary_id": "flowerchan/hyogjfsiqi3tcoxldhpq",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/hyogjfsiqi3tcoxldhpq"
+  },
+  {
+    "code": "TF-001",
+    "name": "暖陽花園桌花",
+    "price": 3800,
+    "category": "桌花",
+    "status": "完售",
+    "description": "像把一座盛夏花園搬上桌。\n以當季大理花為主角，珊瑚橘、桃粉到洋紅層層堆疊，襯一抹深紫輪鋒菊與跳色的鵝黃，奔放卻不失手作的細緻。\n擺在客廳、櫃台或餐桌，整個空間都亮了起來——送禮、自用都合適，也可依預算與場合調整花材與尺寸。",
+    "materials": "大理花、玫瑰、非洲菊、輪鋒菊、金魚草、季節綠葉",
+    "size": "約寬 30 × 高 35 cm（陶瓷花器，實際依當季花材微調）",
+    "care": "收到後置於通風陰涼處，避免陽光直射與空調直吹。每 1–2 天換水、斜剪根部約 1cm；觀賞期約 5–7 天，依季節與品種略有不同。",
+    "tags": [
+      "粉色系",
+      "橘色系",
+      "花園風",
+      "設計感"
+    ],
+    "occasions": [
+      "日常",
+      "生日",
+      "喬遷",
+      "送禮靈感"
+    ],
+    "published": true,
+    "featured": true,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/wilnspf4ugiz5ehtz4gp"
+      },
+      {
+        "cloudinary_id": "flowerchan/tdxftgla3nyst44p7ifi"
+      },
+      {
+        "cloudinary_id": "flowerchan/qgl9uyuou6e7l2un4eqd"
+      },
+      {
+        "cloudinary_id": "flowerchan/xjzqbld0id7djvn2mpn8"
+      }
+    ],
+    "cloudinary_id": "flowerchan/wilnspf4ugiz5ehtz4gp",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/wilnspf4ugiz5ehtz4gp"
+  },
+  {
+    "code": "TF-002",
+    "name": "金陽線條桌花",
+    "price": 2800,
+    "category": "桌花",
+    "status": "完售",
+    "description": "把一束陽光，立成俐落的線條。\n鵝黃海芋與橘色蜘蛛菊向上舒展，桃粉金魚草穿插其間，底部以深紅石竹收斂出層次與重量感——明亮卻沉得住，現代而有設計感。\n放在櫃台、會議桌或玄關都很有氣場，適合開幕、喬遷與送禮，也可依預算與場合調整花材與尺寸。",
+    "materials": "海芋、蜘蛛菊、火鶴、金魚草、石竹、季節綠葉",
+    "size": "低檯設計，約寬 35 × 高 45 cm（陶瓷花器，實際依當季花材微調）",
+    "care": "收到後置於通風陰涼處，避免陽光直射與空調直吹。每 1–2 天換水、斜剪根部約 1cm；觀賞期約 5–7 天，依季節與品種略有不同。",
+    "tags": [
+      "黃色系",
+      "橘色系",
+      "線條感",
+      "設計感"
+    ],
+    "occasions": [
+      "生日",
+      "開幕·活動",
+      "喬遷",
+      "送禮靈感"
+    ],
+    "published": true,
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/f9ddi2aah0qwana7te2y"
+      },
+      {
+        "cloudinary_id": "flowerchan/blsdgko8geom8ptaojwz"
+      },
+      {
+        "cloudinary_id": "flowerchan/fjbumnwnc8bzt8hjlx2s"
+      },
+      {
+        "cloudinary_id": "flowerchan/otevsj0v4yrzcpckwn9g"
+      }
+    ],
+    "cloudinary_id": "flowerchan/f9ddi2aah0qwana7te2y",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/f9ddi2aah0qwana7te2y"
+  },
+  {
+    "code": "TF-003",
+    "name": "暖陽非洲菊桌花",
+    "price": 2000,
+    "category": "桌花",
+    "status": "完售",
+    "description": "一抹珊瑚橘，把日子曬得暖暖的。\n高低舒展的非洲菊像一張張朝上的笑臉，點綴星星般的小白菊與苔綠，自然清新、不費力的好看。\n放在書桌、窗邊或床頭都剛剛好，送給正在恢復、值得開心的人，或單純想為日常添點亮色——都合適。",
+    "materials": "非洲菊、小白菊（洋甘菊）、季節綠葉",
+    "size": "約寬 25 × 高 35 cm（陶瓷花器，實際依當季花材微調）",
+    "care": "收到後置於通風陰涼處，避免陽光直射與空調直吹。每 1–2 天換水、斜剪根部約 1cm；觀賞期約 5–7 天，依季節與品種略有不同。",
+    "tags": [
+      "橘色系",
+      "自然",
+      "清新"
+    ],
+    "occasions": [
+      "日常",
+      "生日",
+      "探病",
+      "送禮靈感"
+    ],
+    "published": true,
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/uprp7d3wtifm9skajtj2"
+      },
+      {
+        "cloudinary_id": "flowerchan/c4z0x6q2atdmjggafasg"
+      },
+      {
+        "cloudinary_id": "flowerchan/v5jzun7mkklwvpsafufc"
+      },
+      {
+        "cloudinary_id": "flowerchan/yqjalsfxvdmiq3ypffk4"
+      },
+      {
+        "cloudinary_id": "flowerchan/q7gskcz8vlcxqmax8qpn"
+      }
+    ],
+    "cloudinary_id": "flowerchan/uprp7d3wtifm9skajtj2",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/uprp7d3wtifm9skajtj2"
+  },
+  {
+    "code": "FS-001",
+    "name": "鴻運誌慶高架花籃",
+    "price": 6000,
+    "category": "高架花",
+    "status": "完售",
+    "description": "為重要的日子，立一份大器的祝福。\n飽滿的紅玫瑰、火鶴與火焰百合層層綻放，襯著純白百合與桔梗、垂墜的綠意，挺立於門前氣勢十足。\n開幕、誌慶、喬遷皆宜，是替你把「恭喜」說得響亮的代表作。標示為基準款，實際高度與份量可依場合與預算調整。",
+    "materials": "玫瑰、火鶴、火焰百合、百合、桔梗、康乃馨、季節綠葉",
+    "size": "含花架整體高約 150–180 cm（基準款，實際依花材與訂製尺寸微調）",
+    "care": "屬展示型花禮，請置於通風陰涼處、避免陽光直射與強風。活動結束前每日補水可延長觀賞；觀賞期約 3–5 天，依季節略有不同。",
+    "tags": [
+      "紅色系",
+      "設計感"
+    ],
+    "occasions": [
+      "開幕·活動",
+      "喬遷",
+      "送禮靈感"
+    ],
+    "published": true,
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/kyslbap4hivienexacj7"
+      },
+      {
+        "cloudinary_id": "flowerchan/cnr84m7uqo972a1mp9uk"
+      },
+      {
+        "cloudinary_id": "flowerchan/ehpq2tgu8w9jpxuganpm"
+      },
+      {
+        "cloudinary_id": "flowerchan/rjygakdkp7640h6cku2d"
+      }
+    ],
+    "cloudinary_id": "flowerchan/kyslbap4hivienexacj7",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/kyslbap4hivienexacj7"
+  },
+  {
+    "code": "PV-001",
+    "name": "粉藍永生花器",
+    "price": 1800,
+    "category": "永生花",
+    "status": "完售",
+    "description": "把最溫柔的色票收進一只陶器裡。\n香檳與粉玫瑰、永生雛菊，綴上藍色星辰與兔尾草，柔粉裡透著一抹靜謐的藍。\n免澆水、不凋謝，放在書桌、床頭或當小禮都耐看，妥善擺放可賞 1–3 年。",
+    "materials": "永生玫瑰、永生雛菊、永生康乃馨、染色星辰、兔尾草、乾燥配材",
+    "size": "約寬 18 × 高 22 cm（陶瓷花器）",
+    "care": "永生花免澆水。請避免陽光直射、潮濕與碰水；可用吹風機冷風輕除灰塵。妥善擺放可維持 1–3 年。",
+    "tags": [
+      "粉色系",
+      "雅緻",
+      "永生花"
+    ],
+    "occasions": [
+      "生日",
+      "情人節/紀念日",
+      "送禮靈感"
+    ],
+    "published": true,
+    "featured": true,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/phs42fgnsw5ntjyuzt1y"
+      },
+      {
+        "cloudinary_id": "flowerchan/rmr7p8b5znljd4ddavvs"
+      }
+    ],
+    "cloudinary_id": "flowerchan/phs42fgnsw5ntjyuzt1y",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/phs42fgnsw5ntjyuzt1y"
+  },
+  {
+    "code": "PV-002",
+    "name": "玻璃罩永生花盅",
+    "price": 2000,
+    "category": "永生花",
+    "status": "完售",
+    "description": "用一只玻璃罩，把盛開的瞬間留住。\n粉玫瑰、松蟲草與暖黃繡球層層堆疊，木質底座溫潤雅緻，玻璃罩隔絕灰塵、好保存。\n是送給重要的人、留住紀念的長久花禮，可賞 1–3 年。",
+    "materials": "永生玫瑰、松蟲草、永生繡球、染色配材、玻璃罩、木質底座",
+    "size": "玻璃罩約直徑 12 × 高 20 cm",
+    "care": "永生花免澆水。請避免陽光直射、潮濕與碰水；可用吹風機冷風輕除灰塵。妥善擺放可維持 1–3 年。",
+    "tags": [
+      "粉色系",
+      "雅緻",
+      "永生花"
+    ],
+    "occasions": [
+      "生日",
+      "情人節/紀念日",
+      "喬遷",
+      "送禮靈感"
+    ],
+    "published": false,
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/w49ia03wtl8tklaucjel"
+      }
+    ],
+    "cloudinary_id": "flowerchan/w49ia03wtl8tklaucjel",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/w49ia03wtl8tklaucjel"
+  },
+  {
+    "code": "PV-003",
+    "name": "金框幾何永生花盒",
+    "price": 1800,
+    "category": "永生花",
+    "status": "完售",
+    "description": "幾何金框裡，藏著粉嫩的告白。\n粉玫瑰與永生繡球安放在透亮玻璃盒中，繫上一段質樸麻繩——可當擺飾，也很適合作求婚戒盒或婚禮小物。\n免澆水、好保存，留住專屬的浪漫 1–3 年。",
+    "materials": "永生玫瑰、永生繡球、玻璃金框花盒、麻繩",
+    "size": "金框約 10 × 10 × 高 12 cm",
+    "care": "永生花免澆水。請避免陽光直射、潮濕與碰水；可用吹風機冷風輕除灰塵。妥善擺放可維持 1–3 年。",
+    "tags": [
+      "粉色系",
+      "雅緻",
+      "永生花"
+    ],
+    "occasions": [
+      "情人節/紀念日",
+      "婚禮",
+      "送禮靈感"
+    ],
+    "published": true,
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/k45rfr2bvyatebcuw63w"
+      },
+      {
+        "cloudinary_id": "flowerchan/qb9fhilirujlqldhv3ro"
+      }
+    ],
+    "cloudinary_id": "flowerchan/k45rfr2bvyatebcuw63w",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/k45rfr2bvyatebcuw63w"
+  },
+  {
+    "code": "OR-001",
+    "name": "粉蝶蘭・漂流木盆植",
+    "price": 3500,
+    "category": "蘭花",
+    "status": "完售",
+    "description": "一株安靜生長的優雅。\n帶細斑的粉蝴蝶蘭順著弧線舒展，搭配漂流木與水苔，像把一小片自然請進室內。\n花期長、好照顧，氣質端莊又不失設計感——開幕、喬遷、祝賀或送長輩都體面，也可依預算調整盆器與株數。",
+    "materials": "蝴蝶蘭、漂流木、水苔、陶瓷盆器",
+    "size": "約高 40–50 cm（含盆器，實際依株型微調）",
+    "care": "置於明亮通風處、避免陽光直射與冷氣直吹。約 7–10 天澆水一次，待介質略乾再澆、勿積水。花期可維持 1–2 個月，謝後仍可續養。",
+    "tags": [
+      "粉色系",
+      "自然",
+      "設計感"
+    ],
+    "occasions": [
+      "生日",
+      "開幕·活動",
+      "喬遷",
+      "送禮靈感"
+    ],
+    "published": true,
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/bzdmqpdeiqlq3maophjj"
+      },
+      {
+        "cloudinary_id": "flowerchan/b2zmqebi1xecsfr5rkym"
+      },
+      {
+        "cloudinary_id": "flowerchan/xlpmr4hath7pmigoef9g"
+      },
+      {
+        "cloudinary_id": "flowerchan/ywk4lswbqpqg0ovkahib"
+      },
+      {
+        "cloudinary_id": "flowerchan/uv4hvgdlmxzbgs5yipgc"
+      }
+    ],
+    "cloudinary_id": "flowerchan/bzdmqpdeiqlq3maophjj",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/bzdmqpdeiqlq3maophjj"
+  },
+  {
+    "code": "OR-002",
+    "name": "繽紛蝴蝶蘭組盆",
+    "price": 3500,
+    "category": "蘭花",
+    "status": "完售",
+    "description": "把一整座蘭花園收進一只盆裡。\n桃紅、薰紫、鵝黃與純白的蝴蝶蘭多色齊放，襯著斑葉常春藤與腎蕨的綠意垂墜，雍容卻不厚重。\n花期長、氣派十足，開幕、喬遷、賀壽或重要祝賀都拿得出手，可依預算調整株數與盆器。",
+    "materials": "蝴蝶蘭（多色）、斑葉常春藤、腎蕨、水苔、陶瓷盆器",
+    "size": "約高 50–60 cm（含盆器，實際依株型微調）",
+    "care": "置於明亮通風處、避免陽光直射與冷氣直吹。約 7–10 天澆水一次，待介質略乾再澆、勿積水。花期可維持 1–2 個月，謝後仍可續養。",
+    "tags": [
+      "紫色系",
+      "自然",
+      "設計感"
+    ],
+    "occasions": [
+      "生日",
+      "開幕·活動",
+      "喬遷",
+      "送禮靈感"
+    ],
+    "published": true,
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/clxu2whgrdibgzdffl8v"
+      },
+      {
+        "cloudinary_id": "flowerchan/b2ginqlcfyptiiukmoed"
+      }
+    ],
+    "cloudinary_id": "flowerchan/clxu2whgrdibgzdffl8v",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/clxu2whgrdibgzdffl8v"
   }
 ]

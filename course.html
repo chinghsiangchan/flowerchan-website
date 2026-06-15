@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="小花店花藝課程介紹。">
+<title>課程介紹｜Flower Chan 小花店</title>
+<link rel="icon" type="image/png" href="ICON.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+TC:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Flower Chan 小花店">
+<meta property="og:title" content="課程介紹｜Flower Chan 小花店">
+<meta property="og:description" content="小花店花藝課程介紹。">
+<meta property="og:image" content="https://res.cloudinary.com/dcwgv05q1/image/upload/w_1200,h_630,c_fill,q_auto,f_auto/flowerchan/oagrp2yrqft1ob8nakzh">
+<meta property="og:url" content="https://flowerchan.com/courses">
+<meta name="twitter:card" content="summary_large_image">
+
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="/"><img class="nav-logo" src="/ICON.png" alt="Flower Chan logo"><span>FLOWER CHAN<small>小 花 店</small></span></a>
+  <ul class="nav-links">
+    <li><a href="/bouquet">花束</a></li><li><a href="/festival">節慶花禮</a></li>
+    <li><a href="/table-flower">桌花</a></li>
+    <li><a href="/flower-stand">高架花籃</a></li>
+    <li><a href="/orchid">蘭花</a></li>
+    <li><a href="/preserved">永生花</a></li>
+    <li><a href="/courses" class="current">花藝課程</a></li>
+    <li><a href="/#about">關於</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <a class="nav-cta" href="/order">立即預訂</a>
+    <button class="nav-toggle" onclick="toggleMobileMenu()" aria-label="選單">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/bouquet">花束 BOUQUET</a>
+  <a href="/festival">節慶花禮 FESTIVE</a>
+  <a href="/table-flower">桌花 TABLE FLOWERS</a>
+  <a href="/flower-stand">高架花籃 FLOWER STANDS</a>
+  <a href="/orchid">蘭花 ORCHIDS</a>
+  <a href="/preserved">永生花 PRESERVED FLOWERS</a>
+  <a href="/courses">花藝課程 COURSES</a>
+  <a href="/#about">關於 ABOUT</a>
+  <a class="mm-cta" href="/order" onclick="toggleMobileMenu()">立即預訂</a>
+</div>
+
+<div class="course-page">
+  <a class="back-link" href="/courses">← 回到課程列表</a>
+  <div class="breadcrumb" id="breadcrumb"></div>
+  <div id="courseWrap"></div>
+
+  <div id="otherWrap" style="margin-top:5rem;display:none;">
+    <p class="sec-eyebrow">More Workshops</p>
+    <h2 class="sec-title" style="font-size:1.6rem;">其他課程</h2>
+    <div class="course-grid" id="otherGrid" style="margin-top:2.5rem;"></div>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')"><img id="lightboxImg" src="" alt="放大檢視"></div>
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col footer-brand-col">
+      <img class="footer-logo" src="/FLOWERCHAN_WHITE.png" alt="Flower Chan">
+      <p class="footer-tagline">小花店 · 讓每個時刻都有花的陪伴</p>
+    </div>
+    <div class="footer-col">
+      <p class="footer-head">花禮選品</p>
+      <a href="/bouquet">花束</a><a href="/festival">節慶花禮</a>
+      <a href="/table-flower">桌花</a>
+      <a href="/flower-stand">高架花籃</a>
+      <a href="/orchid">蘭花</a>
+      <a href="/preserved">永生花</a>
+    </div>
+    <div class="footer-col">
+      <p class="footer-head">服務</p>
+      <a href="/courses">花藝課程</a>
+      <a href="/order">訂購方式</a>
+      <a href="/#about">關於小花店</a>
+    </div>
+    <div class="footer-col">
+      <p class="footer-head">聯絡我們</p>
+      <p class="footer-info">TEL: <a href="tel:0223637539">02-2363-7539</a></p>
+      <p class="footer-info">台北市辛亥路二段43號1樓</p>
+      <p class="footer-info">預約制 · 歡迎私訊預約</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/flowerchan_tw/" target="_blank">Instagram</a>
+        <a href="https://www.facebook.com/freshasdaisyflower" target="_blank">Facebook</a>
+        <a href="https://lin.ee/jZUeNhm" target="_blank">LINE</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Flower Chan 小花店（小花序章企業社）· 台北市辛亥路二段43號1樓</div>
+</footer>
+
+<script src="/assets/site.js"></script>
+<script>
+function coursePhotoList(c) {
+  const urls = [];
+  if (Array.isArray(c.photos) && c.photos.length) {
+    c.photos.forEach(ph => {
+      if (ph.cloudinary_id) urls.push(`https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_900,q_auto,f_auto/${ph.cloudinary_id}`);
+      else if (typeof ph === 'string') urls.push(ph);
+    });
+  } else if (c.cloudinary_id) {
+    urls.push(`https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_900,q_auto,f_auto/${c.cloudinary_id}`);
+  } else if (c.photo) {
+    urls.push(c.photo);
+  }
+  return urls.slice(0, 10); // 課程內頁最多 10 張
+}
+
+function render(c, all) {
+  document.title = `${c.name}｜Flower Chan 小花店`;
+  document.getElementById('breadcrumb').innerHTML =
+    `<a href="/">首頁</a><span>/</span><a href="/courses">花藝課程</a><span>/</span>${c.name}`;
+
+  const photos = coursePhotoList(c);
+  const statusMap = { '報名中': 'open', '額滿': 'full', '已結束': 'closed' };
+  const cls = statusMap[c.status] || 'open';
+  const closed = c.status === '額滿' || c.status === '已結束';
+
+  document.getElementById('courseWrap').innerHTML = `
+  <div class="course-hero-grid">
+    <div class="product-photos">
+      ${photos.length
+        ? `<div class="zoom-frame zoom-frame--wide"><img class="product-photo-main" id="mainPhoto" src="${photos[0]}" alt="${c.name}" style="aspect-ratio:4/3;"></div>`
+        : '<div class="course-photo-placeholder" style="aspect-ratio:4/3;border-radius:var(--radius);font-size:3rem;">🌿</div>'}
+      ${photos.length > 1 ? `
+      <div class="thumb-row">
+        <button class="thumb-arrow" onclick="scrollThumbs(-1)" aria-label="上一張">‹</button>
+        <div class="thumb-track" id="thumbTrack">
+          ${photos.map((u, i) => `<img src="${u}" class="${i === 0 ? 'active' : ''}" onclick="swapPhoto(this,'${u}')" alt="${c.name} ${i + 1}">`).join('')}
+        </div>
+        <button class="thumb-arrow" onclick="scrollThumbs(1)" aria-label="下一張">›</button>
+      </div>` : ''}
+    </div>
+    <div class="product-info">
+      <p class="course-type">${c.type || '常態課程'}${c.date ? ' ｜ ' + c.date : ''}</p>
+      <h1 class="product-title">${c.name}</h1>
+      ${c.name_en ? `<p style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--muted);margin-bottom:0.8rem;">${c.name_en}</p>` : ''}
+      <span class="course-status ${cls}">${c.status || '報名中'}</span>
+      <p class="product-price">${c.price ? 'NT$ ' + Number(c.price).toLocaleString() : '價格洽詢'}</p>
+      <p class="product-price-note">費用含全部花材與工具，作品可帶回</p>
+
+      <div class="spec-block">
+        <p class="spec-label">課程資訊</p>
+        <p class="spec-val">
+          ${c.duration ? '時長｜' + c.duration + '<br>' : ''}
+          ${c.capacity ? '名額｜' + c.capacity + '<br>' : ''}
+          ${c.date ? '開課｜' + c.date + '<br>' : '時間｜彈性預約，LINE 與我們約時間'}
+        </p>
+      </div>
+
+      ${c.description ? `<p class="product-desc">${c.description}</p>` : ''}
+
+      <div class="product-cta">
+        ${closed
+          ? '<span class="btn-main disabled">本期已截止</span>'
+          : `<a class="btn-line2 is-line" href="${LINE_URL}" target="_blank">LINE 詢問報名</a>`}
+      </div>
+
+      <div class="accordion" style="margin-top:1rem;">
+        <div class="accordion-item">
+          <button class="accordion-head" onclick="this.parentElement.classList.toggle('open')">報名方式</button>
+          <div class="accordion-body">
+            1. 點「LINE 詢問報名」，告訴我們想上的課程與偏好時間。<br>
+            2. 確認時段與名額後，完成付款即報名成功。<br>
+            3. 上課地點：台北市辛亥路二段43號1樓。
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-head" onclick="this.parentElement.classList.toggle('open')">改期與取消</button>
+          <div class="accordion-body">
+            如需改期，請於課前 3 天告知，可免費改期一次。<br>
+            課程材料為預先備貨，恕不接受課前 3 天內取消退費。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  const others = all.filter(x => x.code !== c.code).slice(0, 4);
+  if (others.length) {
+    document.getElementById('otherWrap').style.display = 'block';
+    document.getElementById('otherGrid').innerHTML = others.map(courseCardHtml).join('');
+  }
+  observeReveal();
+  setupImageZoom(document.getElementById('mainPhoto'));
+  setupThumbCarousel();
+}
+
+function openLightbox(src) {
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('open');
+}
+function swapPhoto(el, url) {
+  const main = document.getElementById('mainPhoto');
+  main.src = url;
+  main.style.transform = '';
+  main.classList.remove('zoomed');
+  document.querySelectorAll('.thumb-track img').forEach(i => i.classList.remove('active'));
+  el.classList.add('active');
+}
+
+async function init() {
+  const code = new URLSearchParams(location.search).get('code');
+  try {
+    const all = await fetchCourses();
+    const c = all.find(x => x.code === code);
+    if (!c) {
+      document.getElementById('courseWrap').innerHTML =
+        '<p style="padding:4rem 0;color:var(--muted);">找不到這堂課程，<a href="/courses" style="color:var(--green)">回到課程列表</a> 看看其他課程吧。</p>';
+      return;
+    }
+    render(c, all);
+  } catch (e) {
+    document.getElementById('courseWrap').innerHTML =
+      '<p style="padding:4rem 0;color:var(--muted);">課程載入中，請稍候...</p>';
+  }
+}
+init();
+</script>
+<a class="fab-line" href="https://lin.ee/jZUeNhm" target="_blank" aria-label="LINE 詢問">
+<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 5.64 2 10.1c0 2.57 1.49 4.85 3.82 6.33-.13.46-.66 2.37-.69 2.53 0 0-.01.11.06.16.07.04.16.02.16.02.21-.03 2.44-1.6 3.4-2.27.74.11 1.49.16 2.25.16 5.52 0 10-3.64 10-8.13S17.52 2 12 2z"/></svg>
+</a>
+</body>
+</html>

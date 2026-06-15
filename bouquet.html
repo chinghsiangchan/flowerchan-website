@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>花束 BOUQUET｜Flower Chan 小花店</title>
+<meta name="description" content="Flower Chan 小花店花束系列作品。台北大安區手作花藝，歡迎線上訂購或 LINE 洽詢。">
+<link rel="icon" type="image/png" href="ICON.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+TC:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Flower Chan 小花店">
+<meta property="og:title" content="花束 BOUQUET｜Flower Chan 小花店">
+<meta property="og:description" content="小花店手作花束，生日、情人節、畢業、日常送禮，親手選配設計。">
+<meta property="og:image" content="https://res.cloudinary.com/dcwgv05q1/image/upload/w_1200,h_630,c_fill,q_auto,f_auto/flowerchan/oagrp2yrqft1ob8nakzh">
+<meta property="og:url" content="https://flowerchan.com/bouquet">
+<meta name="twitter:card" content="summary_large_image">
+
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="/"><img class="nav-logo" src="/ICON.png" alt="Flower Chan logo"><span>FLOWER CHAN<small>小 花 店</small></span></a>
+  <ul class="nav-links">
+    <li><a href="/bouquet" class="current">花束</a></li><li><a href="/festival">節慶花禮</a></li>
+    <li><a href="/table-flower">桌花</a></li>
+    <li><a href="/flower-stand">高架花籃</a></li>
+    <li><a href="/orchid">蘭花</a></li>
+    <li><a href="/preserved">永生花</a></li>
+    <li><a href="/courses">花藝課程</a></li>
+    <li><a href="/#about">關於</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <a class="nav-cta" href="/order">立即預訂</a>
+    <button class="nav-toggle" onclick="toggleMobileMenu()" aria-label="選單">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/bouquet">花束 BOUQUET</a>
+  <a href="/festival">節慶花禮 FESTIVE</a>
+  <a href="/table-flower">桌花 TABLE FLOWERS</a>
+  <a href="/flower-stand">高架花籃 FLOWER STANDS</a>
+  <a href="/orchid">蘭花 ORCHIDS</a>
+  <a href="/preserved">永生花 PRESERVED FLOWERS</a>
+  <a href="/courses">花藝課程 COURSES</a>
+  <a href="/#about">關於 ABOUT</a>
+  <a class="mm-cta" href="/order" onclick="toggleMobileMenu()">立即預訂</a>
+</div>
+
+<header class="cat-hero cat-hero--photo" style="--hero-img:url('https://res.cloudinary.com/dcwgv05q1/image/upload/w_1600,c_fill,q_auto,f_auto/flowerchan/oagrp2yrqft1ob8nakzh')">
+  <div class="cat-hero-inner">
+    <p class="cat-hero-eyebrow">Bouquet Collection</p>
+    <h1 class="cat-hero-en">BOUQUET</h1>
+    <p class="cat-hero-zh">花束 ・ 親手選配、設計、包紮的獨一無二</p>
+  </div>
+</header>
+<section style="padding-top:2.5rem;">
+  <div class="filter-bar reveal" id="filterBar"></div>
+  <div class="gallery-grid" id="galleryGrid"></div>
+  <div class="gallery-more reveal">
+    <a href="https://www.instagram.com/flowerchan_tw/" target="_blank">在 Instagram 查看更多作品 ↗</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col footer-brand-col">
+      <img class="footer-logo" src="/FLOWERCHAN_WHITE.png" alt="Flower Chan">
+      <p class="footer-tagline">小花店 · 讓每個時刻都有花的陪伴</p>
+    </div>
+    <div class="footer-col">
+      <p class="footer-head">花禮選品</p>
+      <a href="/bouquet">花束</a><a href="/festival">節慶花禮</a>
+      <a href="/table-flower">桌花</a>
+      <a href="/flower-stand">高架花籃</a>
+      <a href="/orchid">蘭花</a>
+      <a href="/preserved">永生花</a>
+    </div>
+    <div class="footer-col">
+      <p class="footer-head">服務</p>
+      <a href="/courses">花藝課程</a>
+      <a href="/order">訂購方式</a>
+      <a href="/#about">關於小花店</a>
+    </div>
+    <div class="footer-col">
+      <p class="footer-head">聯絡我們</p>
+      <p class="footer-info">TEL: <a href="tel:0223637539">02-2363-7539</a></p>
+      <p class="footer-info">台北市辛亥路二段43號1樓</p>
+      <p class="footer-info">預約制 · 歡迎私訊預約</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/flowerchan_tw/" target="_blank">Instagram</a>
+        <a href="https://www.facebook.com/freshasdaisyflower" target="_blank">Facebook</a>
+        <a href="https://lin.ee/jZUeNhm" target="_blank">LINE</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Flower Chan 小花店（小花序章企業社）· 台北市辛亥路二段43號1樓</div>
+</footer>
+
+<script src="/assets/site.js"></script>
+<script>
+const PAGE_CATEGORY = '花束';
+let products = [];
+let currentFilter = '全部';
+let priceFilter = '全部';
+const PRICE_RANGES = { '全部': [0, Infinity], 'NT$1,000 以下': [0, 1000], 'NT$1,000–2,000': [1000, 2000], 'NT$2,000–3,500': [2000, 3500], 'NT$3,500 以上': [3500, Infinity] };
+
+function renderFilter() {
+  const tags = ['全部'];
+  products.forEach(p => (p.tags || []).forEach(t => { if (!tags.includes(t)) tags.push(t); }));
+  { const _s = sortStyleTags(tags.slice(1)); tags.length = 1; _s.forEach(t => tags.push(t)); }
+  const bar = document.getElementById('filterBar');
+  if (products.length === 0) { bar.innerHTML = ''; return; }
+  bar.innerHTML = '<span class="filter-label">篩選</span>' +
+    tags.map(t => `<span class="tag${t === currentFilter ? ' active' : ''}" onclick="setFilter(this,'${t}')">${t}</span>`).join('') +
+    '<span class="filter-label" style="margin-left:1.5rem;">預算</span>' +
+    Object.keys(PRICE_RANGES).map(r => `<span class="tag price-tag${r === priceFilter ? ' active' : ''}" onclick="setPriceFilter(this,'${r}')">${r}</span>`).join('');
+}
+
+function setPriceFilter(el, range) {
+  document.querySelectorAll('#filterBar .price-tag').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  priceFilter = range;
+  renderGrid();
+}
+
+function setFilter(el, tag) {
+  document.querySelectorAll('#filterBar .tag:not(.price-tag)').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  currentFilter = tag;
+  renderGrid();
+}
+
+function renderGrid() {
+  const grid = document.getElementById('galleryGrid');
+  const [lo, hi] = PRICE_RANGES[priceFilter] || [0, Infinity];
+  let list = currentFilter === '全部' ? products : products.filter(p => p.tags && p.tags.includes(currentFilter));
+  list = list.filter(p => p.price >= lo && p.price < hi);
+  if (!list.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1;background:var(--cream);padding:5rem 8vw;text-align:center;">
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.2rem;color:var(--muted);margin-bottom:1rem;">Coming Soon</p>
+      <p style="font-size:0.85rem;color:var(--muted);font-weight:200;line-height:2;">花束作品即將上架。<br>想先看看或有急件需求，歡迎直接與我們聯繫。</p>
+      <a class="line-btn" href="https://lin.ee/jZUeNhm" target="_blank" style="margin-top:1.6rem;">LINE 洽詢</a>
+    </div>`;
+    return;
+  }
+  grid.innerHTML = list.map(flowerCardHtml).join('');
+  observeReveal();
+}
+
+async function init() {
+  try {
+    const all = await fetchProducts();
+    products = all.filter(p => (p.category || '花束') === PAGE_CATEGORY);
+    applyCategoryHero(products);
+    renderFilter();
+    renderGrid();
+  } catch (e) {
+    document.getElementById('galleryGrid').innerHTML =
+      '<p style="padding:2rem 8vw;color:var(--muted);font-size:0.85rem;">花品載入中，請稍候...</p>';
+  }
+  observeReveal();
+}
+init();
+observeReveal();
+</script>
+<a class="fab-line" href="https://lin.ee/jZUeNhm" target="_blank" aria-label="LINE 詢問">
+<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 5.64 2 10.1c0 2.57 1.49 4.85 3.82 6.33-.13.46-.66 2.37-.69 2.53 0 0-.01.11.06.16.07.04.16.02.16.02.21-.03 2.44-1.6 3.4-2.27.74.11 1.49.16 2.25.16 5.52 0 10-3.64 10-8.13S17.52 2 12 2z"/></svg>
+</a>
+</body>
+</html>
