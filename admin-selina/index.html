@@ -298,7 +298,8 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
 .pm-quick{border:1px solid #e5e0d5;background:#fff;color:#5a5750;border-radius:8px;padding:6px 10px;font-size:0.78rem;cursor:pointer;}
 .pm-quick.on{background:#FAEEDA;border-color:#e8cf9a;color:#854F0B;}
 .pm-quick[disabled]{opacity:0.35;cursor:default;}
-.pm-selects{display:flex;gap:6px;}
+.pm-selects{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;}
+.pm-row3{display:flex;justify-content:flex-end;margin-top:8px;}
 .pm-tags{display:flex;flex-wrap:wrap;gap:4px;align-items:center;width:100%;margin-top:6px;}
 .pm-tags em{font-size:0.64rem;color:#b3aea2;font-style:normal;margin-right:4px;min-width:2.4em;display:inline-block;}
 .pm-tags span{font-size:0.68rem;border-radius:999px;padding:1px 8px;}
@@ -386,21 +387,27 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
 .ph-meta { font-size:11px; color:#666; margin-top:3px; }
 .ord-daterange { display:inline-flex; align-items:center; gap:5px; font-size:0.78rem; color:#7a766d; }
 .ord-date { font-size:0.76rem; padding:5px 7px; border:1px solid #d9d3c4; border-radius:7px; background:#fff; color:#2D4A3E; font-family:inherit; }
+@page {
+  size: landscape;
+  margin: 12mm 10mm 12mm 10mm;
+  @top-right { content: "第 " counter(page) " 頁 / 共 " counter(pages) " 頁"; font-size: 10px; color: #555; }
+}
 @media print {
-  #appHeader, #adminTabs, .action-bar, .pm-toolbar, .ord-stat-chips, .ord-pills { display:none !important; }
+  #appHeader, #adminTabs, .action-bar, .pm-toolbar, .ord-stat-chips, .ord-pills, .ord-stats { display:none !important; }
   /* 收起來的滑出面板與彈窗在列印時會跑回版面，全部強制隱藏 */
   .slide-overlay, .slide-panel, #editPanel, #imgLightbox, #toast { display:none !important; }
   body { background:#fff; }
+  /* 列印時解除主畫面 600px 限寬，內容拉到滿版 */
+  #mainScreen { max-width:none !important; padding:0 !important; margin:0 !important; }
   .admin-view:not(#view-orders) { display:none !important; }
-  #printHead { display:block !important; margin-bottom:12px; padding-bottom:8px; border-bottom:2px solid #2D4A3E; }
-  /* 卡片維持左右並排：左邊訂單欄位、右邊同高店家註記 */
-  .ord-card { display:flex !important; align-items:stretch !important; gap:14px; border:1px solid #999 !important; break-inside:avoid; page-break-inside:avoid; margin-bottom:12px; padding:14px 16px; }
+  #printHead { display:block !important; margin-bottom:10px; padding-bottom:7px; border-bottom:2px solid #2D4A3E; }
+  /* 卡片左右並排：左邊訂單欄位、右邊同高店家註記；橫式滿版一頁可塞 2 張以上 */
+  .ord-card { display:flex !important; align-items:stretch !important; gap:16px; border:1px solid #999 !important; break-inside:avoid; page-break-inside:avoid; margin-bottom:10px; padding:12px 16px; }
   .ord-fields { flex:1 1 auto; }
-  .ord-status-print { display:block !important; grid-column:1 / -1; font-weight:700; font-size:0.84rem; color:#0F6E56; margin-bottom:4px; }
-  .ord-note-print { display:flex !important; flex-direction:column; flex:0 0 33%; border:1px solid #bbb; border-radius:6px; padding:8px 10px; }
+  .ord-status-print { display:block !important; grid-column:1 / -1; font-weight:700; font-size:0.84rem; color:#0F6E56; margin-bottom:3px; }
+  .ord-note-print { display:flex !important; flex-direction:column; flex:0 0 34%; border:1px solid #bbb; border-radius:6px; padding:8px 10px; }
   .ord-note-print em { font-style:normal; font-size:11px; color:#999; letter-spacing:0.05em; margin-bottom:4px; }
-  .ord-note-blank { flex:1 1 auto; min-height:120px; background:repeating-linear-gradient(to bottom, transparent 0, transparent 27px, #e0ddd3 27px, #e0ddd3 28px); }
-  .ord-stat-cards { margin-bottom:10px; }
+  .ord-note-blank { flex:1 1 auto; min-height:90px; background:repeating-linear-gradient(to bottom, transparent 0, transparent 27px, #e0ddd3 27px, #e0ddd3 28px); }
 }
 
 /* ── 通用滑出面板（課程 / Banner，沿用花品面板樣式）── */
@@ -532,13 +539,15 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
           <button class="pm-quick" id="orderRangeToday" onclick="setOrderRange('today')">今日要交</button>
           <button class="pm-quick" id="orderRange3d" onclick="setOrderRange('3d')">三日內</button>
           <button class="pm-quick" id="orderRange7d" onclick="setOrderRange('7d')">一週內</button>
-          <span class="ord-daterange">交件
-            <input type="date" id="orderFrom" class="ord-date" onchange="onCustomRange()">～
-            <input type="date" id="orderTo" class="ord-date" onchange="onCustomRange()">
-            <button class="pm-quick" id="orderRangeClear" onclick="clearCustomRange()" style="display:none;">✕清除</button>
-          </span>
           <button class="pm-quick on" id="orderHideDone" onclick="toggleHideDone()">隱藏已完成</button>
         </div>
+      </div>
+      <div class="pm-row3">
+        <span class="ord-daterange">交件日期
+          <input type="date" id="orderFrom" class="ord-date" onchange="onCustomRange()">～
+          <input type="date" id="orderTo" class="ord-date" onchange="onCustomRange()">
+          <button class="pm-quick" id="orderRangeClear" onclick="clearCustomRange()" style="display:none;">✕清除</button>
+        </span>
       </div>
     </div>
     <div id="printHead"></div>
