@@ -380,13 +380,22 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
   .ord-pills{flex-direction:row;flex-wrap:wrap;flex-basis:auto;width:100%;}
   .ord-pill{width:auto;flex:1 1 auto;}
 }
+/* 列印專用元素，螢幕上隱藏 */
+#printHead, .ord-note-print { display:none; }
+.ph-title { font-size:18px; font-weight:700; color:#2D4A3E; }
+.ph-meta { font-size:11px; color:#666; margin-top:3px; }
 @media print {
   #appHeader, #adminTabs, .action-bar, .pm-toolbar, .ord-stat-chips, .ord-pills { display:none !important; }
   /* 收起來的滑出面板與彈窗在列印時會跑回版面，全部強制隱藏 */
   .slide-overlay, .slide-panel, #editPanel, #imgLightbox, #toast { display:none !important; }
   body { background:#fff; }
   .admin-view:not(#view-orders) { display:none !important; }
-  .ord-card { border:1px solid #bbb !important; break-inside:avoid; page-break-inside:avoid; margin-bottom:10px; }
+  #printHead { display:block !important; margin-bottom:12px; padding-bottom:8px; border-bottom:2px solid #2D4A3E; }
+  /* 列印時卡片改直向堆疊，讓註記欄落在下方整行 */
+  .ord-card { display:block !important; border:1px solid #999 !important; break-inside:avoid; page-break-inside:avoid; margin-bottom:12px; padding:14px 16px; }
+  .ord-note-print { display:block !important; margin-top:10px; padding-top:6px; border-top:1px dashed #bbb; }
+  .ord-note-print em { font-style:normal; font-size:11px; color:#999; letter-spacing:0.05em; }
+  .ord-note-blank { display:block; min-height:46px; }
   .ord-stat-cards { margin-bottom:10px; }
 }
 
@@ -502,7 +511,7 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
       <span class="page-title">訂單</span>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <button class="pm-quick" onclick="exportOrdersCSV()">⬇ 匯出 CSV</button>
-        <button class="pm-quick" onclick="window.print()">🖨 列印</button>
+        <button class="pm-quick" onclick="printOrders()">🖨 列印</button>
         <button class="btn-add" onclick="loadOrders()">↻ 重新整理</button>
       </div>
     </div>
@@ -523,6 +532,7 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
         </div>
       </div>
     </div>
+    <div id="printHead"></div>
     <div id="orderStats" class="ord-stats"></div>
     <div id="orderList" class="product-list"></div>
   </section>
@@ -1870,6 +1880,26 @@ function setOrderRange(r) {
   document.getElementById('orderRange7d').classList.toggle('on', orderRange === '7d');
   renderOrderList();
 }
+function printOrders() {
+  const now = new Date(Date.now() + 8 * 3600000);
+  const p = n => String(n).padStart(2, '0');
+  const ts = `${now.getUTCFullYear()}/${p(now.getUTCMonth() + 1)}/${p(now.getUTCDate())} ${p(now.getUTCHours())}:${p(now.getUTCMinutes())}`;
+  const parts = [];
+  const rangeLabel = { today: '今日要交', '3d': '三日內', '7d': '一週內' }[orderRange];
+  if (rangeLabel) parts.push(rangeLabel);
+  const statusF = document.getElementById('orderFilter').value;
+  if (statusF !== '全部') parts.push('狀態：' + statusF);
+  const codeF = document.getElementById('orderCodeFilter').value;
+  if (codeF !== '全部') parts.push('花品：' + codeF);
+  const q = (document.getElementById('orderSearch').value || '').trim();
+  if (q) parts.push('搜尋：' + q);
+  if (orderHideDone) parts.push('已隱藏完成/取消');
+  const filterText = parts.length ? parts.join('・') : '全部訂單';
+  document.getElementById('printHead').innerHTML =
+    `<div class="ph-title">🌼 小花店 訂單</div>` +
+    `<div class="ph-meta">列印時間：${ts}　|　範圍：${filterText}　|　共 ${orderFilteredList.length} 筆</div>`;
+  window.print();
+}
 function exportOrdersCSV() {
   if (!orderFilteredList.length) { showToast('沒有可匯出的訂單'); return; }
   const cols = [...orderHeaders, '狀態'];
@@ -1956,6 +1986,7 @@ function renderOrderList() {
     return `<div class="ord-card ord-b-${orderStatusClass(st)}">
       <div class="ord-fields">${fields}</div>
       <div class="ord-pills">${pills}</div>
+      <div class="ord-note-print"><em>店家註記</em><span class="ord-note-blank"></span></div>
     </div>`;
   }).join('');
 }
