@@ -155,20 +155,30 @@
   {
     "code": "FC-006",
     "name": "畢業花束",
-    "price": 1300,
+    "price": 1600,
     "description": "",
     "tags": [
       "向日葵"
     ],
     "published": true,
-    "photo": "DSCF3490.JPG",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/DSCF3490_yto22l",
     "cloudinary_id": "DSCF3490_yto22l",
     "occasions": [
       "日常",
       "畢業",
       "送禮靈感"
     ],
-    "featured": false
+    "featured": false,
+    "category": "花束",
+    "status": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "photos": [
+      {
+        "cloudinary_id": "DSCF3490_yto22l"
+      }
+    ]
   },
   {
     "code": "FC-007",
