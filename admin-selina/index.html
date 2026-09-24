@@ -39,6 +39,25 @@ body { font-family: -apple-system, 'Noto Sans TC', sans-serif; background:var(--
 }
 .login-btn:hover { opacity:0.85; }
 
+/* ── 免密碼登入（寄登入連結）── */
+.login-alt {
+  background:none; border:none; color:rgba(255,255,255,0.65);
+  font-size:0.82rem; letter-spacing:0.04em; margin-top:1.1rem;
+  cursor:pointer; text-decoration:underline; text-underline-offset:4px;
+}
+.login-alt:hover { color:#fff; }
+#magicForm { width:100%; max-width:280px; margin-top:1rem; text-align:center; }
+#magicForm input {
+  width:100%; padding:12px 14px; border:1px solid rgba(255,255,255,0.3);
+  background:rgba(255,255,255,0.08); color:#fff; border-radius:2px;
+  font-size:0.9rem; margin-bottom:10px; box-sizing:border-box;
+}
+#magicForm input::placeholder { color:rgba(255,255,255,0.45); }
+#magicMsg {
+  color:rgba(255,255,255,0.8); font-size:0.8rem; line-height:1.6;
+  margin-top:12px; min-height:1em;
+}
+
 /* ── 頂部 Bar ── */
 #appHeader {
   display:none; position:sticky; top:0; z-index:50;
@@ -449,6 +468,12 @@ select.field-input{appearance:auto;-webkit-appearance:auto;background:#fff;}
   <button class="login-btn" onclick="netlifyIdentity.open('login')">
     登入
   </button>
+  <button class="login-alt" onclick="toggleMagic()">忘記密碼？寄登入連結給我</button>
+  <form id="magicForm" hidden onsubmit="sendLoginLink(event)">
+    <input type="email" id="magicEmail" placeholder="你的 Email" required autocomplete="email">
+    <button type="submit" class="login-btn">寄出登入連結</button>
+    <p id="magicMsg"></p>
+  </form>
 </div>
 
 <!-- 頂部 Bar -->
@@ -987,6 +1012,34 @@ function fillCareTemplate() {
   const el = document.getElementById('f_care');
   if(el.value.trim() && !confirm('照護欄已有內容，要用範本覆蓋嗎？')) return;
   el.value = CARE_TEMPLATE;
+}
+
+// ── 免密碼登入：寄一封登入連結到信箱 ──
+function toggleMagic() {
+  var f = document.getElementById('magicForm');
+  f.hidden = !f.hidden;
+  if (!f.hidden) document.getElementById('magicEmail').focus();
+}
+
+async function sendLoginLink(e) {
+  e.preventDefault();
+  var email = document.getElementById('magicEmail').value.trim();
+  var msg = document.getElementById('magicMsg');
+  var btn = e.target.querySelector('button[type=submit]');
+  btn.disabled = true;
+  msg.textContent = '寄送中…';
+  try {
+    var r = await fetch('/.netlify/identity/recover', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email })
+    });
+    if (!r.ok) throw new Error('伺服器回應 ' + r.status);
+    msg.innerHTML = '已寄出！請到 <b>' + email + '</b> 收信，點信裡的連結就能設定新密碼並進入後台。<br>沒看到信請找垃圾信匣，寄件人是 no-reply@netlify.com';
+  } catch (err) {
+    msg.textContent = '寄送失敗：' + err.message + '，請改用密碼登入或找 Shawn。';
+    btn.disabled = false;
+  }
 }
 
 // ── Netlify Identity ──
