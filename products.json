@@ -446,17 +446,28 @@
   {
     "code": "FC-017",
     "name": "向日葵青春",
-    "price": 1800,
+    "price": 2200,
     "description": "充滿青春感的向日葵花束",
     "tags": [
       "向日葵"
     ],
     "published": true,
-    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780030571/flowerchan/zhwjd5eguzlq0bpz4spx.jpg",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/zhwjd5eguzlq0bpz4spx",
     "cloudinary_id": "flowerchan/zhwjd5eguzlq0bpz4spx",
     "occasions": [
       "畢業",
       "送禮靈感"
+    ],
+    "category": "花束",
+    "status": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/zhwjd5eguzlq0bpz4spx"
+      }
     ]
   },
   {
