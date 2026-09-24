@@ -560,10 +560,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 /* (3) 類別頁 hero：英文大寫主標（Cormorant 拉間距）+ 中文小副標，可選照片底 */
 .cat-hero{margin-top:64px;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;min-height:46vh;padding:4rem 8vw;background:linear-gradient(160deg,var(--green) 0%,#22392f 100%);overflow:hidden;}
 .cat-hero--photo::before{content:'';position:absolute;inset:0;background-image:var(--hero-img);background-size:cover;background-position:center;}
-.cat-hero--photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(34,46,38,0.32),rgba(34,46,38,0.58));}
+.cat-hero--photo::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 72% 62% at 50% 50%,rgba(26,38,31,0.58),rgba(26,38,31,0) 72%),linear-gradient(180deg,rgba(34,46,38,0.48),rgba(34,46,38,0.70));}
 .cat-hero-inner{position:relative;z-index:2;color:#fff;}
 .cat-hero-eyebrow{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.82rem;letter-spacing:0.34em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:1.3rem;}
-.cat-hero-en{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2.6rem,7vw,5.4rem);letter-spacing:0.24em;text-indent:0.24em;line-height:1;text-transform:uppercase;margin:0;text-shadow:0 2px 18px rgba(45,74,62,0.4);}
+.cat-hero-en{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2.6rem,7vw,5.4rem);letter-spacing:0.24em;text-indent:0.24em;line-height:1;text-transform:uppercase;margin:0;text-shadow:0 2px 20px rgba(18,28,23,0.8);}
 .cat-hero-zh{font-family:'Noto Serif TC',serif;font-weight:200;font-size:clamp(0.85rem,1.6vw,1.05rem);letter-spacing:0.26em;margin-top:1.5rem;opacity:0.94;}
 @media(max-width:768px){.cat-hero{min-height:38vh;}}
 
@@ -595,6 +595,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 
 /* 類別頁 hero 的起價 */
 .cat-hero-price{margin-top:1rem;font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2vw,1.3rem);letter-spacing:0.12em;color:var(--gold-soft);font-weight:400;}
+
+/* 分類頁 hero：照片底圖亮時文字會糊掉，加暗角遮罩 + 文字陰影確保可讀 */
+.cat-hero-eyebrow,.cat-hero-zh,.cat-hero-price{text-shadow:0 1px 12px rgba(18,28,23,0.9);}
 
 /* 安心保證標章 */
 .trust-badges{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:880px;margin:0 auto;}
