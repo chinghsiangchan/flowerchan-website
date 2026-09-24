@@ -320,16 +320,27 @@
   {
     "code": "FC-012",
     "name": "粉漸層非洲菊花束",
-    "price": 880,
+    "price": 1200,
     "description": "",
     "tags": [],
     "published": true,
-    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780025822/flowerchan/aiu0xgvr5ox5ww5iwahx.jpg",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/aiu0xgvr5ox5ww5iwahx",
     "cloudinary_id": "flowerchan/aiu0xgvr5ox5ww5iwahx",
     "occasions": [
       "日常",
       "畢業",
       "送禮靈感"
+    ],
+    "category": "花束",
+    "status": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/aiu0xgvr5ox5ww5iwahx"
+      }
     ]
   },
   {
