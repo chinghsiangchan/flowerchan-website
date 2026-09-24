@@ -350,12 +350,22 @@
     "description": "由小花店為您選擇當季新鮮及適合的花材來為您傳遞花禮祝福，無法指定花束色系及花種。",
     "tags": [],
     "published": true,
-    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780028383/flowerchan/osmhkgkirhjfy08o6igl.jpg",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/osmhkgkirhjfy08o6igl",
     "cloudinary_id": "flowerchan/osmhkgkirhjfy08o6igl",
     "occasions": [
       "送禮靈感"
     ],
-    "featured": true
+    "featured": true,
+    "category": "花束",
+    "status": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/osmhkgkirhjfy08o6igl"
+      }
+    ]
   },
   {
     "code": "FC-014",
