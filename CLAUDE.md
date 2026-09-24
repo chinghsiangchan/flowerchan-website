@@ -42,6 +42,24 @@ flowerchan-website/
 - 重要決策 → `01_Projects/FlowerChan_Website/decisions.md`
 - 完整背景 → `01_Projects/FlowerChan_Website/claude_context.md`
 
+## 改樣式後務必做的事
+
+`assets/site.css` 或 `assets/site.js` 改過之後，要把所有 HTML 裡的版本號一起換掉，
+否則瀏覽器會繼續用舊的快取檔，改了等於沒改（客人看到的也是舊版）。
+
+```bash
+V=$(date +%Y%m%d)
+python3 - "$V" <<'EOF'
+import io, glob, re, sys
+v = sys.argv[1]
+for p in glob.glob('*.html'):
+    s = io.open(p, encoding='utf-8').read()
+    s = re.sub(r'(href="/assets/site\.css)(\?v=\d+)?(")', r'\1?v=' + v + r'\3', s)
+    s = re.sub(r'(src="/assets/site\.js)(\?v=\d+)?(")',  r'\1?v=' + v + r'\3', s)
+    io.open(p, 'w', encoding='utf-8').write(s)
+EOF
+```
+
 ## 常見排錯
 
 **SSL 錯誤（NET::ERR_CERT_COMMON_NAME_INVALID）**
@@ -50,5 +68,12 @@ flowerchan-website/
 3. 等 10 分鐘
 
 **後台無法登入**
-- 確認 Netlify Identity 已啟用
-- 確認 Selina 的 email 有在 Identity 名單內
+- 登入畫面有「忘記密碼？寄登入連結給我」，Selina 可自助重設
+- 確認 Netlify → Project「flowerchan」→ Identity 名單內有該 Email
+- `index.html` 末尾的 token 轉送 script 不可刪除：Netlify 的帳號信一律導向首頁，
+  少了它，邀請信與重設密碼信點下去都不會有反應
+
+**改了樣式但看起來沒變**
+- 先確認線上 `assets/site.css` 是否已含新樣式（部署通常 10 秒內完成）
+- 是的話就是瀏覽器快取，按 Cmd + Shift + R 強制重整
+- 根本解法見上方「改樣式後務必做的事」
