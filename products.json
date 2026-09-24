@@ -555,21 +555,31 @@
   {
     "code": "FC-021",
     "name": "清新藍白風格花束",
-    "price": 1200,
+    "price": 1800,
     "description": "",
     "tags": [
       "自然",
       "清新"
     ],
     "published": true,
-    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780044297/flowerchan/ztbw2stgh7vbaztxwk4v.jpg",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/ztbw2stgh7vbaztxwk4v",
     "cloudinary_id": "flowerchan/ztbw2stgh7vbaztxwk4v",
     "occasions": [
       "日常",
       "生日",
       "送禮靈感"
     ],
-    "featured": true
+    "featured": true,
+    "category": "花束",
+    "status": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/ztbw2stgh7vbaztxwk4v"
+      }
+    ]
   },
   {
     "code": "FE-001",
