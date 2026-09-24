@@ -527,18 +527,29 @@
   {
     "code": "FC-020",
     "name": "芍藥花束",
-    "price": 2850,
+    "price": 3500,
     "description": "一期一會的芍藥花束，獨特的香氣與無可取代的華麗氣質，一定要送給最特別的她",
     "tags": [
       "粉色系"
     ],
     "published": true,
-    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780044189/flowerchan/oagrp2yrqft1ob8nakzh.jpg",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/oagrp2yrqft1ob8nakzh",
     "cloudinary_id": "flowerchan/oagrp2yrqft1ob8nakzh",
     "occasions": [
       "日常",
       "生日",
       "送禮靈感"
+    ],
+    "category": "花束",
+    "status": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/oagrp2yrqft1ob8nakzh"
+      }
     ]
   },
   {
