@@ -442,9 +442,9 @@ footer{display:block;padding:4rem 8vw 1.5rem;}
 .cat-ribbon{position:absolute;top:14px;right:0;z-index:2;background:var(--accent);color:#fff;font-size:0.66rem;letter-spacing:0.14em;font-weight:300;padding:5px 14px 5px 16px;border-radius:999px 0 0 999px;box-shadow:0 2px 8px rgba(0,0,0,0.12);}
 
 /* 1. 類別卡：毛玻璃標籤帶 */
-.cat-card .cat-label{background:rgba(255,255,255,0.18);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.3);padding:1.1rem 1.4rem;left:10px;right:10px;bottom:10px;border-radius:10px;}
-.cat-label .zh{font-size:1.4rem;letter-spacing:0.26em;color:#fff;font-weight:400;text-shadow:0 1px 6px rgba(45,74,62,0.4);margin-bottom:0.15rem;}
-.cat-label .en{font-size:0.66rem;color:var(--gold-soft);letter-spacing:0.24em;}
+.cat-card .cat-label{background:rgba(40,62,52,0.46);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.22);padding:1.1rem 1.4rem;left:10px;right:10px;bottom:10px;border-radius:10px;}
+.cat-label .zh{font-size:1.4rem;letter-spacing:0.26em;color:#fff;font-weight:400;text-shadow:0 1px 8px rgba(18,28,23,0.6);margin-bottom:0.15rem;}
+.cat-label .en{font-size:0.66rem;color:var(--gold-soft);letter-spacing:0.24em;text-shadow:0 1px 8px rgba(18,28,23,0.65);}
 /* 空類別預告卡 */
 .cat-card .cat-empty{flex-direction:column;gap:0.6rem;background:linear-gradient(160deg,#F3EDDF,#E7DDC8);}
 .cat-card .cat-empty::before{content:'✿';font-size:2.6rem;color:rgba(200,150,55,0.55);font-style:normal;}
@@ -591,7 +591,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 /* ═══ v10：價格帶 + 安心保證標章 ═══ */
 
 /* 首頁類別入口卡的價格提示 */
-.cat-label .cat-price{display:block;margin-top:0.4rem;font-family:'Cormorant Garamond',serif;font-size:0.8rem;letter-spacing:0.1em;color:var(--gold-soft);font-weight:400;}
+.cat-label .cat-price{display:block;margin-top:0.4rem;font-family:'Cormorant Garamond',serif;font-size:0.8rem;letter-spacing:0.1em;color:var(--gold-soft);font-weight:400;text-shadow:0 1px 8px rgba(18,28,23,0.65);}
 
 /* 類別頁 hero 的起價 */
 .cat-hero-price{margin-top:1rem;font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2vw,1.3rem);letter-spacing:0.12em;color:var(--gold-soft);font-weight:400;}
