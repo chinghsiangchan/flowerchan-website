@@ -473,16 +473,27 @@
   {
     "code": "FC-018",
     "name": "淡雅風格花束",
-    "price": 1500,
+    "price": 1800,
     "description": "適合喜歡淡雅風格的花束",
     "tags": [],
     "published": true,
-    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780031102/flowerchan/fofqj0urnofwqqouozxv.jpg",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/fofqj0urnofwqqouozxv",
     "cloudinary_id": "flowerchan/fofqj0urnofwqqouozxv",
     "occasions": [
       "日常",
       "生日",
       "送禮靈感"
+    ],
+    "category": "花束",
+    "status": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/fofqj0urnofwqqouozxv"
+      }
     ]
   },
   {
