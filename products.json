@@ -60,12 +60,12 @@
   {
     "code": "FC-003",
     "name": "向日葵花束",
-    "price": 1800,
+    "price": 2000,
     "description": "",
     "tags": [
+      "黃色系",
       "向日葵",
-      "設計感",
-      "黃色系"
+      "設計感"
     ],
     "published": true,
     "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/DSCF3446_fynpeo",
