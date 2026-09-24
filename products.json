@@ -421,15 +421,26 @@
   {
     "code": "FC-016",
     "name": "輕巧版小花束",
-    "price": 450,
+    "price": 600,
     "description": "",
     "tags": [],
     "published": true,
-    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/v1780030075/flowerchan/pmmnylskg8ttnu1wnvdc.png",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/flowerchan/pmmnylskg8ttnu1wnvdc",
     "cloudinary_id": "flowerchan/pmmnylskg8ttnu1wnvdc",
     "occasions": [
       "日常",
       "送禮靈感"
+    ],
+    "category": "花束",
+    "status": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "flowerchan/pmmnylskg8ttnu1wnvdc"
+      }
     ]
   },
   {
