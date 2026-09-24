@@ -267,18 +267,30 @@
   },
   {
     "code": "FC-010",
-    "name": "英式玫瑰花禮盒",
+    "name": "當季小盆花",
     "price": 2380,
     "tags": [
       "粉色系"
     ],
     "published": false,
-    "photo": "DSCF3656.JPG",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/DSCF3656_bo9bz7",
     "cloudinary_id": "DSCF3656_bo9bz7",
     "occasions": [
       "生日",
       "婚禮",
       "送禮靈感"
+    ],
+    "category": "桌花",
+    "status": "",
+    "description": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "DSCF3656_bo9bz7"
+      }
     ]
   },
   {
