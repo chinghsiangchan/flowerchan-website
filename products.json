@@ -198,18 +198,30 @@
   },
   {
     "code": "FC-008",
-    "name": "向日葵大花束",
-    "price": 1580,
+    "name": "大型花束",
+    "price": 3800,
     "tags": [
       "向日葵"
     ],
     "published": false,
-    "photo": "DSCF3638.JPG",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/DSCF3638_hckt3v",
     "cloudinary_id": "DSCF3638_hckt3v",
     "occasions": [
       "日常",
       "生日",
       "送禮靈感"
+    ],
+    "category": "花束",
+    "status": "",
+    "description": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "DSCF3638_hckt3v"
+      }
     ]
   },
   {
