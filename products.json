@@ -31,18 +31,30 @@
   },
   {
     "code": "FC-002",
-    "name": "夢幻混搭大花束",
+    "name": "油畫風格盆花",
     "price": 3500,
     "tags": [
       "粉色系"
     ],
     "published": false,
-    "photo": "DSCF3412.JPG",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/DSCF3412_xskzin",
     "cloudinary_id": "DSCF3412_xskzin",
     "occasions": [
       "生日",
       "婚禮",
       "送禮靈感"
+    ],
+    "category": "桌花",
+    "status": "",
+    "description": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "DSCF3412_xskzin"
+      }
     ]
   },
   {
