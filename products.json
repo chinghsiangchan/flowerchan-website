@@ -109,18 +109,29 @@
   {
     "code": "FC-004",
     "name": "紫色鬱金香小束",
-    "price": 1350,
+    "price": 1580,
     "description": "",
     "tags": [
       "紫色系"
     ],
     "published": true,
-    "photo": "DSCF3465.JPG",
+    "photo": "https://res.cloudinary.com/dcwgv05q1/image/upload/DSCF3465_i9pgr7",
     "cloudinary_id": "DSCF3465_i9pgr7",
     "occasions": [
       "日常",
       "生日",
       "送禮靈感"
+    ],
+    "category": "花束",
+    "status": "",
+    "materials": "",
+    "size": "",
+    "care": "",
+    "featured": false,
+    "photos": [
+      {
+        "cloudinary_id": "DSCF3465_i9pgr7"
+      }
     ]
   },
   {
